@@ -137,7 +137,7 @@ bool _Input::OnEvent(const SEvent &Event) {
 			Game.GetState()->HandleGUI(Event.GUIEvent.EventType, Event.GUIEvent.Caller);
 		break;
 		case EET_JOYSTICK_INPUT_EVENT: {
-			if(!Config.JoystickEnabled || Event.JoystickEvent.Joystick > 0)
+			if(!Config.JoystickEnabled || Event.JoystickEvent.Joystick != Config.JoystickIndex)
 				return false;
 
 			int OldMouseX = (int)MouseX;
@@ -236,17 +236,17 @@ const irr::SEvent::SJoystickEvent &_Input::GetJoystickState() {
 }
 
 // Get info about the joystick
-const irr::SJoystickInfo &_Input::GetJoystickInfo() {
-	return Joysticks[0];
+const irr::SJoystickInfo &_Input::GetJoystickInfo(int Index) {
+	return Joysticks[Index];
 }
 
 // Return the joystick name suitable for a filename
-core::stringc _Input::GetCleanJoystickName() {
+core::stringc _Input::GetCleanJoystickName(int Index) {
 
 	// Get joystick name in lower case
 	core::stringc Name = "";
-	if(Input.HasJoystick()) {
-		Name = Input.GetJoystickInfo().Name;
+	if(Index < Input.GetJoystickCount()) {
+		Name = Input.GetJoystickInfo(Index).Name;
 		Name.make_lower();
 		u32 Length = Name.size();
 		for(u32 i = 0; i < Length; i++) {

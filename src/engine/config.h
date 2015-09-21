@@ -55,6 +55,7 @@ class _Config {
 		float MouseScaleX, MouseScaleY;
 		bool InvertMouse, InvertGamepadY;
 		bool JoystickEnabled;
+		int JoystickIndex;
 
 		// Replays
 		float ReplayInterval;

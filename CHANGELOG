@@ -1,5 +1,6 @@
 irrlamb 0.2.1 -
 - Added installer for windows
+- Can selectively enable gamepads in config
 - Various fixes to build system
 
 irrlamb 0.2.0 - 2015-09-19

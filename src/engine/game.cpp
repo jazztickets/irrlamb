@@ -110,8 +110,15 @@ int _Game::Init(int Count, char **Arguments) {
 	WorkingPath = std::string(irrFile->getWorkingDirectory().c_str()) + "/";
 
 	// Write a config file if none exists
-	if(!HasConfigFile)
+	if(!HasConfigFile) {
+
+		// Enable joystick
+		if(Input.HasJoystick())
+			Config.JoystickIndex = 0;
+
+		// Create new config file
 		Config.WriteConfig();
+	}
 
 	// Initialize level stats
 	if(!Save.InitStatsDatabase())

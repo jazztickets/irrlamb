@@ -63,6 +63,7 @@ void _Config::Reset() {
 
 	// Input
 	JoystickEnabled = true;
+	JoystickIndex = -1;
 
 	// Set up mapping
 	AddDefaultActionMap(true);
@@ -369,27 +370,37 @@ int _Config::WriteConfig() {
 
 // Read the current joystick's mapping
 int _Config::ReadJoystickConfig() {
-	if(!Input.HasJoystick())
-		return 1;
 
-	// Get joystick name
-	std::string Name = Input.GetCleanJoystickName().c_str();
-	std::string Path = Save.GetSavePath() + Name + ".xml";
+	// Loop over all joysticks
+	for(u32 i = 0; i < Input.GetJoystickCount(); i++) {
 
-	// Open the XML file
-	XMLDocument Document;
-	if(Document.LoadFile(Path.c_str()) != XML_NO_ERROR) {
-		return 0;
-	}
+		// Get joystick name
+		std::string Name = Input.GetCleanJoystickName(i).c_str();
+		std::string Path = Save.GetSavePath() + Name + ".xml";
 
-	// Get input element
-	XMLElement *InputMapElement = Document.FirstChildElement("inputmap");
-	if(InputMapElement) {
+		// Open the XML file
+		XMLDocument Document;
+		if(Document.LoadFile(Path.c_str()) != XML_NO_ERROR)
+			continue;
 
-		// Add action maps
-		Actions.ClearMappings(_Input::JOYSTICK_BUTTON);
-		Actions.ClearMappings(_Input::JOYSTICK_AXIS);
-		Actions.Unserialize(InputMapElement);
+		// Get input element
+		XMLElement *InputMapElement = Document.FirstChildElement("inputmap");
+		if(InputMapElement) {
+
+			int Enabled = 1;
+			InputMapElement->QueryIntAttribute("enabled", &Enabled);
+			if(Enabled) {
+
+				// Add action maps
+				Actions.ClearMappings(_Input::JOYSTICK_BUTTON);
+				Actions.ClearMappings(_Input::JOYSTICK_AXIS);
+				Actions.Unserialize(InputMapElement);
+
+				// Quit after first
+				JoystickIndex = i;
+				return 1;
+			}
+		}
 	}
 
 	return 1;
@@ -397,24 +408,27 @@ int _Config::ReadJoystickConfig() {
 
 // Write the current joystick's mapping
 int _Config::WriteJoystickConfig() {
-	if(!Input.HasJoystick())
-		return 1;
 
-	XMLDocument Document;
-	Document.InsertEndChild(Document.NewDeclaration());
+	// Loop over all joysticks
+	for(u32 i = 0; i < Input.GetJoystickCount(); i++) {
 
-	// Config
-	XMLElement *InputMapElement = Document.NewElement("inputmap");
-	InputMapElement->SetAttribute("name", Input.GetJoystickInfo().Name.c_str());
-	Document.InsertEndChild(InputMapElement);
+		XMLDocument Document;
+		Document.InsertEndChild(Document.NewDeclaration());
 
-	// Write action map
-	Actions.Serialize(_Input::JOYSTICK_BUTTON, Document, InputMapElement);
-	Actions.Serialize(_Input::JOYSTICK_AXIS, Document, InputMapElement);
+		// Config
+		XMLElement *InputMapElement = Document.NewElement("inputmap");
+		InputMapElement->SetAttribute("name", Input.GetJoystickInfo(i).Name.c_str());
+		InputMapElement->SetAttribute("enabled", "1");
+		Document.InsertEndChild(InputMapElement);
 
-	// Write file
-	std::string Name = Input.GetCleanJoystickName().c_str();
-	Document.SaveFile((Save.GetSavePath() + Name + ".xml").c_str());
+		// Write action map
+		Actions.Serialize(_Input::JOYSTICK_BUTTON, Document, InputMapElement);
+		Actions.Serialize(_Input::JOYSTICK_AXIS, Document, InputMapElement);
+
+		// Write file
+		std::string Name = Input.GetCleanJoystickName(i).c_str();
+		Document.SaveFile((Save.GetSavePath() + Name + ".xml").c_str());
+	}
 
 	return 1;
 }
