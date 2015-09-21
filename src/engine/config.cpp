@@ -65,9 +65,6 @@ void _Config::Reset() {
 	JoystickEnabled = true;
 	JoystickIndex = -1;
 
-	// Set up mapping
-	AddDefaultActionMap(true);
-
 	MouseScaleX = 1.0f;
 	MouseScaleY = 1.0f;
 
@@ -265,19 +262,13 @@ int _Config::ReadConfig() {
 	Actions.ClearMappings(_Input::MOUSE_AXIS);
 	Actions.Unserialize(InputElement);
 
-	// Read the joystick config file if it exists
-	int HasJoystickConfig = ReadJoystickConfig();
-
-	// Add missing mappings
-	AddDefaultActionMap();
-
 	// Replays
 	XMLElement *ReplayElement = ConfigElement->FirstChildElement("replay");
 	if(ReplayElement) {
 		ReplayElement->QueryFloatAttribute("interval", (float *)(&ReplayInterval));
 	}
 
-	return HasJoystickConfig;
+	return 1;
 }
 
 // Writes the config file
@@ -362,14 +353,12 @@ int _Config::WriteConfig() {
 	// Write file
 	Document.SaveFile(Save.GetConfigFile().c_str());
 
-	// Write joystick config to its own file based on name
-	WriteJoystickConfig();
-
 	return 1;
 }
 
 // Read the current joystick's mapping
 int _Config::ReadJoystickConfig() {
+	int HasJoystickConfig = 0;
 
 	// Loop over all joysticks
 	for(u32 i = 0; i < Input.GetJoystickCount(); i++) {
@@ -386,24 +375,26 @@ int _Config::ReadJoystickConfig() {
 		// Get input element
 		XMLElement *InputMapElement = Document.FirstChildElement("inputmap");
 		if(InputMapElement) {
+			HasJoystickConfig = 1;
 
+			// Check if enabled
 			int Enabled = 1;
 			InputMapElement->QueryIntAttribute("enabled", &Enabled);
 			if(Enabled) {
+				JoystickIndex = i;
 
 				// Add action maps
 				Actions.ClearMappings(_Input::JOYSTICK_BUTTON);
 				Actions.ClearMappings(_Input::JOYSTICK_AXIS);
 				Actions.Unserialize(InputMapElement);
 
-				// Quit after first
-				JoystickIndex = i;
-				return 1;
+				// Quit after first valid joystick
+				break;
 			}
 		}
 	}
 
-	return 1;
+	return HasJoystickConfig;
 }
 
 // Write the current joystick's mapping

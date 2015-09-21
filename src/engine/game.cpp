@@ -88,9 +88,6 @@ int _Game::Init(int Count, char **Arguments) {
 	Log.Init();
 	Log.Write("irrlamb %s", GAME_VERSION);
 
-	// Query joysticks with null device
-	Input.InitializeJoysticks(true);
-
 	// Set up config system
 	if(!Config.Init())
 		return 0;
@@ -103,22 +100,30 @@ int _Game::Init(int Count, char **Arguments) {
 	if(!Graphics.Init(Config.ScreenWidth, Config.ScreenHeight, Config.Fullscreen, DriverType, &Input))
 		return 0;
 
-	// Initialize the joysticks with the real device
-	Input.InitializeJoysticks();
+	// Initialize joystick
+	Input.InitializeJoysticks(true);
+
+	// Read the joystick config file if it exists
+	int HasJoystickConfig = Config.ReadJoystickConfig();
+
+	// Add missing mappings
+	Config.AddDefaultActionMap();
+
+	// Write joystick config to its own file based on name
+	if(!HasJoystickConfig) {
+		Config.WriteJoystickConfig();
+
+		// Enable joystick
+		if(Input.HasJoystick())
+			Config.JoystickIndex = 0;
+	}
 
 	// Save working path
 	WorkingPath = std::string(irrFile->getWorkingDirectory().c_str()) + "/";
 
 	// Write a config file if none exists
-	if(!HasConfigFile) {
-
-		// Enable joystick
-		if(Input.HasJoystick())
-			Config.JoystickIndex = 0;
-
-		// Create new config file
+	if(!HasConfigFile)
 		Config.WriteConfig();
-	}
 
 	// Initialize level stats
 	if(!Save.InitStatsDatabase())
