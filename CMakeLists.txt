@@ -141,12 +141,12 @@ if(WIN32)
 	# copy libraries to working directory
 	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{IRRLICHT_ROOT}/bin/Win64-VisualStudio/Irrlicht.dll" ${PROJECT_SOURCE_DIR}/working)
 	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{IRRLICHT_ROOT}/bin/Win64-VisualStudio/Irrlicht_d.dll" ${PROJECT_SOURCE_DIR}/working)
-	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{OGG_ROOT}/win32/VS2010/x64/Release/libogg.dll" ${PROJECT_SOURCE_DIR}/working)
-	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{OGG_ROOT}/win32/VS2010/x64/Debug/libogg_d.dll" ${PROJECT_SOURCE_DIR}/working)
-	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{VORBIS_ROOT}/win32/VS2010/x64/Release/libvorbis.dll" ${PROJECT_SOURCE_DIR}/working)
-	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{VORBIS_ROOT}/win32/VS2010/x64/Debug/libvorbis_d.dll" ${PROJECT_SOURCE_DIR}/working)
-	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{VORBIS_ROOT}/win32/VS2010/x64/Release/libvorbisfile.dll" ${PROJECT_SOURCE_DIR}/working)
-	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{VORBIS_ROOT}/win32/VS2010/x64/Debug/libvorbisfile_d.dll" ${PROJECT_SOURCE_DIR}/working)
+	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{OGG_ROOT}/lib/libogg.dll" ${PROJECT_SOURCE_DIR}/working)
+	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{OGG_ROOT}/lib/libogg_d.dll" ${PROJECT_SOURCE_DIR}/working)
+	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{VORBIS_ROOT}/lib/libvorbis.dll" ${PROJECT_SOURCE_DIR}/working)
+	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{VORBIS_ROOT}/lib/libvorbis_d.dll" ${PROJECT_SOURCE_DIR}/working)
+	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{VORBIS_ROOT}/lib/libvorbisfile.dll" ${PROJECT_SOURCE_DIR}/working)
+	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{VORBIS_ROOT}/lib/libvorbisfile_d.dll" ${PROJECT_SOURCE_DIR}/working)
 else()
 
 	# linux installation
