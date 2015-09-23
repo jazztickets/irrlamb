@@ -105,7 +105,7 @@ class _Object : public btMotionState {
 	protected:
 
 		// Physics
-		void CreateRigidBody(const SpawnStruct &Object, btCollisionShape *Shape);
+		void CreateRigidBody(const SpawnStruct &Object, btCollisionShape *Shape, bool SetTransform=true);
 		void SetProperties(const SpawnStruct &Object);
 		void SetProperties(const ConstraintStruct &Object);
 

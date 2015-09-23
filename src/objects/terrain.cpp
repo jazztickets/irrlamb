@@ -41,16 +41,17 @@ _Terrain::_Terrain(const SpawnStruct &Object)
 			HeightMap.c_str(),
 			0,
 			-1,
-			core::vector3df(0.0f, 0.0f, 0.0f),
-			core::vector3df(0.0f, 0.0f, 0.0f),
-			core::vector3df(1.0f, 1.0f, 1.0f),
+			core::vector3df(Object.Position[0], Object.Position[1], Object.Position[2]),
+			core::vector3df(Object.Rotation[0], Object.Rotation[1], Object.Rotation[2]),
+			core::vector3df(Template->Shape[0], Template->Shape[1], Template->Shape[2]),
 			video::SColor(255, 255, 255, 255),
 			5,
 			scene::ETPS_17,
 			Template->Smooth);
 
-		// Set node transform
-		Terrain->setPosition(core::vector3df(Object.Position[0], Object.Position[1], Object.Position[2]));
+		Node = Terrain;
+
+		// Force applyTransform call because irrlicht doesn't in constructor
 		Terrain->setScale(core::vector3df(Template->Shape[0], Template->Shape[1], Template->Shape[2]));
 
 		// Set textures
@@ -64,38 +65,49 @@ _Terrain::_Terrain(const SpawnStruct &Object)
 		if(Template->CustomMaterial != -1)
 			Terrain->setMaterialType((video::E_MATERIAL_TYPE)Template->CustomMaterial);
 
-		Node = Terrain;
 		if(Physics.IsEnabled()) {
-			CollisionMesh = new btTriangleMesh();
+
+			// Get vertex data
 			scene::CDynamicMeshBuffer MeshBuffer(video::EVT_STANDARD, video::EIT_32BIT);
 			Terrain->getMeshBufferForLOD(MeshBuffer, 0);
 			u16 *Indices = MeshBuffer.getIndices();
 
+			// Transform vertices
+			core::matrix4 RotationTransform;
+			RotationTransform.setRotationDegrees(Terrain->getRotation());
 			video::S3DVertex *Vertices = (video::S3DVertex *)MeshBuffer.getVertices();
+
+			// Create bullet mesh
 			btVector3 TriangleVertices[3];
+			CollisionMesh = new btTriangleMesh();
 			for(u32 i = 0; i < MeshBuffer.getIndexCount(); i += 3) {
+				for(int j = 0; j < 3; j++) {
 
-				TriangleVertices[0] = btVector3(Vertices[Indices[i]].Pos.X * Template->Shape[0],
-												Vertices[Indices[i]].Pos.Y * Template->Shape[1],
-												Vertices[Indices[i]].Pos.Z * Template->Shape[2]);
-				TriangleVertices[1] = btVector3(Vertices[Indices[i+1]].Pos.X * Template->Shape[0],
-												Vertices[Indices[i+1]].Pos.Y * Template->Shape[1],
-												Vertices[Indices[i+1]].Pos.Z * Template->Shape[2]);
-				TriangleVertices[2] = btVector3(Vertices[Indices[i+2]].Pos.X * Template->Shape[0],
-												Vertices[Indices[i+2]].Pos.Y * Template->Shape[1],
-												Vertices[Indices[i+2]].Pos.Z * Template->Shape[2]);
+					// Apply terrain transform
+					core::vector3df Vertex = Vertices[Indices[i+j]].Pos * Terrain->getScale() + Terrain->getPosition();
+					Vertex -= Terrain->getTerrainCenter();
+					RotationTransform.inverseRotateVect(Vertex);
+					Vertex += Terrain->getTerrainCenter();
 
+					// Set triangle
+					TriangleVertices[j] = btVector3(Vertex.X, Vertex.Y, Vertex.Z);
+				}
+
+				// Add triangle
 				CollisionMesh->addTriangle(TriangleVertices[0], TriangleVertices[1], TriangleVertices[2]);
 			}
 
+			// Create bvh mesh
 			btBvhTriangleMeshShape *Shape = new btBvhTriangleMeshShape(CollisionMesh, true);
 
 			// Create physics body
-			CreateRigidBody(Object, Shape);
-			SetProperties(Object);
+			CreateRigidBody(Object, Shape, false);
 
+			// Set flags
 			RigidBody->setCollisionFlags(RigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
 		}
+
+		SetProperties(Object);
 	}
 }
 

@@ -18,22 +18,14 @@
 			<shape w="1" h="0.1" l="1" />
 			<texture index="0" file="grass0.jpg" scale="16.0" />
 		</terrain>
-		<box name="box">
-			<mesh file="cube.irrbmesh" scale="1" />
-			<shape w="1" h="1" l="1" />
-			<texture file="crate0.jpg" />
-			<physics mass="0.5" />
-		</box>
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="0.0" y="52.5" z="0.0" />
+			<position x="64.0" y="8.5" z="64.0" />
 		</object>
 		<object name="terrain" template="terrain">
-			<position x="-50.0" y="30.0" z="-50.0" />
-		</object>
-		<object name="a" template="box">
-			<position x="0" y="50.5" z="0" />
+			<position x="0.0" y="0.0" z="0.0" />
+			<rotation x="0.0" y="0.0" z="0.0" />
 		</object>
 	</objects>
 </level>

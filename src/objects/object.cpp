@@ -57,7 +57,7 @@ _Object::~_Object() {
 }
 
 // Creates a rigid body object and adds it to the world
-void _Object::CreateRigidBody(const SpawnStruct &Object, btCollisionShape *Shape) {
+void _Object::CreateRigidBody(const SpawnStruct &Object, btCollisionShape *Shape, bool SetTransform) {
 	TemplateStruct *Template = Object.Template;
 
 	// Rotation
@@ -65,8 +65,10 @@ void _Object::CreateRigidBody(const SpawnStruct &Object, btCollisionShape *Shape
 
 	// Transform
 	CenterOfMassTransform.setIdentity();
-	CenterOfMassTransform.setOrigin(btVector3(Object.Position[0], Object.Position[1], Object.Position[2]));
-	CenterOfMassTransform.setRotation(QuaternionRotation);
+	if(SetTransform) {
+		CenterOfMassTransform.setOrigin(btVector3(Object.Position[0], Object.Position[1], Object.Position[2]));
+		CenterOfMassTransform.setRotation(QuaternionRotation);
+	}
 
 	// Local inertia
 	btVector3 LocalInertia(0.0f, 0.0f, 0.0f);
