@@ -51,6 +51,9 @@ _Terrain::_Terrain(const SpawnStruct &Object)
 
 		Node = Terrain;
 
+		// Get original rotation pivot used to transform terrain
+		core::vector3df OriginalRotationPivot = Terrain->getTerrainCenter();
+
 		// Force normal recalculation
 		Terrain->setScale(core::vector3df(Template->Shape[0], Template->Shape[1], Template->Shape[2]));
 
@@ -85,9 +88,9 @@ _Terrain::_Terrain(const SpawnStruct &Object)
 
 					// Apply terrain transform
 					core::vector3df Vertex = Vertices[Indices[i+j]].Pos * Terrain->getScale() + Terrain->getPosition();
-					Vertex -= Terrain->getTerrainCenter();
+					Vertex -= OriginalRotationPivot;
 					RotationTransform.inverseRotateVect(Vertex);
-					Vertex += Terrain->getTerrainCenter();
+					Vertex += OriginalRotationPivot;
 
 					// Set triangle
 					TriangleVertices[j] = btVector3(Vertex.X, Vertex.Y, Vertex.Z);
