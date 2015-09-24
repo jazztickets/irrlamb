@@ -103,7 +103,7 @@ void _Object::UpdateReplay(float FrameTime) {
 }
 
 // Sets object properties
-void _Object::SetProperties(const SpawnStruct &Object) {
+void _Object::SetProperties(const SpawnStruct &Object, bool SetTransform) {
 	TemplateStruct *Template = Object.Template;
 
 	// Basic properties
@@ -113,8 +113,10 @@ void _Object::SetProperties(const SpawnStruct &Object) {
 
 	// Graphics
 	if(Node) {
-		Node->setPosition(core::vector3df(Object.Position[0], Object.Position[1], Object.Position[2]));
-		Node->setRotation(core::vector3df(Object.Rotation[0], Object.Rotation[1], Object.Rotation[2]));
+		if(SetTransform) {
+			Node->setPosition(core::vector3df(Object.Position[0], Object.Position[1], Object.Position[2]));
+			Node->setRotation(core::vector3df(Object.Rotation[0], Object.Rotation[1], Object.Rotation[2]));
+		}
 		//Node->setVisible(Template->Visible);
 		Node->setMaterialFlag(video::EMF_FOG_ENABLE, Template->Fog);
 		Node->setMaterialFlag(video::EMF_NORMALIZE_NORMALS, true);

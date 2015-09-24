@@ -25,7 +25,7 @@
 		</object>
 		<object name="terrain" template="terrain">
 			<position x="0.0" y="0.0" z="0.0" />
-			<rotation x="0.0" y="0.0" z="0.0" />
+			<rotation x="45.0" y="0.0" z="0.0" />
 		</object>
 	</objects>
 </level>

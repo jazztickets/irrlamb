@@ -51,7 +51,7 @@ _Terrain::_Terrain(const SpawnStruct &Object)
 
 		Node = Terrain;
 
-		// Force applyTransform call because irrlicht doesn't in constructor
+		// Force normal recalculation
 		Terrain->setScale(core::vector3df(Template->Shape[0], Template->Shape[1], Template->Shape[2]));
 
 		// Set textures
@@ -107,7 +107,7 @@ _Terrain::_Terrain(const SpawnStruct &Object)
 			RigidBody->setCollisionFlags(RigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
 		}
 
-		SetProperties(Object);
+		SetProperties(Object, false);
 	}
 }
 

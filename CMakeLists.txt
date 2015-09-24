@@ -110,7 +110,14 @@ file(GLOB SRC_IRRB src/irrb/*.cpp src/irrb/*.h)
 file(GLOB SRC_FONT src/font/*.cpp src/font/*.h)
 file(GLOB SRC_TINYXML src/tinyxml/*.cpp src/tinyxml/*.h)
 
-file(GLOB SRC_ALL ${SRC_MAIN} ${SRC_ENGINE} ${SRC_OBJECTS} ${SRC_IRRB} ${SRC_TINYXML} ${SRC_FONT})
+file(GLOB SRC_ALL
+	${SRC_MAIN}
+	${SRC_ENGINE}
+	${SRC_OBJECTS}
+	${SRC_IRRB}
+	${SRC_TINYXML}
+	${SRC_FONT}
+)
 
 # add virtual folders
 source_group(main FILES ${SRC_MAIN})
