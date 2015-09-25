@@ -12,20 +12,35 @@
 	</resources>
 	<templates>
 		<player name="player" />
-		<orb name="orb" />
+		<orb name="orb">
+			<physics sleep="1" />
+		</orb>
 		<terrain name="terrain" smooth="5">
 			<mesh file="height0.png" />
 			<shape w="1" h="0.1" l="1" />
-			<texture index="0" file="grass0.jpg" scale="16.0" />
+			<texture index="0" file="blue.jpg" scale="16.0" />
+			<physics friction="0.6" />
 		</terrain>
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="64.0" y="8.5" z="64.0" />
+			<position x="63.857" y="49.095" z="111.150" />
 		</object>
 		<object name="terrain" template="terrain">
 			<position x="0.0" y="0.0" z="0.0" />
 			<rotation x="45.0" y="0.0" z="0.0" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="60.167" y="22.962" z="76.107" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="8.240" y="38.259" z="89.407" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="93.472" y="47.844" z="96.351" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="87.563" y="30.063" z="70.078" />
 		</object>
 	</objects>
 </level>

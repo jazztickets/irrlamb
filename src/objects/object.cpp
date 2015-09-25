@@ -82,6 +82,8 @@ void _Object::CreateRigidBody(const SpawnStruct &Object, btCollisionShape *Shape
 	RigidBody->setRestitution(Template->Restitution);
 	RigidBody->setDamping(Template->LinearDamping, Template->AngularDamping);
 	RigidBody->setSleepingThresholds(0.2f, 0.2f);
+	if(Template->Sleep)
+		RigidBody->setActivationState(ISLAND_SLEEPING);
 
 	// Add body
 	Physics.GetWorld()->addRigidBody(RigidBody, Template->CollisionGroup, Template->CollisionMask);

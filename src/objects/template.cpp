@@ -33,6 +33,7 @@ TemplateStruct::TemplateStruct() {
 	CollisionMask = _Physics::FILTER_BASICBODIES | _Physics::FILTER_ZONE;
 
 	// Physical properties
+	Sleep = 0;
 	CollisionFile = "";
 	Shape.setValue(1.0f, 1.0f, 1.0f);
 	Radius = 0.5f;

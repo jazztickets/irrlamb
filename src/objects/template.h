@@ -39,6 +39,7 @@ struct TemplateStruct {
 	// Physical properties
 	std::string CollisionFile;
 	btVector3 Shape;
+	int Sleep;
 	float Radius;
 	float Mass, Friction, Restitution;
 	float LinearDamping, AngularDamping;

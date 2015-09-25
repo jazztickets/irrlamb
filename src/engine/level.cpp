@@ -385,6 +385,7 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, TemplateStruct &O
 	// Get physical attributes
 	Element = TemplateElement->FirstChildElement("physics");
 	if(Element) {
+		Element->QueryIntAttribute("sleep", &Object.Sleep);
 		Element->QueryFloatAttribute("mass", &Object.Mass);
 		Element->QueryFloatAttribute("friction", &Object.Friction);
 		Element->QueryFloatAttribute("restitution", &Object.Restitution);

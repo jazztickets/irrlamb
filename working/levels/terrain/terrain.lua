@@ -2,9 +2,11 @@
 function OnOrbDeactivate()
 	GoalCount = GoalCount - 1
 	if GoalCount == 0 then
-		Level.Win()
+		--Level.Win()
 	end
 end
 
 -- Set up goal
 GoalCount = 1
+
+Camera.SetYaw(-180)
