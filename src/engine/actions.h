@@ -24,6 +24,8 @@
 
 // Constants
 const int ACTIONS_MAXINPUTS = 256;
+const float ACTIONS_SCALE = 1.0f;
+const float ACTIONS_DEADZONE = 0.05f;
 
 // Forward declarations
 namespace tinyxml2 {
@@ -32,9 +34,10 @@ namespace tinyxml2 {
 }
 
 struct _ActionMap {
-	_ActionMap(int Action, float Scale) : Action(Action), Scale(Scale) { }
+	_ActionMap(int Action, float Scale, float DeadZone) : Action(Action), Scale(Scale), DeadZone(DeadZone) { }
 
 	int Action;
+	float DeadZone;
 	float Scale;
 };
 
@@ -84,7 +87,7 @@ class _Actions {
 		const std::string &GetName(int Action) { return Names[Action]; }
 
 		// Maps
-		void AddInputMap(int InputType, int Input, int Action, float Scale=1.0f, bool IfNone=true);
+		void AddInputMap(int InputType, int Input, int Action, float Scale=1.0f, float DeadZone=-1.0f, bool IfNone=true);
 		int GetInputForAction(int InputType, int Action);
 
 		// Handlers

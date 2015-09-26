@@ -1,6 +1,7 @@
 irrlamb 0.2.1 -
 - Added installer for windows
 - Can selectively enable gamepads in config
+- Added per-axis deadzone to config
 - Various fixes to build system
 
 irrlamb 0.2.0 - 2015-09-19

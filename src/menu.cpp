@@ -387,7 +387,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 
 					for(int i = 0; i <= _Actions::RESET; i++) {
 						Actions.ClearMappingsForAction(_Input::KEYBOARD, KeyMapOrder[i]);
-						Actions.AddInputMap(_Input::KEYBOARD, CurrentKeys[KeyMapOrder[i]], KeyMapOrder[i], 1.0f, false);
+						Actions.AddInputMap(_Input::KEYBOARD, CurrentKeys[KeyMapOrder[i]], KeyMapOrder[i], 1.0f, -1.0f, false);
 					}
 
 					// Save invert mouse

@@ -88,12 +88,12 @@ float _Actions::GetState(int Action) {
 }
 
 // Add an input mapping
-void _Actions::AddInputMap(int InputType, int Input, int Action, float Scale, bool IfNone) {
+void _Actions::AddInputMap(int InputType, int Input, int Action, float Scale, float DeadZone, bool IfNone) {
 	if(Action < 0 || Action >= COUNT || Input < 0 || Input >= ACTIONS_MAXINPUTS)
 		return;
 
 	if(!IfNone || (IfNone && GetInputForAction(InputType, Action) == -1)) {
-		InputMap[InputType][Input].push_back(_ActionMap(Action, Scale));
+		InputMap[InputType][Input].push_back(_ActionMap(Action, Scale, DeadZone));
 	}
 }
 
@@ -129,6 +129,10 @@ void _Actions::InputEvent(int InputType, int Input, float Value) {
 			State[MapIterator->Action].Value = Value;
 		}
 
+		// Check for deadzone
+		if(fabs(Value) <= MapIterator->DeadZone)
+			Value = 0.0f;
+
 		// Apply input scale to action
 		float InputValue = Value * MapIterator->Scale;
 
@@ -157,7 +161,10 @@ void _Actions::Serialize(int InputType, XMLDocument &Document, XMLElement *Input
 			Element->SetAttribute("type", InputType);
 			Element->SetAttribute("input", i);
 			Element->SetAttribute("action", MapIterator->Action);
-			Element->SetAttribute("scale", MapIterator->Scale);
+			if(InputType == _Input::JOYSTICK_AXIS) {
+				Element->SetAttribute("scale", MapIterator->Scale);
+				Element->SetAttribute("deadzone", MapIterator->DeadZone);
+			}
 			InputElement->InsertEndChild(Element);
 		}
 	}
@@ -166,16 +173,26 @@ void _Actions::Serialize(int InputType, XMLDocument &Document, XMLElement *Input
 // Unserialize
 void _Actions::Unserialize(XMLElement *InputElement) {
 	int Type, Input, Action;
-	float Scale;
+	float Scale, DeadZone;
 
 	// Get input mapping
 	for(XMLElement *Element = InputElement->FirstChildElement("map"); Element != 0; Element = Element->NextSiblingElement("map")) {
 		if(Element->QueryIntAttribute("type", &Type) != XML_NO_ERROR
 			|| Element->QueryIntAttribute("input", &Input) != XML_NO_ERROR
-			|| Element->QueryIntAttribute("action", &Action) != XML_NO_ERROR
-			|| Element->QueryFloatAttribute("scale", &Scale) != XML_NO_ERROR)
+			|| Element->QueryIntAttribute("action", &Action) != XML_NO_ERROR)
 			continue;
 
-		Actions.AddInputMap(Type, Input, Action, Scale, false);
+		// Read scale if it exists
+		if(Element->QueryFloatAttribute("scale", &Scale) != XML_NO_ERROR)
+			Scale = ACTIONS_SCALE;
+
+		// Read deadzone if it exists
+		if(Element->QueryFloatAttribute("deadzone", &DeadZone) != XML_NO_ERROR) {
+			DeadZone = -1.0f;
+			if(Type == _Input::JOYSTICK_AXIS)
+				DeadZone = ACTIONS_DEADZONE;
+		}
+
+		Actions.AddInputMap(Type, Input, Action, Scale, DeadZone, false);
 	}
 }

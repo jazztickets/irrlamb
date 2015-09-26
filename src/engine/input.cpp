@@ -40,7 +40,6 @@ _Input::_Input()
 :	MouseLocked(false),
 	MouseX(0),
 	MouseY(0),
-	DeadZone(0.05f),
 	VirtualMouseMoved(false),
 	LastJoystickButtonState(0) {
 
@@ -269,9 +268,6 @@ float _Input::GetAxis(int Axis) {
 		Value = -1.0f;
 	if(Value > 1.0f)
 		Value = 1.0f;
-
-	if(fabs(Value) <= DeadZone)
-		Value = 0.0f;
 
 	return Value;
 }

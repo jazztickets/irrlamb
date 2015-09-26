@@ -79,7 +79,6 @@ class _Input : public irr::IEventReceiver  {
 		irr::core::array<irr::SJoystickInfo> Joysticks;
 		irr::SEvent::SJoystickEvent JoystickState;
 		irr::u32 LastJoystickButtonState;
-		float DeadZone;
 
 		// States
 		bool MouseLocked;

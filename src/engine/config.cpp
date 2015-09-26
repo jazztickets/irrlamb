@@ -120,25 +120,27 @@ void _Config::AddDefaultActionMap(bool Force) {
 	float AxisScaleX = 130.0f;
 	float AxisScaleY = 100.0f;
 	float CursorSpeed = 400.0f;
+	float Scale = ACTIONS_SCALE;
+	float DeadZone = ACTIONS_DEADZONE;
 
 	// Add joystick
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 0, _Actions::MOVE_LEFT);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 1, _Actions::MOVE_RIGHT);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 2, _Actions::MOVE_FORWARD);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 3, _Actions::MOVE_BACK);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 0, _Actions::CURSOR_LEFT, CursorSpeed);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 1, _Actions::CURSOR_RIGHT, CursorSpeed);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 2, _Actions::CURSOR_UP, CursorSpeed);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 3, _Actions::CURSOR_DOWN, CursorSpeed);
+	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 0, _Actions::MOVE_LEFT, Scale, DeadZone);
+	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 1, _Actions::MOVE_RIGHT, Scale, DeadZone);
+	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 2, _Actions::MOVE_FORWARD, Scale, DeadZone);
+	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 3, _Actions::MOVE_BACK, Scale, DeadZone);
+	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 0, _Actions::CURSOR_LEFT, CursorSpeed, DeadZone);
+	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 1, _Actions::CURSOR_RIGHT, CursorSpeed, DeadZone);
+	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 2, _Actions::CURSOR_UP, CursorSpeed, DeadZone);
+	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 3, _Actions::CURSOR_DOWN, CursorSpeed, DeadZone);
 	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 0, _Actions::JUMP);
 	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 0, _Actions::MENU_GO);
 	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 1, _Actions::MENU_BACK);
 	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 6, _Actions::RESET);
 	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 7, _Actions::MENU_PAUSE);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 6, _Actions::CAMERA_LEFT, AxisScaleX);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 7, _Actions::CAMERA_RIGHT, AxisScaleX);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 8, _Actions::CAMERA_UP, AxisScaleY);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 9, _Actions::CAMERA_DOWN, AxisScaleY);
+	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 6, _Actions::CAMERA_LEFT, AxisScaleX, DeadZone);
+	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 7, _Actions::CAMERA_RIGHT, AxisScaleX, DeadZone);
+	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 8, _Actions::CAMERA_UP, AxisScaleY, DeadZone);
+	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 9, _Actions::CAMERA_DOWN, AxisScaleY, DeadZone);
 }
 
 // Reads the config file
