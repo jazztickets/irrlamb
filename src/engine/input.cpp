@@ -168,11 +168,6 @@ bool _Input::OnEvent(const SEvent &Event) {
 				}
 			}
 
-			//for(u32 i = 0; i < Joysticks[JoystickState.Joystick].Axes; i++) {
-			//	printf("%f\t", GetAxis(i));
-			//}
-			//printf("\n");
-
 			// Set flag if joystick moved the mouse cursor
 			if(OldMouseX != (int)MouseX || OldMouseY != (int)MouseY) {
 				irrDevice->getCursorControl()->setPosition((int)MouseX, (int)MouseY);

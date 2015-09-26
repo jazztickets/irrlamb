@@ -126,6 +126,10 @@ void _Actions::InputEvent(int InputType, int Input, float Value) {
 			else
 				State[MapIterator->Action].Source = InputType;
 
+			// Check for deadzone
+			if(fabs(Value) <= MapIterator->DeadZone)
+				Value = 0.0f;
+
 			State[MapIterator->Action].Value = Value;
 		}
 
