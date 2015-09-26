@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <level version="0" gameversion="0.1.0">
 	<info>
-		<name>Hillclimbing</name>
+		<name>Steep Hillclimbing</name>
 	</info>
 	<options>
 		<emitlight enabled="1" />

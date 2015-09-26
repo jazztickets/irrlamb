@@ -20,6 +20,7 @@
 #include <engine/config.h>
 #include <engine/log.h>
 #include <engine/audio.h>
+#include <engine/level.h>
 #include <font/CGUITTFont.h>
 #include <menu.h>
 
@@ -30,6 +31,7 @@ _Interface Interface;
 const int MESSAGE_WIDTH = 475;
 const int MESSAGE_HEIGHT = 120;
 const int MESSAGE_PADDING = 20;
+const int INTERFACE_LEVEL_DISPLAY_TIME = 5.0f;
 
 struct _Font {
 	const char *Path;
@@ -176,13 +178,26 @@ void _Interface::Update(float FrameTime) {
 }
 
 // Draw interface elements
-void _Interface::Draw(float Time) {
+void _Interface::Draw(float Time, bool FirstLoad) {
 
 	// Draw timer
 	char TimeString[32];
 	ConvertSecondsToString(Time, TimeString);
 	if(DrawHUD)
 		RenderText(TimeString, 10, 10, _Interface::ALIGN_LEFT, _Interface::FONT_MEDIUM);
+
+	// Draw level name and highscore
+	if(FirstLoad && Time < INTERFACE_LEVEL_DISPLAY_TIME) {
+		video::SColor LevelNameColor(255, 255, 255, 255);
+		if(Time >= INTERFACE_LEVEL_DISPLAY_TIME - 1.0f)
+			LevelNameColor.setAlpha((u32)(255 * (INTERFACE_LEVEL_DISPLAY_TIME - Time)));
+
+		RenderText(Level.GetLevelNiceName().c_str(), irrDriver->getScreenSize().Width - 25, 10, _Interface::ALIGN_RIGHT, _Interface::FONT_LARGE, LevelNameColor);
+		if(Level.GetFastestTime() > 0.0f) {
+			ConvertSecondsToString(Level.GetFastestTime(), TimeString, "Record: ");
+			RenderText(TimeString, irrDriver->getScreenSize().Width - 25, 70, _Interface::ALIGN_RIGHT, _Interface::FONT_MEDIUM, LevelNameColor);
+		}
+	}
 
 	// Draw tutorial text
 	if(TutorialText.Text) {
@@ -206,11 +221,11 @@ void _Interface::Draw(float Time) {
 }
 
 // Converts milliseconds to a time string
-void _Interface::ConvertSecondsToString(float Time, char *String) {
+void _Interface::ConvertSecondsToString(float Time, char *String, const char *Prefix) {
 	u32 Minutes = (u32)(Time) / 60;
 	u32 Seconds = (u32)(Time - Minutes * 60);
 	u32 Centiseconds = (u32)((Time - (u32)(Time)) * 100);
-	sprintf(String, "%.2d:%.2d:%.2d", Minutes, Seconds, Centiseconds);
+	sprintf(String, "%s%.2d:%.2d:%.2d", Prefix, Minutes, Seconds, Centiseconds);
 }
 
 // Gets a rectangle centered around a point

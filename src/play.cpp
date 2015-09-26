@@ -69,6 +69,7 @@ int _PlayState::Init() {
 
 	// Reset level
 	ResetLevel();
+	FirstLoad = true;
 
 	return 1;
 }
@@ -98,6 +99,7 @@ int _PlayState::Close() {
 
 // Resets the level
 void _PlayState::ResetLevel() {
+	FirstLoad = false;
 
 	// Handle saves
 	if(TestLevel == "") {
@@ -350,7 +352,7 @@ void _PlayState::UpdateRender(float TimeStepRemainder) {
 void _PlayState::Draw() {
 
 	// Draw interface elements
-	Interface.Draw(Timer);
+	Interface.Draw(Timer, FirstLoad);
 
 	// Darken the screen
 	if(IsPaused())

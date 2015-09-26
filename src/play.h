@@ -64,6 +64,7 @@ class _PlayState : public _State {
 		// States
 		std::string TestLevel;
 		float Timer;
+		bool FirstLoad;
 		bool Resetting;
 
 		// Campaign

@@ -51,6 +51,7 @@ class _Level {
 		const std::string &GetLevelNiceName() { return LevelNiceName; }
 		int GetLevelVersion() { return LevelVersion; }
 		const irr::video::SColor &GetClearColor() { return ClearColor; }
+		float GetFastestTime() { return FastestTime; }
 
 		// Objects
 		void SpawnObjects();
@@ -77,6 +78,7 @@ class _Level {
 		std::string GameVersion;
 		irr::video::SColor ClearColor;
 		_UserDataLoader UserDataLoader;
+		float FastestTime;
 
 		// Resources
 		std::vector<std::string> Scripts;

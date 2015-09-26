@@ -106,12 +106,12 @@ class _Interface {
 		int Init();
 		int Close();
 		void Update(float FrameTime);
-		void Draw(float Time);
+		void Draw(float Time, bool FirstLoad);
 		void Clear();
 		void ChangeSkin(SkinType Type);
 
 		void SetTutorialText(const std::string &Text, float Length);
-		void ConvertSecondsToString(float Time, char *String);
+		void ConvertSecondsToString(float Time, char *String, const char *Prefix="");
 
 		irr::core::recti GetCenteredRect(int PositionX, int PositionY, int Width, int Height);
 		irr::core::recti GetRightRect(int PositionX, int PositionY, int Width, int Height);

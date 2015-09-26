@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <level version="0" gameversion="0.2.1">
 	<info>
-		<name>Terrain</name>
+		<name>Descent</name>
 	</info>
 	<options>
 		<emitlight enabled="1" />

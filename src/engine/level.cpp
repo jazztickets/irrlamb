@@ -69,6 +69,12 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 	if(!HeaderOnly)
 		Log.Write("_Level::Init - Loading level: %s", LevelName.c_str());
 
+	// Get fastest time
+	FastestTime = 0.0f;
+	const SaveLevelStruct *Stats = Save.GetLevelStats(LevelName);
+	if(Stats->HighScores.size() > 0)
+		FastestTime = Stats->HighScores[0].Time;
+
 	// Get paths
 	this->LevelName = LevelName;
 	LevelNiceName = "";
