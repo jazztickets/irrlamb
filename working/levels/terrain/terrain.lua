@@ -2,11 +2,24 @@
 function OnOrbDeactivate()
 	GoalCount = GoalCount - 1
 	if GoalCount == 0 then
-		--Level.Win()
+		Level.Win()
 	end
 end
 
+-- Display lose message
+function OnHitZone(HitType, Zone, HitObject)
+
+	if HitObject == Player then
+		Level.Lose()
+		return 1
+	else
+		Object.SetLifetime(HitObject, 2)
+	end
+
+	return 0
+end
+
 -- Set up goal
-GoalCount = 1
+GoalCount = 7
 
 Camera.SetYaw(-180)
