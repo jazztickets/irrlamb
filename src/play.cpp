@@ -388,8 +388,10 @@ void _PlayState::WinLevel() {
 		Save.AddScore(Level.GetLevelName(), PlayState.Timer);
 
 		// Unlock next level
-		if(!Campaign.IsLastLevel(PlayState.CurrentCampaign, PlayState.CampaignLevel)) {
-			const std::string &NextLevelFile = Campaign.GetLevel(PlayState.CurrentCampaign, PlayState.CampaignLevel+1);
+		unsigned int NewCampaign = PlayState.CurrentCampaign;
+		unsigned int NewLevel = PlayState.CampaignLevel;
+		if(Campaign.GetNextLevel(NewCampaign, NewLevel, true)) {
+			std::string NextLevelFile = Campaign.GetLevel(NewCampaign, NewLevel);
 			Save.UnlockLevel(NextLevelFile);
 		}
 

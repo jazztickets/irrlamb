@@ -41,10 +41,9 @@ class _Campaign {
 		const std::vector<CampaignStruct> &GetCampaigns() { return Campaigns; }
 		const CampaignStruct &GetCampaign(int Index) { return Campaigns[Index]; }
 
+		bool GetNextLevel(unsigned int &Campaign, unsigned int &Level, bool Update=false);
 		const std::string &GetLevel(int Campaign, int Level) { return Campaigns[Campaign].Levels[Level].File; }
 		const std::string &GetLevelNiceName(int Campaign, int Level) { return Campaigns[Campaign].Levels[Level].NiceName; }
-		int GetLevelCount(int Campaign);
-		bool IsLastLevel(int Campaign, int Level);
 
 	private:
 

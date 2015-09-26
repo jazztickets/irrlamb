@@ -67,7 +67,7 @@ class _PlayState : public _State {
 		bool Resetting;
 
 		// Campaign
-		int CurrentCampaign, CampaignLevel;
+		unsigned int CurrentCampaign, CampaignLevel;
 
 		// Objects
 		_Player *Player;

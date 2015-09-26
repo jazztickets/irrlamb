@@ -458,9 +458,9 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 					PlayState.StartReset();
 				break;
 				case WIN_NEXTLEVEL:
-					if(PlayState.CampaignLevel+1 < Campaign.GetLevelCount(PlayState.CurrentCampaign))
-						PlayState.CampaignLevel++;
+					Campaign.GetNextLevel(PlayState.CurrentCampaign, PlayState.CampaignLevel, true);
 					Game.ChangeState(&PlayState);
+					CampaignIndex = PlayState.CurrentCampaign;
 				break;
 				case LOSE_SAVEREPLAY:
 				case WIN_SAVEREPLAY:
@@ -949,7 +949,7 @@ void _Menu::InitWin() {
 	AddMenuButton(Interface.GetCenteredRect(X + Spacing * 2, Y, 130, 44), WIN_SAVEREPLAY, L"Save Replay", _Interface::IMAGE_BUTTON_MEDIUM);
 	AddMenuButton(Interface.GetCenteredRect(X + Spacing * 3, Y, 130, 44), WIN_MAINMENU, L"Main Menu", _Interface::IMAGE_BUTTON_MEDIUM);
 
-	if(Campaign.IsLastLevel(PlayState.CurrentCampaign, PlayState.CampaignLevel))
+	if(!Campaign.GetNextLevel(PlayState.CurrentCampaign, PlayState.CampaignLevel, false))
 		ButtonNextLevel->setEnabled(false);
 
 	Input.SetMouseLocked(false);
