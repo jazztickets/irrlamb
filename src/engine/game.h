@@ -46,6 +46,7 @@ class _Game {
 		float GetTimeStep() { return TimeStep; }
 		float GetTimeScale() { return TimeScale; }
 		float GetLastFrameTime() { return LastFrameTime; }
+		bool GetWindowActive() { return WindowActive; }
 		void SetTimeScale(float Value) { TimeScale = Value; }
 		void UpdateTimeStepAccumulator(float Value) { TimeStepAccumulator += Value; }
 		void ResetTimer();

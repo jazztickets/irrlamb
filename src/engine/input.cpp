@@ -278,6 +278,8 @@ float _Input::GetAxis(int Axis) {
 
 // Use actions to drive the mouse
 void _Input::DriveMouse(int Action, float Value) {
+	if(!Game.GetWindowActive())
+		return;
 
 	if(Action == _Actions::MENU_GO) {
 		//printf("%d %f\n", Action, Value);
