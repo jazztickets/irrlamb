@@ -24,7 +24,6 @@
 #include <engine/state.h>
 #include <engine/log.h>
 #include <engine/fader.h>
-#include <engine/random.h>
 #include <engine/scripting.h>
 #include <engine/physics.h>
 #include <engine/objectmanager.h>
@@ -128,9 +127,6 @@ int _Game::Init(int Count, char **Arguments) {
 	// Initialize level stats
 	if(!Save.InitStatsDatabase())
 		return 0;
-
-	// Set random seed
-	Random.SetSeed(irrTimer->getRealTime());
 
 	// Set up the interface system
 	if(!Interface.Init())

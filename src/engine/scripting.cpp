@@ -17,7 +17,6 @@
 *******************************************************************************/
 #include <engine/scripting.h>
 #include <engine/interface.h>
-#include <engine/random.h>
 #include <engine/log.h>
 #include <engine/objectmanager.h>
 #include <engine/level.h>
@@ -31,8 +30,10 @@
 #include <objects/springjoint.h>
 #include <play.h>
 #include <menu.h>
+#include <random>
 
 _Scripting Scripting;
+static std::mt19937 RandomGenerator(0);
 
 // Controls
 luaL_Reg _Scripting::CameraFunctions[] = {
@@ -714,7 +715,7 @@ int _Scripting::RandomSeed(lua_State *LuaObject) {
 	uint32_t Seed = (uint32_t)lua_tointeger(LuaObject, 1);
 
 	// Set seed
-	Random.SetSeed(Seed);
+	RandomGenerator.seed(Seed);
 
 	return 0;
 }
@@ -731,7 +732,8 @@ int _Scripting::RandomGetFloat(lua_State *LuaObject) {
 	float Max = (float)lua_tonumber(LuaObject, 2);
 
 	// Send random number to Lua
-	lua_pushnumber(LuaObject, Random.GenerateRange(Min, Max));
+	std::uniform_real_distribution<float> Distribution(Min, Max);
+	lua_pushnumber(LuaObject, Distribution(RandomGenerator));
 
 	return 1;
 }
@@ -748,7 +750,8 @@ int _Scripting::RandomGetInt(lua_State *LuaObject) {
 	int Max = (int)lua_tointeger(LuaObject, 2);
 
 	// Send random number to Lua
-	lua_pushnumber(LuaObject, Random.GenerateRange(Min, Max));
+	std::uniform_int_distribution<int> Distribution(Min, Max);
+	lua_pushinteger(LuaObject, Distribution(RandomGenerator));
 
 	return 1;
 }
