@@ -71,9 +71,6 @@ void _Config::Reset() {
 	InvertMouse = false;
 	InvertGamepadY = false;
 
-	// Replays
-	ReplayInterval = 0.02f;
-
 #ifdef PANDORA
 	DriverType = EDT_OGLES1;
 	ScreenHeight = 480;
@@ -241,12 +238,6 @@ int _Config::ReadConfig() {
 	Actions.ClearMappings(_Input::MOUSE_AXIS);
 	Actions.Unserialize(InputElement);
 
-	// Replays
-	XMLElement *ReplayElement = ConfigElement->FirstChildElement("replay");
-	if(ReplayElement) {
-		ReplayElement->QueryFloatAttribute("interval", (float *)(&ReplayInterval));
-	}
-
 	return 1;
 }
 
@@ -323,11 +314,6 @@ int _Config::WriteConfig() {
 	Actions.Serialize(_Input::KEYBOARD, Document, InputElement);
 	Actions.Serialize(_Input::MOUSE_BUTTON, Document, InputElement);
 	Actions.Serialize(_Input::MOUSE_AXIS, Document, InputElement);
-
-	// Replays
-	XMLElement *ReplayElement = Document.NewElement("replay");
-	ReplayElement->SetAttribute("interval", ReplayInterval);
-	ConfigElement->LinkEndChild(ReplayElement);
 
 	// Write file
 	Document.SaveFile(Save.GetConfigFile().c_str());

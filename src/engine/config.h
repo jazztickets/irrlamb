@@ -57,9 +57,6 @@ class _Config {
 		bool JoystickEnabled;
 		int JoystickIndex;
 
-		// Replays
-		float ReplayInterval;
-
 	private:
 
 };

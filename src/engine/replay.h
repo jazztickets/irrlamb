@@ -96,7 +96,6 @@ class _Replay {
 		std::string Description;
 		time_t TimeStamp;
 		float FinishTime;
-		float RecordInterval;
 
 		// Replay data file name
 		std::string ReplayDataFile;

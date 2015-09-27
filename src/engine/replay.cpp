@@ -38,7 +38,6 @@ void _Replay::StartRecording() {
 
 	// Get header information
 	ReplayVersion = REPLAY_VERSION;
-	RecordInterval = Config.ReplayInterval;
 	LevelVersion = Level.GetLevelVersion();
 	LevelName = Level.GetLevelName();
 
@@ -88,11 +87,6 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription) {
 	ReplayFile.WriteChar(PACKET_LEVELVERSION);
 	ReplayFile.WriteInt(sizeof(LevelVersion));
 	ReplayFile.WriteInt(LevelVersion);
-
-	// Write record interval
-	ReplayFile.WriteChar(PACKET_INTERVAL);
-	ReplayFile.WriteInt(sizeof(RecordInterval));
-	ReplayFile.WriteFloat(RecordInterval);
 
 	// Write timestep value
 	ReplayFile.WriteChar(PACKET_TIMESTEP);
@@ -160,9 +154,6 @@ void _Replay::LoadHeader() {
 			case PACKET_LEVELVERSION:
 				LevelVersion = ReplayStream.ReadInt();
 			break;
-			case PACKET_INTERVAL:
-				RecordInterval = ReplayStream.ReadFloat();
-			break;
 			case PACKET_LEVELFILE:
 				ReplayStream.ReadString(Buffer, REPLAY_STRINGSIZE);
 				LevelName = Buffer;
@@ -196,7 +187,7 @@ void _Replay::Update(float FrameTime) {
 // Determines if a packet is required
 bool _Replay::NeedsPacket() {
 
-	return State == STATE_RECORDING && NextPacketTime >= RecordInterval;
+	return State == STATE_RECORDING;
 }
 
 // Resets the next packet timer
