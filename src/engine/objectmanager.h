@@ -56,7 +56,7 @@ class _ObjectManager {
 	private:
 
 		std::list<_Object *> Objects;
-		irr::u16 NextObjectID;
+		uint16_t NextObjectID;
 
 };
 

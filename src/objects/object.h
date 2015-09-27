@@ -71,8 +71,8 @@ class _Object : public btMotionState {
 		bool GetDeleted() const { return Deleted; }
 		float GetLifetime() const { return Lifetime; }
 		int GetType() const { return Type; }
-		irr::u16 GetID() const { return ID; }
-		irr::u16 GetTemplateID() const { return TemplateID; }
+		uint16_t GetID() const { return ID; }
+		uint16_t GetTemplateID() const { return TemplateID; }
 
 		// Rigid body
 		void Stop();
@@ -111,7 +111,7 @@ class _Object : public btMotionState {
 		// Attributes
 		std::string Name;
 		int Type;
-		irr::u16 ID, TemplateID;
+		uint16_t ID, TemplateID;
 
 		// State
 		bool Deleted;

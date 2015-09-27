@@ -130,7 +130,7 @@ void _ObjectManager::BeginFrame() {
 // Performs end frame operations on the objects
 void _ObjectManager::EndFrame() {
 	bool UpdateReplay = Replay.NeedsPacket();
-	u16 ReplayMovementCount = 0;
+	uint16_t ReplayMovementCount = 0;
 
 	// Get replay update count
 	for(std::list<_Object *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator) {

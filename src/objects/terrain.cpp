@@ -73,7 +73,7 @@ _Terrain::_Terrain(const SpawnStruct &Object)
 			// Get vertex data
 			scene::CDynamicMeshBuffer MeshBuffer(video::EVT_STANDARD, video::EIT_32BIT);
 			Terrain->getMeshBufferForLOD(MeshBuffer, 0);
-			u16 *Indices = MeshBuffer.getIndices();
+			uint16_t *Indices = MeshBuffer.getIndices();
 
 			// Transform vertices
 			core::matrix4 RotationTransform;
