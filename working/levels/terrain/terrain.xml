@@ -15,7 +15,7 @@
 		<orb name="orb">
 			<physics sleep="1" />
 		</orb>
-		<terrain name="terrain" smooth="5">
+		<terrain name="terrain" smooth="8">
 			<mesh file="height0.png" />
 			<shape w="1" h="0.1" l="1" />
 			<texture index="0" file="blue.jpg" scale="16.0" />
@@ -27,32 +27,32 @@
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="63.857" y="49.095" z="111.150" />
+			<position x="64.413" y="46.485" z="111.502" />
 		</object>
 		<object name="terrain" template="terrain">
 			<position x="0.0" y="0.0" z="0.0" />
 			<rotation x="45.0" y="0.0" z="0.0" />
 		</object>
-		<object name="orb" template="orb">
-			<position x="60.167" y="22.962" z="76.107" />
+		<object name="orb1" template="orb">
+			<position x="93.222" y="45.420" z="97.117" />
 		</object>
-		<object name="orb" template="orb">
-			<position x="8.240" y="38.259" z="89.407" />
+		<object name="orb2" template="orb">
+			<position x="123.059" y="42.692" z="99.808" />
 		</object>
-		<object name="orb" template="orb">
-			<position x="93.472" y="47.844" z="96.351" />
+		<object name="orb3" template="orb">
+			<position x="7.853" y="35.800" z="89.231" />
 		</object>
-		<object name="orb" template="orb">
-			<position x="87.563" y="30.063" z="70.078" />
+		<object name="orb4" template="orb">
+			<position x="87.316" y="27.211" z="70.553" />
 		</object>
-		<object name="orb" template="orb">
-			<position x="6.242" y="14.907" z="57.971" />
+		<object name="orb5" template="orb">
+			<position x="59.743" y="20.259" z="75.444" />
 		</object>
-		<object name="orb" template="orb">
-			<position x="125.847" y="45.879" z="98.952" />
+		<object name="orb6" template="orb">
+			<position x="7.363" y="12.159" z="57.385" />
 		</object>
-		<object name="orb" template="orb">
-			<position x="33.057" y="0.330" z="54.436" />
+		<object name="orb7" template="orb">
+			<position x="32.390" y="-2.732" z="52.742" />
 		</object>
 		<object name="losezone" template="losezone">
 			<position x="0" y="-100" z="0" />
