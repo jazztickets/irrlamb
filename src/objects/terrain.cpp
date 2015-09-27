@@ -83,7 +83,7 @@ _Terrain::_Terrain(const SpawnStruct &Object)
 			// Create bullet mesh
 			btVector3 TriangleVertices[3];
 			CollisionMesh = new btTriangleMesh();
-			for(u32 i = 0; i < MeshBuffer.getIndexCount(); i += 3) {
+			for(uint32_t i = 0; i < MeshBuffer.getIndexCount(); i += 3) {
 				for(int j = 0; j < 3; j++) {
 
 					// Apply terrain transform

@@ -69,7 +69,7 @@ class _Game {
 		bool Done, MouseWasLocked;
 
 		// Time
-		irr::u32 TimeStamp;
+		uint32_t TimeStamp;
 		float SleepRate;
 
 		// Physics

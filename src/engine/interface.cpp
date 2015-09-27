@@ -190,7 +190,7 @@ void _Interface::Draw(float Time, bool FirstLoad) {
 	if(FirstLoad && Time < INTERFACE_LEVEL_DISPLAY_TIME) {
 		video::SColor LevelNameColor(255, 255, 255, 255);
 		if(Time >= INTERFACE_LEVEL_DISPLAY_TIME - 1.0f)
-			LevelNameColor.setAlpha((u32)(255 * (INTERFACE_LEVEL_DISPLAY_TIME - Time)));
+			LevelNameColor.setAlpha((uint32_t)(255 * (INTERFACE_LEVEL_DISPLAY_TIME - Time)));
 
 		RenderText(Level.GetLevelNiceName().c_str(), irrDriver->getScreenSize().Width - 25, 10, _Interface::ALIGN_RIGHT, _Interface::FONT_LARGE, LevelNameColor);
 		if(Level.GetFastestTime() > 0.0f) {
@@ -207,8 +207,8 @@ void _Interface::Draw(float Time, bool FirstLoad) {
 		video::SColor TextColor(255, 255, 255, 255), BoxColor(160, 255, 255, 255);
 		float TimeLeft = TutorialText.DeleteTime - Timer;
 		if(TimeLeft < 2.0f) {
-			TextColor.setAlpha((u32)(255 * TimeLeft / 2.0));
-			BoxColor.setAlpha((u32)(160 * TimeLeft / 2.0));
+			TextColor.setAlpha((uint32_t)(255 * TimeLeft / 2.0));
+			BoxColor.setAlpha((uint32_t)(160 * TimeLeft / 2.0));
 		}
 
 		// Update tutorial text color
@@ -222,9 +222,9 @@ void _Interface::Draw(float Time, bool FirstLoad) {
 
 // Converts milliseconds to a time string
 void _Interface::ConvertSecondsToString(float Time, char *String, const char *Prefix) {
-	u32 Minutes = (u32)(Time) / 60;
-	u32 Seconds = (u32)(Time - Minutes * 60);
-	u32 Centiseconds = (u32)((Time - (u32)(Time)) * 100);
+	uint32_t Minutes = (uint32_t)(Time) / 60;
+	uint32_t Seconds = (uint32_t)(Time - Minutes * 60);
+	uint32_t Centiseconds = (uint32_t)((Time - (uint32_t)(Time)) * 100);
 	sprintf(String, "%s%.2d:%.2d:%.2d", Prefix, Minutes, Seconds, Centiseconds);
 }
 
@@ -248,10 +248,10 @@ core::recti _Interface::GetRect(int PositionX, int PositionY, int Width, int Hei
 
 // Fades the screen
 void _Interface::FadeScreen(float Amount) {
-	irrDriver->draw2DImage(Images[IMAGE_FADE], core::position2di(0, 0), core::recti(0, 0, irrDriver->getScreenSize().Width, irrDriver->getScreenSize().Height), 0, video::SColor((u32)(Amount * 255), 255, 255, 255), true);
+	irrDriver->draw2DImage(Images[IMAGE_FADE], core::position2di(0, 0), core::recti(0, 0, irrDriver->getScreenSize().Width, irrDriver->getScreenSize().Height), 0, video::SColor((uint32_t)(Amount * 255), 255, 255, 255), true);
 	if(TutorialText.Text) {
 		video::SColor TextColor = TutorialText.Text->getOverrideColor();
-		TextColor.setAlpha((u32)(TextColor.getAlpha() * (1.0f - Amount)));
+		TextColor.setAlpha((uint32_t)(TextColor.getAlpha() * (1.0f - Amount)));
 		TutorialText.Text->setOverrideColor(TextColor);
 	}
 }
@@ -263,7 +263,7 @@ void _Interface::RenderText(const char *Text, int PositionX, int PositionY, Alig
 	core::stringw String(Text);
 
 	// Get dimensions
-	core::dimension2d<u32> TextArea = Fonts[FontType]->getDimension(String.c_str());
+	core::dimension2d<uint32_t> TextArea = Fonts[FontType]->getDimension(String.c_str());
 
 	switch(AlignType) {
 		case ALIGN_LEFT:

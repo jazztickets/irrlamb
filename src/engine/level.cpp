@@ -52,12 +52,12 @@ using namespace tinyxml2;
 // Handle user data from .irr file
 void _UserDataLoader::OnReadUserData(irr::scene::ISceneNode *ForSceneNode, irr::io::IAttributes *UserData) {
 
-	for(u32 i = 0; i < UserData->getAttributeCount(); i++) {
+	for(uint32_t i = 0; i < UserData->getAttributeCount(); i++) {
 		core::stringc Name(UserData->getAttributeName(i));
 
 		if(Name == "BackgroundColor") {
 			video::SColorf FloatColor(UserData->getAttributeAsColorf(i));
-			Level.ClearColor.set(255, (u32)(255 * FloatColor.r), (u32)(255 * FloatColor.g), (u32)(255 * FloatColor.b));
+			Level.ClearColor.set(255, (uint32_t)(255 * FloatColor.r), (uint32_t)(255 * FloatColor.g), (uint32_t)(255 * FloatColor.b));
 		}
 	}
 
@@ -192,7 +192,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 			// Set texture filters on meshes in the scene
 			core::array<irr::scene::ISceneNode *> MeshNodes;
 			irrScene->getSceneNodesFromType(scene::ESNT_MESH, MeshNodes);
-			for(u32 i = 0; i < MeshNodes.size(); i++) {
+			for(uint32_t i = 0; i < MeshNodes.size(); i++) {
 				if(EmitLight && Config.Shaders) {
 					video::SMaterial &Material = MeshNodes[i]->getMaterial(0);
 					int ShaderType = 0;
@@ -203,7 +203,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 				}
 
 				MeshNodes[i]->setMaterialFlag(video::EMF_TRILINEAR_FILTER, Config.TrilinearFiltering);
-				for(u32 j = 0; j < MeshNodes[i]->getMaterialCount(); j++) {
+				for(uint32_t j = 0; j < MeshNodes[i]->getMaterialCount(); j++) {
 					for(int k = 0; k < 4; k++) {
 						MeshNodes[i]->getMaterial(j).TextureLayer[k].AnisotropicFilter = Config.AnisotropicFiltering;
 						if(MeshNodes[i]->getMaterial(j).FogEnable)
@@ -652,7 +652,7 @@ void _Level::RunScripts() {
 	Scripting.DefineLuaVariable("KEY_JUMP", Input.GetKeyName(Actions.GetInputForAction(_Input::KEYBOARD, _Actions::JUMP)));
 
 	// Run scripts
-	for(u32 i = 0; i < Scripts.size(); i++) {
+	for(uint32_t i = 0; i < Scripts.size(); i++) {
 
 		// Load a level
 		Scripting.LoadFile(Scripts[i]);

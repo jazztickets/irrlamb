@@ -325,7 +325,7 @@ int _Config::ReadJoystickConfig() {
 	int HasJoystickConfig = 0;
 
 	// Loop over all joysticks
-	for(u32 i = 0; i < Input.GetJoystickCount(); i++) {
+	for(uint32_t i = 0; i < Input.GetJoystickCount(); i++) {
 
 		// Get joystick name
 		std::string Name = Input.GetCleanJoystickName(i).c_str();
@@ -365,7 +365,7 @@ int _Config::ReadJoystickConfig() {
 int _Config::WriteJoystickConfig() {
 
 	// Loop over all joysticks
-	for(u32 i = 0; i < Input.GetJoystickCount(); i++) {
+	for(uint32_t i = 0; i < Input.GetJoystickCount(); i++) {
 
 		XMLDocument Document;
 		Document.InsertEndChild(Document.NewDeclaration());

@@ -146,7 +146,7 @@ bool _Input::OnEvent(const SEvent &Event) {
 			JoystickState = Event.JoystickEvent;
 
 			// Handle buttons
-			for(u32 i = 0; i < Joysticks[JoystickState.Joystick].Buttons; i++) {
+			for(uint32_t i = 0; i < Joysticks[JoystickState.Joystick].Buttons; i++) {
 				if(JoystickState.IsButtonPressed(i) && !(LastJoystickButtonState & (1 << i))) {
 					Actions.InputEvent(_Input::JOYSTICK_BUTTON, i, true);
 				}
@@ -156,7 +156,7 @@ bool _Input::OnEvent(const SEvent &Event) {
 			}
 
 			// Handles axes
-			for(u32 i = 0; i < Joysticks[JoystickState.Joystick].Axes; i++) {
+			for(uint32_t i = 0; i < Joysticks[JoystickState.Joystick].Axes; i++) {
 				float AxisValue = GetAxis(i);
 				if(AxisValue != 0.0f) {
 					int AxisType = AxisValue < 0.0f ? i * 2 : i * 2 + 1;
@@ -197,7 +197,7 @@ void _Input::InitializeJoysticks(bool ShowLog) {
 	if(Device->activateJoysticks(Joysticks) && ShowLog) {
 		Log.Write("%d joystick(s) found.", Joysticks.size());
 
-		for(u32 i = 0; i < Joysticks.size(); i++) {
+		for(uint32_t i = 0; i < Joysticks.size(); i++) {
 			Log.Write("Joystick %d", i);
 			Log.Write("\tName: %s", Joysticks[i].Name.c_str());
 			Log.Write("\tAxes: %d", Joysticks[i].Axes);
@@ -235,15 +235,15 @@ const irr::SJoystickInfo &_Input::GetJoystickInfo(int Index) {
 }
 
 // Return the joystick name suitable for a filename
-core::stringc _Input::GetCleanJoystickName(u32 Index) {
+core::stringc _Input::GetCleanJoystickName(uint32_t Index) {
 
 	// Get joystick name in lower case
 	core::stringc Name = "";
 	if(Index < Input.GetJoystickCount()) {
 		Name = Input.GetJoystickInfo(Index).Name;
 		Name.make_lower();
-		u32 Length = Name.size();
-		for(u32 i = 0; i < Length; i++) {
+		uint32_t Length = Name.size();
+		for(uint32_t i = 0; i < Length; i++) {
 			if(Name[i] == ' ') {
 				Name[i] = '_';
 			}

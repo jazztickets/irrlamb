@@ -198,7 +198,7 @@ void _Game::Update() {
 	// Limit frame rate
 	float ExtraTime = SleepRate - LastFrameTime;
 	if(ExtraTime > 0.0f) {
-		irrDevice->sleep((irr::u32)(ExtraTime * 1000));
+		irrDevice->sleep((uint32_t)(ExtraTime * 1000));
 	}
 
 	// Check for window activity

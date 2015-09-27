@@ -541,7 +541,7 @@ void _Menu::InitSinglePlayer() {
 	// Campaigns
 	Y += TITLE_SPACING - 30;
 	const std::vector<CampaignStruct> &Campaigns = Campaign.GetCampaigns();
-	for(u32 i = 0; i < Campaigns.size(); i++) {
+	for(uint32_t i = 0; i < Campaigns.size(); i++) {
 		irr::core::stringw Name(Campaigns[i].Name.c_str());
 		AddMenuButton(Interface.GetCenteredRect(X, Y, 194, 52), PLAY_CAMPAIGNID + i, Name.c_str());
 
@@ -574,7 +574,7 @@ void _Menu::InitLevels() {
 	X = Interface.GetCenterX() - 160;
 	Y += TITLE_SPACING;
 	int Column = 0, Row = 0;
-	for(u32 i = 0; i < CampaignData.Levels.size(); i++) {
+	for(uint32_t i = 0; i < CampaignData.Levels.size(); i++) {
 		bool Unlocked = true;
 
 		// Get level stats
@@ -642,9 +642,9 @@ void _Menu::InitReplays() {
 
 	// Get a list of replays
 	io::IFileList *FileList = irrFile->createFileList();
-	u32 FileCount = FileList->getFileCount();
+	uint32_t FileCount = FileList->getFileCount();
 	ReplayFiles.clear();
-	for(u32 i = 0; i < FileCount; i++) {
+	for(uint32_t i = 0; i < FileCount; i++) {
 		if(!FileList->isDirectory(i) && FileList->getFileName(i).find(".replay") != -1) {
 			ReplayFiles.push_back(FileList->getFileName(i).c_str());
 		}
@@ -653,7 +653,7 @@ void _Menu::InitReplays() {
 	irrFile->changeWorkingDirectoryTo(OldWorkingDirectory.c_str());
 
 	// Add replays to menu list
-	for(u32 i = 0; i < ReplayFiles.size(); i++) {
+	for(uint32_t i = 0; i < ReplayFiles.size(); i++) {
 		bool Loaded = Replay.LoadReplay(ReplayFiles[i].c_str(), true);
 		if(Loaded && Replay.GetVersion() == REPLAY_VERSION) {
 
@@ -723,7 +723,7 @@ void _Menu::InitVideo() {
 		gui::IGUIComboBox *ListScreenResolution = irrGUI->addComboBox(Interface.GetCenteredRect(X + 111, Y, 200, 30), CurrentLayout, VIDEO_VIDEOMODES);
 
 		// Populate mode list
-		for(u32 i = 0; i < ModeList.size(); i++)
+		for(uint32_t i = 0; i < ModeList.size(); i++)
 			ListScreenResolution->addItem(ModeList[i].String.c_str());
 		ListScreenResolution->setSelected(Graphics.GetCurrentVideoModeIndex());
 	}
@@ -1150,7 +1150,7 @@ void _Menu::DrawWinScreen() {
 	Interface.RenderText("Time", HighX + 30, HighY, _Interface::ALIGN_LEFT, _Interface::FONT_SMALL, video::SColor(255, 255, 255, 255));
 	Interface.RenderText("Date", HighX + 110, HighY, _Interface::ALIGN_LEFT, _Interface::FONT_SMALL, video::SColor(255, 255, 255, 255));
 	HighY += 17;
-	for(u32 i = 0; i < WinStats->HighScores.size(); i++) {
+	for(uint32_t i = 0; i < WinStats->HighScores.size(); i++) {
 
 		// Number
 		char SmallBuffer[32];

@@ -58,12 +58,12 @@ class _Input : public irr::IEventReceiver  {
 		void SetMouseY(float Value) { MouseY = Value; }
 
 		bool HasJoystick() const { return Joysticks.size() > 0; }
-		irr::u32 GetJoystickCount() const { return Joysticks.size(); }
+		uint32_t GetJoystickCount() const { return Joysticks.size(); }
 		const irr::SEvent::SJoystickEvent &GetJoystickState();
 		const irr::SJoystickInfo &GetJoystickInfo(int Index=0);
 		float GetAxis(int Axis);
 		void DriveMouse(int Action, float Value);
-		irr::core::stringc GetCleanJoystickName(irr::u32 Index=0);
+		irr::core::stringc GetCleanJoystickName(uint32_t Index=0);
 
 		const char *GetKeyName(int Key);
 
@@ -78,7 +78,7 @@ class _Input : public irr::IEventReceiver  {
 		// Joystick
 		irr::core::array<irr::SJoystickInfo> Joysticks;
 		irr::SEvent::SJoystickEvent JoystickState;
-		irr::u32 LastJoystickButtonState;
+		uint32_t LastJoystickButtonState;
 
 		// States
 		bool MouseLocked;

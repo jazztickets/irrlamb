@@ -711,7 +711,7 @@ int _Scripting::RandomSeed(lua_State *LuaObject) {
 		return 0;
 
 	// Get parameter
-	irr::u32 Seed = (irr::u32)lua_tointeger(LuaObject, 1);
+	uint32_t Seed = (uint32_t)lua_tointeger(LuaObject, 1);
 
 	// Set seed
 	Random.SetSeed(Seed);
