@@ -11,15 +11,15 @@
    redistribute it freely, subject to the following restrictions:
 
    1. The origin of this software must not be misrepresented; you
-      must not claim that you wrote the original software. If you use
-      this software in a product, an acknowledgment in the product
-      documentation would be appreciated but is not required.
+	  must not claim that you wrote the original software. If you use
+	  this software in a product, an acknowledgment in the product
+	  documentation would be appreciated but is not required.
 
    2. Altered source versions must be plainly marked as such, and
-      must not be misrepresented as being the original software.
+	  must not be misrepresented as being the original software.
 
    3. This notice may not be removed or altered from any source
-      distribution.
+	  distribution.
 
    The original version of this class can be located at:
    http://irrlicht.suckerfreegames.com/
@@ -205,6 +205,8 @@ inline core::array<u8> getUnicodeBOM(EUTF_ENCODE mode)
 			break;
 		case EUTFE_UTF32_LE:
 			COPY_ARRAY(BOM_ENCODE_UTF32_LE, BOM_ENCODE_UTF32_LEN);
+			break;
+		default:
 			break;
 	}
 	return ret;
@@ -706,7 +708,7 @@ public:
 			//! Moves the iterator to the end of the string.
 			void toEnd()
 			{
-				const uchar16_t* a = ref->c_str();
+				//const uchar16_t* a = ref->c_str();
 				pos = ref->size_raw();
 			}
 
@@ -2977,8 +2979,10 @@ public:
 		memcpy((void*)ptr, (void*)array, used * sizeof(uchar16_t));
 		if (endian != unicode::EUTFEE_NATIVE && getEndianness() != endian)
 		{
-			for (size_t i = 0; i <= used; ++i)
-				*ptr++ = unicode::swapEndian16(*ptr);
+			for (size_t i = 0; i <= used; ++i) {
+				*ptr = unicode::swapEndian16(*ptr);
+				ptr++;
+			}
 		}
 		ret.set_used(used + (addBOM ? unicode::BOM_UTF16_LEN : 0));
 		ret.push_back(0);

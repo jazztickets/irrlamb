@@ -28,12 +28,12 @@ static bool CustomMaterialCallback(btManifoldPoint &ManifoldPoint, const btColli
 
 	//if(Object0->getCollisionShape()->getShapeType()TRIANGLE_SHAPE_PROXYTYPE
 	//printf("before %f\n", ManifoldPoint.m_normalWorldOnB[1]);
-	float Before = ManifoldPoint.m_normalWorldOnB[1];
+	//float Before = ManifoldPoint.m_normalWorldOnB[1];
 	if(1) {
 		//printf("%d %d %d %d %d %d\n", Object0->getCollisionShape()->getShapeType(), Object1->getCollisionShape()->getShapeType(), PartID0, PartID1, Index0, Index1);
 		btAdjustInternalEdgeContacts(ManifoldPoint, Object1, Object0, PartID1, Index1);
 	}
-	float After = ManifoldPoint.m_normalWorldOnB[1];
+	//float After = ManifoldPoint.m_normalWorldOnB[1];
 	//if(Before != After) printf("before %f after %f\n", Before, After);
 
 	return false;

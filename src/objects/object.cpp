@@ -28,16 +28,16 @@ using namespace irr;
 _Object::_Object()
 :	Name(""),
 	Type(NONE),
-	Deleted(false),
 	ID(-1),
 	TemplateID(-1),
+	Deleted(false),
 	Timer(0.0f),
 	Lifetime(0.0f),
-	TouchingGround(false),
-	TouchingWall(false),
-	NeedsReplayPacket(false),
 	Node(NULL),
-	RigidBody(NULL) {
+	RigidBody(NULL),
+	NeedsReplayPacket(false),
+	TouchingGround(false),
+	TouchingWall(false) {
 
 	LastOrientation.setIdentity();
 

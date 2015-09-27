@@ -134,6 +134,8 @@ bool _Menu::HandleAction(int InputType, int Action, float Value) {
 						else
 							InitPause();
 					break;
+					default:
+					break;
 				}
 
 				return true;
@@ -146,6 +148,8 @@ bool _Menu::HandleAction(int InputType, int Action, float Value) {
 					PlayState.StartReset();
 					return true;
 				}
+			break;
+			default:
 			break;
 		}
 	}
@@ -219,6 +223,8 @@ bool _Menu::HandleKeyPress(int Key) {
 					Processed = false;
 				break;
 			}
+		break;
+		default:
 		break;
 	}
 
@@ -489,6 +495,8 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 			if(State == STATE_LEVELS)
 				SelectedLevel = -1;
 		break;
+		default:
+		break;
 	}
 }
 
@@ -535,7 +543,7 @@ void _Menu::InitSinglePlayer() {
 	const std::vector<CampaignStruct> &Campaigns = Campaign.GetCampaigns();
 	for(u32 i = 0; i < Campaigns.size(); i++) {
 		irr::core::stringw Name(Campaigns[i].Name.c_str());
-		gui::IGUIButton *Button = AddMenuButton(Interface.GetCenteredRect(X, Y, 194, 52), PLAY_CAMPAIGNID + i, Name.c_str());
+		AddMenuButton(Interface.GetCenteredRect(X, Y, 194, 52), PLAY_CAMPAIGNID + i, Name.c_str());
 
 		Y += CAMPAIGN_SPACING;
 	}
@@ -723,12 +731,12 @@ void _Menu::InitVideo() {
 	// Full Screen
 	Y += 40;
 	AddMenuText(core::position2di(X, Y), L"Fullscreen", _Interface::FONT_MEDIUM, -1, gui::EGUIA_LOWERRIGHT);
-	gui::IGUICheckBox *CheckBoxFullscreen = irrGUI->addCheckBox(Config.Fullscreen, Interface.GetCenteredRect(X + 20, Y, 18, 18), CurrentLayout, VIDEO_FULLSCREEN);
+	irrGUI->addCheckBox(Config.Fullscreen, Interface.GetCenteredRect(X + 20, Y, 18, 18), CurrentLayout, VIDEO_FULLSCREEN);
 
 	// Shadows
 	Y += 40;
 	AddMenuText(core::position2di(X, Y), L"Shadows", _Interface::FONT_MEDIUM, -1, gui::EGUIA_LOWERRIGHT);
-	gui::IGUICheckBox *CheckBoxShadows = irrGUI->addCheckBox(Config.Shadows, Interface.GetCenteredRect(X + 20, Y, 18, 18), CurrentLayout, VIDEO_SHADOWS);
+	irrGUI->addCheckBox(Config.Shadows, Interface.GetCenteredRect(X + 20, Y, 18, 18), CurrentLayout, VIDEO_SHADOWS);
 
 	// Shaders
 	Y += 40;
@@ -740,7 +748,7 @@ void _Menu::InitVideo() {
 	// Vsync
 	Y += 40;
 	AddMenuText(core::position2di(X, Y), L"V-sync", _Interface::FONT_MEDIUM, -1, gui::EGUIA_LOWERRIGHT);
-	gui::IGUICheckBox *CheckBoxVsync = irrGUI->addCheckBox(Config.Vsync, Interface.GetCenteredRect(X + 20, Y, 18, 18), CurrentLayout, VIDEO_VSYNC);
+	irrGUI->addCheckBox(Config.Vsync, Interface.GetCenteredRect(X + 20, Y, 18, 18), CurrentLayout, VIDEO_VSYNC);
 
 	// Anisotropic Filtering
 	Y += 40;
@@ -796,7 +804,7 @@ void _Menu::InitAudio() {
 	// Sound enabled
 	Y += TITLE_SPACING;
 	AddMenuText(core::position2di(X, Y), L"Audio Enabled", _Interface::FONT_MEDIUM, -1, gui::EGUIA_LOWERRIGHT);
-	gui::IGUICheckBox *CheckBoxAudioEnabled = irrGUI->addCheckBox(Config.AudioEnabled, Interface.GetCenteredRect(X + 20, Y, 18, 18), CurrentLayout, AUDIO_ENABLED);
+	irrGUI->addCheckBox(Config.AudioEnabled, Interface.GetCenteredRect(X + 20, Y, 18, 18), CurrentLayout, AUDIO_ENABLED);
 
 	// Save
 	Y += 90;
@@ -839,7 +847,7 @@ void _Menu::InitControls() {
 
 	// Invert Gamepad Y
 	AddMenuText(core::position2di(X - 15 + 145, Y), L"Gamepad Y", _Interface::FONT_MEDIUM, -1, gui::EGUIA_LOWERRIGHT);
-	gui::IGUICheckBox *CheckBoxInvertGamepadY = irrGUI->addCheckBox(Config.InvertGamepadY, Interface.GetCenteredRect(X + 15 + 170, Y, 100, 25), CurrentLayout, CONTROLS_INVERTGAMEPADY);
+	irrGUI->addCheckBox(Config.InvertGamepadY, Interface.GetCenteredRect(X + 15 + 170, Y, 100, 25), CurrentLayout, CONTROLS_INVERTGAMEPADY);
 
 	// Save
 	AddMenuButton(Interface.GetCenteredRect(Interface.GetCenterX() - SAVE_X, Interface.GetCenterY() + BACK_Y, 108, 44), CONTROLS_SAVE, L"Save", _Interface::IMAGE_BUTTON_SMALL);
@@ -1103,6 +1111,8 @@ void _Menu::Draw() {
 		case STATE_WIN:
 			Menu.DrawWinScreen();
 		break;
+		default:
+		break;
 	}
 }
 
@@ -1246,6 +1256,8 @@ gui::IGUIStaticText *_Menu::AddMenuText(const core::position2di &CenterPosition,
 		break;
 		case gui::EGUIA_LOWERRIGHT:
 			Rectangle = Interface.GetRightRect(CenterPosition.X, CenterPosition.Y, Size.Width, Size.Height);
+		break;
+		default:
 		break;
 	}
 

@@ -37,11 +37,11 @@ _Input Input;
 
 // Event receiver constructor
 _Input::_Input()
-:	MouseLocked(false),
+:	LastJoystickButtonState(0),
+	MouseLocked(false),
 	MouseX(0),
 	MouseY(0),
-	VirtualMouseMoved(false),
-	LastJoystickButtonState(0) {
+	VirtualMouseMoved(false) {
 
 	// Set up input
 	ResetInputState();
@@ -235,7 +235,7 @@ const irr::SJoystickInfo &_Input::GetJoystickInfo(int Index) {
 }
 
 // Return the joystick name suitable for a filename
-core::stringc _Input::GetCleanJoystickName(int Index) {
+core::stringc _Input::GetCleanJoystickName(u32 Index) {
 
 	// Get joystick name in lower case
 	core::stringc Name = "";

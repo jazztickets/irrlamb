@@ -75,7 +75,6 @@ class _Object : public btMotionState {
 		irr::u16 GetTemplateID() const { return TemplateID; }
 
 		// Rigid body
-		bool IsHookable() const { return Hookable; }
 		void Stop();
 
 		void CalculateInterpolatedPosition(float BlendFactor);
@@ -131,5 +130,5 @@ class _Object : public btMotionState {
 
 		// Collision
 		std::string CollisionCallback;
-		bool TouchingGround, TouchingWall, Hookable;
+		bool TouchingGround, TouchingWall;
 };

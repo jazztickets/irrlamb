@@ -59,7 +59,6 @@ _Sphere::_Sphere(const SpawnStruct &Object)
 	if(Physics.IsEnabled()) {
 
 		// Create shape
-		btVector3 HalfExtents = Template->Shape * 0.5f;
 		btSphereShape *Shape = new btSphereShape(Template->Radius);
 
 		// Set up physics

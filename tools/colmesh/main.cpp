@@ -85,7 +85,6 @@ bool ReadObjFile(const char *Filename) {
 	}
 
 	// Read file
-	float FloatDummy = 0.0f;
 	char Buffer[256];
 	bool HasTexture = false;
 	while(!InputFile.eof()) {

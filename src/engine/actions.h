@@ -34,7 +34,7 @@ namespace tinyxml2 {
 }
 
 struct _ActionMap {
-	_ActionMap(int Action, float Scale, float DeadZone) : Action(Action), Scale(Scale), DeadZone(DeadZone) { }
+	_ActionMap(int Action, float Scale, float DeadZone) : Action(Action), DeadZone(DeadZone), Scale(Scale) { }
 
 	int Action;
 	float DeadZone;

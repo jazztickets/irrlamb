@@ -4,6 +4,7 @@ irrlamb 0.2.1 -
 - Added per-axis deadzone to config
 - Next-level button works across campaigns now
 - Added level name and highscore to HUD
+- Switched to c++11
 - Various fixes to build system
 
 irrlamb 0.2.0 - 2015-09-19

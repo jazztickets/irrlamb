@@ -33,9 +33,9 @@ using namespace irr;
 // Constructor
 _Orb::_Orb(const SpawnStruct &Object)
 :	_Object(),
-	DeactivationCallback(""),
-	Sound(NULL),
 	Light(NULL),
+	Sound(NULL),
+	DeactivationCallback(""),
 	State(ORBSTATE_NORMAL),
 	OrbTime(0.0f),
 	DeactivateLength(ORB_DEACTIVATETIME) {

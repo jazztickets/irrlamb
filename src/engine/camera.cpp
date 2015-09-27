@@ -28,10 +28,10 @@ using namespace irr;
 _Camera::_Camera()
 :	Node(NULL),
 	Yaw(0.0f),
-	MovementChanged(true),
 	Pitch(30.0f),
 	MaxDistance(5.0f),
-	Distance(5.0f) {
+	Distance(5.0f),
+	MovementChanged(true) {
 
 	Node = irrScene->addCameraSceneNode();
 	Node->setNearValue(0.1f);
@@ -61,7 +61,7 @@ void _Camera::Update(const core::vector3df &Target) {
 
 	// Get camera rotation
 	Transform.makeIdentity();
-    Transform.setRotationDegrees(core::vector3df(Pitch, Yaw, 0.0f));
+	Transform.setRotationDegrees(core::vector3df(Pitch, Yaw, 0.0f));
 
 	// Set distance from object
 	Distance = MaxDistance;

@@ -32,7 +32,7 @@ else()
 	endif()
 
 	# compiler flags
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-deprecated-declarations -pedantic -std=c++11")
 
 	# x11
 	find_package(X11 REQUIRED)

@@ -33,7 +33,7 @@ public:
 
 	//! returns true if the file maybe is able to be loaded by this class
 	//! based on the file extension (e.g. ".cob")
-    virtual bool isALoadableFileExtension(const io::path& filename) const;
+	virtual bool isALoadableFileExtension(const io::path& filename) const;
 
 
 	//! creates/loads an animated mesh from the file.
@@ -47,26 +47,26 @@ private:
 	//! reads a mesh sections and creates a mesh from it
 	IAnimatedMesh* readMesh(io::IReadFile* reader);
 
-    u32 readChunk(struct IrrbChunkInfo& chunk);
-    irr::core::stringc readStringChunk();
+	u32 readChunk(struct IrrbChunkInfo& chunk);
+	irr::core::stringc readStringChunk();
 
-    SMesh* _readMesh(u32 index);
+	SMesh* _readMesh(u32 index);
 	IMeshBuffer* createMeshBuffer(u32 idx);
-    void setMaterial(video::SMaterial& material, struct IrrbMaterial& mat);
-    void setMaterialLayer(video::SMaterial& material, u8 layerNumber, irr::core::stringc mTexture, struct IrrbMaterialLayer& layer);
+	void setMaterial(video::SMaterial& material, struct IrrbMaterial& mat);
+	void setMaterialLayer(video::SMaterial& material, u8 layerNumber, irr::core::stringc mTexture, struct IrrbMaterialLayer& layer);
 
 	// member variables
-    u32* IBuffer;
-    struct IrrbVertex* VBuffer;
-    struct IrrbMeshBufInfo* MBuffer;
-    struct IrrbMaterial* Material;
-    struct IrrbMaterialLayer* Layer;
-    core::array<video::SMaterial> Materials;
+	u32* IBuffer;
+	struct IrrbVertex* VBuffer;
+	struct IrrbMeshBufInfo* MBuffer;
+	struct IrrbMaterial* Material;
+	struct IrrbMaterialLayer* Layer;
+	core::array<video::SMaterial> Materials;
 
 	video::IVideoDriver* Driver;
 	scene::ISceneManager* SceneManager;
 	io::IFileSystem* FileSystem;
-    io::IReadFile* Reader;
+	io::IReadFile* Reader;
 };
 
 

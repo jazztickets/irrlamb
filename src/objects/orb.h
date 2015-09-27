@@ -52,11 +52,12 @@ class _Orb : public _Object {
 		irr::scene::IBillboardSceneNode *InnerNode;
 		irr::scene::ILightSceneNode *Light;
 
+		// Audio
+		_AudioSource *Sound;
+
 		// Deactivation
 		std::string DeactivationCallback;
 		int State;
 		float OrbTime, DeactivateLength;
 
-		// Audio
-		_AudioSource *Sound;
 };

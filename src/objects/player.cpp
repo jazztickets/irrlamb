@@ -39,9 +39,9 @@ using namespace irr;
 // Constructor
 _Player::_Player(const SpawnStruct &Object)
 :	_Object(),
-	Sound(NULL),
 	Camera(NULL),
 	Light(NULL),
+	Sound(NULL),
 	JumpTimer(0.0f),
 	TorqueFactor(4.0f) {
 
@@ -84,7 +84,6 @@ _Player::_Player(const SpawnStruct &Object)
 	}
 
 	SetProperties(Object);
-	Hookable = false;
 	if(CollisionCallback == "")
 		CollisionCallback = "OnHitPlayer";
 }

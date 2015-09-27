@@ -42,13 +42,14 @@ class _Player : public _Object {
 		// Camera
 		_Camera *Camera;
 
-		// Jumping
-		float JumpTimer;
-		float TorqueFactor;
-
 		// Graphics
 		irr::scene::ILightSceneNode *Light;
 
 		// Audio
 		_AudioSource *Sound;
+
+		// Jumping
+		float JumpTimer;
+		float TorqueFactor;
+
 };

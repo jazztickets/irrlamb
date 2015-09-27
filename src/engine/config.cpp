@@ -157,7 +157,6 @@ int _Config::ReadConfig() {
 	// Check for a video tag
 	XMLElement *VideoElement = ConfigElement->FirstChildElement("video");
 	if(VideoElement) {
-		int Value = 0;
 		XMLElement *Element;
 
 		// Get driver

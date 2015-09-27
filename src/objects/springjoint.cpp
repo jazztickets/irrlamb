@@ -47,7 +47,6 @@ _SpringJoint::~_SpringJoint() {
 
 // Updates the spring system
 void _SpringJoint::Update(float FrameTime) {
-/*
 	if(Physics.IsEnabled()) {
 
 		// Get direction and length
@@ -82,5 +81,4 @@ void _SpringJoint::Update(float FrameTime) {
 	}
 
 }
-
 */

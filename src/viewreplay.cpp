@@ -185,6 +185,8 @@ void _ViewReplayState::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIE
 				break;
 			}
 		break;
+		default:
+		break;
 	}
 }
 
@@ -276,7 +278,6 @@ void _ViewReplayState::Update(float FrameTime) {
 // Draws the current state
 void _ViewReplayState::Draw() {
 	char Buffer[256];
-	int CenterX = irrDriver->getScreenSize().Width / 2, CenterY = irrDriver->getScreenSize().Height / 2;
 
 	// Draw box
 	int Left = 5, Top = 5, Width = 230, Height = 85;

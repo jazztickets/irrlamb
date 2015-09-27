@@ -11,15 +11,15 @@
    redistribute it freely, subject to the following restrictions:
 
    1. The origin of this software must not be misrepresented; you
-      must not claim that you wrote the original software. If you use
-      this software in a product, an acknowledgment in the product
-      documentation would be appreciated but is not required.
+	  must not claim that you wrote the original software. If you use
+	  this software in a product, an acknowledgment in the product
+	  documentation would be appreciated but is not required.
 
    2. Altered source versions must be plainly marked as such, and
-      must not be misrepresented as being the original software.
+	  must not be misrepresented as being the original software.
 
    3. This notice may not be removed or altered from any source
-      distribution.
+	  distribution.
 
    The original version of this class can be located at:
    http://irrlicht.suckerfreegames.com/
@@ -91,10 +91,10 @@ video::IImage* SGUITTGlyph::createGlyphImage(const FT_Bitmap& bits, video::IVide
 			const u32 image_pitch = image->getPitch() / sizeof(u16);
 			u16* image_data = (u16*)image->lock();
 			u8* glyph_data = bits.buffer;
-			for (s32 y = 0; y < bits.rows; ++y)
+			for (u32 y = 0; y < bits.rows; ++y)
 			{
 				u16* row = image_data;
-				for (s32 x = 0; x < bits.width; ++x)
+				for (u32 x = 0; x < bits.width; ++x)
 				{
 					// Monochrome bitmaps store 8 pixels per byte.  The left-most pixel is the bit 0x80.
 					// So, we go through the data each bit at a time.
@@ -120,10 +120,10 @@ video::IImage* SGUITTGlyph::createGlyphImage(const FT_Bitmap& bits, video::IVide
 			const u32 image_pitch = image->getPitch() / sizeof(u32);
 			u32* image_data = (u32*)image->lock();
 			u8* glyph_data = bits.buffer;
-			for (s32 y = 0; y < bits.rows; ++y)
+			for (u32 y = 0; y < bits.rows; ++y)
 			{
 				u8* row = glyph_data;
-				for (s32 x = 0; x < bits.width; ++x)
+				for (u32 x = 0; x < bits.width; ++x)
 				{
 					image_data[y * image_pitch + x] |= static_cast<u32>(255.0f * (static_cast<float>(*row++) / gray_count)) << 24;
 					//data[y * image_pitch + x] |= ((u32)(*bitsdata++) << 24);
@@ -568,7 +568,7 @@ void CGUITTFont::draw(const core::stringw& text, const core::rect<s32>& position
 	{
 		uchar32_t currentChar = *iter;
 		n = getGlyphIndexByChar(currentChar);
-		bool visible = (Invisible.findFirst(currentChar) == -1);
+		bool visible = (Invisible.findFirst(currentChar) == (size_t)-1);
 		if ((n > 0 || currentChar == '\r' || currentChar == '\n') && visible)
 		{
 			bool lineBreak=false;
