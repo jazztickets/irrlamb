@@ -98,8 +98,10 @@ _Orb::_Orb(const SpawnStruct &Object)
 
 // Destructor
 _Orb::~_Orb() {
-	if(Light)
+	if(Light) {
 		Light->remove();
+		Graphics.SetLightCount();
+	}
 
 	delete Sound;
 }
