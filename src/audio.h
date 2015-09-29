@@ -82,7 +82,6 @@ class _Audio {
 		bool Enabled;
 
 		// Buffers
-		std::map<std::string, AudioBufferStruct>::iterator BuffersIterator;
 		std::map<std::string, AudioBufferStruct> Buffers;
 
 		// Sources

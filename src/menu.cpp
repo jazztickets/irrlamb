@@ -272,7 +272,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 						std::string FileName = GetReplayFile();
 
 						// Delete from replay files array
-						for(std::vector<std::string>::iterator Iterator = ReplayFiles.begin(); Iterator != ReplayFiles.end(); ++Iterator) {
+						for(auto Iterator = ReplayFiles.begin(); Iterator != ReplayFiles.end(); ++Iterator) {
 							if(*Iterator == FileName) {
 								ReplayFiles.erase(Iterator);
 								break;

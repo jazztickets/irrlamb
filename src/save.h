@@ -84,7 +84,6 @@ class _Save {
 
 		// Stats
 		std::map<std::string, SaveLevelStruct> LevelStats;
-		std::map<std::string, SaveLevelStruct>::iterator LevelStatsIterator;
 
 		// Database
 		_Database *Database;

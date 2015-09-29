@@ -5,12 +5,12 @@ Source code at:
 https://github.com/jazztickets/irrlamb
 
 Linux dependencies:
-cmake 3.0+
+cmake 2.8+
 irrlicht 1.8
 bullet 2.83
 freetype2
 sqlite3
-lua 5.3
+lua 5.2+
 openal
 libvorbis
 libogg

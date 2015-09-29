@@ -63,8 +63,8 @@ int _Audio::Close() {
 		return 1;
 
 	// Remove playing sounds
-	for(std::list<_AudioSource *>::iterator Iterator = Sources.begin(); Iterator != Sources.end(); ++Iterator)
-		delete *Iterator;
+	for(auto &Iterator : Sources)
+		delete Iterator;
 	Sources.clear();
 
 	// Free loaded sounds
@@ -96,7 +96,7 @@ void _Audio::Update() {
 		return;
 
 	// Update sources
-	for(std::list<_AudioSource *>::iterator Iterator = Sources.begin(); Iterator != Sources.end(); ) {
+	for(auto Iterator = Sources.begin(); Iterator != Sources.end(); ) {
 		_AudioSource *Source = *Iterator;
 		bool NeedsDelete = false;
 
@@ -118,12 +118,13 @@ void _Audio::Update() {
 
 // Stop all sounds from the audio manager and remove them
 void _Audio::StopSounds() {
-	for(std::list<_AudioSource *>::iterator Iterator = Sources.begin(); Iterator != Sources.end(); ++Iterator) {
-		_AudioSource *Source = *Iterator;
+	for(auto &Iterator : Sources) {
+		_AudioSource *Source = Iterator;
 		Source->Stop();
 
 		delete Source;
 	}
+
 	Sources.clear();
 }
 
@@ -210,7 +211,7 @@ const AudioBufferStruct *_Audio::GetBuffer(const std::string &File) {
 	std::string Path = std::string("sounds/") + File;
 
 	// Find buffer in map
-	BuffersIterator = Buffers.find(Path);
+	auto BuffersIterator = Buffers.find(Path);
 	if(BuffersIterator == Buffers.end())
 		return NULL;
 
@@ -226,7 +227,7 @@ void _Audio::CloseBuffer(const std::string &File) {
 	std::string Path = std::string("sounds/") + File;
 
 	// Find buffer in map
-	BuffersIterator = Buffers.find(Path);
+	auto BuffersIterator = Buffers.find(Path);
 	if(BuffersIterator == Buffers.end())
 		return;
 
@@ -241,8 +242,8 @@ void _Audio::FreeAllBuffers() {
 		return;
 
 	// Iterate over map
-	for(BuffersIterator = Buffers.begin(); BuffersIterator != Buffers.end(); ++BuffersIterator) {
-		AudioBufferStruct &Buffer = BuffersIterator->second;
+	for(auto BuffersIterator : Buffers) {
+		AudioBufferStruct &Buffer = BuffersIterator.second;
 
 		alDeleteBuffers(1, &Buffer.ID);
 	}
@@ -333,7 +334,7 @@ void _AudioSource::Stop() {
 bool _AudioSource::IsPlaying() {
 	ALenum State;
 
-    alGetSourcei(ID, AL_SOURCE_STATE, &State);
+	alGetSourcei(ID, AL_SOURCE_STATE, &State);
 
 	return State == AL_PLAYING;
 }

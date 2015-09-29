@@ -301,7 +301,7 @@ void _Scripting::CallZoneHandler(const std::string &FunctionName, int Type, _Obj
 bool _Scripting::HandleKeyPress(int Key) {
 
 	// Find function
-	KeyCallbacksIterator = KeyCallbacks.find(Key);
+	auto KeyCallbacksIterator = KeyCallbacks.find(Key);
 	if(KeyCallbacksIterator != KeyCallbacks.end()) {
 		CallFunction(KeyCallbacksIterator->second);
 		return true;
@@ -769,8 +769,8 @@ void _Scripting::AddTimedCallback(const std::string &FunctionName, float Time) {
 	Callback.Function = FunctionName;
 
 	// Insert in order
-	std::list<TimedCallbackStruct>::iterator Iterator;
-	for(Iterator = TimedCallbacks.begin(); Iterator != TimedCallbacks.end(); ++Iterator) {
+	auto Iterator = TimedCallbacks.begin();
+	for(; Iterator != TimedCallbacks.end(); ++Iterator) {
 		if(Callback.TimeStamp < (*Iterator).TimeStamp)
 			break;
 	}
@@ -782,7 +782,7 @@ void _Scripting::AddTimedCallback(const std::string &FunctionName, float Time) {
 // Updates the timed callback functions
 void _Scripting::UpdateTimedCallbacks() {
 
-	for(std::list<TimedCallbackStruct>::iterator Iterator(TimedCallbacks.begin()); Iterator != TimedCallbacks.end(); ++Iterator) {
+	for(auto Iterator = TimedCallbacks.begin(); Iterator != TimedCallbacks.end(); ++Iterator) {
 		if(PlayState.GetTimer() >= (*Iterator).TimeStamp) {
 			Scripting.CallFunction((*Iterator).Function);
 
@@ -800,7 +800,7 @@ void _Scripting::UpdateTimedCallbacks() {
 void _Scripting::AttachKeyToFunction(int Key, const std::string &FunctionName) {
 
 	// Install callback
-	KeyCallbacksIterator = KeyCallbacks.find(Key);
+	auto KeyCallbacksIterator = KeyCallbacks.find(Key);
 	if(KeyCallbacksIterator == KeyCallbacks.end())
 		KeyCallbacks.insert(std::pair<int, std::string>(Key, FunctionName));
 }

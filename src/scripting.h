@@ -99,7 +99,6 @@ class _Scripting {
 		std::list<TimedCallbackStruct> TimedCallbacks;
 
 		std::map<int, std::string> KeyCallbacks;
-		std::map<int, std::string>::iterator KeyCallbacksIterator;
 
 		lua_State *LuaObject;
 

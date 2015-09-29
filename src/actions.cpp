@@ -69,7 +69,7 @@ void _Actions::ClearMappings(int InputType) {
 // Remove a mapping for an action
 void _Actions::ClearMappingsForAction(int InputType, int Action) {
 	for(int i = 0; i < ACTIONS_MAXINPUTS; i++) {
-		for(std::list<_ActionMap>::iterator MapIterator = InputMap[InputType][i].begin(); MapIterator != InputMap[InputType][i].end(); ) {
+		for(auto MapIterator = InputMap[InputType][i].begin(); MapIterator != InputMap[InputType][i].end(); ) {
 			if(MapIterator->Action == Action) {
 				MapIterator = InputMap[InputType][i].erase(MapIterator);
 			}
@@ -100,8 +100,8 @@ void _Actions::AddInputMap(int InputType, int Input, int Action, float Scale, fl
 // Returns the first input for an action
 int _Actions::GetInputForAction(int InputType, int Action) {
 	for(int i = 0; i < ACTIONS_MAXINPUTS; i++) {
-		for(std::list<_ActionMap>::iterator MapIterator = InputMap[InputType][i].begin(); MapIterator != InputMap[InputType][i].end(); MapIterator++) {
-			if(MapIterator->Action == Action) {
+		for(auto &MapIterator : InputMap[InputType][i]) {
+			if(MapIterator.Action == Action) {
 				return i;
 			}
 		}
@@ -115,38 +115,38 @@ void _Actions::InputEvent(int InputType, int Input, float Value) {
 	if(Input < 0 || Input >= ACTIONS_MAXINPUTS)
 		return;
 
-	for(std::list<_ActionMap>::iterator MapIterator = InputMap[InputType][Input].begin(); MapIterator != InputMap[InputType][Input].end(); MapIterator++) {
+	for(auto &MapIterator : InputMap[InputType][Input]) {
 
 		// Only let joystick overwrite action state if the keyboard isn't being used
-		if(InputType != _Input::JOYSTICK_AXIS || (InputType == _Input::JOYSTICK_AXIS && (State[MapIterator->Action].Source == -1 || State[MapIterator->Action].Source == _Input::JOYSTICK_AXIS))) {
+		if(InputType != _Input::JOYSTICK_AXIS || (InputType == _Input::JOYSTICK_AXIS && (State[MapIterator.Action].Source == -1 || State[MapIterator.Action].Source == _Input::JOYSTICK_AXIS))) {
 
 			// If key was released, set source to -1 so that joystick can overwrite it
 			if(InputType == _Input::KEYBOARD && Value == 0.0f)
-				State[MapIterator->Action].Source = -1;
+				State[MapIterator.Action].Source = -1;
 			else
-				State[MapIterator->Action].Source = InputType;
+				State[MapIterator.Action].Source = InputType;
 
 			// Check for deadzone
-			if(fabs(Value) <= MapIterator->DeadZone)
+			if(fabs(Value) <= MapIterator.DeadZone)
 				Value = 0.0f;
 
-			State[MapIterator->Action].Value = Value;
+			State[MapIterator.Action].Value = Value;
 		}
 
 		// Check for deadzone
-		if(fabs(Value) <= MapIterator->DeadZone)
+		if(fabs(Value) <= MapIterator.DeadZone)
 			Value = 0.0f;
 
 		// Apply input scale to action
-		float InputValue = Value * MapIterator->Scale;
+		float InputValue = Value * MapIterator.Scale;
 
 		// Invert gamepad camera Y
-		if(Config.InvertGamepadY && InputType == _Input::JOYSTICK_AXIS && (MapIterator->Action == _Actions::CAMERA_UP || MapIterator->Action == _Actions::CAMERA_DOWN)) {
+		if(Config.InvertGamepadY && InputType == _Input::JOYSTICK_AXIS && (MapIterator.Action == _Actions::CAMERA_UP || MapIterator.Action == _Actions::CAMERA_DOWN)) {
 			InputValue = -InputValue;
 		}
 
 		// If true is returned, stop handling the same key
-		if(Game.GetState()->HandleAction(InputType, MapIterator->Action, InputValue))
+		if(Game.GetState()->HandleAction(InputType, MapIterator.Action, InputValue))
 			break;
 	}
 }
@@ -154,20 +154,20 @@ void _Actions::InputEvent(int InputType, int Input, float Value) {
 // Write to config file
 void _Actions::Serialize(int InputType, XMLDocument &Document, XMLElement *InputElement) {
 	for(int i = 0; i < ACTIONS_MAXINPUTS; i++) {
-		for(std::list<_ActionMap>::iterator MapIterator = InputMap[InputType][i].begin(); MapIterator != InputMap[InputType][i].end(); MapIterator++) {
+		for(auto &MapIterator : InputMap[InputType][i]) {
 
 			// Insert action name
-			XMLComment *Comment = Document.NewComment(Names[MapIterator->Action].c_str());
+			XMLComment *Comment = Document.NewComment(Names[MapIterator.Action].c_str());
 			InputElement->InsertEndChild(Comment);
 
 			// Add input map line
 			XMLElement *Element = Document.NewElement("map");
 			Element->SetAttribute("type", InputType);
 			Element->SetAttribute("input", i);
-			Element->SetAttribute("action", MapIterator->Action);
+			Element->SetAttribute("action", MapIterator.Action);
 			if(InputType == _Input::JOYSTICK_AXIS) {
-				Element->SetAttribute("scale", MapIterator->Scale);
-				Element->SetAttribute("deadzone", MapIterator->DeadZone);
+				Element->SetAttribute("scale", MapIterator.Scale);
+				Element->SetAttribute("deadzone", MapIterator.DeadZone);
 			}
 			InputElement->InsertEndChild(Element);
 		}

@@ -72,9 +72,9 @@ void _ObjectManager::DeleteObject(_Object *Object) {
 _Object *_ObjectManager::GetObjectByName(const std::string &Name) {
 
 	// Search through object list
-	for(std::list<_Object *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator) {
-		if((*Iterator)->GetName() == Name)
-			return *Iterator;
+	for(auto &Iterator : Objects) {
+		if(Iterator->GetName() == Name)
+			return Iterator;
 	}
 
 	return NULL;
@@ -84,9 +84,9 @@ _Object *_ObjectManager::GetObjectByName(const std::string &Name) {
 _Object *_ObjectManager::GetObjectByType(int Type) {
 
 	// Search through object list
-	for(std::list<_Object *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator) {
-		if((*Iterator)->GetType() == Type)
-			return *Iterator;
+	for(auto &Iterator : Objects) {
+		if(Iterator->GetType() == Type)
+			return Iterator;
 	}
 
 	return NULL;
@@ -96,7 +96,7 @@ _Object *_ObjectManager::GetObjectByType(int Type) {
 void _ObjectManager::ClearObjects() {
 
 	// Delete constraints first
-	for(std::list<_Object *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ) {
+	for(auto Iterator = Objects.begin(); Iterator != Objects.end(); ) {
 		_Object *Object = *Iterator;
 		if(Object->GetType() == _Object::CONSTRAINT_D6 || Object->GetType() == _Object::CONSTRAINT_HINGE) {
 			delete Object;
@@ -108,8 +108,8 @@ void _ObjectManager::ClearObjects() {
 	}
 
 	// Delete objects
-	for(std::list<_Object *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator) {
-		delete (*Iterator);
+	for(auto &Iterator : Objects) {
+		delete Iterator;
 	}
 
 	Objects.clear();
@@ -119,12 +119,8 @@ void _ObjectManager::ClearObjects() {
 // Performs start frame operations on the objects
 void _ObjectManager::BeginFrame() {
 
-	for(std::list<_Object *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator) {
-		_Object *Object = *Iterator;
-
-		// Perform specific start-of-frame operations
-		Object->BeginFrame();
-	}
+	for(auto &Iterator : Objects)
+		Iterator->BeginFrame();
 }
 
 // Performs end frame operations on the objects
@@ -133,14 +129,13 @@ void _ObjectManager::EndFrame() {
 	uint16_t ReplayMovementCount = 0;
 
 	// Get replay update count
-	for(std::list<_Object *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator) {
-		_Object *Object = *Iterator;
+	for(auto &Iterator : Objects) {
 
 		// Perform specific end-of-frame operations
-		Object->EndFrame();
+		Iterator->EndFrame();
 
 		// Get a count for all the objects that need replay events recorded
-		if(Object->ReadyForReplayUpdate()) {
+		if(Iterator->ReadyForReplayUpdate()) {
 			ReplayMovementCount++;
 		}
 	}
@@ -154,19 +149,18 @@ void _ObjectManager::EndFrame() {
 		ReplayStream.WriteShortInt(ReplayMovementCount);
 
 		// Write the updated objects
-		for(std::list<_Object *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator) {
-			_Object *Object = *Iterator;
+		for(auto &Iterator : Objects) {
 
 			// Save the replay
-			if(Object->ReadyForReplayUpdate()) {
+			if(Iterator->ReadyForReplayUpdate()) {
 				btVector3 EulerRotation;
-				Physics.QuaternionToEuler(Object->GetRotation(), EulerRotation);
+				Physics.QuaternionToEuler(Iterator->GetRotation(), EulerRotation);
 
 				// Write object update
-				ReplayStream.WriteShortInt(Object->GetID());
-				ReplayStream.WriteData((void *)&Object->GetPosition(), sizeof(btScalar) * 3);
+				ReplayStream.WriteShortInt(Iterator->GetID());
+				ReplayStream.WriteData((void *)&Iterator->GetPosition(), sizeof(btScalar) * 3);
 				ReplayStream.WriteData((void *)&EulerRotation[0], sizeof(btScalar) * 3);
-				Object->WroteReplayPacket();
+				Iterator->WroteReplayPacket();
 			}
 		}
 		//printf("ObjectIndex=%d\n", ObjectIndex);
@@ -177,7 +171,7 @@ void _ObjectManager::EndFrame() {
 void _ObjectManager::Update(float FrameTime) {
 
 	// Update objects
-	for(std::list<_Object *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ) {
+	for(auto Iterator = Objects.begin(); Iterator != Objects.end(); ) {
 		_Object *Object = *Iterator;
 
 		// Update the object
@@ -207,8 +201,8 @@ void _ObjectManager::Update(float FrameTime) {
 void _ObjectManager::UpdateReplay(float FrameTime) {
 
 	// Update objects
-	for(std::list<_Object *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator)
-		(*Iterator)->UpdateReplay(FrameTime);
+	for(auto &Iterator : Objects)
+		Iterator->UpdateReplay(FrameTime);
 }
 
 // Updates all objects in the scene from a replay file
@@ -226,11 +220,10 @@ void _ObjectManager::UpdateFromReplay() {
 
 	// Loop through the rest of the objects
 	int UpdatedObjectCount = 0;
-	for(std::list<_Object *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator) {
-		_Object *Object = *Iterator;
-		if(ObjectID == Object->GetID()) {
-			Object->SetPositionFromReplay(Position);
-			Object->GetNode()->setRotation(Rotation);
+	for(auto &Iterator : Objects) {
+		if(ObjectID == Iterator->GetID()) {
+			Iterator->SetPositionFromReplay(Position);
+			Iterator->GetNode()->setRotation(Rotation);
 
 			//printf("ObjectPacket ObjectID=%d Type=%d Position=%f %f %f Rotation=%f %f %f\n", ObjectID, Object->GetType(), Position.X, Position.Y, Position.Z, Rotation.X, Rotation.Y, Rotation.Z);
 			if(UpdatedObjectCount < ObjectCount - 1) {
@@ -249,18 +242,18 @@ void _ObjectManager::UpdateFromReplay() {
 // Returns an object by an index, NULL if no such index
 _Object *_ObjectManager::GetObjectByID(int ID) {
 
-	for(std::list<_Object *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator) {
-		if((*Iterator)->GetID() == ID)
-			return *Iterator;
+	for(auto &Iterator : Objects) {
+		if(Iterator->GetID() == ID)
+			return Iterator;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 // Deletes an object by its ID
 void _ObjectManager::DeleteObjectByID(int ID) {
 
-	for(std::list<_Object *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator) {
+	for(auto Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator) {
 		if((*Iterator)->GetID() == ID) {
 			delete (*Iterator);
 			Objects.erase(Iterator);

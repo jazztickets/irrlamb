@@ -189,7 +189,7 @@ int _Save::LoadLevelStats() {
 // Update the stats database for one level
 void _Save::SaveLevelStats(const std::string &Level) {
 
-	LevelStatsIterator = LevelStats.find(Level);
+	auto LevelStatsIterator = LevelStats.find(Level);
 	if(LevelStatsIterator == LevelStats.end())
 		return;
 

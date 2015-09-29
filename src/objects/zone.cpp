@@ -55,11 +55,11 @@ void _Zone::HandleCollision(_Object *OtherObject, const btPersistentManifold *Co
 	if(Active) {
 
 		// Search for existing objects in the touch list
-		for(std::list<ObjectTouchState>::iterator Iterator = TouchState.begin(); Iterator != TouchState.end(); ++Iterator) {
-			if((*Iterator).Object == OtherObject) {
+		for(auto &Iterator : TouchState) {
+			if(Iterator.Object == OtherObject) {
 
 				// Update touch count
-				(*Iterator).TouchCount = 2;
+				Iterator.TouchCount = 2;
 				return;
 			}
 		}
@@ -79,13 +79,13 @@ void _Zone::EndFrame() {
 	if(Active) {
 
 		// Search for old objects
-		for(std::list<ObjectTouchState>::iterator Iterator = TouchState.begin(); Iterator != TouchState.end(); ) {
-			(*Iterator).TouchCount--;
-			if((*Iterator).TouchCount <= 0) {
+		for(auto Iterator = TouchState.begin(); Iterator != TouchState.end(); ) {
+			Iterator->TouchCount--;
+			if(Iterator->TouchCount <= 0) {
 
 				// Call Lua function
 				if(CollisionCallback.size())
-					Scripting.CallZoneHandler(CollisionCallback, 1, this, (*Iterator).Object);
+					Scripting.CallZoneHandler(CollisionCallback, 1, this, Iterator->Object);
 
 				Iterator = TouchState.erase(Iterator);
 			}

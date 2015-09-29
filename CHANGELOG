@@ -1,6 +1,6 @@
 irrlamb 0.2.1 -
 - Added installer for windows
-- Can selectively enable gamepads in config
+- Can selectively enable gamepads in config file
 - Added per-axis deadzone to config
 - Next-level button works across campaigns now
 - Added level name and highscore to HUD
