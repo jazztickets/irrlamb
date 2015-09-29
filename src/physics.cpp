@@ -15,10 +15,10 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <engine/physics.h>
-#include <engine/globals.h>
-#include <engine/game.h>
-#include <engine/constants.h>
+#include <physics.h>
+#include <globals.h>
+#include <game.h>
+#include <constants.h>
 #include <objects/object.h>
 #include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
 

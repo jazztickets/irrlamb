@@ -15,27 +15,27 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <viewreplay.h>
-#include <engine/globals.h>
-#include <engine/input.h>
-#include <engine/graphics.h>
-#include <engine/config.h>
-#include <engine/physics.h>
-#include <engine/filestream.h>
-#include <engine/level.h>
-#include <engine/objectmanager.h>
-#include <engine/replay.h>
-#include <engine/camera.h>
-#include <engine/game.h>
-#include <engine/filestream.h>
-#include <engine/interface.h>
-#include <engine/constants.h>
+#include <states/viewreplay.h>
+#include <globals.h>
+#include <input.h>
+#include <graphics.h>
+#include <config.h>
+#include <physics.h>
+#include <filestream.h>
+#include <level.h>
+#include <objectmanager.h>
+#include <replay.h>
+#include <camera.h>
+#include <game.h>
+#include <filestream.h>
+#include <interface.h>
+#include <constants.h>
 #include <objects/orb.h>
 #include <objects/template.h>
 #include <font/CGUITTFont.h>
-#include <play.h>
+#include <states/play.h>
 #include <menu.h>
-#include <null.h>
+#include <states/null.h>
 #include <ISceneManager.h>
 
 using namespace irr;

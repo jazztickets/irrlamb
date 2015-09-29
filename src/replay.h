@@ -18,7 +18,7 @@
 #pragma once
 
 // Libraries
-#include <engine/filestream.h>
+#include <filestream.h>
 
 // Event packet structure
 struct ReplayEventStruct {

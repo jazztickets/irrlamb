@@ -17,7 +17,7 @@
 *******************************************************************************/
 #include <objects/template.h>
 #include <objects/object.h>
-#include <engine/physics.h>
+#include <physics.h>
 
 TemplateStruct::TemplateStruct() {
 

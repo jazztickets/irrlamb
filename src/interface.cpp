@@ -15,12 +15,12 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <engine/interface.h>
-#include <engine/globals.h>
-#include <engine/config.h>
-#include <engine/log.h>
-#include <engine/audio.h>
-#include <engine/level.h>
+#include <interface.h>
+#include <globals.h>
+#include <config.h>
+#include <log.h>
+#include <audio.h>
+#include <level.h>
 #include <font/CGUITTFont.h>
 #include <menu.h>
 

@@ -17,8 +17,8 @@
 *******************************************************************************/
 /*
 #include <objects/springjoint.h>
-#include <engine/globals.h>
-#include <engine/physics.h>
+#include <globals.h>
+#include <physics.h>
 #include <objects/object.h>
 #include <objects/template.h>
 

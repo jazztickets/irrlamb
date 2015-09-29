@@ -15,11 +15,11 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <engine/save.h>
-#include <engine/globals.h>
-#include <engine/log.h>
-#include <engine/database.h>
-#include <engine/constants.h>
+#include <save.h>
+#include <globals.h>
+#include <log.h>
+#include <database.h>
+#include <constants.h>
 #ifdef _WIN32
 	#define WIN32_LEAN_AND_MEAN
 	#include <windows.h>

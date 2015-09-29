@@ -15,11 +15,51 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <engine/globals.h>
+#pragma once
 
-irr::IrrlichtDevice *irrDevice;
-irr::video::IVideoDriver *irrDriver;
-irr::scene::ISceneManager *irrScene;
-irr::gui::IGUIEnvironment *irrGUI;
-irr::io::IFileSystem *irrFile;
-irr::ITimer *irrTimer;
+// Libraries
+#include <actions.h>
+
+// Classes
+class _Config {
+
+	public:
+
+		int Init();
+		int Close();
+
+		void Reset();
+		void AddDefaultActionMap(bool Force=false);
+		int ReadConfig();
+		int WriteConfig();
+
+		int ReadJoystickConfig();
+		int WriteJoystickConfig();
+
+		// Video
+		int DriverType;
+		int ScreenWidth, ScreenHeight;
+		bool Fullscreen;
+		bool Shadows;
+		bool TrilinearFiltering;
+		bool Shaders;
+		bool Vsync;
+		int AnisotropicFiltering;
+		int AntiAliasing;
+
+		// Audio
+		bool AudioEnabled;
+		float SoundVolume, MusicVolume;
+
+		// Input
+		float MouseScaleX, MouseScaleY;
+		bool InvertMouse, InvertGamepadY;
+		bool JoystickEnabled;
+		int JoystickIndex;
+
+	private:
+
+};
+
+// Singletons
+extern _Config Config;

@@ -16,9 +16,9 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #include <objects/sphere.h>
-#include <engine/globals.h>
-#include <engine/physics.h>
-#include <engine/config.h>
+#include <globals.h>
+#include <physics.h>
+#include <config.h>
 #include <objects/template.h>
 #include <BulletCollision/CollisionShapes/btSphereShape.h>
 #include <IAnimatedMesh.h>

@@ -15,20 +15,20 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <engine/level.h>
-#include <engine/globals.h>
-#include <engine/game.h>
-#include <engine/objectmanager.h>
-#include <engine/scripting.h>
-#include <engine/graphics.h>
-#include <engine/save.h>
-#include <engine/replay.h>
-#include <engine/log.h>
-#include <engine/physics.h>
-#include <engine/input.h>
-#include <engine/audio.h>
-#include <engine/filestream.h>
-#include <engine/config.h>
+#include <level.h>
+#include <globals.h>
+#include <game.h>
+#include <objectmanager.h>
+#include <scripting.h>
+#include <graphics.h>
+#include <save.h>
+#include <replay.h>
+#include <log.h>
+#include <physics.h>
+#include <input.h>
+#include <audio.h>
+#include <filestream.h>
+#include <config.h>
 #include <objects/template.h>
 #include <objects/player.h>
 #include <objects/sphere.h>

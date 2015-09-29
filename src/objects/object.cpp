@@ -17,9 +17,9 @@
 *******************************************************************************/
 #include <objects/object.h>
 #include <objects/template.h>
-#include <engine/config.h>
-#include <engine/scripting.h>
-#include <engine/physics.h>
+#include <config.h>
+#include <scripting.h>
+#include <physics.h>
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
 
 using namespace irr;

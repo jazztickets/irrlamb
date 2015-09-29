@@ -19,7 +19,7 @@
 
 // Libraries
 #include <objects/object.h>
-#include <engine/camera.h>
+#include <camera.h>
 #include <ILightSceneNode.h>
 
 // Classes

@@ -15,8 +15,8 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <engine/log.h>
-#include <engine/save.h>
+#include <log.h>
+#include <save.h>
 #include <iostream>
 #include <cstdarg>
 

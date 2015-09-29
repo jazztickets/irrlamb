@@ -18,9 +18,9 @@
 #pragma once
 
 // Libraries
-#include <engine/state.h>
-#include <engine/actions.h>
-#include <engine/interface.h>
+#include <state.h>
+#include <actions.h>
+#include <interface.h>
 #include <IGUIButton.h>
 #include <vector>
 

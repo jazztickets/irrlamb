@@ -16,13 +16,13 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #include <objects/player.h>
-#include <engine/constants.h>
-#include <engine/globals.h>
-#include <engine/physics.h>
-#include <engine/input.h>
-#include <engine/audio.h>
-#include <engine/actions.h>
-#include <engine/graphics.h>
+#include <constants.h>
+#include <globals.h>
+#include <physics.h>
+#include <input.h>
+#include <audio.h>
+#include <actions.h>
+#include <graphics.h>
 #include <objects/sphere.h>
 #include <objects/constraint.h>
 #include <objects/template.h>

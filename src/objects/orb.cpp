@@ -16,13 +16,13 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #include <objects/orb.h>
-#include <engine/globals.h>
-#include <engine/graphics.h>
-#include <engine/physics.h>
-#include <engine/scripting.h>
-#include <engine/replay.h>
-#include <engine/constants.h>
-#include <engine/audio.h>
+#include <globals.h>
+#include <graphics.h>
+#include <physics.h>
+#include <scripting.h>
+#include <replay.h>
+#include <constants.h>
+#include <audio.h>
 #include <objects/template.h>
 #include <BulletCollision/CollisionShapes/btSphereShape.h>
 #include <ISceneManager.h>

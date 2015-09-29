@@ -16,9 +16,9 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #include <objects/collision.h>
-#include <engine/physics.h>
-#include <engine/globals.h>
-#include <engine/filestream.h>
+#include <physics.h>
+#include <globals.h>
+#include <filestream.h>
 #include <objects/template.h>
 #include <BulletCollision/CollisionDispatch/btInternalEdgeUtility.h>
 #include <BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h>

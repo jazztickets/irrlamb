@@ -15,7 +15,7 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <engine/game.h>
+#include <game.h>
 
 #if defined(_WIN32) && defined(NDEBUG)
 

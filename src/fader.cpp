@@ -15,10 +15,10 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <engine/fader.h>
-#include <engine/audio.h>
-#include <engine/globals.h>
-#include <engine/constants.h>
+#include <fader.h>
+#include <audio.h>
+#include <globals.h>
+#include <constants.h>
 
 using namespace irr;
 

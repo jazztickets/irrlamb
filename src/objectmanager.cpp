@@ -15,10 +15,10 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <engine/objectmanager.h>
-#include <engine/replay.h>
-#include <engine/level.h>
-#include <engine/physics.h>
+#include <objectmanager.h>
+#include <replay.h>
+#include <level.h>
+#include <physics.h>
 #include <objects/object.h>
 
 using namespace irr;

@@ -15,10 +15,10 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <engine/actions.h>
-#include <engine/game.h>
-#include <engine/state.h>
-#include <engine/config.h>
+#include <actions.h>
+#include <game.h>
+#include <state.h>
+#include <config.h>
 #include <tinyxml/tinyxml2.h>
 
 _Actions Actions;

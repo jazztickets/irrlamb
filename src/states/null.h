@@ -18,64 +18,32 @@
 #pragma once
 
 // Libraries
-#include <engine/state.h>
-#include <engine/replay.h>
-
-// Forward Declarations
-class _Object;
-class _Player;
-class _Camera;
+#include <state.h>
 
 // Classes
-class _ViewReplayState : public _State {
+class _NullState : public _State {
+
+	friend class _Menu;
+	friend class _ViewReplayState;
 
 	public:
-
-		enum GUIElements {
-			MAIN_RESTART,
-			MAIN_PAUSE,
-			MAIN_SKIP,
-			MAIN_INCREASE,
-			MAIN_DECREASE,
-			MAIN_EXIT,
-		};
 
 		int Init();
 		int Close();
 
-		bool HandleKeyPress(int Key);
-		void HandleMouseWheel(float Direction);
-		void HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, irr::gui::IGUIElement *Element);
+		_NullState() { State = 0; }
+
 		bool HandleAction(int InputType, int Action, float Value);
+		bool HandleKeyPress(int Key);
+		void HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, irr::gui::IGUIElement *Element);
 
 		void Update(float FrameTime);
+		void UpdateRender(float TimeStepRemainder);
 		void Draw();
-
-		void SetCurrentReplay(const std::string &File) { CurrentReplay = File; }
 
 	private:
 
-		void SetupGUI();
-		void ChangeReplaySpeed(float Amount);
-		void Pause();
-		void Skip(float Amount);
-
-		// States
-		std::string CurrentReplay;
-		float Timer;
-
-		// Objects
-		_Camera *Camera;
-
-		// Replay information
-		ReplayEventStruct NextEvent;
-		float PauseSpeed;
-
-		// Events
-		int NextPacketType;
-
-		// GUI
-		irr::gui::IGUIElement *Layout;
+		int State;
 };
 
-extern _ViewReplayState ViewReplayState;
+extern _NullState NullState;

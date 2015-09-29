@@ -15,29 +15,29 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <play.h>
-#include <engine/constants.h>
-#include <engine/globals.h>
-#include <engine/input.h>
-#include <engine/log.h>
-#include <engine/graphics.h>
-#include <engine/audio.h>
-#include <engine/config.h>
-#include <engine/physics.h>
-#include <engine/scripting.h>
-#include <engine/objectmanager.h>
-#include <engine/replay.h>
-#include <engine/interface.h>
-#include <engine/camera.h>
-#include <engine/game.h>
-#include <engine/level.h>
-#include <engine/campaign.h>
-#include <engine/fader.h>
-#include <engine/actions.h>
-#include <engine/save.h>
+#include <states/play.h>
+#include <constants.h>
+#include <globals.h>
+#include <input.h>
+#include <log.h>
+#include <graphics.h>
+#include <audio.h>
+#include <config.h>
+#include <physics.h>
+#include <scripting.h>
+#include <objectmanager.h>
+#include <replay.h>
+#include <interface.h>
+#include <camera.h>
+#include <game.h>
+#include <level.h>
+#include <campaign.h>
+#include <fader.h>
+#include <actions.h>
+#include <save.h>
 #include <objects/player.h>
 #include <menu.h>
-#include <viewreplay.h>
+#include <states/viewreplay.h>
 #include <ISceneManager.h>
 #include <IFileSystem.h>
 

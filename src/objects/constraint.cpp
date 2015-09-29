@@ -16,8 +16,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #include <objects/constraint.h>
-#include <engine/globals.h>
-#include <engine/physics.h>
+#include <globals.h>
+#include <physics.h>
 #include <objects/template.h>
 #include <BulletDynamics/ConstraintSolver/btHingeConstraint.h>
 

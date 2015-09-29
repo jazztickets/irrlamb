@@ -16,10 +16,10 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #include <tinyxml/tinyxml2.h>
-#include <engine/config.h>
-#include <engine/globals.h>
-#include <engine/save.h>
-#include <engine/input.h>
+#include <config.h>
+#include <globals.h>
+#include <save.h>
+#include <input.h>
 
 using namespace irr;
 

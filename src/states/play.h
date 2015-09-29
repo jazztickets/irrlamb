@@ -18,32 +18,61 @@
 #pragma once
 
 // Libraries
-#include <engine/state.h>
+#include <state.h>
+#include <string>
+
+// Forward Declarations
+class _Object;
+class _Player;
+class _Camera;
 
 // Classes
-class _NullState : public _State {
-
+class _PlayState : public _State {
 	friend class _Menu;
-	friend class _ViewReplayState;
 
 	public:
 
 		int Init();
 		int Close();
 
-		_NullState() { State = 0; }
-
 		bool HandleAction(int InputType, int Action, float Value);
 		bool HandleKeyPress(int Key);
+		bool HandleMousePress(int Button, int MouseX, int MouseY);
+		void HandleMouseLift(int Button, int MouseX, int MouseY);
+		void HandleMouseWheel(float Direction);
 		void HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, irr::gui::IGUIElement *Element);
 
 		void Update(float FrameTime);
 		void UpdateRender(float TimeStepRemainder);
 		void Draw();
 
+		bool IsPaused();
+		void StartReset();
+		void ResetLevel();
+		void WinLevel();
+		void LoseLevel();
+
+		void SetTestLevel(const std::string &Level) { TestLevel = Level; }
+		void SetCampaign(int Value) { CurrentCampaign = Value; }
+		void SetCampaignLevel(int Value) { CampaignLevel = Value; }
+
+		_Camera *GetCamera() { return Camera; }
+		float GetTimer() { return Timer; }
+
 	private:
 
-		int State;
+		// States
+		std::string TestLevel;
+		float Timer;
+		bool FirstLoad;
+		bool Resetting;
+
+		// Campaign
+		unsigned int CurrentCampaign, CampaignLevel;
+
+		// Objects
+		_Player *Player;
+		_Camera *Camera;
 };
 
-extern _NullState NullState;
+extern _PlayState PlayState;

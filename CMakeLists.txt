@@ -104,7 +104,7 @@ include_directories("src")
 
 # add source code
 file(GLOB SRC_MAIN src/*.cpp src/*.h)
-file(GLOB SRC_ENGINE src/engine/*.cpp src/engine/*.h)
+file(GLOB SRC_STATES src/states/*.cpp src/states/*.h)
 file(GLOB SRC_OBJECTS src/objects/*.cpp src/objects/*.h)
 file(GLOB SRC_IRRB src/irrb/*.cpp src/irrb/*.h)
 file(GLOB SRC_FONT src/font/*.cpp src/font/*.h)
@@ -112,16 +112,16 @@ file(GLOB SRC_TINYXML src/tinyxml/*.cpp src/tinyxml/*.h)
 
 file(GLOB SRC_ALL
 	${SRC_MAIN}
-	${SRC_ENGINE}
+	${SRC_STATES}
 	${SRC_OBJECTS}
 	${SRC_IRRB}
-	${SRC_TINYXML}
 	${SRC_FONT}
+	${SRC_TINYXML}
 )
 
 # add virtual folders
 source_group(main FILES ${SRC_MAIN})
-source_group(engine FILES ${SRC_ENGINE})
+source_group(states FILES ${SRC_STATES})
 source_group(objects FILES ${SRC_OBJECTS})
 source_group(irrb FILES ${SRC_IRRB})
 source_group(font FILES ${SRC_FONT})

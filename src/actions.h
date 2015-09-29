@@ -18,7 +18,7 @@
 #pragma once
 
 // Libraries
-#include <engine/input.h>
+#include <input.h>
 #include <string>
 #include <list>
 

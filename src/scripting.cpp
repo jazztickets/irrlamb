@@ -15,20 +15,20 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <engine/scripting.h>
-#include <engine/interface.h>
-#include <engine/log.h>
-#include <engine/objectmanager.h>
-#include <engine/level.h>
-#include <engine/campaign.h>
-#include <engine/audio.h>
+#include <scripting.h>
+#include <interface.h>
+#include <log.h>
+#include <objectmanager.h>
+#include <level.h>
+#include <campaign.h>
+#include <audio.h>
 #include <objects/template.h>
 #include <objects/player.h>
 #include <objects/orb.h>
 #include <objects/zone.h>
 #include <objects/constraint.h>
 #include <objects/springjoint.h>
-#include <play.h>
+#include <states/play.h>
 #include <menu.h>
 #include <random>
 

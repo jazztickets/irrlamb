@@ -16,9 +16,9 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #include <objects/zone.h>
-#include <engine/globals.h>
-#include <engine/physics.h>
-#include <engine/scripting.h>
+#include <globals.h>
+#include <physics.h>
+#include <scripting.h>
 #include <objects/template.h>
 #include <BulletCollision/CollisionShapes/btBoxShape.h>
 

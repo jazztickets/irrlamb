@@ -18,8 +18,8 @@
 #pragma once
 
 // Libraries
-#include <engine/state.h>
-#include <string>
+#include <state.h>
+#include <replay.h>
 
 // Forward Declarations
 class _Object;
@@ -27,52 +27,55 @@ class _Player;
 class _Camera;
 
 // Classes
-class _PlayState : public _State {
-	friend class _Menu;
+class _ViewReplayState : public _State {
 
 	public:
+
+		enum GUIElements {
+			MAIN_RESTART,
+			MAIN_PAUSE,
+			MAIN_SKIP,
+			MAIN_INCREASE,
+			MAIN_DECREASE,
+			MAIN_EXIT,
+		};
 
 		int Init();
 		int Close();
 
-		bool HandleAction(int InputType, int Action, float Value);
 		bool HandleKeyPress(int Key);
-		bool HandleMousePress(int Button, int MouseX, int MouseY);
-		void HandleMouseLift(int Button, int MouseX, int MouseY);
 		void HandleMouseWheel(float Direction);
 		void HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, irr::gui::IGUIElement *Element);
+		bool HandleAction(int InputType, int Action, float Value);
 
 		void Update(float FrameTime);
-		void UpdateRender(float TimeStepRemainder);
 		void Draw();
 
-		bool IsPaused();
-		void StartReset();
-		void ResetLevel();
-		void WinLevel();
-		void LoseLevel();
-
-		void SetTestLevel(const std::string &Level) { TestLevel = Level; }
-		void SetCampaign(int Value) { CurrentCampaign = Value; }
-		void SetCampaignLevel(int Value) { CampaignLevel = Value; }
-
-		_Camera *GetCamera() { return Camera; }
-		float GetTimer() { return Timer; }
+		void SetCurrentReplay(const std::string &File) { CurrentReplay = File; }
 
 	private:
 
-		// States
-		std::string TestLevel;
-		float Timer;
-		bool FirstLoad;
-		bool Resetting;
+		void SetupGUI();
+		void ChangeReplaySpeed(float Amount);
+		void Pause();
+		void Skip(float Amount);
 
-		// Campaign
-		unsigned int CurrentCampaign, CampaignLevel;
+		// States
+		std::string CurrentReplay;
+		float Timer;
 
 		// Objects
-		_Player *Player;
 		_Camera *Camera;
+
+		// Replay information
+		ReplayEventStruct NextEvent;
+		float PauseSpeed;
+
+		// Events
+		int NextPacketType;
+
+		// GUI
+		irr::gui::IGUIElement *Layout;
 };
 
-extern _PlayState PlayState;
+extern _ViewReplayState ViewReplayState;

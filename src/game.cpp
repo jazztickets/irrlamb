@@ -15,26 +15,26 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <engine/game.h>
-#include <engine/input.h>
-#include <engine/globals.h>
-#include <engine/graphics.h>
-#include <engine/interface.h>
-#include <engine/audio.h>
-#include <engine/state.h>
-#include <engine/log.h>
-#include <engine/fader.h>
-#include <engine/scripting.h>
-#include <engine/physics.h>
-#include <engine/objectmanager.h>
-#include <engine/config.h>
-#include <engine/save.h>
-#include <engine/campaign.h>
-#include <engine/constants.h>
-#include <play.h>
-#include <viewreplay.h>
+#include <game.h>
+#include <input.h>
+#include <globals.h>
+#include <graphics.h>
+#include <interface.h>
+#include <audio.h>
+#include <state.h>
+#include <log.h>
+#include <fader.h>
+#include <scripting.h>
+#include <physics.h>
+#include <objectmanager.h>
+#include <config.h>
+#include <save.h>
+#include <campaign.h>
+#include <constants.h>
+#include <states/play.h>
+#include <states/viewreplay.h>
+#include <states/null.h>
 #include <menu.h>
-#include <null.h>
 #include <IFileSystem.h>
 
 using namespace irr;

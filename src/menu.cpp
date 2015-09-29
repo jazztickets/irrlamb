@@ -16,20 +16,20 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #include <menu.h>
-#include <engine/graphics.h>
-#include <engine/input.h>
-#include <engine/constants.h>
-#include <engine/interface.h>
-#include <engine/globals.h>
-#include <engine/config.h>
-#include <engine/game.h>
-#include <engine/save.h>
-#include <engine/campaign.h>
-#include <engine/level.h>
-#include <engine/save.h>
-#include <viewreplay.h>
-#include <play.h>
-#include <null.h>
+#include <graphics.h>
+#include <input.h>
+#include <constants.h>
+#include <interface.h>
+#include <globals.h>
+#include <config.h>
+#include <game.h>
+#include <save.h>
+#include <campaign.h>
+#include <level.h>
+#include <save.h>
+#include <states/viewreplay.h>
+#include <states/play.h>
+#include <states/null.h>
 #include <font/CGUITTFont.h>
 #include <IGUIElement.h>
 #include <IGUIListBox.h>
