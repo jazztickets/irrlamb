@@ -21,13 +21,11 @@
 #include <graphics.h>
 #include <config.h>
 #include <physics.h>
-#include <filestream.h>
 #include <level.h>
 #include <objectmanager.h>
 #include <replay.h>
 #include <camera.h>
 #include <game.h>
-#include <filestream.h>
 #include <interface.h>
 #include <constants.h>
 #include <objects/orb.h>
@@ -206,11 +204,13 @@ void _ViewReplayState::Update(float FrameTime) {
 				SpawnStruct Spawn;
 
 				// Read replay
-				_File &ReplayStream = Replay.GetReplayStream();
-				int TemplateID = ReplayStream.ReadInt16();
-				int ObjectID = ReplayStream.ReadInt16();
-				ReplayStream.ReadData(Spawn.Position, sizeof(btScalar) * 3);
-				ReplayStream.ReadData(Spawn.Rotation, sizeof(btScalar) * 3);
+				std::fstream &ReplayFile = Replay.GetFile();
+				int16_t TemplateID;
+				int16_t ObjectID;
+				ReplayFile.read((char *)&TemplateID, sizeof(TemplateID));
+				ReplayFile.read((char *)&ObjectID, sizeof(ObjectID));
+				ReplayFile.read((char *)&Spawn.Position, sizeof(btScalar) * 3);
+				ReplayFile.read((char *)&Spawn.Rotation, sizeof(btScalar) * 3);
 
 				// Create spawn object
 				Spawn.Template = Level.GetTemplateFromID(TemplateID);
@@ -226,8 +226,9 @@ void _ViewReplayState::Update(float FrameTime) {
 			case _Replay::PACKET_DELETE: {
 
 				// Read replay
-				_File &ReplayStream = Replay.GetReplayStream();
-				int ObjectID = ReplayStream.ReadInt16();
+				std::fstream &ReplayFile = Replay.GetFile();
+				int16_t ObjectID;
+				ReplayFile.read((char *)&ObjectID, sizeof(ObjectID));
 
 				// Delete object
 				ObjectManager.DeleteObjectByID(ObjectID);
@@ -237,9 +238,9 @@ void _ViewReplayState::Update(float FrameTime) {
 
 				// Read replay
 				core::vector3df Position, LookAt;
-				_File &ReplayStream = Replay.GetReplayStream();
-				ReplayStream.ReadData(&Position.X, sizeof(float) * 3);
-				ReplayStream.ReadData(&LookAt.X, sizeof(float) * 3);
+				std::fstream &ReplayFile = Replay.GetFile();
+				ReplayFile.read((char *)&Position.X, sizeof(float) * 3);
+				ReplayFile.read((char *)&LookAt.X, sizeof(float) * 3);
 
 				// Set camera orientation
 				Camera->GetNode()->setPosition(Position);
@@ -252,9 +253,11 @@ void _ViewReplayState::Update(float FrameTime) {
 			case _Replay::PACKET_ORBDEACTIVATE: {
 
 				// Read replay
-				_File &ReplayStream = Replay.GetReplayStream();
-				int ObjectID = ReplayStream.ReadInt16();
-				float Length = ReplayStream.ReadFloat();
+				std::fstream &ReplayFile = Replay.GetFile();
+				int16_t ObjectID;
+				float Length;
+				ReplayFile.read((char *)&ObjectID, sizeof(ObjectID));
+				ReplayFile.read((char *)&Length, sizeof(Length));
 
 				// Deactivate orb
 				_Orb *Orb = static_cast<_Orb *>(ObjectManager.GetObjectByID(ObjectID));

@@ -144,9 +144,9 @@ void _ObjectManager::EndFrame() {
 	if(UpdateReplay && ReplayMovementCount > 0) {
 
 		// Write replay event
-		_File &ReplayStream = Replay.GetReplayStream();
+		std::fstream &ReplayFile = Replay.GetFile();
 		Replay.WriteEvent(_Replay::PACKET_MOVEMENT);
-		ReplayStream.WriteInt16(ReplayMovementCount);
+		ReplayFile.write((char *)&ReplayMovementCount, sizeof(ReplayMovementCount));
 
 		// Write the updated objects
 		for(auto &Iterator : Objects) {
@@ -157,9 +157,9 @@ void _ObjectManager::EndFrame() {
 				Physics.QuaternionToEuler(Iterator->GetRotation(), EulerRotation);
 
 				// Write object update
-				ReplayStream.WriteInt16(Iterator->GetID());
-				ReplayStream.WriteData((void *)&Iterator->GetPosition(), sizeof(btScalar) * 3);
-				ReplayStream.WriteData((void *)&EulerRotation[0], sizeof(btScalar) * 3);
+				ReplayFile.write((char *)&Iterator->GetID(), sizeof(Iterator->GetID()));
+				ReplayFile.write((char *)&Iterator->GetPosition(), sizeof(btScalar) * 3);
+				ReplayFile.write((char *)&EulerRotation[0], sizeof(btScalar) * 3);
 				Iterator->WroteReplayPacket();
 			}
 		}
@@ -182,9 +182,9 @@ void _ObjectManager::Update(float FrameTime) {
 
 			// Write delete events to the replay
 			if(Replay.IsRecording()) {
-				_File &ReplayStream = Replay.GetReplayStream();
+				std::fstream &ReplayFile = Replay.GetFile();
 				Replay.WriteEvent(_Replay::PACKET_DELETE);
-				ReplayStream.WriteInt16(Object->GetID());
+				ReplayFile.write((char *)&Object->GetID(), sizeof(Object->GetID()));
 			}
 
 			delete Object;
@@ -210,13 +210,15 @@ void _ObjectManager::UpdateFromReplay() {
 	core::vector3df Position, Rotation;
 
 	// Get replay stream and read object count
-	_File &ReplayStream = Replay.GetReplayStream();
-	int ObjectCount = ReplayStream.ReadInt16();
+	std::fstream &ReplayFile = Replay.GetFile();
+	int16_t ObjectCount;
+	ReplayFile.read((char *)&ObjectCount, sizeof(ObjectCount));
 
 	// Read first object
-	int ObjectID = ReplayStream.ReadInt16();
-	ReplayStream.ReadData(&Position.X, sizeof(float) * 3);
-	ReplayStream.ReadData(&Rotation.X, sizeof(float) * 3);
+	int16_t ObjectID;
+	ReplayFile.read((char *)&ObjectID, sizeof(ObjectID));
+	ReplayFile.read((char *)&Position.X, sizeof(float) * 3);
+	ReplayFile.read((char *)&Rotation.X, sizeof(float) * 3);
 
 	// Loop through the rest of the objects
 	int UpdatedObjectCount = 0;
@@ -227,9 +229,9 @@ void _ObjectManager::UpdateFromReplay() {
 
 			//printf("ObjectPacket ObjectID=%d Type=%d Position=%f %f %f Rotation=%f %f %f\n", ObjectID, Object->GetType(), Position.X, Position.Y, Position.Z, Rotation.X, Rotation.Y, Rotation.Z);
 			if(UpdatedObjectCount < ObjectCount - 1) {
-				ObjectID = ReplayStream.ReadInt16();
-				ReplayStream.ReadData(&Position.X, sizeof(float) * 3);
-				ReplayStream.ReadData(&Rotation.X, sizeof(float) * 3);
+				ReplayFile.read((char *)&ObjectID, sizeof(ObjectID));
+				ReplayFile.read((char *)&Position.X, sizeof(float) * 3);
+				ReplayFile.read((char *)&Rotation.X, sizeof(float) * 3);
 			}
 
 			UpdatedObjectCount++;

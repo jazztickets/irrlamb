@@ -43,7 +43,7 @@ class _Game {
 		void ChangeState(_State *State);
 		_State *GetState() { return State; }
 
-		float GetTimeStep() { return TimeStep; }
+		float &GetTimeStep() { return TimeStep; }
 		float GetTimeScale() { return TimeScale; }
 		float GetLastFrameTime() { return LastFrameTime; }
 		bool GetWindowActive() { return WindowActive; }

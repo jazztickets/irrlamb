@@ -18,11 +18,11 @@
 #include <objects/collision.h>
 #include <physics.h>
 #include <globals.h>
-#include <filestream.h>
 #include <objects/template.h>
 #include <BulletCollision/CollisionDispatch/btInternalEdgeUtility.h>
 #include <BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h>
 #include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
+#include <fstream>
 
 static bool CustomMaterialCallback(btManifoldPoint &ManifoldPoint, const btCollisionObjectWrapper *Object0, int PartID0, int Index0, const btCollisionObjectWrapper *Object1, int PartID1, int Index1) {
 
@@ -51,12 +51,13 @@ _Collision::_Collision(const SpawnStruct &Object)
 	gContactAddedCallback = CustomMaterialCallback;
 
 	// Load collision mesh file
-	_File MeshFile;
-	if(MeshFile.OpenForRead(Object.Template->CollisionFile.c_str())) {
+	std::ifstream MeshFile(Object.Template->CollisionFile.c_str(), std::ios::binary);
+	if(MeshFile) {
 
 		// Read header
-		int VertCount = MeshFile.ReadInt32();
-		int FaceCount = MeshFile.ReadInt32();
+		int VertCount, FaceCount;
+		MeshFile.read((char *)&VertCount, sizeof(VertCount));
+		MeshFile.read((char *)&FaceCount, sizeof(FaceCount));
 
 		// Allocate memory for lists
 		VertexList = new float[VertCount * 3];
@@ -65,17 +66,31 @@ _Collision::_Collision(const SpawnStruct &Object)
 		// Read vertices
 		int VertexIndex = 0;
 		for(int i = 0; i < VertCount; i++) {
-			VertexList[VertexIndex++] = MeshFile.ReadFloat();
-			VertexList[VertexIndex++] = MeshFile.ReadFloat();
-			VertexList[VertexIndex++] = -MeshFile.ReadFloat();
+			float Value;
+			MeshFile.read((char *)&Value, sizeof(Value));
+			VertexList[VertexIndex++] = Value;
+
+			MeshFile.read((char *)&Value, sizeof(Value));
+			VertexList[VertexIndex++] = Value;
+
+			MeshFile.read((char *)&Value, sizeof(Value));
+			VertexList[VertexIndex++] = -Value;
 		}
 
 		// Read faces
 		int FaceIndex = 0;
 		for(int i = 0; i < FaceCount; i++) {
-			FaceList[FaceIndex+2] = MeshFile.ReadInt32();
-			FaceList[FaceIndex+1] = MeshFile.ReadInt32();
-			FaceList[FaceIndex+0] = MeshFile.ReadInt32();
+			int Value;
+
+			MeshFile.read((char *)&Value, sizeof(Value));
+			FaceList[FaceIndex+2] = Value;
+
+			MeshFile.read((char *)&Value, sizeof(Value));
+			FaceList[FaceIndex+1] = Value;
+
+			MeshFile.read((char *)&Value, sizeof(Value));
+			FaceList[FaceIndex+0] = Value;
+
 			FaceIndex += 3;
 		}
 
@@ -93,7 +108,7 @@ _Collision::_Collision(const SpawnStruct &Object)
 
 		RigidBody->setCollisionFlags(RigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
 
-		MeshFile.Close();
+		MeshFile.close();
 	}
 }
 

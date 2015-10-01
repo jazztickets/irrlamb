@@ -27,7 +27,7 @@ struct TemplateStruct {
 	TemplateStruct();
 
 	// Generic properties
-	int TemplateID;
+	int16_t TemplateID;
 	std::string Name;
 	int Type;
 	float Lifetime;

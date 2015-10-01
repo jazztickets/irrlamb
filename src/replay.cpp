@@ -43,9 +43,9 @@ void _Replay::StartRecording() {
 
 	// Create replay file for object data
 	ReplayDataFile = Save.GetReplayPath() + "replay.dat";
-	if(!ReplayStream.OpenForWrite(ReplayDataFile.c_str())) {
+	File.open(ReplayDataFile.c_str(), std::ios::out | std::ios::binary);
+	if(!File.is_open())
 		Log.Write("_Replay::StartRecording - Unable to open %s!", ReplayDataFile.c_str());
-	}
 }
 
 // Stops the recording process
@@ -53,7 +53,7 @@ void _Replay::StopRecording() {
 
 	if(State == STATE_RECORDING) {
 		State = STATE_NONE;
-		ReplayStream.Close();
+		File.close();
 		remove(ReplayDataFile.c_str());
 	}
 }
@@ -65,62 +65,47 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave) {
 	FinishTime = Time;
 
 	// Flush current replay file
-	ReplayStream.Flush();
+	File.flush();
 
 	// Get new file name
 	std::stringstream ReplayFilePath;
 	ReplayFilePath << Save.GetReplayPath() << (uint32_t)TimeStamp << ".replay";
 
 	// Open new file
-	_File ReplayFile;
-	if(!ReplayFile.OpenForWrite(ReplayFilePath.str().c_str())) {
+	std::fstream NewFile(ReplayFilePath.str().c_str(), std::ios::out | std::ios::binary);
+	if(!NewFile) {
 		Log.Write("_Replay::SaveReplay - Unable to open %s for writing!", ReplayFilePath.str().c_str());
 		return false;
 	}
 
 	// Write replay version
-	ReplayFile.WriteChar(PACKET_REPLAYVERSION);
-	ReplayFile.WriteInt32(sizeof(ReplayVersion));
-	ReplayFile.WriteInt32(ReplayVersion);
+	WriteChunk(NewFile, PACKET_REPLAYVERSION, (char *)&ReplayVersion, sizeof(ReplayVersion));
 
 	// Write level version
-	ReplayFile.WriteChar(PACKET_LEVELVERSION);
-	ReplayFile.WriteInt32(sizeof(LevelVersion));
-	ReplayFile.WriteInt32(LevelVersion);
+	WriteChunk(NewFile, PACKET_LEVELVERSION, (char *)&LevelVersion, sizeof(LevelVersion));
 
 	// Write timestep value
-	ReplayFile.WriteChar(PACKET_TIMESTEP);
-	ReplayFile.WriteInt32(sizeof(Game.GetTimeStep()));
-	ReplayFile.WriteFloat(Game.GetTimeStep());
+	WriteChunk(NewFile, PACKET_TIMESTEP, (char *)&Game.GetTimeStep(), sizeof(Game.GetTimeStep()));
 
 	// Write level file
-	ReplayFile.WriteChar(PACKET_LEVELFILE);
-	ReplayFile.WriteInt32(LevelName.length());
-	ReplayFile.WriteString(LevelName.c_str(), LevelName.length());
+	WriteChunk(NewFile, PACKET_LEVELFILE, LevelName.c_str(), LevelName.length());
 
 	// Write player's description of replay
-	ReplayFile.WriteChar(PACKET_DESCRIPTION);
-	ReplayFile.WriteInt32(Description.length());
-	ReplayFile.WriteString(Description.c_str(), Description.length());
+	WriteChunk(NewFile, PACKET_DESCRIPTION, Description.c_str(), Description.length());
 
 	// Write time stamp
-	ReplayFile.WriteChar(PACKET_DATE);
-	ReplayFile.WriteInt32(sizeof(TimeStamp));
-	ReplayFile.WriteInt32(TimeStamp);
+	WriteChunk(NewFile, PACKET_DATE, (char *)&TimeStamp, sizeof(TimeStamp));
 
 	// Write finish time
-	ReplayFile.WriteChar(PACKET_FINISHTIME);
-	ReplayFile.WriteInt32(sizeof(FinishTime));
-	ReplayFile.WriteFloat(FinishTime);
+	WriteChunk(NewFile, PACKET_FINISHTIME, (char *)&FinishTime, sizeof(FinishTime));
 
 	// Write autosave value
-	ReplayFile.WriteChar(PACKET_AUTOSAVE);
-	ReplayFile.WriteInt32(sizeof(Autosave));
-	ReplayFile.WriteChar(Autosave);
+	WriteChunk(NewFile, PACKET_AUTOSAVE, (char *)&Autosave, sizeof(Autosave));
 
 	// Finished with header
-	ReplayFile.WriteChar(PACKET_OBJECTDATA);
-	ReplayFile.WriteInt32(0);
+	NewFile.put(PACKET_OBJECTDATA);
+	size_t Dummy = 0;
+	NewFile.write((char *)&Dummy, sizeof(size_t));
 
 	// Copy current data to new replay file
 	std::ifstream CurrentReplayFile(ReplayDataFile.c_str(), std::ios::in | std::ios::binary);
@@ -130,61 +115,90 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave) {
 		CurrentReplayFile.read(Buffer, 4096);
 		BytesRead = CurrentReplayFile.gcount();
 
-		if(BytesRead) {
-			ReplayFile.WriteData(Buffer, (uint32_t)BytesRead);
-		}
+		if(BytesRead)
+			NewFile.write(Buffer, (uint32_t)BytesRead);
 	}
+
 	CurrentReplayFile.close();
-	ReplayFile.Close();
+	NewFile.close();
 
 	return true;
 }
 
 // Load header data
 void _Replay::LoadHeader() {
+	bool Debug = false;
 
 	// Write replay version
-	int PacketType;
-	int PacketSize;
+	char PacketType;
+	size_t PacketSize;
 	bool Done = false;
 	char Buffer[1024];
-	while(!ReplayStream.Eof() && !Done) {
-		PacketType = ReplayStream.ReadChar();
-		PacketSize = ReplayStream.ReadInt32();
+	while(!File.eof() && !Done) {
+		PacketType = File.get();
+		File.read((char *)&PacketSize, sizeof(PacketSize));
 		switch(PacketType) {
 			case PACKET_REPLAYVERSION:
-				ReplayVersion = ReplayStream.ReadInt32();
+				File.read((char *)&ReplayVersion, PacketSize);
+
+				if(Debug)
+					Log.Write("ReplayVersion=%d, PacketSize=%d", ReplayVersion, PacketSize);
 			break;
 			case PACKET_LEVELVERSION:
-				LevelVersion = ReplayStream.ReadInt32();
+				File.read((char *)&LevelVersion, PacketSize);
+
+				if(Debug)
+					Log.Write("LevelVersion=%d, PacketSize=%d", LevelVersion, PacketSize);
 			break;
 			case PACKET_LEVELFILE:
-				ReplayStream.ReadString(Buffer, PacketSize);
+				File.read(Buffer, PacketSize);
 				Buffer[PacketSize] = 0;
 				LevelName = Buffer;
+
+				if(Debug)
+					Log.Write("LevelName=%s, PacketSize=%d", Buffer, PacketSize);
 			break;
 			case PACKET_DESCRIPTION:
-				ReplayStream.ReadString(Buffer, PacketSize);
+				File.read(Buffer, PacketSize);
 				Buffer[PacketSize] = 0;
 				Description = Buffer;
+
+				if(Debug)
+					Log.Write("Description=%s, PacketSize=%d", Buffer, PacketSize);
 			break;
 			case PACKET_DATE:
-				TimeStamp = ReplayStream.ReadInt32();
+				File.read((char *)&TimeStamp, PacketSize);
+
+				if(Debug)
+					Log.Write("TimeStamp=%d, PacketSize=%d", TimeStamp, PacketSize);
 			break;
 			case PACKET_FINISHTIME:
-				FinishTime = ReplayStream.ReadFloat();
+				File.read((char *)&FinishTime, PacketSize);
+
+				if(Debug)
+					Log.Write("FinishTime=%f, PacketSize=%d", FinishTime, PacketSize);
 			break;
 			case PACKET_AUTOSAVE:
-				Autosave = ReplayStream.ReadChar();
+				Autosave = File.get();
+
+				if(Debug)
+					Log.Write("Autosave=%d, PacketSize=%d", Autosave, PacketSize);
 			break;
 			case PACKET_OBJECTDATA:
 				Done = true;
 			break;
 			default:
-				ReplayStream.ReadString(Buffer, PacketSize);
+				File.ignore(PacketSize);
 			break;
 		}
 	}
+}
+
+// Write a replay chunk
+void _Replay::WriteChunk(std::fstream &OutFile, char Type, const char *Data, size_t Size) {
+   OutFile.put(Type);
+   OutFile.write((char *)&Size, sizeof(Size));
+   OutFile.write(Data, Size);
 }
 
 // Updates the replay timer
@@ -216,7 +230,8 @@ bool _Replay::LoadReplay(const std::string &ReplayFile, bool HeaderOnly) {
 	std::string FilePath = Save.GetReplayPath() + ReplayFile;
 
 	// Open the replay
-	if(!ReplayStream.OpenForRead(FilePath.c_str()))
+	File.open(FilePath.c_str(), std::ios::in | std::ios::binary);
+	if(!File)
 		return false;
 
 	// Read header
@@ -224,7 +239,7 @@ bool _Replay::LoadReplay(const std::string &ReplayFile, bool HeaderOnly) {
 
 	// Read only the header
 	if(HeaderOnly)
-		ReplayStream.Close();
+		File.close();
 
 	return true;
 }
@@ -233,25 +248,23 @@ bool _Replay::LoadReplay(const std::string &ReplayFile, bool HeaderOnly) {
 void _Replay::StopReplay() {
 
 	State = STATE_NONE;
-	ReplayStream.Close();
+	File.close();
 }
 
 // Returns true if the replay is done playing
 bool _Replay::ReplayStopped() {
 
-	return ReplayStream.Eof();
+	return File.eof();
 }
 
 // Write replay event
-void _Replay::WriteEvent(int Type) {
-	ReplayStream.WriteChar(Type);
-	ReplayStream.WriteFloat(Time);
-
-	//printf("WriteEvent Type=%d Time=%f\n", Type, Time);
+void _Replay::WriteEvent(uint8_t Type) {
+	File.put(Type);
+	File.write((char *)&Time, sizeof(Time));
 }
 
 // Reads a packet header
 void _Replay::ReadEvent(ReplayEventStruct &Packet) {
-	Packet.Type = ReplayStream.ReadChar();
-	Packet.TimeStamp = ReplayStream.ReadFloat();
+	Packet.Type = File.get();
+	File.read((char *)&Packet.TimeStamp, sizeof(Packet.TimeStamp));
 }

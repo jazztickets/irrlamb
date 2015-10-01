@@ -18,11 +18,11 @@
 #pragma once
 
 // Libraries
-#include <filestream.h>
+#include <fstream>
 
 // Event packet structure
 struct ReplayEventStruct {
-	int Type;
+	uint8_t Type;
 	float TimeStamp;
 };
 
@@ -76,8 +76,8 @@ class _Replay {
 		bool NeedsPacket();
 		void ResetNextPacketTimer();
 
-		_File &GetReplayStream() { return ReplayStream; }
-		void WriteEvent(int Type);
+		std::fstream &GetFile() { return File; }
+		void WriteEvent(uint8_t Type);
 		void ReadEvent(ReplayEventStruct &Packet);
 
 		const std::string &GetLevelName() { return LevelName; }
@@ -89,6 +89,7 @@ class _Replay {
 	private:
 
 		void LoadHeader();
+		void WriteChunk(std::fstream &OutFile, char Type, const char *Data, size_t Size);
 
 		// Header
 		int32_t ReplayVersion;
@@ -103,7 +104,7 @@ class _Replay {
 		std::string ReplayDataFile;
 
 		// File stream
-		_File ReplayStream;
+		std::fstream File;
 
 		// Time management
 		float Time, NextPacketTime;

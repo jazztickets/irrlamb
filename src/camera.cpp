@@ -116,9 +116,9 @@ void _Camera::RecordReplay() {
 		MovementChanged = false;
 
 		// Write replay information
-		_File &ReplayStream = Replay.GetReplayStream();
+		std::fstream &ReplayFile = Replay.GetFile();
 		Replay.WriteEvent(_Replay::PACKET_CAMERA);
-		ReplayStream.WriteData((void *)&Node->getPosition(), sizeof(core::vector3df));
-		ReplayStream.WriteData((void *)&Node->getTarget(), sizeof(core::vector3df));
+		ReplayFile.write((char *)&Node->getPosition(), sizeof(core::vector3df));
+		ReplayFile.write((char *)&Node->getTarget(), sizeof(core::vector3df));
 	}
 }

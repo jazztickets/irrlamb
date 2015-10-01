@@ -27,7 +27,6 @@
 #include <physics.h>
 #include <input.h>
 #include <audio.h>
-#include <filestream.h>
 #include <config.h>
 #include <objects/template.h>
 #include <objects/player.h>
@@ -591,12 +590,12 @@ _Object *_Level::CreateObject(const SpawnStruct &Object) {
 	if(Replay.IsRecording() && Object.Template->TemplateID != -1) {
 
 		// Write replay information
-		_File &ReplayStream = Replay.GetReplayStream();
+		std::fstream &ReplayFile = Replay.GetFile();
 		Replay.WriteEvent(_Replay::PACKET_CREATE);
-		ReplayStream.WriteInt16(Object.Template->TemplateID);
-		ReplayStream.WriteInt16(NewObject->GetID());
-		ReplayStream.WriteData((void *)&Object.Position, sizeof(btScalar) * 3);
-		ReplayStream.WriteData((void *)&Object.Rotation, sizeof(btScalar) * 3);
+		ReplayFile.write((char *)&Object.Template->TemplateID, sizeof(Object.Template->TemplateID));
+		ReplayFile.write((char *)&NewObject->GetID(), sizeof(NewObject->GetID()));
+		ReplayFile.write((char *)&Object.Position, sizeof(btScalar) * 3);
+		ReplayFile.write((char *)&Object.Rotation, sizeof(btScalar) * 3);
 	}
 
 	return NewObject;
