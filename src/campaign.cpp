@@ -87,9 +87,9 @@ int _Campaign::Close() {
 }
 
 // Get next level or 1st level in next campaign, return false if no next level
-bool _Campaign::GetNextLevel(unsigned int &Campaign, unsigned int &Level, bool Update) {
-	unsigned int NewCampaign = Campaign;
-	unsigned int NewLevel = Level;
+bool _Campaign::GetNextLevel(uint32_t &Campaign, uint32_t &Level, bool Update) {
+	uint32_t NewCampaign = Campaign;
+	uint32_t NewLevel = Level;
 	if(NewCampaign >= Campaigns.size())
 	   return false;
 

@@ -38,17 +38,17 @@ class _File {
 		void WriteInt(int Data) { File.write(reinterpret_cast<char *>(&Data), sizeof(Data)); }
 		void WriteShortInt(short int Data) { File.write(reinterpret_cast<char *>(&Data), sizeof(Data)); }
 		void WriteFloat(float Data) { File.write(reinterpret_cast<char *>(&Data), sizeof(Data)); }
-		void WriteData(void *Data, unsigned int Size) { File.write(reinterpret_cast<char *>(Data), Size); }
+		void WriteData(void *Data, uint32_t Size) { File.write(reinterpret_cast<char *>(Data), Size); }
 		void WriteString(const char *Data);
-		void WriteString(const char *Data, unsigned int Size) { File.write(Data, Size); }
+		void WriteString(const char *Data, uint32_t Size) { File.write(Data, Size); }
 
 		unsigned char ReadChar() { return File.get(); }
 		int ReadInt();
 		short int ReadShortInt();
 		float ReadFloat();
-		void ReadData(void *Data, unsigned int Size) { File.read(reinterpret_cast<char *>(Data), Size); }
+		void ReadData(void *Data, uint32_t Size) { File.read(reinterpret_cast<char *>(Data), Size); }
 		void ReadString(char *Data);
-		void ReadString(char *Data, unsigned int Size) { File.read(reinterpret_cast<char *>(Data), Size); }
+		void ReadString(char *Data, uint32_t Size) { File.read(reinterpret_cast<char *>(Data), Size); }
 
 	private:
 

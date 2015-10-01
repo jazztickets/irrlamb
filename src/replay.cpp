@@ -69,7 +69,7 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription) {
 
 	// Get new file name
 	std::stringstream ReplayFilePath;
-	ReplayFilePath << Save.GetReplayPath() << (unsigned int)TimeStamp << ".replay";
+	ReplayFilePath << Save.GetReplayPath() << (uint32_t)TimeStamp << ".replay";
 
 	// Open new file
 	_File ReplayFile;
@@ -127,7 +127,7 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription) {
 
 		if(BytesRead) {
 			//printf("BytesRead=%d\n", BytesRead);
-			ReplayFile.WriteData(Buffer, (unsigned int)BytesRead);
+			ReplayFile.WriteData(Buffer, (uint32_t)BytesRead);
 		}
 	}
 	CurrentReplayFile.close();
