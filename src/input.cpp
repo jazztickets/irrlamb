@@ -186,7 +186,7 @@ void _Input::InitializeJoysticks(bool ShowLog) {
 
 	// Check to see if the real device has been made yet
 	IrrlichtDevice *Device = irrDevice;
-	if(Device == NULL) {
+	if(Device == nullptr) {
 		SIrrlichtCreationParameters Parameters;
 		Parameters.DriverType = video::EDT_NULL;
 		Parameters.LoggingLevel = ELL_ERROR;
@@ -219,7 +219,7 @@ void _Input::InitializeJoysticks(bool ShowLog) {
 	}
 
 	// Drop the temporary device
-	if(irrDevice == NULL)
+	if(irrDevice == nullptr)
 		Device->drop();
 }
 

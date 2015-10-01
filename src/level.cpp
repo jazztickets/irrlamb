@@ -520,7 +520,7 @@ int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, SpawnStruct &Obj
 
 	// Get template data
 	TemplateStruct *Template = GetTemplate(TemplateName);
-	if(Template == NULL) {
+	if(Template == nullptr) {
 		Log.Write("Cannot find template %s", TemplateName.c_str());
 		return 0;
 	}
@@ -558,7 +558,7 @@ void _Level::SpawnObjects() {
 _Object *_Level::CreateObject(const SpawnStruct &Object) {
 
 	// Add object
-	_Object *NewObject = NULL;
+	_Object *NewObject = nullptr;
 	switch(Object.Template->Type) {
 		case _Object::PLAYER:
 			NewObject = ObjectManager.AddObject(new _Player(Object));
@@ -620,7 +620,7 @@ TemplateStruct *_Level::GetTemplate(const std::string &Name) {
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 // Gets a template by name
@@ -633,7 +633,7 @@ TemplateStruct *_Level::GetTemplateFromID(int ID) {
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 // Runs the level's scripts

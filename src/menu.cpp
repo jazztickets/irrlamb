@@ -183,7 +183,7 @@ bool _Menu::HandleKeyPress(int Key) {
 			}
 		break;
 		case STATE_CONTROLS:
-			if(KeyButton != NULL) {
+			if(KeyButton != nullptr) {
 				core::stringw KeyName = Input.GetKeyName(Key);
 
 				// Assign the key
@@ -211,7 +211,7 @@ bool _Menu::HandleKeyPress(int Key) {
 				else
 					KeyButton->setText(KeyButtonOldText.c_str());
 
-				KeyButton = NULL;
+				KeyButton = nullptr;
 			}
 		break;
 		case STATE_SAVEREPLAY:
@@ -300,7 +300,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 
 					// Save the video mode
 					gui::IGUIComboBox *VideoModes = static_cast<gui::IGUIComboBox *>(CurrentLayout->getElementFromId(VIDEO_VIDEOMODES));
-					if(VideoModes != NULL) {
+					if(VideoModes != nullptr) {
 						VideoModeStruct Mode = Graphics.GetVideoModes()[VideoModes->getSelected()];
 						Config.ScreenWidth = Mode.Width;
 						Config.ScreenHeight = Mode.Height;
@@ -316,7 +316,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 
 					// Save the anisotropy
 					gui::IGUIComboBox *Anisotropy = static_cast<gui::IGUIComboBox *>(CurrentLayout->getElementFromId(VIDEO_ANISOTROPY));
-					if(Anisotropy != NULL) {
+					if(Anisotropy != nullptr) {
 						if(Anisotropy->getSelected() == 0)
 							Config.AnisotropicFiltering = 0;
 						else
@@ -325,7 +325,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 
 					// Save the antialiasing
 					gui::IGUIComboBox *Antialiasing = static_cast<gui::IGUIComboBox *>(CurrentLayout->getElementFromId(VIDEO_ANTIALIASING));
-					if(Antialiasing != NULL) {
+					if(Antialiasing != nullptr) {
 						if(Antialiasing->getSelected() == 0)
 							Config.AntiAliasing = 0;
 						else
@@ -380,7 +380,6 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 				case CONTROLS_SAVE: {
 
 					// Write config
-
 					for(int i = 0; i <= _Actions::RESET; i++) {
 						Actions.ClearMappingsForAction(_Input::KEYBOARD, KeyMapOrder[i]);
 						Actions.AddInputMap(_Input::KEYBOARD, CurrentKeys[KeyMapOrder[i]], KeyMapOrder[i], 1.0f, -1.0f, false);
@@ -853,7 +852,7 @@ void _Menu::InitControls() {
 
 	// Create the key buttons
 	Y = Interface.GetCenterY() - TITLE_Y + TITLE_SPACING - 40;
-	KeyButton = NULL;
+	KeyButton = nullptr;
 	for(int i = 0; i <= _Actions::RESET; i++) {
 
 		CurrentKeys[KeyMapOrder[i]] = Actions.GetInputForAction(_Input::KEYBOARD, KeyMapOrder[i]);
@@ -995,7 +994,7 @@ void _Menu::InitWin() {
 void _Menu::SaveReplay() {
 
 	gui::IGUIEditBox *EditName = static_cast<gui::IGUIEditBox *>(CurrentLayout->getElementFromId(SAVEREPLAY_NAME));
-	if(EditName != NULL) {
+	if(EditName != nullptr) {
 		irr::core::stringc ReplayTitle(EditName->getText());
 		Replay.SaveReplay(ReplayTitle.c_str());
 	}
@@ -1261,7 +1260,7 @@ void _Menu::DrawLoseScreen() {
 // Cancels the key bind state
 void _Menu::CancelKeyBind() {
 	KeyButton->setText(KeyButtonOldText.c_str());
-	KeyButton = NULL;
+	KeyButton = nullptr;
 }
 
 // Launchs a level

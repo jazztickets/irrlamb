@@ -137,7 +137,7 @@ void _PlayState::ResetLevel() {
 
 	// Get the player
 	Player = static_cast<_Player *>(ObjectManager.GetObjectByType(_Object::PLAYER));
-	if(Player == NULL) {
+	if(Player == nullptr) {
 		Log.Write("_PlayState::ResetLevel - Cannot find player object");
 		return;
 	}

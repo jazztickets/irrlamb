@@ -35,7 +35,7 @@ int _Save::Init() {
 	#ifdef _WIN32
 		//SavePath = "saves/";
 		SavePath = std::string(getenv("APPDATA")) + "/irrlamb/";
-		CreateDirectory(SavePath.c_str(), NULL);
+		CreateDirectory(SavePath.c_str(), nullptr);
 	#else
 		SavePath = std::string(getenv("HOME")) + std::string("/.local/");
 		mkdir(SavePath.c_str(), 0755);
@@ -55,10 +55,10 @@ int _Save::Init() {
 
 	// Create directories
 	#ifdef _WIN32
-		CreateDirectory(SavePath.c_str(), NULL);
-		CreateDirectory(ReplayPath.c_str(), NULL);
-		CreateDirectory(ScreenshotsPath.c_str(), NULL);
-		CreateDirectory(CustomLevelsPath.c_str(), NULL);
+		CreateDirectory(SavePath.c_str(), nullptr);
+		CreateDirectory(ReplayPath.c_str(), nullptr);
+		CreateDirectory(ScreenshotsPath.c_str(), nullptr);
+		CreateDirectory(CustomLevelsPath.c_str(), nullptr);
 	#else
 		mkdir(SavePath.c_str(), S_IRWXU | S_IXGRP | S_IRGRP | S_IXOTH | S_IROTH);
 		mkdir(ReplayPath.c_str(), S_IRWXU | S_IXGRP | S_IRGRP | S_IXOTH | S_IROTH);
@@ -266,7 +266,7 @@ int _Save::AddScore(const std::string &Level, float Time) {
 
 	// Insert high score
 	if(InsertIndex != -1) {
-		Stats.HighScores.insert(Stats.HighScores.begin() + InsertIndex, HighScoreStruct(Time, (int)time(NULL)));
+		Stats.HighScores.insert(Stats.HighScores.begin() + InsertIndex, HighScoreStruct(Time, (int)time(nullptr)));
 
 		// Cut off old scores
 		int ExcessScores = Stats.HighScores.size() - STATS_MAXSCORES;

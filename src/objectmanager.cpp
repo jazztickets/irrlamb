@@ -50,7 +50,7 @@ int _ObjectManager::Close() {
 // Adds an object to the manager
 _Object *_ObjectManager::AddObject(_Object *Object) {
 
-	if(Object != NULL) {
+	if(Object != nullptr) {
 
 		// Set replay ID
 		Object->SetID(NextObjectID);
@@ -77,7 +77,7 @@ _Object *_ObjectManager::GetObjectByName(const std::string &Name) {
 			return Iterator;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 // Gets an object by type
@@ -89,7 +89,7 @@ _Object *_ObjectManager::GetObjectByType(int Type) {
 			return Iterator;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 // Deletes all of the objects
@@ -100,7 +100,7 @@ void _ObjectManager::ClearObjects() {
 		_Object *Object = *Iterator;
 		if(Object->GetType() == _Object::CONSTRAINT_D6 || Object->GetType() == _Object::CONSTRAINT_HINGE) {
 			delete Object;
-			Object = NULL;
+			Object = nullptr;
 			Iterator = Objects.erase(Iterator);
 		}
 		else
@@ -241,7 +241,7 @@ void _ObjectManager::UpdateFromReplay() {
 	//printf("ObjectIndex=%d\n", ObjectIndex);
 }
 
-// Returns an object by an index, NULL if no such index
+// Returns an object by an index, nullptr if no such index
 _Object *_ObjectManager::GetObjectByID(int ID) {
 
 	for(auto &Iterator : Objects) {

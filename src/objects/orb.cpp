@@ -33,8 +33,8 @@ using namespace irr;
 // Constructor
 _Orb::_Orb(const SpawnStruct &Object)
 :	_Object(),
-	Light(NULL),
-	Sound(NULL),
+	Light(nullptr),
+	Sound(nullptr),
 	DeactivationCallback(""),
 	State(ORBSTATE_NORMAL),
 	OrbTime(0.0f),
@@ -183,7 +183,7 @@ void _Orb::UpdateDeactivation(float FrameTime) {
 		case ORBSTATE_DEACTIVATED:
 			if(Light) {
 				Light->remove();
-				Light = NULL;
+				Light = nullptr;
 				Graphics.SetLightCount();
 			}
 		break;

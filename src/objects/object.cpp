@@ -33,8 +33,8 @@ _Object::_Object()
 	Deleted(false),
 	Timer(0.0f),
 	Lifetime(0.0f),
-	Node(NULL),
-	RigidBody(NULL),
+	Node(nullptr),
+	RigidBody(nullptr),
 	NeedsReplayPacket(false),
 	TouchingGround(false),
 	TouchingWall(false) {

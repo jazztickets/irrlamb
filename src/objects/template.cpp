@@ -69,12 +69,12 @@ SpawnStruct::SpawnStruct() {
 	Name = "";
 	Position.setValue(0.0f, 0.0f, 0.0f);
 	Rotation.setValue(0.0f, 0.0f, 0.0f);
-	Template = NULL;
+	Template = nullptr;
 }
 
 ConstraintStruct::ConstraintStruct() {
 	Name = "";
-	BodyA = NULL;
-	BodyB = NULL;
-	Template = NULL;
+	BodyA = nullptr;
+	BodyB = nullptr;
+	Template = nullptr;
 }

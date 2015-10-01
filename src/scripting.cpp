@@ -39,7 +39,7 @@ static std::mt19937 RandomGenerator(0);
 luaL_Reg _Scripting::CameraFunctions[] = {
 	{"SetYaw", &_Scripting::CameraSetYaw},
 	{"SetPitch", &_Scripting::CameraSetPitch},
-	{NULL, NULL}
+	{nullptr, nullptr}
 };
 
 // Functions for creating objects
@@ -52,13 +52,13 @@ luaL_Reg _Scripting::ObjectFunctions[] = {
 	{"SetAngularVelocity", &_Scripting::ObjectSetAngularVelocity},
 	{"SetLifetime", &_Scripting::ObjectSetLifetime},
 	{"Delete", &_Scripting::ObjectDelete},
-	{NULL, NULL}
+	{nullptr, nullptr}
 };
 
 // Functions for manipulating orbs
 luaL_Reg _Scripting::OrbFunctions[] = {
 	{"Deactivate", &_Scripting::OrbDeactivate},
-	{NULL, NULL}
+	{nullptr, nullptr}
 };
 
 
@@ -66,7 +66,7 @@ luaL_Reg _Scripting::OrbFunctions[] = {
 luaL_Reg _Scripting::TimerFunctions[] = {
 	{"Stamp", &_Scripting::TimerStamp},
 	{"DelayedFunction", &_Scripting::TimerDelayedFunction},
-	{NULL, NULL}
+	{nullptr, nullptr}
 };
 
 // Functions for changing levels
@@ -77,19 +77,19 @@ luaL_Reg _Scripting::LevelFunctions[] = {
 	{"CreateObject", &_Scripting::LevelCreateObject},
 	{"CreateConstraint", &_Scripting::LevelCreateConstraint},
 	{"CreateSpring", &_Scripting::LevelCreateSpring},
-	{NULL, NULL}
+	{nullptr, nullptr}
 };
 
 // Functions for the GUI
 luaL_Reg _Scripting::GUIFunctions[] = {
 	{"TutorialText", &_Scripting::GUITutorialText},
-	{NULL, NULL}
+	{nullptr, nullptr}
 };
 
 // Functions for audio
 luaL_Reg _Scripting::AudioFunctions[] = {
 	{"Play", &_Scripting::AudioPlay},
-	{NULL, NULL}
+	{nullptr, nullptr}
 };
 
 // Functions for random number generation
@@ -97,13 +97,13 @@ luaL_Reg _Scripting::RandomFunctions[] = {
 	{"Seed", &_Scripting::RandomSeed},
 	{"GetFloat", &_Scripting::RandomGetFloat},
 	{"GetInt", &_Scripting::RandomGetInt},
-	{NULL, NULL}
+	{nullptr, nullptr}
 };
 
 // Functions for manipulating zones
 luaL_Reg _Scripting::ZoneFunctions[] = {
 
-	{NULL, NULL}
+	{nullptr, nullptr}
 };
 
 // Lua library functions
@@ -154,7 +154,7 @@ int luaopen_Zone(lua_State *State) {
 
 // Constructor
 _Scripting::_Scripting()
-:	LuaObject(NULL) {
+:	LuaObject(nullptr) {
 
 }
 
@@ -171,7 +171,7 @@ int _Scripting::Init() {
 int _Scripting::Close() {
 
 	// Close old lua state
-	if(LuaObject != NULL)
+	if(LuaObject != nullptr)
 		lua_close(LuaObject);
 
 	return 1;
@@ -181,7 +181,7 @@ int _Scripting::Close() {
 void _Scripting::Reset() {
 
 	// Close old lua state
-	if(LuaObject != NULL)
+	if(LuaObject != nullptr)
 		lua_close(LuaObject);
 
 	// Initialize Lua object
@@ -383,7 +383,7 @@ int _Scripting::ObjectGetName(lua_State *LuaObject) {
 
 	_Object *Object = (_Object *)(lua_touserdata(LuaObject, 1));
 
-	if(Object != NULL)
+	if(Object != nullptr)
 		lua_pushstring(LuaObject, Object->GetName().c_str());
 
 	return 1;
@@ -403,7 +403,7 @@ int _Scripting::ObjectSetPosition(lua_State *LuaObject) {
 	float PositionZ = (float)lua_tonumber(LuaObject, 4);
 
 	// Set position
-	if(Object != NULL)
+	if(Object != nullptr)
 		Object->SetPosition(btVector3(PositionX, PositionY, PositionZ));
 
 	return 0;
@@ -418,7 +418,7 @@ int _Scripting::ObjectGetPosition(lua_State *LuaObject) {
 
 	// Get object
 	_Object *Object = (_Object *)(lua_touserdata(LuaObject, 1));
-	if(Object == NULL)
+	if(Object == nullptr)
 		return 0;
 
 	// Send position to Lua
@@ -441,7 +441,7 @@ int _Scripting::ObjectSetLifetime(lua_State *LuaObject) {
 	float Lifetime = (float)lua_tonumber(LuaObject, 2);
 
 	// Set lifetime
-	if(Object != NULL)
+	if(Object != nullptr)
 		Object->SetLifetime(Lifetime);
 
 	return 0;
@@ -456,7 +456,7 @@ int _Scripting::ObjectStop(lua_State *LuaObject) {
 
 	// Stop object
 	_Object *Object = (_Object *)(lua_touserdata(LuaObject, 1));
-	if(Object != NULL)
+	if(Object != nullptr)
 		Object->Stop();
 
 	return 0;
@@ -475,7 +475,7 @@ int _Scripting::ObjectSetAngularVelocity(lua_State *LuaObject) {
 	float Y = (float)lua_tonumber(LuaObject, 3);
 	float Z = (float)lua_tonumber(LuaObject, 4);
 
-	if(Object != NULL)
+	if(Object != nullptr)
 		Object->SetAngularVelocity(btVector3(X, Y, Z));
 
 	return 0;
@@ -490,7 +490,7 @@ int _Scripting::ObjectDelete(lua_State *LuaObject) {
 
 	// Delete object
 	_Object *Object = (_Object *)(lua_touserdata(LuaObject, 1));
-	if(Object != NULL)
+	if(Object != nullptr)
 		ObjectManager.DeleteObject(Object);
 
 	return 0;
@@ -509,7 +509,7 @@ int _Scripting::OrbDeactivate(lua_State *LuaObject) {
 	float Time = (float)lua_tonumber(LuaObject, 3);
 
 	// Deactivate orb
-	if(Orb != NULL && Orb->IsStillActive()) {
+	if(Orb != nullptr && Orb->IsStillActive()) {
 		Orb->StartDeactivation(FunctionName, Time);
 	}
 

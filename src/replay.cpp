@@ -61,7 +61,7 @@ void _Replay::StopRecording() {
 // Saves the current replay out to a file
 bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave) {
 	Description = PlayerDescription;
-	TimeStamp = time(NULL);
+	TimeStamp = time(nullptr);
 	FinishTime = Time;
 
 	// Flush current replay file

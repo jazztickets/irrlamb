@@ -45,7 +45,7 @@ int _ViewReplayState::Init() {
 	Menu.ClearCurrentLayout();
 	Layout = new CGUIEmptyElement(irrGUI, irrGUI->getRootGUIElement());
 	Layout->drop();
-	Camera = NULL;
+	Camera = nullptr;
 
 	// Set up state
 	PauseSpeed = 1.0f;
@@ -214,7 +214,7 @@ void _ViewReplayState::Update(float FrameTime) {
 
 				// Create spawn object
 				Spawn.Template = Level.GetTemplateFromID(TemplateID);
-				if(Spawn.Template != NULL) {
+				if(Spawn.Template != nullptr) {
 					_Object *NewObject = Level.CreateObject(Spawn);
 					NewObject->SetID(ObjectID);
 				}

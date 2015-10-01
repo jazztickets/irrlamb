@@ -24,8 +24,8 @@
 
 // Constructor
 _SpringJoint::_SpringJoint(const SpawnStruct &Object)
-:	BodyA(NULL),
-	BodyB(NULL) {
+:	BodyA(nullptr),
+	BodyB(nullptr) {
 
 	// Attributes
 	if(Physics.IsEnabled()) {

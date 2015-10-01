@@ -43,10 +43,10 @@ static bool CustomMaterialCallback(btManifoldPoint &ManifoldPoint, const btColli
 // Constructor
 _Collision::_Collision(const SpawnStruct &Object)
 :	_Object(),
-	TriangleIndexVertexArray(NULL),
-	TriangleInfoMap(NULL),
-	VertexList(NULL),
-	FaceList(NULL) {
+	TriangleIndexVertexArray(nullptr),
+	TriangleInfoMap(nullptr),
+	VertexList(nullptr),
+	FaceList(nullptr) {
 
 	gContactAddedCallback = CustomMaterialCallback;
 

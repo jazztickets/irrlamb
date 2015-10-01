@@ -22,10 +22,10 @@
 
 // Constructor
 _Database::_Database()
-:	Database(NULL) {
+:	Database(nullptr) {
 
-	QueryHandle[0] = NULL;
-	QueryHandle[1] = NULL;
+	QueryHandle[0] = nullptr;
+	QueryHandle[1] = nullptr;
 }
 
 // Destructor
@@ -40,7 +40,7 @@ _Database::~_Database() {
 int _Database::OpenDatabase(const char *Filename) {
 
 	// Open database file
-	int Result = sqlite3_open_v2(Filename, &Database, SQLITE_OPEN_READWRITE, NULL);
+	int Result = sqlite3_open_v2(Filename, &Database, SQLITE_OPEN_READWRITE, nullptr);
 	if(Result != SQLITE_OK) {
 		Log.Write("_Database::OpenDatabase - %s", sqlite3_errmsg(Database));
 		sqlite3_close(Database);
@@ -55,7 +55,7 @@ int _Database::OpenDatabase(const char *Filename) {
 int _Database::OpenDatabaseCreate(const char *Filename) {
 
 	// Open database file
-	int Result = sqlite3_open_v2(Filename, &Database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL);
+	int Result = sqlite3_open_v2(Filename, &Database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, nullptr);
 	if(Result != SQLITE_OK) {
 		Log.Write("_Database::OpenDatabaseCreate - %s", sqlite3_errmsg(Database));
 		sqlite3_close(Database);
@@ -94,7 +94,7 @@ int _Database::RunQuery(const char *QueryString) {
 
 // Runs a query that returns data
 int _Database::RunDataQuery(const char *QueryString, int Handle) {
-	assert(QueryHandle[Handle] == NULL);
+	assert(QueryHandle[Handle] == nullptr);
 
 	const char *Tail;
 	int Result = sqlite3_prepare_v2(Database, QueryString, strlen(QueryString), &QueryHandle[Handle], &Tail);
@@ -143,7 +143,7 @@ int _Database::CloseQuery(int Handle) {
 		Log.Write("_Database::CloseQuery - %s", sqlite3_errmsg(Database));
 		return 0;
 	}
-	QueryHandle[Handle] = NULL;
+	QueryHandle[Handle] = nullptr;
 
 	return 1;
 }

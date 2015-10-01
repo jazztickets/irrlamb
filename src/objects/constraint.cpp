@@ -24,7 +24,7 @@
 // Constructor
 _Constraint::_Constraint(const ConstraintStruct &Object)
 :	_Object(),
-	Constraint(NULL) {
+	Constraint(nullptr) {
 
 	TemplateStruct *Template = Object.Template;
 

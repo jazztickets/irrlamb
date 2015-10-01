@@ -164,7 +164,7 @@ int _Game::Init(int Count, char **Arguments) {
 
 	// Set the first state
 	State = FirstState;
-	NewState = NULL;
+	NewState = nullptr;
 	ManagerState = STATE_INIT;
 	Fader.Start(FADE_SPEED);
 

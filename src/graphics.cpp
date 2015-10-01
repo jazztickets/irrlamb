@@ -52,7 +52,7 @@ int _Graphics::Init(int Width, int Height, bool Fullscreen, video::E_DRIVER_TYPE
 
 	// Create the irrlicht device
 	irrDevice = createDeviceEx(Parameters);
-	if(irrDevice == NULL)
+	if(irrDevice == nullptr)
 		return 0;
 
 	irrDevice->setWindowCaption(L"irrlamb");

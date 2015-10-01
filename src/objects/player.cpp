@@ -39,9 +39,9 @@ using namespace irr;
 // Constructor
 _Player::_Player(const SpawnStruct &Object)
 :	_Object(),
-	Camera(NULL),
-	Light(NULL),
-	Sound(NULL),
+	Camera(nullptr),
+	Light(nullptr),
+	Sound(nullptr),
 	JumpTimer(0.0f),
 	TorqueFactor(4.0f) {
 

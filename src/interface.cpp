@@ -87,9 +87,9 @@ int _Interface::Init() {
 	Images[IMAGE_DECREASE] = irrDriver->getTexture("art/button_dec.png");
 	Images[IMAGE_SELECTED] = irrDriver->getTexture("art/selected.png");
 
-	// Set sounds to NULL
+	// Set sounds to nullptr
 	for(int i = 0; i < SOUND_COUNT; i++)
-		Sounds[i] = NULL;
+		Sounds[i] = nullptr;
 
 	// Set up skins
 	ChangeSkin(SKIN_MENU);
@@ -149,7 +149,7 @@ void _Interface::ChangeSkin(SkinType Type) {
 void _Interface::Clear() {
 	if(TutorialText.Text) {
 		TutorialText.Text->remove();
-		TutorialText.Text = NULL;
+		TutorialText.Text = nullptr;
 	}
 	Timer = 0.0f;
 }
@@ -158,7 +158,7 @@ void _Interface::Clear() {
 void _Interface::SetTutorialText(const std::string &Text, float Length) {
 	if(TutorialText.Text) {
 		TutorialText.Text->remove();
-		TutorialText.Text = NULL;
+		TutorialText.Text = nullptr;
 	}
 
 	TutorialText.Text = irrGUI->addStaticText(core::stringw(Text.c_str()).c_str(), GetCenteredRect(TutorialText.MessageX, TutorialText.MessageY, MESSAGE_WIDTH - MESSAGE_PADDING, MESSAGE_HEIGHT), false, true);
@@ -173,7 +173,7 @@ void _Interface::Update(float FrameTime) {
 	if(TutorialText.Text) {
 		if(Timer >= TutorialText.DeleteTime) {
 			TutorialText.Text->remove();
-			TutorialText.Text = NULL;
+			TutorialText.Text = nullptr;
 		}
 	}
 }
@@ -318,7 +318,7 @@ void _Interface::UnloadSounds() {
 
 	for(int i = 0; i < SOUND_COUNT; i++) {
 		delete Sounds[i];
-		Sounds[i] = NULL;
+		Sounds[i] = nullptr;
 	}
 }
 

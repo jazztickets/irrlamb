@@ -35,18 +35,18 @@ int _Audio::Init(bool Enabled) {
 
 	// Create device
 	#ifdef _WIN32
-		ALCdevice *Device = alcOpenDevice(NULL);
+		ALCdevice *Device = alcOpenDevice(nullptr);
 	#else
-		ALCdevice *Device = alcOpenDevice(NULL);
+		ALCdevice *Device = alcOpenDevice(nullptr);
 	#endif
-	if(Device == NULL) {
+	if(Device == nullptr) {
 		Log.Write("_Audio::Init - Unable to create audio device");
 		Enabled = false;
 		return 0;
 	}
 
 	// Create context
-	ALCcontext *Context = alcCreateContext(Device, NULL);
+	ALCcontext *Context = alcCreateContext(Device, nullptr);
 
 	// Set active context
 	alcMakeContextCurrent(Context);
@@ -77,7 +77,7 @@ int _Audio::Close() {
 	ALCdevice *Device = alcGetContextsDevice(Context);
 
 	// Disable context
-	alcMakeContextCurrent(NULL);
+	alcMakeContextCurrent(nullptr);
 
 	// Free context
 	alcDestroyContext(Context);
@@ -205,7 +205,7 @@ void _Audio::Play(_AudioSource *AudioSource, float X, float Y, float Z) {
 // Get a loaded buffer
 const AudioBufferStruct *_Audio::GetBuffer(const std::string &File) {
 	if(!Enabled)
-		return NULL;
+		return nullptr;
 
 	// Get path
 	std::string Path = std::string("sounds/") + File;
@@ -213,7 +213,7 @@ const AudioBufferStruct *_Audio::GetBuffer(const std::string &File) {
 	// Find buffer in map
 	auto BuffersIterator = Buffers.find(Path);
 	if(BuffersIterator == Buffers.end())
-		return NULL;
+		return nullptr;
 
 	return &BuffersIterator->second;
 }

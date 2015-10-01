@@ -27,6 +27,7 @@
 // Forward Declarations
 struct SaveLevelStruct;
 
+// Replay info struct
 struct _ReplayInfo {
 	std::string Filename;
 	std::string LevelNiceName;
