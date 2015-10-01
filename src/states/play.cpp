@@ -387,7 +387,11 @@ void _PlayState::WinLevel() {
 		Save.IncrementLevelWinCount(Level.GetLevelName());
 
 		// Add high score
-		Save.AddScore(Level.GetLevelName(), PlayState.Timer);
+		int InsertIndex = Save.AddScore(Level.GetLevelName(), PlayState.Timer);
+
+		// Autosave replays for new records
+		if(InsertIndex == 0)
+			Replay.SaveReplay(std::string("New record for ") + Level.GetLevelNiceName(), true);
 
 		// Unlock next level
 		uint32_t NewCampaign = PlayState.CurrentCampaign;

@@ -207,8 +207,8 @@ void _ViewReplayState::Update(float FrameTime) {
 
 				// Read replay
 				_File &ReplayStream = Replay.GetReplayStream();
-				int TemplateID = ReplayStream.ReadShortInt();
-				int ObjectID = ReplayStream.ReadShortInt();
+				int TemplateID = ReplayStream.ReadInt16();
+				int ObjectID = ReplayStream.ReadInt16();
 				ReplayStream.ReadData(Spawn.Position, sizeof(btScalar) * 3);
 				ReplayStream.ReadData(Spawn.Rotation, sizeof(btScalar) * 3);
 
@@ -227,7 +227,7 @@ void _ViewReplayState::Update(float FrameTime) {
 
 				// Read replay
 				_File &ReplayStream = Replay.GetReplayStream();
-				int ObjectID = ReplayStream.ReadShortInt();
+				int ObjectID = ReplayStream.ReadInt16();
 
 				// Delete object
 				ObjectManager.DeleteObjectByID(ObjectID);
@@ -253,7 +253,7 @@ void _ViewReplayState::Update(float FrameTime) {
 
 				// Read replay
 				_File &ReplayStream = Replay.GetReplayStream();
-				int ObjectID = ReplayStream.ReadShortInt();
+				int ObjectID = ReplayStream.ReadInt16();
 				float Length = ReplayStream.ReadFloat();
 
 				// Deactivate orb

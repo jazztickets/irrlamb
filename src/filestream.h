@@ -19,7 +19,7 @@
 
 // Libraries
 #include <fstream>
-#include <stddef.h>
+#include <cstddef>
 
 // Classes
 class _File {
@@ -30,24 +30,22 @@ class _File {
 		int OpenForRead(const char *Filename);
 		void Clear() { File.clear(); }
 		void Close() { File.close(); File.clear(); }
-		bool Eof() { return File.eof(); }
+		bool Eof() { return File.eof() || File.peek() == EOF; }
 		void Flush() { File.flush(); }
 		void Ignore(size_t Size) { File.ignore(Size); }
 
-		void WriteChar(unsigned char Data) { File.put(Data); }
-		void WriteInt(int Data) { File.write(reinterpret_cast<char *>(&Data), sizeof(Data)); }
-		void WriteShortInt(short int Data) { File.write(reinterpret_cast<char *>(&Data), sizeof(Data)); }
+		void WriteChar(uint8_t Data) { File.put(Data); }
+		void WriteInt32(int32_t Data) { File.write(reinterpret_cast<char *>(&Data), sizeof(Data)); }
+		void WriteInt16(int16_t Data) { File.write(reinterpret_cast<char *>(&Data), sizeof(Data)); }
 		void WriteFloat(float Data) { File.write(reinterpret_cast<char *>(&Data), sizeof(Data)); }
 		void WriteData(void *Data, uint32_t Size) { File.write(reinterpret_cast<char *>(Data), Size); }
-		void WriteString(const char *Data);
 		void WriteString(const char *Data, uint32_t Size) { File.write(Data, Size); }
 
-		unsigned char ReadChar() { return File.get(); }
-		int ReadInt();
-		short int ReadShortInt();
+		uint8_t ReadChar() { return File.get(); }
+		int32_t ReadInt32();
+		int16_t ReadInt16();
 		float ReadFloat();
 		void ReadData(void *Data, uint32_t Size) { File.read(reinterpret_cast<char *>(Data), Size); }
-		void ReadString(char *Data);
 		void ReadString(char *Data, uint32_t Size) { File.read(reinterpret_cast<char *>(Data), Size); }
 
 	private:

@@ -71,6 +71,9 @@ void _Config::Reset() {
 	InvertMouse = false;
 	InvertGamepadY = false;
 
+	// Replays
+	AutosaveNewRecords = true;
+
 #ifdef PANDORA
 	DriverType = EDT_OGLES1;
 	ScreenHeight = 480;
@@ -221,6 +224,12 @@ int _Config::ReadConfig() {
 		*/
 	}
 
+	// Check for the replay tag
+	XMLElement *ReplayElement = ConfigElement->FirstChildElement("replay");
+	if(ReplayElement) {
+		ReplayElement->QueryBoolAttribute("autosave", &AutosaveNewRecords);
+	}
+
 	// Get input element
 	XMLElement *InputElement = ConfigElement->FirstChildElement("input");
 	if(InputElement) {
@@ -299,6 +308,11 @@ int _Config::WriteConfig() {
 	//XMLElement *MusicElement = Document.NewElement("music");
 	//MusicElement->SetDoubleAttribute("volume", MusicVolume);
 	//AudioElement->LinkEndChild(MusicElement);
+
+	// Create replay element
+	XMLElement *ReplayElement = Document.NewElement("replay");
+	ReplayElement->SetAttribute("autosave", AutosaveNewRecords);
+	ConfigElement->LinkEndChild(ReplayElement);
 
 	// Input
 	XMLElement *InputElement = Document.NewElement("input");

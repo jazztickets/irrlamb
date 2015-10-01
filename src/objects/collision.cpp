@@ -55,8 +55,8 @@ _Collision::_Collision(const SpawnStruct &Object)
 	if(MeshFile.OpenForRead(Object.Template->CollisionFile.c_str())) {
 
 		// Read header
-		int VertCount = MeshFile.ReadInt();
-		int FaceCount = MeshFile.ReadInt();
+		int VertCount = MeshFile.ReadInt32();
+		int FaceCount = MeshFile.ReadInt32();
 
 		// Allocate memory for lists
 		VertexList = new float[VertCount * 3];
@@ -73,9 +73,9 @@ _Collision::_Collision(const SpawnStruct &Object)
 		// Read faces
 		int FaceIndex = 0;
 		for(int i = 0; i < FaceCount; i++) {
-			FaceList[FaceIndex+2] = MeshFile.ReadInt();
-			FaceList[FaceIndex+1] = MeshFile.ReadInt();
-			FaceList[FaceIndex+0] = MeshFile.ReadInt();
+			FaceList[FaceIndex+2] = MeshFile.ReadInt32();
+			FaceList[FaceIndex+1] = MeshFile.ReadInt32();
+			FaceList[FaceIndex+0] = MeshFile.ReadInt32();
 			FaceIndex += 3;
 		}
 

@@ -640,33 +640,33 @@ void _Menu::InitReplays() {
 	std::string OldWorkingDirectory(irrFile->getWorkingDirectory().c_str());
 	irrFile->changeWorkingDirectoryTo(Save.GetReplayPath().c_str());
 
+	// Clear list
+	ReplayFiles.clear();
+
 	// Get a list of replays
 	io::IFileList *FileList = irrFile->createFileList();
 	uint32_t FileCount = FileList->getFileCount();
-	ReplayFiles.clear();
 	for(uint32_t i = 0; i < FileCount; i++) {
 		if(!FileList->isDirectory(i) && FileList->getFileName(i).find(".replay") != -1) {
-			ReplayFiles.push_back(FileList->getFileName(i).c_str());
+
+			// Load header
+			bool Loaded = Replay.LoadReplay(FileList->getFileName(i).c_str(), true);
+			if(Loaded && Replay.GetVersion() == REPLAY_VERSION) {
+				ReplayFiles.push_back(FileList->getFileName(i).c_str());
+
+				// Get time string
+				Interface.ConvertSecondsToString(Replay.GetFinishTime(), Buffer);
+
+				// Build replay string
+				std::string ReplayInfo = Replay.GetDescription() + " - " + Replay.GetLevelName() + " - " + Buffer;
+
+				irr::core::stringw ReplayString(ReplayInfo.c_str());
+				ListReplays->addItem(ReplayString.c_str());
+			}
 		}
 	}
 	FileList->drop();
 	irrFile->changeWorkingDirectoryTo(OldWorkingDirectory.c_str());
-
-	// Add replays to menu list
-	for(uint32_t i = 0; i < ReplayFiles.size(); i++) {
-		bool Loaded = Replay.LoadReplay(ReplayFiles[i].c_str(), true);
-		if(Loaded && Replay.GetVersion() == REPLAY_VERSION) {
-
-			// Get time string
-			Interface.ConvertSecondsToString(Replay.GetFinishTime(), Buffer);
-
-			// Build replay string
-			std::string ReplayInfo = Replay.GetDescription() + " - " + Replay.GetLevelName() + " - " + Buffer;
-
-			irr::core::stringw ReplayString(ReplayInfo.c_str());
-			ListReplays->addItem(ReplayString.c_str());
-		}
-	}
 
 	// Confirmations
 	Y = Interface.GetCenterY() + BACK_Y;

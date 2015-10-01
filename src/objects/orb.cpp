@@ -118,7 +118,7 @@ void _Orb::StartDeactivation(const std::string &Callback, float Length) {
 		if(Replay.IsRecording()) {
 			_File &ReplayStream = Replay.GetReplayStream();
 			Replay.WriteEvent(_Replay::PACKET_ORBDEACTIVATE);
-			ReplayStream.WriteShortInt(ID);
+			ReplayStream.WriteInt16(ID);
 			ReplayStream.WriteFloat(DeactivateLength);
 		}
 	}

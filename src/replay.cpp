@@ -59,7 +59,7 @@ void _Replay::StopRecording() {
 }
 
 // Saves the current replay out to a file
-bool _Replay::SaveReplay(const std::string &PlayerDescription) {
+bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave) {
 	Description = PlayerDescription;
 	TimeStamp = time(NULL);
 	FinishTime = Time;
@@ -80,42 +80,47 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription) {
 
 	// Write replay version
 	ReplayFile.WriteChar(PACKET_REPLAYVERSION);
-	ReplayFile.WriteInt(sizeof(ReplayVersion));
-	ReplayFile.WriteInt(ReplayVersion);
+	ReplayFile.WriteInt32(sizeof(ReplayVersion));
+	ReplayFile.WriteInt32(ReplayVersion);
 
 	// Write level version
 	ReplayFile.WriteChar(PACKET_LEVELVERSION);
-	ReplayFile.WriteInt(sizeof(LevelVersion));
-	ReplayFile.WriteInt(LevelVersion);
+	ReplayFile.WriteInt32(sizeof(LevelVersion));
+	ReplayFile.WriteInt32(LevelVersion);
 
 	// Write timestep value
 	ReplayFile.WriteChar(PACKET_TIMESTEP);
-	ReplayFile.WriteInt(sizeof(Game.GetTimeStep()));
+	ReplayFile.WriteInt32(sizeof(Game.GetTimeStep()));
 	ReplayFile.WriteFloat(Game.GetTimeStep());
 
 	// Write level file
 	ReplayFile.WriteChar(PACKET_LEVELFILE);
-	ReplayFile.WriteInt(LevelName.length());
-	ReplayFile.WriteString(LevelName.c_str(), REPLAY_STRINGSIZE);
+	ReplayFile.WriteInt32(LevelName.length());
+	ReplayFile.WriteString(LevelName.c_str(), LevelName.length());
 
 	// Write player's description of replay
 	ReplayFile.WriteChar(PACKET_DESCRIPTION);
-	ReplayFile.WriteInt(Description.length());
-	ReplayFile.WriteString(Description.c_str(), REPLAY_STRINGSIZE);
+	ReplayFile.WriteInt32(Description.length());
+	ReplayFile.WriteString(Description.c_str(), Description.length());
 
 	// Write time stamp
 	ReplayFile.WriteChar(PACKET_DATE);
-	ReplayFile.WriteInt(sizeof(TimeStamp));
-	ReplayFile.WriteInt((int)TimeStamp);
+	ReplayFile.WriteInt32(sizeof(TimeStamp));
+	ReplayFile.WriteInt32(TimeStamp);
 
 	// Write finish time
 	ReplayFile.WriteChar(PACKET_FINISHTIME);
-	ReplayFile.WriteInt(sizeof(FinishTime));
+	ReplayFile.WriteInt32(sizeof(FinishTime));
 	ReplayFile.WriteFloat(FinishTime);
+
+	// Write autosave value
+	ReplayFile.WriteChar(PACKET_AUTOSAVE);
+	ReplayFile.WriteInt32(sizeof(Autosave));
+	ReplayFile.WriteChar(Autosave);
 
 	// Finished with header
 	ReplayFile.WriteChar(PACKET_OBJECTDATA);
-	ReplayFile.WriteInt(0);
+	ReplayFile.WriteInt32(0);
 
 	// Copy current data to new replay file
 	std::ifstream CurrentReplayFile(ReplayDataFile.c_str(), std::ios::in | std::ios::binary);
@@ -126,7 +131,6 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription) {
 		BytesRead = CurrentReplayFile.gcount();
 
 		if(BytesRead) {
-			//printf("BytesRead=%d\n", BytesRead);
 			ReplayFile.WriteData(Buffer, (uint32_t)BytesRead);
 		}
 	}
@@ -143,36 +147,41 @@ void _Replay::LoadHeader() {
 	int PacketType;
 	int PacketSize;
 	bool Done = false;
-	char Buffer[256];
+	char Buffer[1024];
 	while(!ReplayStream.Eof() && !Done) {
 		PacketType = ReplayStream.ReadChar();
-		PacketSize = ReplayStream.ReadInt();
+		PacketSize = ReplayStream.ReadInt32();
 		switch(PacketType) {
 			case PACKET_REPLAYVERSION:
-				ReplayVersion = ReplayStream.ReadInt();
+				ReplayVersion = ReplayStream.ReadInt32();
 			break;
 			case PACKET_LEVELVERSION:
-				LevelVersion = ReplayStream.ReadInt();
+				LevelVersion = ReplayStream.ReadInt32();
 			break;
 			case PACKET_LEVELFILE:
-				ReplayStream.ReadString(Buffer, REPLAY_STRINGSIZE);
+				ReplayStream.ReadString(Buffer, PacketSize);
+				Buffer[PacketSize] = 0;
 				LevelName = Buffer;
 			break;
 			case PACKET_DESCRIPTION:
-				ReplayStream.ReadString(Buffer, REPLAY_STRINGSIZE);
+				ReplayStream.ReadString(Buffer, PacketSize);
+				Buffer[PacketSize] = 0;
 				Description = Buffer;
 			break;
 			case PACKET_DATE:
-				TimeStamp = ReplayStream.ReadInt();
+				TimeStamp = ReplayStream.ReadInt32();
 			break;
 			case PACKET_FINISHTIME:
 				FinishTime = ReplayStream.ReadFloat();
+			break;
+			case PACKET_AUTOSAVE:
+				Autosave = ReplayStream.ReadChar();
 			break;
 			case PACKET_OBJECTDATA:
 				Done = true;
 			break;
 			default:
-				ReplayStream.Ignore(PacketSize);
+				ReplayStream.ReadString(Buffer, PacketSize);
 			break;
 		}
 	}

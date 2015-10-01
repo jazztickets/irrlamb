@@ -57,6 +57,9 @@ class _Config {
 		bool JoystickEnabled;
 		int JoystickIndex;
 
+		// Replays
+		bool AutosaveNewRecords;
+
 	private:
 
 };

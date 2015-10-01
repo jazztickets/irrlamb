@@ -40,8 +40,8 @@ class _Replay {
 			PACKET_DESCRIPTION,
 			PACKET_DATE,
 			PACKET_FINISHTIME,
-			PACKET_INTERVAL,
 			PACKET_TIMESTEP,
+			PACKET_AUTOSAVE,
 
 			// Object updates
 			PACKET_OBJECTDATA = 127,
@@ -61,7 +61,7 @@ class _Replay {
 		// Recording functions
 		void StartRecording();
 		void StopRecording();
-		bool SaveReplay(const std::string &PlayerDescription);
+		bool SaveReplay(const std::string &PlayerDescription, bool Autosave=false);
 
 		// Playback functions
 		bool LoadReplay(const std::string &ReplayFile, bool HeaderOnly=false);
@@ -84,18 +84,20 @@ class _Replay {
 		const std::string &GetDescription() { return Description; }
 		int GetVersion() { return ReplayVersion; }
 		float GetFinishTime() { return FinishTime; }
+		bool GetAutosave() { return Autosave; }
 
 	private:
 
 		void LoadHeader();
 
 		// Header
-		int ReplayVersion;
-		int LevelVersion;
+		int32_t ReplayVersion;
+		int32_t LevelVersion;
 		std::string LevelName;
 		std::string Description;
 		time_t TimeStamp;
 		float FinishTime;
+		bool Autosave;
 
 		// Replay data file name
 		std::string ReplayDataFile;

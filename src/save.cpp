@@ -237,7 +237,7 @@ const SaveLevelStruct *_Save::GetLevelStats(const std::string &Level) {
 }
 
 // Adds a score to the list if it's high enough
-void _Save::AddScore(const std::string &Level, float Time) {
+int _Save::AddScore(const std::string &Level, float Time) {
 
 	// Get level stats
 	SaveLevelStruct Stats;
@@ -292,6 +292,8 @@ void _Save::AddScore(const std::string &Level, float Time) {
 
 		Database->RunQuery("END TRANSACTION");
 	}
+
+	return InsertIndex;
 }
 
 // Increment the number of times a level has been loaded

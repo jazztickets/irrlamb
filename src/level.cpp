@@ -593,8 +593,8 @@ _Object *_Level::CreateObject(const SpawnStruct &Object) {
 		// Write replay information
 		_File &ReplayStream = Replay.GetReplayStream();
 		Replay.WriteEvent(_Replay::PACKET_CREATE);
-		ReplayStream.WriteShortInt(Object.Template->TemplateID);
-		ReplayStream.WriteShortInt(NewObject->GetID());
+		ReplayStream.WriteInt16(Object.Template->TemplateID);
+		ReplayStream.WriteInt16(NewObject->GetID());
 		ReplayStream.WriteData((void *)&Object.Position, sizeof(btScalar) * 3);
 		ReplayStream.WriteData((void *)&Object.Rotation, sizeof(btScalar) * 3);
 	}

@@ -4,6 +4,8 @@ irrlamb 0.2.1 -
 - Added per-axis deadzone to config
 - Next-level button works across campaigns now
 - Added level name and highscore to HUD
+- Autosave replays for new records
+- Updated replay format
 - Switched to c++11
 - Various fixes to build system
 

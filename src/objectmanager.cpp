@@ -146,7 +146,7 @@ void _ObjectManager::EndFrame() {
 		// Write replay event
 		_File &ReplayStream = Replay.GetReplayStream();
 		Replay.WriteEvent(_Replay::PACKET_MOVEMENT);
-		ReplayStream.WriteShortInt(ReplayMovementCount);
+		ReplayStream.WriteInt16(ReplayMovementCount);
 
 		// Write the updated objects
 		for(auto &Iterator : Objects) {
@@ -157,7 +157,7 @@ void _ObjectManager::EndFrame() {
 				Physics.QuaternionToEuler(Iterator->GetRotation(), EulerRotation);
 
 				// Write object update
-				ReplayStream.WriteShortInt(Iterator->GetID());
+				ReplayStream.WriteInt16(Iterator->GetID());
 				ReplayStream.WriteData((void *)&Iterator->GetPosition(), sizeof(btScalar) * 3);
 				ReplayStream.WriteData((void *)&EulerRotation[0], sizeof(btScalar) * 3);
 				Iterator->WroteReplayPacket();
@@ -184,7 +184,7 @@ void _ObjectManager::Update(float FrameTime) {
 			if(Replay.IsRecording()) {
 				_File &ReplayStream = Replay.GetReplayStream();
 				Replay.WriteEvent(_Replay::PACKET_DELETE);
-				ReplayStream.WriteShortInt(Object->GetID());
+				ReplayStream.WriteInt16(Object->GetID());
 			}
 
 			delete Object;
@@ -211,10 +211,10 @@ void _ObjectManager::UpdateFromReplay() {
 
 	// Get replay stream and read object count
 	_File &ReplayStream = Replay.GetReplayStream();
-	int ObjectCount = ReplayStream.ReadShortInt();
+	int ObjectCount = ReplayStream.ReadInt16();
 
 	// Read first object
-	int ObjectID = ReplayStream.ReadShortInt();
+	int ObjectID = ReplayStream.ReadInt16();
 	ReplayStream.ReadData(&Position.X, sizeof(float) * 3);
 	ReplayStream.ReadData(&Rotation.X, sizeof(float) * 3);
 
@@ -227,7 +227,7 @@ void _ObjectManager::UpdateFromReplay() {
 
 			//printf("ObjectPacket ObjectID=%d Type=%d Position=%f %f %f Rotation=%f %f %f\n", ObjectID, Object->GetType(), Position.X, Position.Y, Position.Z, Rotation.X, Rotation.Y, Rotation.Z);
 			if(UpdatedObjectCount < ObjectCount - 1) {
-				ObjectID = ReplayStream.ReadShortInt();
+				ObjectID = ReplayStream.ReadInt16();
 				ReplayStream.ReadData(&Position.X, sizeof(float) * 3);
 				ReplayStream.ReadData(&Rotation.X, sizeof(float) * 3);
 			}

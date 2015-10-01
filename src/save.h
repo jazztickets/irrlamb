@@ -70,7 +70,7 @@ class _Save {
 		bool GetLevelStats(const std::string &Level, SaveLevelStruct &Stats);
 		const SaveLevelStruct *GetLevelStats(const std::string &Level);
 
-		void AddScore(const std::string &Level, float Time);
+		int AddScore(const std::string &Level, float Time);
 		void IncrementLevelLoadCount(const std::string &Level);
 		void IncrementLevelLoseCount(const std::string &Level);
 		void IncrementLevelWinCount(const std::string &Level);

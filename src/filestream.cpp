@@ -40,15 +40,8 @@ int _File::OpenForRead(const char *Filename) {
 	return 1;
 }
 
-// Writes a string
-void _File::WriteString(const char *Data) {
-
-	File.write(Data, strlen(Data));
-	File.put(0);
-}
-
 // Reads an integer
-int _File::ReadInt() {
+int32_t _File::ReadInt32() {
 
 	int Data;
 	File.read(reinterpret_cast<char *>(&Data), sizeof(Data));
@@ -57,7 +50,7 @@ int _File::ReadInt() {
 }
 
 // Reads an integer
-short int _File::ReadShortInt() {
+int16_t _File::ReadInt16() {
 
 	short int Data;
 	File.read(reinterpret_cast<char *>(&Data), sizeof(Data));
@@ -72,18 +65,4 @@ float _File::ReadFloat() {
 	File.read(reinterpret_cast<char *>(&Data), sizeof(Data));
 
 	return Data;
-}
-
-// Reads a string
-void _File::ReadString(char *Data) {
-
-	// Check for null strings
-	if(File.peek() == 0) {
-		Data[0] = File.get();
-		return;
-	}
-
-	// Get string
-	File.get(Data, 2147483647, 0);
-	File.get();
 }
