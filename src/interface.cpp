@@ -86,6 +86,8 @@ int _Interface::Init() {
 	Images[IMAGE_INCREASE] = irrDriver->getTexture("art/button_inc.png");
 	Images[IMAGE_DECREASE] = irrDriver->getTexture("art/button_dec.png");
 	Images[IMAGE_SELECTED] = irrDriver->getTexture("art/selected.png");
+	Images[IMAGE_BUTTON_UP] = irrDriver->getTexture("art/button_up.png");
+	Images[IMAGE_BUTTON_DOWN] = irrDriver->getTexture("art/button_down.png");
 
 	// Set sounds to nullptr
 	for(int i = 0; i < SOUND_COUNT; i++)

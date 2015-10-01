@@ -61,7 +61,13 @@ class _Menu {
 			STATE_WIN
 		};
 
-		_Menu() { State = PreviousState = STATE_NONE; FirstStateLoad = true; CurrentLayout = 0; SelectedElement = nullptr; }
+		_Menu() {
+			State = PreviousState = STATE_NONE;
+			FirstStateLoad = true;
+			CurrentLayout = 0;
+			SelectedElement = nullptr;
+			StartOffset = 0;
+		}
 
 		void InitMain();
 		void InitSinglePlayer();
@@ -107,6 +113,7 @@ class _Menu {
 		// Replays
 		std::vector<_ReplayInfo> ReplayFiles;
 		irr::gui::IGUIElement *SelectedElement;
+		uint32_t StartOffset;
 
 		// Campaigns
 		int CampaignIndex;
