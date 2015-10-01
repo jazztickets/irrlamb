@@ -264,22 +264,17 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 				case REPLAYS_DELETE: {
 
 					// Get list
-					if(0 && SelectedLevel != -1) {
+					if(SelectedLevel != -1) {
 
 						// Get replay file name
 						std::string FileName = ReplayFiles[SelectedLevel].Filename;
 
-						// Delete from replay files array
-						for(auto Iterator = ReplayFiles.begin(); Iterator != ReplayFiles.end(); ++Iterator) {
-							if(Iterator->Filename == FileName) {
-								ReplayFiles.erase(Iterator);
-								break;
-							}
-						}
-
 						// Remove file
 						std::string FilePath = Save.GetReplayPath() + FileName;
 						remove(FilePath.c_str());
+
+						// Refresh screen
+						InitReplays();
 					}
 				}
 				break;
@@ -419,7 +414,10 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 					}
 					else if(Element->getID() >= REPLAY_LEVELID) {
 						SelectedLevel = Element->getID() - REPLAY_LEVELID;
-						LaunchReplay();
+						if(SelectedElement == Element)
+							LaunchReplay();
+
+						SelectedElement = Element;
 					}
 					else if(Element->getID() >= CAMPAIGN_LEVELID) {
 						SelectedLevel = Element->getID() - CAMPAIGN_LEVELID;
@@ -480,13 +478,14 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 		break;
 		case gui::EGET_ELEMENT_HOVERED:
 			if(Element->getID() >= REPLAY_LEVELID)
-				SelectedLevel = Element->getID() - REPLAY_LEVELID;
+				HighlightedLevel = Element->getID() - REPLAY_LEVELID;
 			else if(Element->getID() >= CAMPAIGN_LEVELID)
-				SelectedLevel = Element->getID() - CAMPAIGN_LEVELID;
+				HighlightedLevel = Element->getID() - CAMPAIGN_LEVELID;
 		break;
 		case gui::EGET_ELEMENT_LEFT:
-			if(State == STATE_LEVELS || State == STATE_REPLAYS)
-				SelectedLevel = -1;
+			if(State == STATE_LEVELS || State == STATE_REPLAYS) {
+				HighlightedLevel = -1;
+			}
 		break;
 		default:
 		break;
@@ -526,6 +525,7 @@ void _Menu::InitSinglePlayer() {
 	// Reset menu variables
 	CampaignIndex = 0;
 	SelectedLevel = -1;
+	HighlightedLevel = -1;
 
 	// Text
 	int X = Interface.GetCenterX(), Y = Interface.GetCenterY() - TITLE_Y;
@@ -556,8 +556,9 @@ void _Menu::InitLevels() {
 	ClearCurrentLayout();
 	LevelStats.clear();
 	SelectedLevel = -1;
-	const CampaignStruct &CampaignData = Campaign.GetCampaign(CampaignIndex);
+	HighlightedLevel = -1;
 
+	const CampaignStruct &CampaignData = Campaign.GetCampaign(CampaignIndex);
 	int X = Interface.GetCenterX(), Y = Interface.GetCenterY() - TITLE_Y;
 
 	// Text
@@ -619,7 +620,9 @@ void _Menu::InitLevels() {
 void _Menu::InitReplays() {
 	Interface.ChangeSkin(_Interface::SKIN_MENU);
 	ClearCurrentLayout();
+
 	SelectedLevel = -1;
+	HighlightedLevel = -1;
 
 	// Text
 	int X = Interface.GetCenterX(), Y = Interface.GetCenterY() - TITLE_Y;
@@ -1030,10 +1033,10 @@ void _Menu::Draw() {
 	// Draw level tooltip
 	switch(State) {
 		case STATE_LEVELS:
-			if(SelectedLevel != -1) {
+			if(HighlightedLevel != -1) {
 				char Buffer[256];
-				const SaveLevelStruct *Stats = LevelStats[SelectedLevel];
-				const std::string &NiceName = Campaign.GetLevelNiceName(CampaignIndex, SelectedLevel);
+				const SaveLevelStruct *Stats = LevelStats[HighlightedLevel];
+				const std::string &NiceName = Campaign.GetLevelNiceName(CampaignIndex, HighlightedLevel);
 
 				// Get text dimensions
 				core::dimension2du NiceNameSize = Interface.GetFont(_Interface::FONT_MEDIUM)->getDimension(core::stringw(NiceName.c_str()).c_str());
@@ -1126,8 +1129,16 @@ void _Menu::Draw() {
 			}
 		break;
 		case STATE_REPLAYS:
-			if(SelectedLevel != -1) {
-				const _ReplayInfo &ReplayInfo = ReplayFiles[SelectedLevel];
+
+			// Show selected replay
+			if(SelectedElement) {
+				core::recti SelectedRect = SelectedElement->getRelativePosition();
+				Interface.DrawImage(_Interface::IMAGE_SELECTED, SelectedRect.UpperLeftCorner.X + 32, SelectedRect.UpperLeftCorner.Y + 32, 64, 64);
+			}
+
+			// Show replay stats
+			if(HighlightedLevel != -1) {
+				const _ReplayInfo &ReplayInfo = ReplayFiles[HighlightedLevel];
 
 				// Get text dimensions
 				core::dimension2du DescriptionSize = Interface.GetFont(_Interface::FONT_MEDIUM)->getDimension(core::stringw(ReplayInfo.Description.c_str()).c_str());
@@ -1324,8 +1335,10 @@ void _Menu::ClearCurrentLayout() {
 	if(CurrentLayout) {
 		irrGUI->setFocus(0);
 		CurrentLayout->remove();
-		CurrentLayout = NULL;
+		CurrentLayout = nullptr;
 	}
 	CurrentLayout = new CGUIEmptyElement(irrGUI, irrGUI->getRootGUIElement());
 	CurrentLayout->drop();
+
+	SelectedElement = nullptr;
 }

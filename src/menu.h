@@ -60,7 +60,7 @@ class _Menu {
 			STATE_WIN
 		};
 
-		_Menu() { State = PreviousState = STATE_NONE; FirstStateLoad = true; CurrentLayout = 0; }
+		_Menu() { State = PreviousState = STATE_NONE; FirstStateLoad = true; CurrentLayout = 0; SelectedElement = nullptr; }
 
 		void InitMain();
 		void InitSinglePlayer();
@@ -105,9 +105,12 @@ class _Menu {
 
 		// Replays
 		std::vector<_ReplayInfo> ReplayFiles;
+		irr::gui::IGUIElement *SelectedElement;
 
 		// Campaigns
-		int CampaignIndex, SelectedLevel;
+		int CampaignIndex;
+		int SelectedLevel;
+		int HighlightedLevel;
 		float DoubleClickTimer;
 
 		// Level info

@@ -95,6 +95,7 @@ class _Interface {
 			IMAGE_FASTREVERSE,
 			IMAGE_INCREASE,
 			IMAGE_DECREASE,
+			IMAGE_SELECTED,
 			IMAGE_COUNT,
 		};
 
