@@ -36,6 +36,7 @@
 #include <IGUICheckBox.h>
 #include <IGUIEditBox.h>
 #include <IFileSystem.h>
+#include <algorithm>
 
 using namespace irr;
 
