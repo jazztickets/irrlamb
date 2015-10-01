@@ -32,7 +32,6 @@
 #include <states/null.h>
 #include <font/CGUITTFont.h>
 #include <IGUIElement.h>
-#include <IGUIListBox.h>
 #include <IGUIComboBox.h>
 #include <IGUICheckBox.h>
 #include <IGUIEditBox.h>
@@ -42,6 +41,7 @@ using namespace irr;
 
 _Menu Menu;
 
+const int REPLAY_LEVELID = 1100;
 const int CAMPAIGN_LEVELID = 1000;
 const int PLAY_CAMPAIGNID = 900;
 
@@ -77,7 +77,7 @@ enum GUIElements {
 	SINGLEPLAYER_BACK,
 	LEVELS_GO, LEVELS_BUY, LEVELS_HIGHSCORES, LEVELS_BACK, LEVELS_SELECTEDLEVEL,
 	LEVELINFO_DESCRIPTION, LEVELINFO_ATTEMPTS, LEVELINFO_WINS, LEVELINFO_LOSSES, LEVELINFO_PLAYTIME, LEVELINFO_BESTTIME,
-	REPLAYS_FILES, REPLAYS_GO, REPLAYS_DELETE, REPLAYS_BACK,
+	REPLAYS_VIEW, REPLAYS_DELETE, REPLAYS_BACK,
 	OPTIONS_VIDEO, OPTIONS_AUDIO, OPTIONS_CONTROLS, OPTIONS_BACK,
 	VIDEO_SAVE, VIDEO_CANCEL, VIDEO_VIDEOMODES, VIDEO_FULLSCREEN, VIDEO_SHADOWS, VIDEO_SHADERS, VIDEO_VSYNC, VIDEO_ANISOTROPY, VIDEO_ANTIALIASING,
 	AUDIO_ENABLED, AUDIO_SAVE, AUDIO_CANCEL,
@@ -258,22 +258,20 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 				case LEVELS_BACK:
 					InitSinglePlayer();
 				break;
-				case REPLAYS_GO:
+				case REPLAYS_VIEW:
 					LaunchReplay();
 				break;
 				case REPLAYS_DELETE: {
 
 					// Get list
-					gui::IGUIListBox *ReplayList = static_cast<gui::IGUIListBox *>(CurrentLayout->getElementFromId(REPLAYS_FILES));
-					int SelectedIndex = ReplayList->getSelected();
-					if(SelectedIndex != -1) {
+					if(0 && SelectedLevel != -1) {
 
 						// Get replay file name
-						std::string FileName = GetReplayFile();
+						std::string FileName = ReplayFiles[SelectedLevel].Filename;
 
 						// Delete from replay files array
 						for(auto Iterator = ReplayFiles.begin(); Iterator != ReplayFiles.end(); ++Iterator) {
-							if(*Iterator == FileName) {
+							if(Iterator->Filename == FileName) {
 								ReplayFiles.erase(Iterator);
 								break;
 							}
@@ -282,9 +280,6 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 						// Remove file
 						std::string FilePath = Save.GetReplayPath() + FileName;
 						remove(FilePath.c_str());
-
-						// Remove entry
-						ReplayList->removeItem(SelectedIndex);
 					}
 				}
 				break;
@@ -422,6 +417,10 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 						KeyButtonOldText = KeyButton->getText();
 						KeyButton->setText(L"");
 					}
+					else if(Element->getID() >= REPLAY_LEVELID) {
+						SelectedLevel = Element->getID() - REPLAY_LEVELID;
+						LaunchReplay();
+					}
 					else if(Element->getID() >= CAMPAIGN_LEVELID) {
 						SelectedLevel = Element->getID() - CAMPAIGN_LEVELID;
 						LaunchLevel();
@@ -479,20 +478,14 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 				break;
 			}
 		break;
-		case gui::EGET_LISTBOX_SELECTED_AGAIN:
-			switch(Element->getID()) {
-				case REPLAYS_FILES:
-					LaunchReplay();
-				break;
-			}
-		break;
 		case gui::EGET_ELEMENT_HOVERED:
-			if(Element->getID() >= CAMPAIGN_LEVELID) {
+			if(Element->getID() >= REPLAY_LEVELID)
+				SelectedLevel = Element->getID() - REPLAY_LEVELID;
+			else if(Element->getID() >= CAMPAIGN_LEVELID)
 				SelectedLevel = Element->getID() - CAMPAIGN_LEVELID;
-			}
 		break;
 		case gui::EGET_ELEMENT_LEFT:
-			if(State == STATE_LEVELS)
+			if(State == STATE_LEVELS || State == STATE_REPLAYS)
 				SelectedLevel = -1;
 		break;
 		default:
@@ -626,15 +619,11 @@ void _Menu::InitLevels() {
 void _Menu::InitReplays() {
 	Interface.ChangeSkin(_Interface::SKIN_MENU);
 	ClearCurrentLayout();
-	char Buffer[256];
+	SelectedLevel = -1;
 
 	// Text
 	int X = Interface.GetCenterX(), Y = Interface.GetCenterY() - TITLE_Y;
 	AddMenuText(core::position2di(X, Y), L"Replays");
-
-	// Level selection
-	Y = Interface.GetCenterY() + 20;
-	gui::IGUIListBox *ListReplays = irrGUI->addListBox(Interface.GetCenteredRect(X, Y, 650, 325), CurrentLayout, REPLAYS_FILES, true);
 
 	// Change directories
 	std::string OldWorkingDirectory(irrFile->getWorkingDirectory().c_str());
@@ -643,25 +632,55 @@ void _Menu::InitReplays() {
 	// Clear list
 	ReplayFiles.clear();
 
+	X = Interface.GetCenterX() - 160;
+	Y += TITLE_SPACING;
+	int Column = 0, Row = 0;
+
 	// Get a list of replays
 	io::IFileList *FileList = irrFile->createFileList();
 	uint32_t FileCount = FileList->getFileCount();
+	uint32_t ReplayIndex = 0;
 	for(uint32_t i = 0; i < FileCount; i++) {
 		if(!FileList->isDirectory(i) && FileList->getFileName(i).find(".replay") != -1) {
 
 			// Load header
 			bool Loaded = Replay.LoadReplay(FileList->getFileName(i).c_str(), true);
 			if(Loaded && Replay.GetVersion() == REPLAY_VERSION) {
-				ReplayFiles.push_back(FileList->getFileName(i).c_str());
+				char Buffer[256];
+
+				// Get level info
+				Level.Init(Replay.GetLevelName(), true);
+
+				// Get replay info
+				_ReplayInfo ReplayInfo;
+				ReplayInfo.Filename = FileList->getFileName(i).c_str();
+				ReplayInfo.Description = Replay.GetDescription();
+				ReplayInfo.LevelNiceName = Level.GetLevelNiceName();
+				ReplayInfo.Autosave = Replay.GetAutosave();
+
+				// Date
+				strftime(Buffer, 32, "%Y-%m-%d", localtime(&Replay.GetTimeStamp()));
+				ReplayInfo.Date = Buffer;
 
 				// Get time string
 				Interface.ConvertSecondsToString(Replay.GetFinishTime(), Buffer);
+				ReplayInfo.FinishTime = Buffer;
 
-				// Build replay string
-				std::string ReplayInfo = Replay.GetDescription() + " - " + Replay.GetLevelName() + " - " + Buffer;
+				ReplayFiles.push_back(ReplayInfo);
 
-				irr::core::stringw ReplayString(ReplayInfo.c_str());
-				ListReplays->addItem(ReplayString.c_str());
+				// Add button
+				gui::IGUIButton *Level = irrGUI->addButton(Interface.GetCenteredRect(X + Column * 80, Y + Row * 80, 64, 64), CurrentLayout, REPLAY_LEVELID + ReplayIndex);
+
+				// Set thumbnail
+				Level->setImage(irrDriver->getTexture((Game.GetWorkingPath() + "levels/" + Replay.GetLevelName() + "/icon.jpg").c_str()));
+
+				Column++;
+				if(Column >= 5) {
+					Column = 0;
+					Row++;
+				}
+
+				ReplayIndex++;
 			}
 		}
 	}
@@ -669,8 +688,9 @@ void _Menu::InitReplays() {
 	irrFile->changeWorkingDirectoryTo(OldWorkingDirectory.c_str());
 
 	// Confirmations
+	X = Interface.GetCenterX();
 	Y = Interface.GetCenterY() + BACK_Y;
-	AddMenuButton(Interface.GetCenteredRect(X - 123, Y, 108, 44), REPLAYS_GO, L"View", _Interface::IMAGE_BUTTON_SMALL);
+	AddMenuButton(Interface.GetCenteredRect(X - 123, Y, 108, 44), REPLAYS_VIEW, L"View", _Interface::IMAGE_BUTTON_SMALL);
 	AddMenuButton(Interface.GetCenteredRect(X, Y, 108, 44), REPLAYS_DELETE, L"Delete", _Interface::IMAGE_BUTTON_SMALL);
 	AddMenuButton(Interface.GetCenteredRect(X + 123, Y, 108, 44), REPLAYS_BACK, L"Back", _Interface::IMAGE_BUTTON_SMALL);
 
@@ -1105,6 +1125,54 @@ void _Menu::Draw() {
 				}
 			}
 		break;
+		case STATE_REPLAYS:
+			if(SelectedLevel != -1) {
+				const _ReplayInfo &ReplayInfo = ReplayFiles[SelectedLevel];
+
+				// Get text dimensions
+				core::dimension2du DescriptionSize = Interface.GetFont(_Interface::FONT_MEDIUM)->getDimension(core::stringw(ReplayInfo.Description.c_str()).c_str());
+				core::dimension2du NiceNameSize = Interface.GetFont(_Interface::FONT_SMALL)->getDimension(core::stringw(ReplayInfo.LevelNiceName.c_str()).c_str());
+
+				// Get box position
+				int Width = std::max(DescriptionSize.Width, NiceNameSize.Width) + STATS_PADDING * 2;
+				int Height = 125 + STATS_PADDING, X, Y;
+				int Left = (int)Input.GetMouseX() - Width/2;
+				int Top = (int)Input.GetMouseY() - Height - 15;
+
+				if(Width < STATS_MIN_WIDTH)
+					Width = STATS_MIN_WIDTH;
+
+				// Cap limits
+				if(Top < STATS_PADDING)
+					Top = STATS_PADDING;
+				if(Left + Width > (int)irrDriver->getScreenSize().Width - 10)
+					Left = (int)irrDriver->getScreenSize().Width - 10 - Width;
+				if(Left < 10)
+					Left = 10;
+
+				// Draw box
+				Interface.DrawTextBox(Left + Width/2, Top + Height/2, Width, Height);
+				X = Left + Width/2;
+				Y = Top + STATS_PADDING;
+
+				// Replay description
+				Interface.RenderText(ReplayInfo.Description.c_str(), X, Y, _Interface::ALIGN_CENTER, _Interface::FONT_MEDIUM, video::SColor(255, 255, 255, 255));
+				Y += 30;
+
+				// Replay description
+				Interface.RenderText(ReplayInfo.LevelNiceName.c_str(), X, Y, _Interface::ALIGN_CENTER, _Interface::FONT_SMALL, video::SColor(255, 255, 255, 255));
+				Y += 35;
+
+				// Date recorded
+				Interface.RenderText("Date", X - 10, Y, _Interface::ALIGN_RIGHT, _Interface::FONT_SMALL, video::SColor(255, 255, 255, 255));
+				Interface.RenderText(ReplayInfo.Date.c_str(), X + 10, Y, _Interface::ALIGN_LEFT, _Interface::FONT_SMALL, video::SColor(255, 255, 255, 255));
+
+				// Finish time
+				Y += 20;
+				Interface.RenderText("Finish time", X - 10, Y, _Interface::ALIGN_RIGHT, _Interface::FONT_SMALL, video::SColor(255, 255, 255, 255));
+				Interface.RenderText(ReplayInfo.FinishTime.c_str(), X + 10, Y, _Interface::ALIGN_LEFT, _Interface::FONT_SMALL, video::SColor(255, 255, 255, 255));
+			}
+		break;
 		case STATE_LOSE:
 			Menu.DrawLoseScreen();
 		break;
@@ -1185,22 +1253,6 @@ void _Menu::CancelKeyBind() {
 	KeyButton = NULL;
 }
 
-// Gets the replay name from a selection box
-std::string _Menu::GetReplayFile() {
-
-	// Get list
-	gui::IGUIListBox *ReplayList = static_cast<gui::IGUIListBox *>(CurrentLayout->getElementFromId(REPLAYS_FILES));
-	if(!ReplayList)
-		return "";
-
-	int SelectedIndex = ReplayList->getSelected();
-	if(SelectedIndex != -1) {
-		return ReplayFiles[SelectedIndex];
-	}
-
-	return "";
-}
-
 // Launchs a level
 void _Menu::LaunchLevel() {
 
@@ -1219,11 +1271,10 @@ void _Menu::LaunchLevel() {
 void _Menu::LaunchReplay() {
 
 	// Get replay file
-	std::string File = GetReplayFile();
-	if(File != "") {
+	if(SelectedLevel >= 0) {
 
 		// Load replay
-		ViewReplayState.SetCurrentReplay(File);
+		ViewReplayState.SetCurrentReplay(ReplayFiles[SelectedLevel].Filename);
 		Game.ChangeState(&ViewReplayState);
 	}
 }

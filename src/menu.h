@@ -27,6 +27,15 @@
 // Forward Declarations
 struct SaveLevelStruct;
 
+struct _ReplayInfo {
+	std::string Filename;
+	std::string LevelNiceName;
+	std::string Description;
+	std::string FinishTime;
+	std::string Date;
+	bool Autosave;
+};
+
 // Classes
 class _Menu {
 
@@ -87,7 +96,6 @@ class _Menu {
 		irr::gui::IGUIStaticText *AddMenuText(const irr::core::position2di &CenterPosition, const wchar_t *Text, _Interface::FontType Type=_Interface::FONT_LARGE, int ID=-1, irr::gui::EGUI_ALIGNMENT HorizontalAlign=irr::gui::EGUIA_CENTER);
 
 		void CancelKeyBind();
-		std::string GetReplayFile();
 		void LaunchReplay();
 		void LaunchLevel();
 
@@ -96,7 +104,7 @@ class _Menu {
 		irr::gui::IGUIElement *CurrentLayout;
 
 		// Replays
-		std::vector<std::string> ReplayFiles;
+		std::vector<_ReplayInfo> ReplayFiles;
 
 		// Campaigns
 		int CampaignIndex, SelectedLevel;
