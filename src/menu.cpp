@@ -149,6 +149,26 @@ bool _Menu::HandleAction(int InputType, int Action, float Value) {
 					return true;
 				}
 			break;
+			case _Actions::MENU_PAGEUP:
+				switch(State) {
+					case STATE_REPLAYS:
+						ReplayScrollUp();
+						return true;
+					break;
+					default:
+					break;
+				}
+			break;
+			case _Actions::MENU_PAGEDOWN:
+				switch(State) {
+					case STATE_REPLAYS:
+						ReplayScrollDown();
+						return true;
+					break;
+					default:
+					break;
+				}
+			break;
 			default:
 			break;
 		}
@@ -283,15 +303,10 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 					InitMain();
 				break;
 				case REPLAYS_UP:
-					if(StartOffset >= 5)
-						StartOffset -= 5;
-
-					InitReplays();
+					ReplayScrollUp();
 				break;
 				case REPLAYS_DOWN:
-					StartOffset += 5;
-
-					InitReplays();
+					ReplayScrollDown();
 				break;
 				case OPTIONS_VIDEO:
 					InitVideo();
@@ -628,7 +643,7 @@ void _Menu::InitLevels() {
 }
 
 // Create the replay menu
-void _Menu::InitReplays() {
+void _Menu::InitReplays(bool PlaySound) {
 	Interface.ChangeSkin(_Interface::SKIN_MENU);
 	ClearCurrentLayout();
 
@@ -720,7 +735,7 @@ void _Menu::InitReplays() {
 	AddMenuButton(Interface.GetCenteredRect(X + 223, Y + 32, 32, 32), REPLAYS_DOWN, L"", _Interface::IMAGE_BUTTON_DOWN);
 
 	// Play sound
-	if(!FirstStateLoad)
+	if(!FirstStateLoad && PlaySound)
 		Interface.PlaySound(_Interface::SOUND_CONFIRM);
 	FirstStateLoad = false;
 
@@ -1298,6 +1313,22 @@ void _Menu::LaunchLevel() {
 	PlayState.SetCampaign(CampaignIndex);
 	PlayState.SetCampaignLevel(SelectedLevel);
 	Game.ChangeState(&PlayState);
+}
+
+// Scroll the replay list up
+void _Menu::ReplayScrollUp() {
+	if(StartOffset >= REPLAY_SCROLL_AMOUNT)
+		StartOffset -= REPLAY_SCROLL_AMOUNT;
+
+	InitReplays(false);
+}
+
+// Scroll the replay list down
+void _Menu::ReplayScrollDown() {
+	if(ReplayFiles.size() > REPLAY_SCROLL_AMOUNT)
+		StartOffset += REPLAY_SCROLL_AMOUNT;
+
+	InitReplays(false);
 }
 
 // Launchs a replay from a list item

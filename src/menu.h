@@ -72,7 +72,7 @@ class _Menu {
 		void InitMain();
 		void InitSinglePlayer();
 		void InitLevels();
-		void InitReplays();
+		void InitReplays(bool PlaySound=true);
 		void InitOptions();
 		void InitVideo();
 		void InitAudio();
@@ -105,6 +105,8 @@ class _Menu {
 		void CancelKeyBind();
 		void LaunchReplay();
 		void LaunchLevel();
+		void ReplayScrollUp();
+		void ReplayScrollDown();
 
 		MenuType State, PreviousState;
 		bool FirstStateLoad;

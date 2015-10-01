@@ -73,6 +73,8 @@ class _Actions {
 			CURSOR_RIGHT,
 			CURSOR_UP,
 			CURSOR_DOWN,
+			MENU_PAGEUP,
+			MENU_PAGEDOWN,
 			COUNT,
 		};
 

@@ -124,6 +124,10 @@ bool _Input::OnEvent(const SEvent &Event) {
 					}
 				break;
 				case EMIE_MOUSE_WHEEL:
+					if(Event.MouseInput.Wheel > 0)
+						Actions.InputEvent(_Input::MOUSE_AXIS, 4, Event.MouseInput.Wheel);
+					else
+						Actions.InputEvent(_Input::MOUSE_AXIS, 5, Event.MouseInput.Wheel);
 					Game.GetState()->HandleMouseWheel(Event.MouseInput.Wheel);
 				break;
 				default:

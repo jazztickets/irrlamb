@@ -50,6 +50,8 @@ _Actions::_Actions() {
 	Names[CURSOR_RIGHT] = "Cursor Right";
 	Names[CURSOR_UP] = "Cursor Up";
 	Names[CURSOR_DOWN] = "Cursor Down";
+	Names[MENU_PAGEUP] = "Menu Page Up";
+	Names[MENU_PAGEDOWN] = "Menu Page Down";
 }
 
 // Reset the state
@@ -115,6 +117,7 @@ void _Actions::InputEvent(int InputType, int Input, float Value) {
 	if(Input < 0 || Input >= ACTIONS_MAXINPUTS)
 		return;
 
+	//printf("%d %d %f\n", InputType, Input, Value); fflush(stdout);
 	for(auto &MapIterator : InputMap[InputType][Input]) {
 
 		// Only let joystick overwrite action state if the keyboard isn't being used

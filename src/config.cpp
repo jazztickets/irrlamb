@@ -117,6 +117,9 @@ void _Config::AddDefaultActionMap(bool Force) {
 	Actions.AddInputMap(_Input::MOUSE_AXIS, 2, _Actions::CAMERA_UP);
 	Actions.AddInputMap(_Input::MOUSE_AXIS, 3, _Actions::CAMERA_DOWN);
 
+	Actions.AddInputMap(_Input::MOUSE_AXIS, 4, _Actions::MENU_PAGEUP);
+	Actions.AddInputMap(_Input::MOUSE_AXIS, 5, _Actions::MENU_PAGEDOWN);
+
 	float AxisScaleX = 130.0f;
 	float AxisScaleY = 100.0f;
 	float CursorSpeed = 400.0f;
@@ -137,6 +140,8 @@ void _Config::AddDefaultActionMap(bool Force) {
 	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 1, _Actions::MENU_BACK);
 	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 6, _Actions::RESET);
 	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 7, _Actions::MENU_PAUSE);
+	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 4, _Actions::MENU_PAGEUP);
+	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 5, _Actions::MENU_PAGEDOWN);
 	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 6, _Actions::CAMERA_LEFT, AxisScaleX, DeadZone);
 	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 7, _Actions::CAMERA_RIGHT, AxisScaleX, DeadZone);
 	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 8, _Actions::CAMERA_UP, AxisScaleY, DeadZone);
