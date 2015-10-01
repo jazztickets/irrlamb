@@ -104,8 +104,8 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave) {
 
 	// Finished with header
 	NewFile.put(PACKET_OBJECTDATA);
-	size_t Dummy = 0;
-	NewFile.write((char *)&Dummy, sizeof(size_t));
+	uint32_t Dummy = 0;
+	NewFile.write((char *)&Dummy, sizeof(Dummy));
 
 	// Copy current data to new replay file
 	std::ifstream CurrentReplayFile(ReplayDataFile.c_str(), std::ios::in | std::ios::binary);
@@ -131,7 +131,7 @@ void _Replay::LoadHeader() {
 
 	// Write replay version
 	char PacketType;
-	size_t PacketSize;
+	uint32_t PacketSize;
 	bool Done = false;
 	char Buffer[1024];
 	while(!File.eof() && !Done) {
@@ -140,6 +140,8 @@ void _Replay::LoadHeader() {
 		switch(PacketType) {
 			case PACKET_REPLAYVERSION:
 				File.read((char *)&ReplayVersion, PacketSize);
+				if(ReplayVersion != REPLAY_VERSION)
+					Done = true;
 
 				if(Debug)
 					Log.Write("ReplayVersion=%d, PacketSize=%d", ReplayVersion, PacketSize);
@@ -195,7 +197,7 @@ void _Replay::LoadHeader() {
 }
 
 // Write a replay chunk
-void _Replay::WriteChunk(std::fstream &OutFile, char Type, const char *Data, size_t Size) {
+void _Replay::WriteChunk(std::fstream &OutFile, char Type, const char *Data, uint32_t Size) {
    OutFile.put(Type);
    OutFile.write((char *)&Size, sizeof(Size));
    OutFile.write(Data, Size);

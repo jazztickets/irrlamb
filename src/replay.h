@@ -90,7 +90,7 @@ class _Replay {
 	private:
 
 		void LoadHeader();
-		void WriteChunk(std::fstream &OutFile, char Type, const char *Data, size_t Size);
+		void WriteChunk(std::fstream &OutFile, char Type, const char *Data, uint32_t Size);
 
 		// Header
 		int32_t ReplayVersion;
