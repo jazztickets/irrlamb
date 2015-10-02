@@ -190,7 +190,7 @@ void _Interface::Draw(float Time, bool FirstLoad) {
 		RenderText(TimeString, 10, 10, _Interface::ALIGN_LEFT, _Interface::FONT_MEDIUM);
 
 	// Draw level name and highscore
-	if(FirstLoad && Time < INTERFACE_LEVEL_DISPLAY_TIME) {
+	if(DrawHUD && FirstLoad && Time < INTERFACE_LEVEL_DISPLAY_TIME) {
 		video::SColor LevelNameColor(255, 255, 255, 255);
 		if(Time >= INTERFACE_LEVEL_DISPLAY_TIME - 1.0f)
 			LevelNameColor.setAlpha((uint32_t)(255 * (INTERFACE_LEVEL_DISPLAY_TIME - Time)));
