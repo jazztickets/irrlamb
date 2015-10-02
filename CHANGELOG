@@ -1,5 +1,6 @@
 irrlamb 0.2.1 -
 - Redesigned replay screen
+- Added new tutorial level
 - Added installer for windows
 - Can selectively enable gamepads in config file
 - Added per-axis deadzone to config

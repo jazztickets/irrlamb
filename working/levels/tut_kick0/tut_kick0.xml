@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<level version="0" gameversion="0.2.1">
+	<info>
+		<name>Kick</name>
+	</info>
+	<options>
+		<emitlight enabled="1" />
+	</options>
+	<resources>
+		<script file="tut_kick0.lua" />
+		<scene file="tut_kick0.irr" />
+		<collision file="tut_kick0.col" />
+		<sound file="splash.ogg" />
+	</resources>
+	<templates>
+		<player name="player" />
+		<orb name="orb" />
+		<zone name="losezone">
+			<shape w="100" h="2.5" l="100" />
+		</zone>
+	</templates>
+	<objects>
+		<object name="player" template="player">
+			<position x="0.0" y="2.5" z="0.0" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="0" y="1.5" z="2.5" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="-2.5" y="0.5" z="2.5" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="-2.5" y="-0.5" z="0.0" />
+		</object>
+		<object name="losezone" template="losezone">
+			<position x="0" y="-4.5" z="0" />
+		</object>
+	</objects>
+</level>
