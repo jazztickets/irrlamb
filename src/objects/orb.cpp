@@ -31,7 +31,7 @@
 using namespace irr;
 
 // Constructor
-_Orb::_Orb(const _Spawn &Object)
+_Orb::_Orb(const _ObjectSpawn &Object)
 :	_Object(),
 	Light(nullptr),
 	Sound(nullptr),

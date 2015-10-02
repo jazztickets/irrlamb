@@ -21,14 +21,14 @@
 #include <objects/object.h>
 
 // Forward Declarations
-struct ConstraintStruct;
+struct _ConstraintSpawn;
 
 // Classes
 class _Constraint : public _Object {
 
 	public:
 
-		_Constraint(const ConstraintStruct &Object);
+		_Constraint(const _ConstraintSpawn &Object);
 		~_Constraint();
 
 	private:

@@ -22,7 +22,7 @@
 #include <BulletDynamics/ConstraintSolver/btHingeConstraint.h>
 
 // Constructor
-_Constraint::_Constraint(const ConstraintStruct &Object)
+_Constraint::_Constraint(const _ConstraintSpawn &Object)
 :	_Object(),
 	Constraint(nullptr) {
 

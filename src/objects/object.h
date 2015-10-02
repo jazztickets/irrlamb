@@ -25,8 +25,8 @@
 #include <string>
 
 // Forward Declarations
-struct _Spawn;
-struct ConstraintStruct;
+struct _ObjectSpawn;
+struct _ConstraintSpawn;
 class _AudioSource;
 
 // Classes
@@ -104,9 +104,9 @@ class _Object : public btMotionState {
 	protected:
 
 		// Physics
-		void CreateRigidBody(const _Spawn &Object, btCollisionShape *Shape, bool SetTransform=true);
-		void SetProperties(const _Spawn &Object, bool SetTransform=true);
-		void SetProperties(const ConstraintStruct &Object);
+		void CreateRigidBody(const _ObjectSpawn &Object, btCollisionShape *Shape, bool SetTransform=true);
+		void SetProperties(const _ObjectSpawn &Object, bool SetTransform=true);
+		void SetProperties(const _ConstraintSpawn &Object);
 
 		// Attributes
 		std::string Name;

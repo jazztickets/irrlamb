@@ -57,7 +57,7 @@ _Object::~_Object() {
 }
 
 // Creates a rigid body object and adds it to the world
-void _Object::CreateRigidBody(const _Spawn &Object, btCollisionShape *Shape, bool SetTransform) {
+void _Object::CreateRigidBody(const _ObjectSpawn &Object, btCollisionShape *Shape, bool SetTransform) {
 	_Template *Template = Object.Template;
 
 	// Rotation
@@ -105,7 +105,7 @@ void _Object::UpdateReplay(float FrameTime) {
 }
 
 // Sets object properties
-void _Object::SetProperties(const _Spawn &Object, bool SetTransform) {
+void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 	_Template *Template = Object.Template;
 
 	// Basic properties
@@ -138,7 +138,7 @@ void _Object::SetProperties(const _Spawn &Object, bool SetTransform) {
 }
 
 // Sets object properties
-void _Object::SetProperties(const ConstraintStruct &Object) {
+void _Object::SetProperties(const _ConstraintSpawn &Object) {
 	_Template *Template = Object.Template;
 
 	// Basic properties

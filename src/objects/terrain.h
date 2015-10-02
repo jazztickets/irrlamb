@@ -28,7 +28,7 @@ class _Terrain : public _Object {
 
 	public:
 
-		_Terrain(const _Spawn &Object);
+		_Terrain(const _ObjectSpawn &Object);
 		~_Terrain();
 
 	private:

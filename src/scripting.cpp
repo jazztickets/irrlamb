@@ -607,7 +607,7 @@ int _Scripting::LevelCreateObject(lua_State *LuaObject) {
 	}
 
 	// Set up spawn struct
-	_Spawn Spawn;
+	_ObjectSpawn Spawn;
 	Spawn.Name = ObjectName;
 	Spawn.Template = Template;
 	Spawn.Position.setValue(PositionX, PositionY, PositionZ);
@@ -630,7 +630,7 @@ int _Scripting::LevelCreateConstraint(lua_State *LuaObject) {
 		return 0;
 
 	// Set up constraint struct
-	ConstraintStruct Constraint;
+	_ConstraintSpawn Constraint;
 	Constraint.Name = lua_tostring(LuaObject, 1);
 	Constraint.Template = (_Template *)(lua_touserdata(LuaObject, 2));
 	Constraint.BodyA = (_Object *)(lua_touserdata(LuaObject, 3));

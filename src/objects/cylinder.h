@@ -25,7 +25,7 @@ class _Cylinder : public _Object {
 
 	public:
 
-		_Cylinder(const _Spawn &Object);
+		_Cylinder(const _ObjectSpawn &Object);
 
 	private:
 

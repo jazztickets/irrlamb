@@ -63,18 +63,20 @@ struct _Template {
 	int Smooth;
 };
 
-struct _Spawn {
-	_Spawn();
+struct _ObjectSpawn {
+	_ObjectSpawn();
 
 	std::string Name;
-	btVector3 Position, Rotation;
+	btVector3 Position;
+	btVector3 Rotation;
 	_Template *Template;
 };
 
-struct ConstraintStruct {
-	ConstraintStruct();
+struct _ConstraintSpawn {
+	_ConstraintSpawn();
 
 	std::string Name;
-	_Object *BodyA, *BodyB;
+	_Object *BodyA;
+	_Object *BodyB;
 	_Template *Template;
 };

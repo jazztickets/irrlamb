@@ -231,7 +231,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 			Templates.push_back(Template);
 
 			// Create spawn
-			_Spawn *ObjectSpawn = new _Spawn;
+			_ObjectSpawn *ObjectSpawn = new _ObjectSpawn;
 			ObjectSpawn->Template = Template;
 			ObjectSpawns.push_back(ObjectSpawn);
 		}
@@ -307,7 +307,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 		for(XMLElement *ObjectElement = ObjectsElement->FirstChildElement(); ObjectElement != 0; ObjectElement = ObjectElement->NextSiblingElement()) {
 
 			// Create an object spawn
-			_Spawn *ObjectSpawn = new _Spawn;
+			_ObjectSpawn *ObjectSpawn = new _ObjectSpawn;
 
 			// Get the object properties
 			if(!GetObjectSpawnProperties(ObjectElement, *ObjectSpawn))
@@ -501,7 +501,7 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 }
 
 // Processes an object tag
-int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, _Spawn &ObjectSpawn) {
+int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, _ObjectSpawn &ObjectSpawn) {
 	XMLElement *Element;
 
 	// Get name
@@ -549,13 +549,13 @@ int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, _Spawn &ObjectSp
 void _Level::SpawnObjects() {
 
 	for(size_t i = 0; i < ObjectSpawns.size(); i++) {
-		_Spawn *Spawn = ObjectSpawns[i];
+		_ObjectSpawn *Spawn = ObjectSpawns[i];
 		CreateObject(*Spawn);
 	}
 }
 
 // Creates an object from a spawn struct
-_Object *_Level::CreateObject(const _Spawn &Object) {
+_Object *_Level::CreateObject(const _ObjectSpawn &Object) {
 
 	// Add object
 	_Object *NewObject = nullptr;
@@ -602,7 +602,7 @@ _Object *_Level::CreateObject(const _Spawn &Object) {
 }
 
 // Creates a constraint from a template
-_Object *_Level::CreateConstraint(const ConstraintStruct &Object) {
+_Object *_Level::CreateConstraint(const _ConstraintSpawn &Object) {
 
 	// Add object
 	_Object *NewObject = ObjectManager.AddObject(new _Constraint(Object));

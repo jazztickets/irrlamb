@@ -201,7 +201,7 @@ void _ViewReplayState::Update(float FrameTime) {
 				ObjectManager.UpdateFromReplay();
 			break;
 			case _Replay::PACKET_CREATE: {
-				_Spawn Spawn;
+				_ObjectSpawn Spawn;
 
 				// Read replay
 				std::fstream &ReplayFile = Replay.GetFile();

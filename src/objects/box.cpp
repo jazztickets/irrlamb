@@ -28,7 +28,7 @@
 using namespace irr;
 
 // Constructor
-_Box::_Box(const _Spawn &Object)
+_Box::_Box(const _ObjectSpawn &Object)
 :	_Object() {
 	_Template *Template = Object.Template;
 

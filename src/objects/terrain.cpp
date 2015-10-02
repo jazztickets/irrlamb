@@ -29,7 +29,7 @@
 using namespace irr;
 
 // Constructor
-_Terrain::_Terrain(const _Spawn &Object)
+_Terrain::_Terrain(const _ObjectSpawn &Object)
 :	_Object(),
 	CollisionMesh(nullptr) {
 	_Template *Template = Object.Template;

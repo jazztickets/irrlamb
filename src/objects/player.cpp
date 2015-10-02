@@ -37,7 +37,7 @@
 using namespace irr;
 
 // Constructor
-_Player::_Player(const _Spawn &Object)
+_Player::_Player(const _ObjectSpawn &Object)
 :	_Object(),
 	Camera(nullptr),
 	Light(nullptr),

@@ -25,7 +25,7 @@ class _Sphere : public _Object {
 
 	public:
 
-		_Sphere(const _Spawn &Object);
+		_Sphere(const _ObjectSpawn &Object);
 
 	private:
 

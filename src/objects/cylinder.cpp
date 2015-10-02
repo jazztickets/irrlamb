@@ -28,7 +28,7 @@
 using namespace irr;
 
 // Constructor
-_Cylinder::_Cylinder(const _Spawn &Object)
+_Cylinder::_Cylinder(const _ObjectSpawn &Object)
 :	_Object() {
 	_Template *Template = Object.Template;
 

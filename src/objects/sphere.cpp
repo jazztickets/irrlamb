@@ -28,7 +28,7 @@
 using namespace irr;
 
 // Constructor
-_Sphere::_Sphere(const _Spawn &Object)
+_Sphere::_Sphere(const _ObjectSpawn &Object)
 :	_Object() {
 	_Template *Template = Object.Template;
 

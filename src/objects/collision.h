@@ -29,7 +29,7 @@ class _Collision : public _Object {
 
 	public:
 
-		_Collision(const _Spawn &Object);
+		_Collision(const _ObjectSpawn &Object);
 		~_Collision();
 
 	protected:

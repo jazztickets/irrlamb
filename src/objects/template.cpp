@@ -65,14 +65,14 @@ _Template::_Template() {
 	Smooth = 5;
 }
 
-_Spawn::_Spawn() {
+_ObjectSpawn::_ObjectSpawn() {
 	Name = "";
 	Position.setValue(0.0f, 0.0f, 0.0f);
 	Rotation.setValue(0.0f, 0.0f, 0.0f);
 	Template = nullptr;
 }
 
-ConstraintStruct::ConstraintStruct() {
+_ConstraintSpawn::_ConstraintSpawn() {
 	Name = "";
 	BodyA = nullptr;
 	BodyB = nullptr;

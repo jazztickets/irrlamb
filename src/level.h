@@ -27,8 +27,8 @@ namespace tinyxml2 {
 }
 class _Object;
 struct _Template;
-struct _Spawn;
-struct ConstraintStruct;
+struct _ObjectSpawn;
+struct _ConstraintSpawn;
 
 // Handle user data from .irr file
 class _UserDataLoader : public irr::scene::ISceneUserDataSerializer {
@@ -48,8 +48,8 @@ class _Level {
 
 		// Objects
 		void SpawnObjects();
-		_Object *CreateObject(const _Spawn &Object);
-		_Object *CreateConstraint(const ConstraintStruct &Object);
+		_Object *CreateObject(const _ObjectSpawn &Object);
+		_Object *CreateConstraint(const _ConstraintSpawn &Object);
 
 		// Templates
 		_Template *GetTemplate(const std::string &Name);
@@ -72,7 +72,7 @@ class _Level {
 
 		// Loading
 		int GetTemplateProperties(tinyxml2::XMLElement *TemplateElement, _Template &Object);
-		int GetObjectSpawnProperties(tinyxml2::XMLElement *ObjectElement, _Spawn &ObjectSpawn);
+		int GetObjectSpawnProperties(tinyxml2::XMLElement *ObjectElement, _ObjectSpawn &ObjectSpawn);
 
 		// Resources
 		std::vector<std::string> Scripts;
@@ -80,7 +80,7 @@ class _Level {
 
 		// Objects
 		std::vector<_Template *> Templates;
-		std::vector<_Spawn *> ObjectSpawns;
+		std::vector<_ObjectSpawn *> ObjectSpawns;
 };
 
 // Singletons
