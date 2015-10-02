@@ -593,7 +593,7 @@ int _Scripting::LevelCreateObject(lua_State *LuaObject) {
 
 	// Get parameters
 	std::string ObjectName = lua_tostring(LuaObject, 1);
-	TemplateStruct *Template = (TemplateStruct *)(lua_touserdata(LuaObject, 2));
+	_Template *Template = (_Template *)(lua_touserdata(LuaObject, 2));
 	float PositionX = (float)lua_tonumber(LuaObject, 3);
 	float PositionY = (float)lua_tonumber(LuaObject, 4);
 	float PositionZ = (float)lua_tonumber(LuaObject, 5);
@@ -607,7 +607,7 @@ int _Scripting::LevelCreateObject(lua_State *LuaObject) {
 	}
 
 	// Set up spawn struct
-	SpawnStruct Spawn;
+	_Spawn Spawn;
 	Spawn.Name = ObjectName;
 	Spawn.Template = Template;
 	Spawn.Position.setValue(PositionX, PositionY, PositionZ);
@@ -632,7 +632,7 @@ int _Scripting::LevelCreateConstraint(lua_State *LuaObject) {
 	// Set up constraint struct
 	ConstraintStruct Constraint;
 	Constraint.Name = lua_tostring(LuaObject, 1);
-	Constraint.Template = (TemplateStruct *)(lua_touserdata(LuaObject, 2));
+	Constraint.Template = (_Template *)(lua_touserdata(LuaObject, 2));
 	Constraint.BodyA = (_Object *)(lua_touserdata(LuaObject, 3));
 	Constraint.BodyB = (_Object *)(lua_touserdata(LuaObject, 4));
 

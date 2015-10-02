@@ -224,14 +224,14 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 			}
 
 			// Create template
-			TemplateStruct *Template = new TemplateStruct;
+			_Template *Template = new _Template;
 			Template->CollisionFile = DataPath + File;
 			Template->Type = _Object::COLLISION;
 			Template->Mass = 0.0f;
 			Templates.push_back(Template);
 
 			// Create spawn
-			SpawnStruct *ObjectSpawn = new SpawnStruct;
+			_Spawn *ObjectSpawn = new _Spawn;
 			ObjectSpawn->Template = Template;
 			ObjectSpawns.push_back(ObjectSpawn);
 		}
@@ -275,7 +275,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 		for(XMLElement *TemplateElement = TemplatesElement->FirstChildElement(); TemplateElement != 0; TemplateElement = TemplateElement->NextSiblingElement()) {
 
 			// Create a template
-			TemplateStruct *Template = new TemplateStruct;
+			_Template *Template = new _Template;
 			Template->Fog = Fog;
 
 			// Get the template properties
@@ -307,7 +307,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 		for(XMLElement *ObjectElement = ObjectsElement->FirstChildElement(); ObjectElement != 0; ObjectElement = ObjectElement->NextSiblingElement()) {
 
 			// Create an object spawn
-			SpawnStruct *ObjectSpawn = new SpawnStruct;
+			_Spawn *ObjectSpawn = new _Spawn;
 
 			// Get the object properties
 			if(!GetObjectSpawnProperties(ObjectElement, *ObjectSpawn))
@@ -349,7 +349,7 @@ int _Level::Close() {
 }
 
 // Processes a template tag
-int _Level::GetTemplateProperties(XMLElement *TemplateElement, TemplateStruct &Object) {
+int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object) {
 	XMLElement *Element;
 	const char *String;
 
@@ -501,7 +501,7 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, TemplateStruct &O
 }
 
 // Processes an object tag
-int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, SpawnStruct &ObjectSpawn) {
+int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, _Spawn &ObjectSpawn) {
 	XMLElement *Element;
 
 	// Get name
@@ -519,7 +519,7 @@ int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, SpawnStruct &Obj
 	}
 
 	// Get template data
-	TemplateStruct *Template = GetTemplate(TemplateName);
+	_Template *Template = GetTemplate(TemplateName);
 	if(Template == nullptr) {
 		Log.Write("Cannot find template %s", TemplateName.c_str());
 		return 0;
@@ -549,13 +549,13 @@ int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, SpawnStruct &Obj
 void _Level::SpawnObjects() {
 
 	for(size_t i = 0; i < ObjectSpawns.size(); i++) {
-		SpawnStruct *Spawn = ObjectSpawns[i];
+		_Spawn *Spawn = ObjectSpawns[i];
 		CreateObject(*Spawn);
 	}
 }
 
 // Creates an object from a spawn struct
-_Object *_Level::CreateObject(const SpawnStruct &Object) {
+_Object *_Level::CreateObject(const _Spawn &Object) {
 
 	// Add object
 	_Object *NewObject = nullptr;
@@ -611,7 +611,7 @@ _Object *_Level::CreateConstraint(const ConstraintStruct &Object) {
 }
 
 // Gets a template by name
-TemplateStruct *_Level::GetTemplate(const std::string &Name) {
+_Template *_Level::GetTemplate(const std::string &Name) {
 
 	// Search templates by name
 	for(size_t i = 0; i < Templates.size(); i++) {
@@ -624,7 +624,7 @@ TemplateStruct *_Level::GetTemplate(const std::string &Name) {
 }
 
 // Gets a template by name
-TemplateStruct *_Level::GetTemplateFromID(int ID) {
+_Template *_Level::GetTemplateFromID(int ID) {
 
 	// Search templates by id
 	for(size_t i = 0; i < Templates.size(); i++) {

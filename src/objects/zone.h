@@ -35,7 +35,7 @@ class _Zone : public _Object {
 
 	public:
 
-		_Zone(const SpawnStruct &Object);
+		_Zone(const _Spawn &Object);
 
 		void EndFrame();
 		virtual void HandleCollision(_Object *OtherObject, const btPersistentManifold *ContactManifold, float NormalScale);

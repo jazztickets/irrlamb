@@ -28,9 +28,9 @@
 using namespace irr;
 
 // Constructor
-_Box::_Box(const SpawnStruct &Object)
+_Box::_Box(const _Spawn &Object)
 :	_Object() {
-	TemplateStruct *Template = Object.Template;
+	_Template *Template = Object.Template;
 
 	// Check for mesh file
 	if(Template->Mesh != "") {

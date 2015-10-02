@@ -27,7 +27,7 @@ class _Player : public _Object {
 
 	public:
 
-		_Player(const SpawnStruct &Object);
+		_Player(const _Spawn &Object);
 		~_Player();
 
 		void Update(float FrameTime);

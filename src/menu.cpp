@@ -688,7 +688,7 @@ void _Menu::InitReplays(bool PlaySound) {
 					_ReplayInfo ReplayInfo;
 					ReplayInfo.Filename = FileList->getFileName(i).c_str();
 					ReplayInfo.Description = Replay.GetDescription();
-					ReplayInfo.LevelNiceName = Level.GetLevelNiceName();
+					ReplayInfo.LevelNiceName = Level.LevelNiceName;
 					ReplayInfo.Autosave = Replay.GetAutosave();
 
 					// Date
@@ -926,7 +926,7 @@ void _Menu::InitPlay() {
 	Interface.ChangeSkin(_Interface::SKIN_GAME);
 	ClearCurrentLayout();
 
-	Graphics.SetClearColor(Level.GetClearColor());
+	Graphics.SetClearColor(Level.ClearColor);
 	Input.SetMouseLocked(true);
 	LoseMessage = "You died!";
 
@@ -1004,7 +1004,7 @@ void _Menu::InitWin() {
 	Interface.Clear();
 
 	// Get level stats
-	WinStats = &Save.LevelStats[Level.GetLevelName()];
+	WinStats = &Save.LevelStats[Level.LevelName];
 
 	// Clear interface
 	ClearCurrentLayout();

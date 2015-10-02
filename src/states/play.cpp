@@ -90,8 +90,8 @@ int _PlayState::Close() {
 
 	// Save stats
 	if(TestLevel == "") {
-		Save.LevelStats[Level.GetLevelName()].PlayTime += Timer;
-		Save.SaveLevelStats(Level.GetLevelName());
+		Save.LevelStats[Level.LevelName].PlayTime += Timer;
+		Save.SaveLevelStats(Level.LevelName);
 	}
 
 	return 1;
@@ -103,9 +103,9 @@ void _PlayState::ResetLevel() {
 
 	// Handle saves
 	if(TestLevel == "") {
-		Save.LevelStats[Level.GetLevelName()].LoadCount++;
-		Save.LevelStats[Level.GetLevelName()].PlayTime += Timer;
-		Save.SaveLevelStats(Level.GetLevelName());
+		Save.LevelStats[Level.LevelName].LoadCount++;
+		Save.LevelStats[Level.LevelName].PlayTime += Timer;
+		Save.SaveLevelStats(Level.LevelName);
 	}
 
 	// Stop sounds
@@ -384,14 +384,14 @@ void _PlayState::WinLevel() {
 	if(PlayState.TestLevel == "") {
 
 		// Increment win count
-		Save.LevelStats[Level.GetLevelName()].WinCount++;
+		Save.LevelStats[Level.LevelName].WinCount++;
 
 		// Add high score
-		int InsertIndex = Save.AddScore(Level.GetLevelName(), PlayState.Timer);
+		int InsertIndex = Save.AddScore(Level.LevelName, PlayState.Timer);
 
 		// Autosave replays for new records
 		if(InsertIndex == 0)
-			Replay.SaveReplay(std::string("New record for ") + Level.GetLevelNiceName(), true);
+			Replay.SaveReplay(std::string("New record for ") + Level.LevelNiceName, true);
 
 		// Unlock next level
 		uint32_t NewCampaign = PlayState.CurrentCampaign;
@@ -402,7 +402,7 @@ void _PlayState::WinLevel() {
 		}
 
 		// Save stats to a file
-		Save.SaveLevelStats(Level.GetLevelName());
+		Save.SaveLevelStats(Level.LevelName);
 	}
 
 	// Show win screen
@@ -416,10 +416,10 @@ void _PlayState::LoseLevel() {
 	if(PlayState.TestLevel == "") {
 
 		// Increment win count
-		Save.LevelStats[Level.GetLevelName()].LoseCount++;
+		Save.LevelStats[Level.LevelName].LoseCount++;
 
 		// Save stats to a file
-		Save.SaveLevelStats(Level.GetLevelName());
+		Save.SaveLevelStats(Level.LevelName);
 	}
 
 	// Show lose screen

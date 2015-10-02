@@ -26,7 +26,7 @@ _Constraint::_Constraint(const ConstraintStruct &Object)
 :	_Object(),
 	Constraint(nullptr) {
 
-	TemplateStruct *Template = Object.Template;
+	_Template *Template = Object.Template;
 
 	// Attributes
 	if(Physics.IsEnabled()) {

@@ -38,8 +38,8 @@ void _Replay::StartRecording() {
 
 	// Get header information
 	ReplayVersion = REPLAY_VERSION;
-	LevelVersion = Level.GetLevelVersion();
-	LevelName = Level.GetLevelName();
+	LevelVersion = Level.LevelVersion;
+	LevelName = Level.LevelName;
 
 	// Create replay file for object data
 	ReplayDataFile = Save.ReplayPath + "replay.dat";

@@ -25,7 +25,7 @@ class _Box : public _Object {
 
 	public:
 
-		_Box(const SpawnStruct &Object);
+		_Box(const _Spawn &Object);
 
 	private:
 

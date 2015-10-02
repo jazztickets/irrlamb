@@ -81,7 +81,7 @@ int _ViewReplayState::Init() {
 	SetupGUI();
 
 	// Set fog background color
-	Graphics.SetClearColor(Level.GetClearColor());
+	Graphics.SetClearColor(Level.ClearColor);
 
 	return 1;
 }
@@ -201,7 +201,7 @@ void _ViewReplayState::Update(float FrameTime) {
 				ObjectManager.UpdateFromReplay();
 			break;
 			case _Replay::PACKET_CREATE: {
-				SpawnStruct Spawn;
+				_Spawn Spawn;
 
 				// Read replay
 				std::fstream &ReplayFile = Replay.GetFile();

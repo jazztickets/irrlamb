@@ -23,8 +23,8 @@
 class _Object;
 
 // Structures
-struct TemplateStruct {
-	TemplateStruct();
+struct _Template {
+	_Template();
 
 	// Generic properties
 	int16_t TemplateID;
@@ -63,12 +63,12 @@ struct TemplateStruct {
 	int Smooth;
 };
 
-struct SpawnStruct {
-	SpawnStruct();
+struct _Spawn {
+	_Spawn();
 
 	std::string Name;
 	btVector3 Position, Rotation;
-	TemplateStruct *Template;
+	_Template *Template;
 };
 
 struct ConstraintStruct {
@@ -76,5 +76,5 @@ struct ConstraintStruct {
 
 	std::string Name;
 	_Object *BodyA, *BodyB;
-	TemplateStruct *Template;
+	_Template *Template;
 };

@@ -67,7 +67,7 @@ int _Campaign::Init() {
 			LevelElement->QueryIntAttribute("unlocked", &Level.Unlocked);
 
 			::Level.Init(Level.File, true);
-			Level.NiceName = ::Level.GetLevelNiceName();
+			Level.NiceName = ::Level.LevelNiceName;
 
 			Campaign.Levels.push_back(Level);
 		}

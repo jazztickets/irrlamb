@@ -195,9 +195,9 @@ void _Interface::Draw(float Time, bool FirstLoad) {
 		if(Time >= INTERFACE_LEVEL_DISPLAY_TIME - 1.0f)
 			LevelNameColor.setAlpha((uint32_t)(255 * (INTERFACE_LEVEL_DISPLAY_TIME - Time)));
 
-		RenderText(Level.GetLevelNiceName().c_str(), irrDriver->getScreenSize().Width - 25, 10, _Interface::ALIGN_RIGHT, _Interface::FONT_LARGE, LevelNameColor);
-		if(Level.GetFastestTime() > 0.0f) {
-			ConvertSecondsToString(Level.GetFastestTime(), TimeString, "Record: ");
+		RenderText(Level.LevelNiceName.c_str(), irrDriver->getScreenSize().Width - 25, 10, _Interface::ALIGN_RIGHT, _Interface::FONT_LARGE, LevelNameColor);
+		if(Level.FastestTime > 0.0f) {
+			ConvertSecondsToString(Level.FastestTime, TimeString, "Record: ");
 			RenderText(TimeString, irrDriver->getScreenSize().Width - 25, 70, _Interface::ALIGN_RIGHT, _Interface::FONT_MEDIUM, LevelNameColor);
 		}
 	}

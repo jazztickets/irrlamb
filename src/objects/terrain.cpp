@@ -29,10 +29,10 @@
 using namespace irr;
 
 // Constructor
-_Terrain::_Terrain(const SpawnStruct &Object)
+_Terrain::_Terrain(const _Spawn &Object)
 :	_Object(),
 	CollisionMesh(nullptr) {
-	TemplateStruct *Template = Object.Template;
+	_Template *Template = Object.Template;
 
 	// Check for mesh file
 	if(Template->Mesh != "") {

@@ -25,7 +25,7 @@
 #include <string>
 
 // Forward Declarations
-struct SpawnStruct;
+struct _Spawn;
 struct ConstraintStruct;
 class _AudioSource;
 
@@ -104,8 +104,8 @@ class _Object : public btMotionState {
 	protected:
 
 		// Physics
-		void CreateRigidBody(const SpawnStruct &Object, btCollisionShape *Shape, bool SetTransform=true);
-		void SetProperties(const SpawnStruct &Object, bool SetTransform=true);
+		void CreateRigidBody(const _Spawn &Object, btCollisionShape *Shape, bool SetTransform=true);
+		void SetProperties(const _Spawn &Object, bool SetTransform=true);
 		void SetProperties(const ConstraintStruct &Object);
 
 		// Attributes

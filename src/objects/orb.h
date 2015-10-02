@@ -33,7 +33,7 @@ class _Orb : public _Object {
 			ORBSTATE_DEACTIVATED,
 		};
 
-		_Orb(const SpawnStruct &Object);
+		_Orb(const _Spawn &Object);
 		~_Orb();
 
 		void Update(float FrameTime);

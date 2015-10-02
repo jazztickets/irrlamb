@@ -19,7 +19,7 @@
 #include <objects/object.h>
 #include <physics.h>
 
-TemplateStruct::TemplateStruct() {
+_Template::_Template() {
 
 	// Generic properties
 	TemplateID = -1;
@@ -65,7 +65,7 @@ TemplateStruct::TemplateStruct() {
 	Smooth = 5;
 }
 
-SpawnStruct::SpawnStruct() {
+_Spawn::_Spawn() {
 	Name = "";
 	Position.setValue(0.0f, 0.0f, 0.0f);
 	Rotation.setValue(0.0f, 0.0f, 0.0f);

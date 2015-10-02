@@ -26,8 +26,8 @@ namespace tinyxml2 {
 	class XMLElement;
 }
 class _Object;
-struct TemplateStruct;
-struct SpawnStruct;
+struct _Template;
+struct _Spawn;
 struct ConstraintStruct;
 
 // Handle user data from .irr file
@@ -46,33 +46,21 @@ class _Level {
 		int Init(const std::string &LevelName, bool HeaderOnly=false);
 		int Close();
 
-		// Properties
-		const std::string &GetLevelName() { return LevelName; }
-		const std::string &GetLevelNiceName() { return LevelNiceName; }
-		int GetLevelVersion() { return LevelVersion; }
-		const irr::video::SColor &GetClearColor() { return ClearColor; }
-		float GetFastestTime() { return FastestTime; }
-
 		// Objects
 		void SpawnObjects();
-		_Object *CreateObject(const SpawnStruct &Object);
+		_Object *CreateObject(const _Spawn &Object);
 		_Object *CreateConstraint(const ConstraintStruct &Object);
 
 		// Templates
-		TemplateStruct *GetTemplate(const std::string &Name);
-		TemplateStruct *GetTemplateFromID(int ID);
+		_Template *GetTemplate(const std::string &Name);
+		_Template *GetTemplateFromID(int ID);
 
 		// Scripts
 		void RunScripts();
 
-	private:
-
-		// Loading
-		int GetTemplateProperties(tinyxml2::XMLElement *TemplateElement, TemplateStruct &Object);
-		int GetObjectSpawnProperties(tinyxml2::XMLElement *ObjectElement, SpawnStruct &ObjectSpawn);
-
-		// Level
-		std::string LevelName, LevelNiceName;
+		// Attributes
+		std::string LevelName;
+		std::string LevelNiceName;
 		int LevelVersion;
 		bool IsCustomLevel;
 		std::string GameVersion;
@@ -80,13 +68,19 @@ class _Level {
 		_UserDataLoader UserDataLoader;
 		float FastestTime;
 
+	private:
+
+		// Loading
+		int GetTemplateProperties(tinyxml2::XMLElement *TemplateElement, _Template &Object);
+		int GetObjectSpawnProperties(tinyxml2::XMLElement *ObjectElement, _Spawn &ObjectSpawn);
+
 		// Resources
 		std::vector<std::string> Scripts;
 		std::vector<std::string> Sounds;
 
 		// Objects
-		std::vector<TemplateStruct *> Templates;
-		std::vector<SpawnStruct *> ObjectSpawns;
+		std::vector<_Template *> Templates;
+		std::vector<_Spawn *> ObjectSpawns;
 };
 
 // Singletons

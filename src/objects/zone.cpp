@@ -23,10 +23,10 @@
 #include <BulletCollision/CollisionShapes/btBoxShape.h>
 
 // Constructor
-_Zone::_Zone(const SpawnStruct &Object)
+_Zone::_Zone(const _Spawn &Object)
 :	_Object() {
 
-	TemplateStruct *Template = Object.Template;
+	_Template *Template = Object.Template;
 	Active = Template->Active;
 
 	// Set up physics
