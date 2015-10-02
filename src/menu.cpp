@@ -526,15 +526,15 @@ void _Menu::InitMain() {
 	ClearCurrentLayout();
 
 	// Logo
-	irrGUI->addImage(irrDriver->getTexture("art/logo.jpg"), core::position2di(Interface.GetCenterX() - 256, Interface.GetCenterY() - 270), true, CurrentLayout);
+	irrGUI->addImage(irrDriver->getTexture("art/logo.jpg"), core::position2di(Interface.CenterX - 256, Interface.CenterY - 270), true, CurrentLayout);
 	AddMenuText(core::position2di(40, irrDriver->getScreenSize().Height - 20), core::stringw(GAME_VERSION).c_str(), _Interface::FONT_SMALL);
 
 	// Button
-	int Y = Interface.GetCenterY() - TITLE_Y + TITLE_SPACING;
-	AddMenuButton(Interface.GetCenteredRect(Interface.GetCenterX(), Y + BUTTON_SPACING * 0, 194, 52), MAIN_SINGLEPLAYER, L"Single Player", _Interface::IMAGE_BUTTON_BIG);
-	AddMenuButton(Interface.GetCenteredRect(Interface.GetCenterX(), Y + BUTTON_SPACING * 1, 194, 52), MAIN_REPLAYS, L"Replays", _Interface::IMAGE_BUTTON_BIG);
-	AddMenuButton(Interface.GetCenteredRect(Interface.GetCenterX(), Y + BUTTON_SPACING * 2, 194, 52), MAIN_OPTIONS, L"Options", _Interface::IMAGE_BUTTON_BIG);
-	AddMenuButton(Interface.GetCenteredRect(Interface.GetCenterX(), Y + BUTTON_SPACING * 3, 194, 52), MAIN_QUIT, L"Quit", _Interface::IMAGE_BUTTON_BIG);
+	int Y = Interface.CenterY - TITLE_Y + TITLE_SPACING;
+	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX, Y + BUTTON_SPACING * 0, 194, 52), MAIN_SINGLEPLAYER, L"Single Player", _Interface::IMAGE_BUTTON_BIG);
+	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX, Y + BUTTON_SPACING * 1, 194, 52), MAIN_REPLAYS, L"Replays", _Interface::IMAGE_BUTTON_BIG);
+	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX, Y + BUTTON_SPACING * 2, 194, 52), MAIN_OPTIONS, L"Options", _Interface::IMAGE_BUTTON_BIG);
+	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX, Y + BUTTON_SPACING * 3, 194, 52), MAIN_QUIT, L"Quit", _Interface::IMAGE_BUTTON_BIG);
 
 	// Play sound
 	if(!FirstStateLoad)
@@ -555,7 +555,7 @@ void _Menu::InitSinglePlayer() {
 	HighlightedLevel = -1;
 
 	// Text
-	int X = Interface.GetCenterX(), Y = Interface.GetCenterY() - TITLE_Y;
+	int X = Interface.CenterX, Y = Interface.CenterY - TITLE_Y;
 	AddMenuText(core::position2di(X, Y), L"Level Sets");
 
 	// Campaigns
@@ -568,7 +568,7 @@ void _Menu::InitSinglePlayer() {
 		Y += CAMPAIGN_SPACING;
 	}
 
-	Y = Interface.GetCenterY() + BACK_Y;
+	Y = Interface.CenterY + BACK_Y;
 	AddMenuButton(Interface.GetCenteredRect(X, Y, 108, 44), SINGLEPLAYER_BACK, L"Back", _Interface::IMAGE_BUTTON_SMALL);
 
 	// Play sound
@@ -586,13 +586,13 @@ void _Menu::InitLevels() {
 	HighlightedLevel = -1;
 
 	const CampaignStruct &CampaignData = Campaign.GetCampaign(CampaignIndex);
-	int X = Interface.GetCenterX(), Y = Interface.GetCenterY() - TITLE_Y;
+	int X = Interface.CenterX, Y = Interface.CenterY - TITLE_Y;
 
 	// Text
 	AddMenuText(core::position2di(X, Y), core::stringw(CampaignData.Name.c_str()).c_str());
 
 	// Add level list
-	X = Interface.GetCenterX() - 160;
+	X = Interface.CenterX - 160;
 	Y += TITLE_SPACING;
 	int Column = 0, Row = 0;
 	for(uint32_t i = 0; i < CampaignData.Levels.size(); i++) {
@@ -630,8 +630,8 @@ void _Menu::InitLevels() {
 	}
 
 	// Buttons
-	X = Interface.GetCenterX();
-	Y = Interface.GetCenterY() + BACK_Y;
+	X = Interface.CenterX;
+	Y = Interface.CenterY + BACK_Y;
 	AddMenuButton(Interface.GetCenteredRect(X, Y, 108, 44), LEVELS_BACK, L"Back", _Interface::IMAGE_BUTTON_SMALL);
 
 	// Play sound
@@ -652,7 +652,7 @@ void _Menu::InitReplays(bool PlaySound) {
 	HighlightedLevel = -1;
 
 	// Text
-	int X = Interface.GetCenterX(), Y = Interface.GetCenterY() - TITLE_Y;
+	int X = Interface.CenterX, Y = Interface.CenterY - TITLE_Y;
 	AddMenuText(core::position2di(X, Y), L"Replays");
 
 	// Change directories
@@ -662,7 +662,7 @@ void _Menu::InitReplays(bool PlaySound) {
 	// Clear list
 	ReplayFiles.clear();
 
-	X = Interface.GetCenterX() - 160;
+	X = Interface.CenterX - 160;
 	Y += TITLE_SPACING - 20;
 	int Column = 0, Row = 0;
 
@@ -724,14 +724,14 @@ void _Menu::InitReplays(bool PlaySound) {
 	irrFile->changeWorkingDirectoryTo(OldWorkingDirectory.c_str());
 
 	// Confirmations
-	X = Interface.GetCenterX();
-	Y = Interface.GetCenterY() + BACK_Y;
+	X = Interface.CenterX;
+	Y = Interface.CenterY + BACK_Y;
 	AddMenuButton(Interface.GetCenteredRect(X - 123, Y, 108, 44), REPLAYS_VIEW, L"View", _Interface::IMAGE_BUTTON_SMALL);
 	AddMenuButton(Interface.GetCenteredRect(X, Y, 108, 44), REPLAYS_DELETE, L"Delete", _Interface::IMAGE_BUTTON_SMALL);
 	AddMenuButton(Interface.GetCenteredRect(X + 123, Y, 108, 44), REPLAYS_BACK, L"Back", _Interface::IMAGE_BUTTON_SMALL);
 
-	X = Interface.GetCenterX();
-	Y = Interface.GetCenterY() + 20;
+	X = Interface.CenterX;
+	Y = Interface.CenterY + 20;
 	AddMenuButton(Interface.GetCenteredRect(X + 223, Y - 32, 32, 32), REPLAYS_UP, L"", _Interface::IMAGE_BUTTON_UP);
 	AddMenuButton(Interface.GetCenteredRect(X + 223, Y + 32, 32, 32), REPLAYS_DOWN, L"", _Interface::IMAGE_BUTTON_DOWN);
 
@@ -750,16 +750,16 @@ void _Menu::InitOptions() {
 	ClearCurrentLayout();
 
 	// Text
-	int X = Interface.GetCenterX(), Y = Interface.GetCenterY() - TITLE_Y;
+	int X = Interface.CenterX, Y = Interface.CenterY - TITLE_Y;
 	AddMenuText(core::position2di(X, Y), L"Options");
 
 	Y += TITLE_SPACING;
 
 	// Buttons
-	AddMenuButton(Interface.GetCenteredRect(Interface.GetCenterX(), Y + 0 * BUTTON_SPACING, 194, 52), OPTIONS_VIDEO, L"Video");
-	AddMenuButton(Interface.GetCenteredRect(Interface.GetCenterX(), Y + 1 * BUTTON_SPACING, 194, 52), OPTIONS_AUDIO, L"Audio");
-	AddMenuButton(Interface.GetCenteredRect(Interface.GetCenterX(), Y + 2 * BUTTON_SPACING, 194, 52), OPTIONS_CONTROLS, L"Controls");
-	AddMenuButton(Interface.GetCenteredRect(Interface.GetCenterX(), Interface.GetCenterY() + BACK_Y, 108, 44), OPTIONS_BACK, L"Back", _Interface::IMAGE_BUTTON_SMALL);
+	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX, Y + 0 * BUTTON_SPACING, 194, 52), OPTIONS_VIDEO, L"Video");
+	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX, Y + 1 * BUTTON_SPACING, 194, 52), OPTIONS_AUDIO, L"Audio");
+	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX, Y + 2 * BUTTON_SPACING, 194, 52), OPTIONS_CONTROLS, L"Controls");
+	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX, Interface.CenterY + BACK_Y, 108, 44), OPTIONS_BACK, L"Back", _Interface::IMAGE_BUTTON_SMALL);
 
 	// Play sound
 	Interface.PlaySound(_Interface::SOUND_CONFIRM);
@@ -773,7 +773,7 @@ void _Menu::InitVideo() {
 	ClearCurrentLayout();
 
 	// Text
-	int X = Interface.GetCenterX(), Y = Interface.GetCenterY() - TITLE_Y;
+	int X = Interface.CenterX, Y = Interface.CenterY - TITLE_Y;
 	AddMenuText(core::position2di(X, Y), L"Video");
 
 	// Video modes
@@ -839,12 +839,12 @@ void _Menu::InitVideo() {
 	}
 
 	// Save
-	Y = Interface.GetCenterY() + BACK_Y;
+	Y = Interface.CenterY + BACK_Y;
 	AddMenuButton(Interface.GetCenteredRect(X - SAVE_X, Y, 108, 44), VIDEO_SAVE, L"Save", _Interface::IMAGE_BUTTON_SMALL);
 	AddMenuButton(Interface.GetCenteredRect(X + SAVE_X, Y, 108, 44), VIDEO_CANCEL, L"Cancel", _Interface::IMAGE_BUTTON_SMALL);
 
 	// Warning
-	Y = Interface.GetCenterY() + BACK_Y - 50;
+	Y = Interface.CenterY + BACK_Y - 50;
 	AddMenuText(core::position2di(X, Y), L"Changes are applied after restart", _Interface::FONT_SMALL, -1);
 
 	// Play sound
@@ -859,7 +859,7 @@ void _Menu::InitAudio() {
 	ClearCurrentLayout();
 
 	// Text
-	int X = Interface.GetCenterX(), Y = Interface.GetCenterY() - TITLE_Y;
+	int X = Interface.CenterX, Y = Interface.CenterY - TITLE_Y;
 	AddMenuText(core::position2di(X, Y), L"Audio");
 
 	// Sound enabled
@@ -869,8 +869,8 @@ void _Menu::InitAudio() {
 
 	// Save
 	Y += 90;
-	AddMenuButton(Interface.GetCenteredRect(X - SAVE_X, Interface.GetCenterY() + BACK_Y, 108, 44), AUDIO_SAVE, L"Save", _Interface::IMAGE_BUTTON_SMALL);
-	AddMenuButton(Interface.GetCenteredRect(X + SAVE_X, Interface.GetCenterY() + BACK_Y, 108, 44), AUDIO_CANCEL, L"Cancel", _Interface::IMAGE_BUTTON_SMALL);
+	AddMenuButton(Interface.GetCenteredRect(X - SAVE_X, Interface.CenterY + BACK_Y, 108, 44), AUDIO_SAVE, L"Save", _Interface::IMAGE_BUTTON_SMALL);
+	AddMenuButton(Interface.GetCenteredRect(X + SAVE_X, Interface.CenterY + BACK_Y, 108, 44), AUDIO_CANCEL, L"Cancel", _Interface::IMAGE_BUTTON_SMALL);
 
 	// Play sound
 	Interface.PlaySound(_Interface::SOUND_CONFIRM);
@@ -883,14 +883,14 @@ void _Menu::InitAudio() {
 void _Menu::InitControls() {
 	ClearCurrentLayout();
 
-	int X = Interface.GetCenterX();
-	int Y = Interface.GetCenterY() - TITLE_Y;
+	int X = Interface.CenterX;
+	int Y = Interface.CenterY - TITLE_Y;
 
 	// Text
 	AddMenuText(core::position2di(X, Y), L"Controls");
 
 	// Create the key buttons
-	Y = Interface.GetCenterY() - TITLE_Y + TITLE_SPACING - 40;
+	Y = Interface.CenterY - TITLE_Y + TITLE_SPACING - 40;
 	KeyButton = nullptr;
 	for(int i = 0; i <= _Actions::RESET; i++) {
 
@@ -911,8 +911,8 @@ void _Menu::InitControls() {
 	irrGUI->addCheckBox(Config.InvertGamepadY, Interface.GetCenteredRect(X + 15 + 170, Y, 100, 25), CurrentLayout, CONTROLS_INVERTGAMEPADY);
 
 	// Save
-	AddMenuButton(Interface.GetCenteredRect(Interface.GetCenterX() - SAVE_X, Interface.GetCenterY() + BACK_Y, 108, 44), CONTROLS_SAVE, L"Save", _Interface::IMAGE_BUTTON_SMALL);
-	AddMenuButton(Interface.GetCenteredRect(Interface.GetCenterX() + SAVE_X, Interface.GetCenterY() + BACK_Y, 108, 44), CONTROLS_CANCEL, L"Cancel", _Interface::IMAGE_BUTTON_SMALL);
+	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX - SAVE_X, Interface.CenterY + BACK_Y, 108, 44), CONTROLS_SAVE, L"Save", _Interface::IMAGE_BUTTON_SMALL);
+	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX + SAVE_X, Interface.CenterY + BACK_Y, 108, 44), CONTROLS_CANCEL, L"Cancel", _Interface::IMAGE_BUTTON_SMALL);
 
 	// Play sound
 	Interface.PlaySound(_Interface::SOUND_CONFIRM);
@@ -938,8 +938,8 @@ void _Menu::InitPlay() {
 void _Menu::InitPause() {
 	ClearCurrentLayout();
 
-	int X = Interface.GetCenterX();
-	int Y = Interface.GetCenterY() - 125;
+	int X = Interface.CenterX;
+	int Y = Interface.CenterY - 125;
 
 	AddMenuButton(Interface.GetCenteredRect(X, Y + 0 * BUTTON_SPACING, 194, 52), PAUSE_RESUME, L"Resume");
 	AddMenuButton(Interface.GetCenteredRect(X, Y + 1 * BUTTON_SPACING, 194, 52), PAUSE_SAVEREPLAY, L"Save Replay");
@@ -959,8 +959,8 @@ void _Menu::InitSaveReplay() {
 	ClearCurrentLayout();
 
 	// Draw interface
-	int X = Interface.GetCenterX();
-	int Y = Interface.GetCenterY() - 50;
+	int X = Interface.CenterX;
+	int Y = Interface.CenterY - 50;
 
 	AddMenuText(core::position2di(X, Y), L"Enter a name", _Interface::FONT_MEDIUM);
 	Y += 40;
@@ -983,8 +983,8 @@ void _Menu::InitLose() {
 	// Clear interface
 	ClearCurrentLayout();
 
-	int X = Interface.GetCenterX() - LOSE_WIDTH / 2 + 128/2;
-	int Y = Interface.GetCenterY() + LOSE_HEIGHT / 2 + 40;
+	int X = Interface.CenterX - LOSE_WIDTH / 2 + 128/2;
+	int Y = Interface.CenterY + LOSE_HEIGHT / 2 + 40;
 
 	int Spacing = LOSE_WIDTH/3 + 3;
 	gui::IGUIButton *Button = AddMenuButton(Interface.GetCenteredRect(X + Spacing * 0, Y, 130, 44), LOSE_RESTARTLEVEL, L"Retry Level", _Interface::IMAGE_BUTTON_MEDIUM);
@@ -1009,8 +1009,8 @@ void _Menu::InitWin() {
 	// Clear interface
 	ClearCurrentLayout();
 
-	int X = Interface.GetCenterX() - WIN_WIDTH / 2 + 128/2;
-	int Y = Interface.GetCenterY() + WIN_HEIGHT / 2 + 40;
+	int X = Interface.CenterX - WIN_WIDTH / 2 + 128/2;
+	int Y = Interface.CenterY + WIN_HEIGHT / 2 + 40;
 
 	int Spacing = WIN_WIDTH/4 + 3;
 	AddMenuButton(Interface.GetCenteredRect(X + Spacing * 0, Y, 130, 44), WIN_RESTARTLEVEL, L"Retry Level", _Interface::IMAGE_BUTTON_MEDIUM);
@@ -1077,7 +1077,7 @@ void _Menu::Draw() {
 				const std::string &NiceName = Campaign.GetLevelNiceName(CampaignIndex, HighlightedLevel);
 
 				// Get text dimensions
-				core::dimension2du NiceNameSize = Interface.GetFont(_Interface::FONT_MEDIUM)->getDimension(core::stringw(NiceName.c_str()).c_str());
+				core::dimension2du NiceNameSize = Interface.Fonts[_Interface::FONT_MEDIUM]->getDimension(core::stringw(NiceName.c_str()).c_str());
 
 				// Get box position
 				int Width = NiceNameSize.Width + STATS_PADDING * 2, Height = STATS_MIN_HEIGHT + STATS_PADDING, X, Y;
@@ -1179,8 +1179,8 @@ void _Menu::Draw() {
 				const _ReplayInfo &ReplayInfo = ReplayFiles[HighlightedLevel];
 
 				// Get text dimensions
-				core::dimension2du DescriptionSize = Interface.GetFont(_Interface::FONT_MEDIUM)->getDimension(core::stringw(ReplayInfo.Description.c_str()).c_str());
-				core::dimension2du NiceNameSize = Interface.GetFont(_Interface::FONT_SMALL)->getDimension(core::stringw(ReplayInfo.LevelNiceName.c_str()).c_str());
+				core::dimension2du DescriptionSize = Interface.Fonts[_Interface::FONT_MEDIUM]->getDimension(core::stringw(ReplayInfo.Description.c_str()).c_str());
+				core::dimension2du NiceNameSize = Interface.Fonts[_Interface::FONT_SMALL]->getDimension(core::stringw(ReplayInfo.LevelNiceName.c_str()).c_str());
 
 				// Get box position
 				int Width = std::max(DescriptionSize.Width, NiceNameSize.Width) + STATS_PADDING * 2;
@@ -1241,9 +1241,9 @@ void _Menu::DrawWinScreen() {
 	Interface.ConvertSecondsToString(PlayState.Timer, TimeString);
 
 	// Draw header
-	int X = Interface.GetCenterX();
-	int Y = Interface.GetCenterY() - WIN_HEIGHT / 2 + 15;
-	Interface.DrawTextBox(Interface.GetCenterX(), Interface.GetCenterY(), WIN_WIDTH, WIN_HEIGHT);
+	int X = Interface.CenterX;
+	int Y = Interface.CenterY - WIN_HEIGHT / 2 + 15;
+	Interface.DrawTextBox(Interface.CenterX, Interface.CenterY, WIN_WIDTH, WIN_HEIGHT);
 	Interface.RenderText("Level Completed!", X, Y, _Interface::ALIGN_CENTER, _Interface::FONT_LARGE);
 
 	// Draw time
@@ -1260,7 +1260,7 @@ void _Menu::DrawWinScreen() {
 	}
 
 	// High scores
-	int HighX = Interface.GetCenterX() - 100, HighY = Y + 48;
+	int HighX = Interface.CenterX - 100, HighY = Y + 48;
 
 	// Draw header
 	Interface.RenderText("#", HighX, HighY, _Interface::ALIGN_LEFT, _Interface::FONT_SMALL, video::SColor(255, 255, 255, 255));
@@ -1291,8 +1291,8 @@ void _Menu::DrawWinScreen() {
 void _Menu::DrawLoseScreen() {
 
 	// Draw header
-	int X = Interface.GetCenterX();
-	int Y = Interface.GetCenterY() - WIN_HEIGHT / 2 - 40;
+	int X = Interface.CenterX;
+	int Y = Interface.CenterY - WIN_HEIGHT / 2 - 40;
 	Interface.RenderText(LoseMessage.c_str(), X, Y, _Interface::ALIGN_CENTER, _Interface::FONT_LARGE);
 }
 
@@ -1346,10 +1346,10 @@ void _Menu::LaunchReplay() {
 // Add a regular menu button
 gui::IGUIButton *_Menu::AddMenuButton(const irr::core::recti &Rectangle, int ID, const wchar_t *Text, _Interface::ImageType ButtonImage) {
 	gui::IGUIButton *Button = irrGUI->addButton(Rectangle, CurrentLayout, ID, Text);
-	Button->setImage(Interface.GetImage(ButtonImage));
+	Button->setImage(Interface.Images[ButtonImage]);
 	Button->setUseAlphaChannel(true);
 	Button->setDrawBorder(false);
-	Button->setOverrideFont(Interface.GetFont(_Interface::FONT_BUTTON));
+	Button->setOverrideFont(Interface.Fonts[_Interface::FONT_BUTTON]);
 
 	return Button;
 }
@@ -1358,7 +1358,7 @@ gui::IGUIButton *_Menu::AddMenuButton(const irr::core::recti &Rectangle, int ID,
 gui::IGUIStaticText *_Menu::AddMenuText(const core::position2di &CenterPosition, const wchar_t *Text, _Interface::FontType Font, int ID, gui::EGUI_ALIGNMENT HorizontalAlign) {
 
 	// Get text dimensions
-	core::dimension2du Size = Interface.GetFont(Font)->getDimension(Text);
+	core::dimension2du Size = Interface.Fonts[Font]->getDimension(Text);
 	Size.Width++;
 
 	core::recti Rectangle;
@@ -1378,7 +1378,7 @@ gui::IGUIStaticText *_Menu::AddMenuText(const core::position2di &CenterPosition,
 
 	// Add text
 	gui::IGUIStaticText *NewText = irrGUI->addStaticText(Text, Rectangle, false, false, CurrentLayout);
-	NewText->setOverrideFont(Interface.GetFont(Font));
+	NewText->setOverrideFont(Interface.Fonts[Font]);
 
 	return NewText;
 }

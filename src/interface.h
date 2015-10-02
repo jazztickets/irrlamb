@@ -29,10 +29,11 @@ namespace irr {
 }
 
 // Structures
-struct TutorialTextStruct {
+struct _TutorialText {
 	irr::gui::IGUIStaticText *Text;
 	float DeleteTime;
-	int MessageX, MessageY;
+	int MessageX;
+	int MessageY;
 };
 
 const int MGUIET_EMPTY = irr::gui::EGUIET_COUNT+1;
@@ -120,9 +121,6 @@ class _Interface {
 		irr::core::recti GetRightRect(int PositionX, int PositionY, int Width, int Height);
 		irr::core::recti GetRect(int PositionX, int PositionY, int Width, int Height);
 
-		irr::video::ITexture *GetImage(ImageType Image) { return Images[Image]; }
-		irr::gui::CGUITTFont *GetFont(FontType Font) { return Fonts[Font]; }
-
 		void FadeScreen(float Amount);
 		void RenderText(const char *Text, int PositionX, int PositionY, AlignType AlignType, FontType FontType=FONT_SMALL, const irr::video::SColor &Color=irr::video::SColor(255, 255, 255, 255));
 		void DrawImage(ImageType Type, int PositionX, int PositionY, int Width, int Height, const irr::video::SColor &Color=irr::video::SColor(255, 255, 255, 255));
@@ -132,20 +130,21 @@ class _Interface {
 		void UnloadSounds();
 		void PlaySound(SoundType Sound);
 
-		int GetCenterX() { return CenterX; }
-		int GetCenterY() { return CenterY; }
-
-	private:
-
-		TutorialTextStruct TutorialText;
-		bool DrawHUD;
-		float Timer;
+		// Attributes
+		int CenterX;
+		int CenterY;
 
 		irr::gui::CGUITTFont *Fonts[FONT_COUNT];
 		irr::video::ITexture *Images[IMAGE_COUNT];
+
+	private:
+
+		_TutorialText TutorialText;
+		bool DrawHUD;
+		float Timer;
+
 		_AudioSource *Sounds[SOUND_COUNT];
 
-		int CenterX, CenterY;
 };
 
 // Singletons

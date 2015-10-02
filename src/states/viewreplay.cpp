@@ -315,45 +315,45 @@ void _ViewReplayState::SetupGUI() {
 	// Restart replay
 	int X = Right - 295, Y = 25;
 	gui::IGUIButton *ButtonRewind = irrGUI->addButton(Interface.GetCenteredRect(X, Y, 34, 34), Layout, MAIN_RESTART);
-	ButtonRewind->setImage(Interface.GetImage(_Interface::IMAGE_REWIND));
+	ButtonRewind->setImage(Interface.Images[_Interface::IMAGE_REWIND]);
 	ButtonRewind->setUseAlphaChannel(true);
 	ButtonRewind->setDrawBorder(false);
 
 	// Decrease replay speed
 	X += 45;
 	gui::IGUIButton *ButtonDecrease = irrGUI->addButton(Interface.GetCenteredRect(X, Y, 34, 34), Layout, MAIN_DECREASE);
-	ButtonDecrease->setImage(Interface.GetImage(_Interface::IMAGE_DECREASE));
+	ButtonDecrease->setImage(Interface.Images[_Interface::IMAGE_DECREASE]);
 	ButtonDecrease->setUseAlphaChannel(true);
 	ButtonDecrease->setDrawBorder(false);
 
 	// Increase replay speed
 	X += 37;
 	gui::IGUIButton *ButtonIncrease = irrGUI->addButton(Interface.GetCenteredRect(X, Y, 34, 34), Layout, MAIN_INCREASE);
-	ButtonIncrease->setImage(Interface.GetImage(_Interface::IMAGE_INCREASE));
+	ButtonIncrease->setImage(Interface.Images[_Interface::IMAGE_INCREASE]);
 	ButtonIncrease->setUseAlphaChannel(true);
 	ButtonIncrease->setDrawBorder(false);
 
 	// Pause
 	X += 45;
 	gui::IGUIButton *ButtonPause = irrGUI->addButton(Interface.GetCenteredRect(X, Y, 34, 34), Layout, MAIN_PAUSE);
-	ButtonPause->setImage(Interface.GetImage(_Interface::IMAGE_PAUSE));
+	ButtonPause->setImage(Interface.Images[_Interface::IMAGE_PAUSE]);
 	ButtonPause->setUseAlphaChannel(true);
 	ButtonPause->setDrawBorder(false);
 
 	// Skip ahead
 	X += 37;
 	gui::IGUIButton *ButtonSkip = irrGUI->addButton(Interface.GetCenteredRect(X, Y, 34, 34), Layout, MAIN_SKIP);
-	ButtonSkip->setImage(Interface.GetImage(_Interface::IMAGE_FASTFORWARD));
+	ButtonSkip->setImage(Interface.Images[_Interface::IMAGE_FASTFORWARD]);
 	ButtonSkip->setUseAlphaChannel(true);
 	ButtonSkip->setDrawBorder(false);
 
 	// Exit
 	X += 108/2 + 20;
 	gui::IGUIButton *ButtonExit = irrGUI->addButton(Interface.GetCenteredRect(X, Y, 108, 44), Layout, MAIN_EXIT, L"Exit");
-	ButtonExit->setImage(Interface.GetImage(_Interface::IMAGE_BUTTON_SMALL));
+	ButtonExit->setImage(Interface.Images[_Interface::IMAGE_BUTTON_SMALL]);
 	ButtonExit->setUseAlphaChannel(true);
 	ButtonExit->setDrawBorder(false);
-	ButtonExit->setOverrideFont(Interface.GetFont(_Interface::FONT_BUTTON));
+	ButtonExit->setOverrideFont(Interface.Fonts[_Interface::FONT_BUTTON]);
 }
 
 // Change replay speed
