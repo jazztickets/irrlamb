@@ -25,7 +25,7 @@
 #include <vector>
 
 // Forward Declarations
-struct SaveLevelStruct;
+struct _LevelStat;
 
 // Replay info struct
 struct _ReplayInfo {
@@ -124,8 +124,8 @@ class _Menu {
 		float DoubleClickTimer;
 
 		// Level info
-		std::vector<const SaveLevelStruct *> LevelStats;
-		const SaveLevelStruct *WinStats;
+		std::vector<const _LevelStat *> LevelStats;
+		const _LevelStat *WinStats;
 		std::string LoseMessage;
 
 		// Key mapping

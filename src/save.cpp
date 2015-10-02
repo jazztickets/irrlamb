@@ -33,7 +33,6 @@ _Save Save;
 int _Save::Init() {
 
 	#ifdef _WIN32
-		//SavePath = "saves/";
 		SavePath = std::string(getenv("APPDATA")) + "/irrlamb/";
 		CreateDirectory(SavePath.c_str(), nullptr);
 	#else
@@ -152,7 +151,7 @@ int _Save::LoadLevelStats() {
 
 	// Get data
 	while(Database->FetchRow()) {
-		SaveLevelStruct Stat;
+		_LevelStat Stat;
 		std::string LevelFile;
 
 		// Get record data
@@ -168,7 +167,7 @@ int _Save::LoadLevelStats() {
 		sprintf(Buffer, "SELECT * FROM HighScores where StatsID = %d", Stat.ID);
 		Database->RunDataQuery(Buffer, 1);
 		while(Database->FetchRow(1)) {
-			HighScoreStruct HighScore;
+			_HighScore HighScore;
 			HighScore.Time = Database->GetFloat(2, 1);
 			HighScore.DateStamp = Database->GetInt(3, 1);
 			Stat.HighScores.push_back(HighScore);
@@ -194,7 +193,7 @@ void _Save::SaveLevelStats(const std::string &Level) {
 		return;
 
 	// Get stat from map
-	SaveLevelStruct &Stat = LevelStatsIterator->second;
+	_LevelStat &Stat = LevelStatsIterator->second;
 
 	// Update database
 	char Query[512];
@@ -213,35 +212,11 @@ void _Save::SaveLevelStats(const std::string &Level) {
 	Database->RunQuery(Query);
 }
 
-// Updates a level stat
-void _Save::UpdateLevelStats(const std::string &Level, const SaveLevelStruct &Stats) {
-
-	LevelStats[Level] = Stats;
-}
-
-// Retrieves stats for a level
-bool _Save::GetLevelStats(const std::string &Level, SaveLevelStruct &Stats) {
-
-	if(LevelStats.find(Level) == LevelStats.end())
-		return false;
-
-	Stats = LevelStats[Level];
-
-	return true;
-}
-
-// Returns a pointer to the high score list
-const SaveLevelStruct *_Save::GetLevelStats(const std::string &Level) {
-
-	return &LevelStats[Level];
-}
-
 // Adds a score to the list if it's high enough
 int _Save::AddScore(const std::string &Level, float Time) {
 
 	// Get level stats
-	SaveLevelStruct Stats;
-	GetLevelStats(Level, Stats);
+	_LevelStat &Stats = LevelStats[Level];
 
 	// Add score
 	int InsertIndex = -1;
@@ -266,15 +241,12 @@ int _Save::AddScore(const std::string &Level, float Time) {
 
 	// Insert high score
 	if(InsertIndex != -1) {
-		Stats.HighScores.insert(Stats.HighScores.begin() + InsertIndex, HighScoreStruct(Time, (int)time(nullptr)));
+		Stats.HighScores.insert(Stats.HighScores.begin() + InsertIndex, _HighScore(Time, (int)time(nullptr)));
 
 		// Cut off old scores
 		int ExcessScores = Stats.HighScores.size() - STATS_MAXSCORES;
 		if(ExcessScores > 0)
 			Stats.HighScores.erase(Stats.HighScores.end() - ExcessScores, Stats.HighScores.end());
-
-		// Update stats map
-		UpdateLevelStats(Level, Stats);
 
 		// Update database
 		Database->RunQuery("BEGIN TRANSACTION");
@@ -296,52 +268,11 @@ int _Save::AddScore(const std::string &Level, float Time) {
 	return InsertIndex;
 }
 
-// Increment the number of times a level has been loaded
-void _Save::IncrementLevelLoadCount(const std::string &Level) {
-
-	SaveLevelStruct Stats;
-	GetLevelStats(Level, Stats);
-
-	Stats.LoadCount++;
-	UpdateLevelStats(Level, Stats);
-}
-
-// Increment the number of times the player has lost
-void _Save::IncrementLevelLoseCount(const std::string &Level) {
-
-	SaveLevelStruct Stats;
-	GetLevelStats(Level, Stats);
-
-	Stats.LoseCount++;
-	UpdateLevelStats(Level, Stats);
-}
-
-// Increment the number of times the player has won
-void _Save::IncrementLevelWinCount(const std::string &Level) {
-
-	SaveLevelStruct Stats;
-	GetLevelStats(Level, Stats);
-
-	Stats.WinCount++;
-	UpdateLevelStats(Level, Stats);
-}
-
-// Increment the total playing time for a level
-void _Save::IncrementLevelPlayTime(const std::string &Level, float Time) {
-
-	SaveLevelStruct Stats;
-	GetLevelStats(Level, Stats);
-
-	Stats.PlayTime += Time;
-	UpdateLevelStats(Level, Stats);
-}
-
 // Unlocks a level
 void _Save::UnlockLevel(const std::string &Level) {
 
 	// Get stat from map
-	SaveLevelStruct Stats;
-	GetLevelStats(Level, Stats);
+	_LevelStat &Stats = LevelStats[Level];
 
 	// Unlock level
 	Stats.Unlocked = 1;
@@ -357,6 +288,4 @@ void _Save::UnlockLevel(const std::string &Level) {
 		Database->RunQuery(Query);
 		Stats.ID = (int)Database->GetLastInsertID();
 	}
-
-	UpdateLevelStats(Level, Stats);
 }

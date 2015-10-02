@@ -25,11 +25,11 @@
 class _Database;
 
 // Struct for one highscore
-struct HighScoreStruct {
-	HighScoreStruct() : Time(0), DateStamp(0) { }
-	HighScoreStruct(float Time, int DateStamp) : Time(Time), DateStamp(DateStamp) { }
+struct _HighScore {
+	_HighScore() : Time(0), DateStamp(0) { }
+	_HighScore(float Time, int DateStamp) : Time(Time), DateStamp(DateStamp) { }
 
-	bool operator<(const HighScoreStruct &Value) {
+	bool operator<(const _HighScore &Value) {
 		return Time < Value.Time;
 	}
 
@@ -38,14 +38,16 @@ struct HighScoreStruct {
 };
 
 // Struct for one level stat
-struct SaveLevelStruct {
-	SaveLevelStruct() : ID(0), Unlocked(0), LoadCount(0), LoseCount(0), WinCount(0), PlayTime(0) { }
+struct _LevelStat {
+	_LevelStat() : ID(0), Unlocked(0), LoadCount(0), LoseCount(0), WinCount(0), PlayTime(0) { }
 
 	int ID;
 	int Unlocked;
-	int LoadCount, LoseCount, WinCount;
+	int LoadCount;
+	int LoseCount;
+	int WinCount;
 	float PlayTime;
-	std::vector<HighScoreStruct> HighScores;
+	std::vector<_HighScore> HighScores;
 };
 
 // Classes
@@ -58,32 +60,24 @@ class _Save {
 
 		int InitStatsDatabase();
 
-		const std::string &GetSavePath() { return SavePath; }
-		const std::string &GetReplayPath() { return ReplayPath; }
-		const std::string &GetConfigFile() { return ConfigFile; }
-		const std::string &GetScreenshotsPath() { return ScreenshotsPath; }
-		const std::string &GetCustomLevelsPath() { return CustomLevelsPath; }
-
 		int LoadLevelStats();
 		void SaveLevelStats(const std::string &Level);
-		void UpdateLevelStats(const std::string &Level, const SaveLevelStruct &Stats);
-		bool GetLevelStats(const std::string &Level, SaveLevelStruct &Stats);
-		const SaveLevelStruct *GetLevelStats(const std::string &Level);
 
 		int AddScore(const std::string &Level, float Time);
-		void IncrementLevelLoadCount(const std::string &Level);
-		void IncrementLevelLoseCount(const std::string &Level);
-		void IncrementLevelWinCount(const std::string &Level);
-		void IncrementLevelPlayTime(const std::string &Level, float Time);
 		void UnlockLevel(const std::string &Level);
 
-	private:
-
 		// Paths
-		std::string SavePath, ReplayPath, ScreenshotsPath, CustomLevelsPath, ConfigFile, StatsFile;
+		std::string SavePath;
+		std::string ReplayPath;
+		std::string ScreenshotsPath;
+		std::string CustomLevelsPath;
+		std::string ConfigFile;
+		std::string StatsFile;
 
 		// Stats
-		std::map<std::string, SaveLevelStruct> LevelStats;
+		std::map<std::string, _LevelStat> LevelStats;
+
+	private:
 
 		// Database
 		_Database *Database;

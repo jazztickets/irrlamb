@@ -153,7 +153,7 @@ int _Config::ReadConfig() {
 
 	// Open the XML file
 	XMLDocument Document;
-	if(Document.LoadFile(Save.GetConfigFile().c_str()) != XML_NO_ERROR) {
+	if(Document.LoadFile(Save.ConfigFile.c_str()) != XML_NO_ERROR) {
 		return 0;
 	}
 
@@ -334,7 +334,7 @@ int _Config::WriteConfig() {
 	Actions.Serialize(_Input::MOUSE_AXIS, Document, InputElement);
 
 	// Write file
-	Document.SaveFile(Save.GetConfigFile().c_str());
+	Document.SaveFile(Save.ConfigFile.c_str());
 
 	return 1;
 }
@@ -348,7 +348,7 @@ int _Config::ReadJoystickConfig() {
 
 		// Get joystick name
 		std::string Name = Input.GetCleanJoystickName(i).c_str();
-		std::string Path = Save.GetSavePath() + Name + ".xml";
+		std::string Path = Save.SavePath + Name + ".xml";
 
 		// Open the XML file
 		XMLDocument Document;
@@ -401,7 +401,7 @@ int _Config::WriteJoystickConfig() {
 
 		// Write file
 		std::string Name = Input.GetCleanJoystickName(i).c_str();
-		Document.SaveFile((Save.GetSavePath() + Name + ".xml").c_str());
+		Document.SaveFile((Save.SavePath + Name + ".xml").c_str());
 	}
 
 	return 1;

@@ -25,7 +25,7 @@ function OnHitZone(HitType, Zone, HitObject)
 	return 0
 end
 
--- Set up Level
+-- Set up level
 GoalCount = 4
 Camera.SetPitch(75)
 

@@ -42,7 +42,7 @@ void _Replay::StartRecording() {
 	LevelName = Level.GetLevelName();
 
 	// Create replay file for object data
-	ReplayDataFile = Save.GetReplayPath() + "replay.dat";
+	ReplayDataFile = Save.ReplayPath + "replay.dat";
 	File.open(ReplayDataFile.c_str(), std::ios::out | std::ios::binary);
 	if(!File.is_open())
 		Log.Write("_Replay::StartRecording - Unable to open %s!", ReplayDataFile.c_str());
@@ -69,7 +69,7 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave) {
 
 	// Get new file name
 	std::stringstream ReplayFilePath;
-	ReplayFilePath << Save.GetReplayPath() << (uint32_t)TimeStamp << ".replay";
+	ReplayFilePath << Save.ReplayPath << (uint32_t)TimeStamp << ".replay";
 
 	// Open new file
 	std::fstream NewFile(ReplayFilePath.str().c_str(), std::ios::out | std::ios::binary);
@@ -229,7 +229,7 @@ bool _Replay::LoadReplay(const std::string &ReplayFile, bool HeaderOnly) {
 	ReplayVersion = 0;
 
 	// Get file name
-	std::string FilePath = Save.GetReplayPath() + ReplayFile;
+	std::string FilePath = Save.ReplayPath + ReplayFile;
 
 	// Open the replay
 	File.open(FilePath.c_str(), std::ios::in | std::ios::binary);

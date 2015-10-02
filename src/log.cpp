@@ -26,7 +26,7 @@ _Log Log;
 int _Log::Init() {
 
 	// Open log
-	std::string FilePath = Save.GetSavePath() + "irrlamb.log";
+	std::string FilePath = Save.SavePath + "irrlamb.log";
 	FileStream.open(FilePath.c_str());
 
 	return 1;

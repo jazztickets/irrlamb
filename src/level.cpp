@@ -70,16 +70,16 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 
 	// Get fastest time
 	FastestTime = 0.0f;
-	const SaveLevelStruct *Stats = Save.GetLevelStats(LevelName);
-	if(Stats->HighScores.size() > 0)
-		FastestTime = Stats->HighScores[0].Time;
+	const _LevelStat &Stats = Save.LevelStats[LevelName];
+	if(Stats.HighScores.size() > 0)
+		FastestTime = Stats.HighScores[0].Time;
 
 	// Get paths
 	this->LevelName = LevelName;
 	LevelNiceName = "";
 	std::string LevelFile = LevelName + "/" + LevelName + ".xml";
 	std::string FilePath = Game.GetWorkingPath() + std::string("levels/") + LevelFile;
-	std::string CustomFilePath = Save.GetCustomLevelsPath() + LevelFile;
+	std::string CustomFilePath = Save.CustomLevelsPath + LevelFile;
 	std::string DataPath = Game.GetWorkingPath() + std::string("levels/") + LevelName + "/";
 
 	// See if custom level exists first
@@ -88,7 +88,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 	if(CustomLevelExists) {
 		IsCustomLevel = true;
 		FilePath = CustomFilePath;
-		DataPath = Save.GetCustomLevelsPath() + LevelName + "/";
+		DataPath = Save.CustomLevelsPath + LevelName + "/";
 	}
 	CustomLevelExists.close();
 

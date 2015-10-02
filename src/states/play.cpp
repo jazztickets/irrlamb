@@ -90,7 +90,7 @@ int _PlayState::Close() {
 
 	// Save stats
 	if(TestLevel == "") {
-		Save.IncrementLevelPlayTime(Level.GetLevelName(), Timer);
+		Save.LevelStats[Level.GetLevelName()].PlayTime += Timer;
 		Save.SaveLevelStats(Level.GetLevelName());
 	}
 
@@ -103,8 +103,8 @@ void _PlayState::ResetLevel() {
 
 	// Handle saves
 	if(TestLevel == "") {
-		Save.IncrementLevelLoadCount(Level.GetLevelName());
-		Save.IncrementLevelPlayTime(Level.GetLevelName(), Timer);
+		Save.LevelStats[Level.GetLevelName()].LoadCount++;
+		Save.LevelStats[Level.GetLevelName()].PlayTime += Timer;
 		Save.SaveLevelStats(Level.GetLevelName());
 	}
 
@@ -384,7 +384,7 @@ void _PlayState::WinLevel() {
 	if(PlayState.TestLevel == "") {
 
 		// Increment win count
-		Save.IncrementLevelWinCount(Level.GetLevelName());
+		Save.LevelStats[Level.GetLevelName()].WinCount++;
 
 		// Add high score
 		int InsertIndex = Save.AddScore(Level.GetLevelName(), PlayState.Timer);
@@ -416,7 +416,7 @@ void _PlayState::LoseLevel() {
 	if(PlayState.TestLevel == "") {
 
 		// Increment win count
-		Save.IncrementLevelLoseCount(Level.GetLevelName());
+		Save.LevelStats[Level.GetLevelName()].LoseCount++;
 
 		// Save stats to a file
 		Save.SaveLevelStats(Level.GetLevelName());

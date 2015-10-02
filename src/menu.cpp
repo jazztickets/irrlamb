@@ -292,7 +292,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 						std::string FileName = ReplayFiles[SelectedLevel].Filename;
 
 						// Remove file
-						std::string FilePath = Save.GetReplayPath() + FileName;
+						std::string FilePath = Save.ReplayPath + FileName;
 						remove(FilePath.c_str());
 
 						// Refresh screen
@@ -599,7 +599,7 @@ void _Menu::InitLevels() {
 		bool Unlocked = true;
 
 		// Get level stats
-		const SaveLevelStruct *Stats = Save.GetLevelStats(CampaignData.Levels[i].File);
+		const _LevelStat *Stats = &Save.LevelStats[CampaignData.Levels[i].File];
 		LevelStats.push_back(Stats);
 
 		// Set unlocked status
@@ -657,7 +657,7 @@ void _Menu::InitReplays(bool PlaySound) {
 
 	// Change directories
 	std::string OldWorkingDirectory(irrFile->getWorkingDirectory().c_str());
-	irrFile->changeWorkingDirectoryTo(Save.GetReplayPath().c_str());
+	irrFile->changeWorkingDirectoryTo(Save.ReplayPath.c_str());
 
 	// Clear list
 	ReplayFiles.clear();
@@ -1004,7 +1004,7 @@ void _Menu::InitWin() {
 	Interface.Clear();
 
 	// Get level stats
-	WinStats = Save.GetLevelStats(Level.GetLevelName());
+	WinStats = &Save.LevelStats[Level.GetLevelName()];
 
 	// Clear interface
 	ClearCurrentLayout();
@@ -1073,7 +1073,7 @@ void _Menu::Draw() {
 		case STATE_LEVELS:
 			if(HighlightedLevel != -1) {
 				char Buffer[256];
-				const SaveLevelStruct *Stats = LevelStats[HighlightedLevel];
+				const _LevelStat *Stats = LevelStats[HighlightedLevel];
 				const std::string &NiceName = Campaign.GetLevelNiceName(CampaignIndex, HighlightedLevel);
 
 				// Get text dimensions
@@ -1305,8 +1305,7 @@ void _Menu::CancelKeyBind() {
 // Launchs a level
 void _Menu::LaunchLevel() {
 
-	SaveLevelStruct Stats;
-	Save.GetLevelStats(Campaign.GetCampaign(CampaignIndex).Levels[SelectedLevel].File, Stats);
+	_LevelStat &Stats = Save.LevelStats[Campaign.GetCampaign(CampaignIndex).Levels[SelectedLevel].File];
 	if(Stats.Unlocked == 0)
 		return;
 

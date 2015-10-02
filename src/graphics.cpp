@@ -204,7 +204,7 @@ void _Graphics::CreateScreenshot() {
 
 	// Create image
 	video::IImage *Image = irrDriver->createScreenShot();
-	std::string FilePath = Save.GetScreenshotsPath() + Filename;
+	std::string FilePath = Save.ScreenshotsPath + Filename;
 	irrDriver->writeImageToFile(Image, FilePath.c_str());
 	Image->drop();
 
