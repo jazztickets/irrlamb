@@ -72,7 +72,7 @@ int _Graphics::Init(int Width, int Height, bool Fullscreen, video::E_DRIVER_TYPE
 
 	// Generate a list of video modes
 	video::IVideoModeList *VideoModeList = irrDevice->getVideoModeList();
-	VideoModeStruct VideoMode;
+	_VideoMode VideoMode;
 	for(int i = 0; i < VideoModeList->getVideoModeCount(); i++) {
 		VideoMode.Width = VideoModeList->getVideoModeResolution(i).Width;
 		VideoMode.Height = VideoModeList->getVideoModeResolution(i).Height;

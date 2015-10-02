@@ -54,13 +54,13 @@ int _Campaign::Init() {
 	XMLElement *CampaignElement = CampaignsElement->FirstChildElement("campaign");
 	for(; CampaignElement != 0; CampaignElement = CampaignElement->NextSiblingElement("campaign")) {
 
-		CampaignStruct Campaign;
+		_CampaignInfo Campaign;
 		Campaign.Name = CampaignElement->Attribute("name");
 
 		// Get levels
 		XMLElement *LevelElement = CampaignElement->FirstChildElement("level");
 		for(; LevelElement != 0; LevelElement = LevelElement->NextSiblingElement("level")) {
-			LevelStruct Level;
+			_LevelInfo Level;
 			Level.File = LevelElement->GetText();
 			Level.DataPath = Game.GetWorkingPath() + "levels/" + Level.File + "/";
 			Level.Unlocked = 0;

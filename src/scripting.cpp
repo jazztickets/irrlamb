@@ -764,7 +764,7 @@ void _Scripting::AddTimedCallback(const std::string &FunctionName, float Time) {
 		return;
 
 	// Create callback structure
-	TimedCallbackStruct Callback;
+	_TimedCallback Callback;
 	Callback.TimeStamp = PlayState.GetTimer() + Time;
 	Callback.Function = FunctionName;
 

@@ -23,7 +23,7 @@
 #include <map>
 
 // Struct for OpenAL buffers
-struct AudioBufferStruct {
+struct _AudioBuffer {
 	ALuint ID;
 	ALenum Format;
 };
@@ -33,7 +33,7 @@ class _AudioSource {
 
 	public:
 
-		_AudioSource(const AudioBufferStruct *Buffer, bool Loop=false, float MinGain=0.0f, float MaxGain=1.0f, float ReferenceDistance=1.0f, float RollOff=1.0f);
+		_AudioSource(const _AudioBuffer *Buffer, bool Loop=false, float MinGain=0.0f, float MaxGain=1.0f, float ReferenceDistance=1.0f, float RollOff=1.0f);
 		~_AudioSource();
 
 		void Play();
@@ -67,7 +67,7 @@ class _Audio {
 
 		// Buffers
 		bool LoadBuffer(const std::string &File);
-		const AudioBufferStruct *GetBuffer(const std::string &File);
+		const _AudioBuffer *GetBuffer(const std::string &File);
 		void CloseBuffer(const std::string &File);
 		void FreeAllBuffers();
 
@@ -82,7 +82,7 @@ class _Audio {
 		bool Enabled;
 
 		// Buffers
-		std::map<std::string, AudioBufferStruct> Buffers;
+		std::map<std::string, _AudioBuffer> Buffers;
 
 		// Sources
 		std::list<_AudioSource *> Sources;

@@ -22,7 +22,7 @@
 #include <map>
 
 // Structures
-struct TimedCallbackStruct {
+struct _TimedCallback {
 	float TimeStamp;
 	std::string Function;
 };
@@ -96,7 +96,7 @@ class _Scripting {
 		void AddTimedCallback(const std::string &FunctionName, float Time);
 		void AttachKeyToFunction(int Key, const std::string &FunctionName);
 
-		std::list<TimedCallbackStruct> TimedCallbacks;
+		std::list<_TimedCallback> TimedCallbacks;
 
 		std::map<int, std::string> KeyCallbacks;
 

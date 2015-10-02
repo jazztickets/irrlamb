@@ -152,7 +152,7 @@ bool _Audio::LoadBuffer(const std::string &File) {
 	vorbis_info *Info = ov_info(&VorbisStream, -1);
 
 	// Create new buffer
-	AudioBufferStruct AudioBuffer;
+	_AudioBuffer AudioBuffer;
 	switch(Info->channels) {
 		case 1:
 			AudioBuffer.Format = AL_FORMAT_MONO16;
@@ -203,7 +203,7 @@ void _Audio::Play(_AudioSource *AudioSource, float X, float Y, float Z) {
 }
 
 // Get a loaded buffer
-const AudioBufferStruct *_Audio::GetBuffer(const std::string &File) {
+const _AudioBuffer *_Audio::GetBuffer(const std::string &File) {
 	if(!Enabled)
 		return nullptr;
 
@@ -231,7 +231,7 @@ void _Audio::CloseBuffer(const std::string &File) {
 	if(BuffersIterator == Buffers.end())
 		return;
 
-	AudioBufferStruct &Buffer = BuffersIterator->second;
+	_AudioBuffer &Buffer = BuffersIterator->second;
 	alDeleteBuffers(1, &Buffer.ID);
 	Buffers.erase(BuffersIterator);
 }
@@ -243,7 +243,7 @@ void _Audio::FreeAllBuffers() {
 
 	// Iterate over map
 	for(auto BuffersIterator : Buffers) {
-		AudioBufferStruct &Buffer = BuffersIterator.second;
+		_AudioBuffer &Buffer = BuffersIterator.second;
 
 		alDeleteBuffers(1, &Buffer.ID);
 	}
@@ -277,7 +277,7 @@ void _Audio::SetGain(float Value) {
 }
 
 // Create an audio source
-_AudioSource::_AudioSource(const AudioBufferStruct *Buffer, bool Loop, float MinGain, float MaxGain, float ReferenceDistance, float RollOff) {
+_AudioSource::_AudioSource(const _AudioBuffer *Buffer, bool Loop, float MinGain, float MaxGain, float ReferenceDistance, float RollOff) {
 	Loaded = false;
 	if(Buffer) {
 

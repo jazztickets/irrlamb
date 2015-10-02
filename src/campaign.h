@@ -20,14 +20,16 @@
 #include <string>
 
 // Structures
-struct LevelStruct {
-	std::string File, DataPath, NiceName;
+struct _LevelInfo {
+	std::string File;
+	std::string DataPath;
+	std::string NiceName;
 	int Unlocked;
 };
 
-struct CampaignStruct {
+struct _CampaignInfo {
 	std::string Name;
-	std::vector<LevelStruct> Levels;
+	std::vector<_LevelInfo> Levels;
 };
 
 // Classes
@@ -38,8 +40,8 @@ class _Campaign {
 		int Init();
 		int Close();
 
-		const std::vector<CampaignStruct> &GetCampaigns() { return Campaigns; }
-		const CampaignStruct &GetCampaign(int Index) { return Campaigns[Index]; }
+		const std::vector<_CampaignInfo> &GetCampaigns() { return Campaigns; }
+		const _CampaignInfo &GetCampaign(int Index) { return Campaigns[Index]; }
 
 		bool GetNextLevel(uint32_t &Campaign, uint32_t &Level, bool Update=false);
 		const std::string &GetLevel(int Campaign, int Level) { return Campaigns[Campaign].Levels[Level].File; }
@@ -47,7 +49,7 @@ class _Campaign {
 
 	private:
 
-		std::vector<CampaignStruct> Campaigns;
+		std::vector<_CampaignInfo> Campaigns;
 };
 
 // Singletons

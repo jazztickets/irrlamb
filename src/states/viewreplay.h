@@ -68,7 +68,7 @@ class _ViewReplayState : public _State {
 		_Camera *Camera;
 
 		// Replay information
-		ReplayEventStruct NextEvent;
+		_ReplayEvent NextEvent;
 		float PauseSpeed;
 
 		// Events

@@ -266,7 +266,7 @@ void _Replay::WriteEvent(uint8_t Type) {
 }
 
 // Reads a packet header
-void _Replay::ReadEvent(ReplayEventStruct &Packet) {
+void _Replay::ReadEvent(_ReplayEvent &Packet) {
 	Packet.Type = File.get();
 	File.read((char *)&Packet.TimeStamp, sizeof(Packet.TimeStamp));
 }

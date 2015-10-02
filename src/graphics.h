@@ -24,7 +24,7 @@
 #include <string>
 
 // Structures
-struct VideoModeStruct {
+struct _VideoMode {
 
 	int Width, Height, BPP;
 	std::wstring String;
@@ -60,7 +60,7 @@ class _Graphics {
 		void ToggleCursor(bool Value) { ShowCursor = Value; }
 		void SetLightCount();
 
-		const std::vector<VideoModeStruct> &GetVideoModes() { return VideoModes; }
+		const std::vector<_VideoMode> &GetVideoModes() { return VideoModes; }
 		std::size_t GetCurrentVideoModeIndex();
 
 	private:
@@ -80,7 +80,7 @@ class _Graphics {
 		bool ScreenshotRequested;
 
 		// Modes
-		std::vector<VideoModeStruct> VideoModes;
+		std::vector<_VideoMode> VideoModes;
 };
 
 // Singletons

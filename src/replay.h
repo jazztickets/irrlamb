@@ -21,7 +21,7 @@
 #include <fstream>
 
 // Event packet structure
-struct ReplayEventStruct {
+struct _ReplayEvent {
 	uint8_t Type;
 	float TimeStamp;
 };
@@ -78,7 +78,7 @@ class _Replay {
 
 		std::fstream &GetFile() { return File; }
 		void WriteEvent(uint8_t Type);
-		void ReadEvent(ReplayEventStruct &Packet);
+		void ReadEvent(_ReplayEvent &Packet);
 
 		const std::string &GetLevelName() { return LevelName; }
 		const std::string &GetDescription() { return Description; }

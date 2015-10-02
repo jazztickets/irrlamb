@@ -329,7 +329,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 					// Save the video mode
 					gui::IGUIComboBox *VideoModes = static_cast<gui::IGUIComboBox *>(CurrentLayout->getElementFromId(VIDEO_VIDEOMODES));
 					if(VideoModes != nullptr) {
-						VideoModeStruct Mode = Graphics.GetVideoModes()[VideoModes->getSelected()];
+						_VideoMode Mode = Graphics.GetVideoModes()[VideoModes->getSelected()];
 						Config.ScreenWidth = Mode.Width;
 						Config.ScreenHeight = Mode.Height;
 					}
@@ -560,7 +560,7 @@ void _Menu::InitSinglePlayer() {
 
 	// Campaigns
 	Y += TITLE_SPACING - 30;
-	const std::vector<CampaignStruct> &Campaigns = Campaign.GetCampaigns();
+	const std::vector<_CampaignInfo> &Campaigns = Campaign.GetCampaigns();
 	for(uint32_t i = 0; i < Campaigns.size(); i++) {
 		irr::core::stringw Name(Campaigns[i].Name.c_str());
 		AddMenuButton(Interface.GetCenteredRect(X, Y, 194, 52), PLAY_CAMPAIGNID + i, Name.c_str());
@@ -585,7 +585,7 @@ void _Menu::InitLevels() {
 	SelectedLevel = -1;
 	HighlightedLevel = -1;
 
-	const CampaignStruct &CampaignData = Campaign.GetCampaign(CampaignIndex);
+	const _CampaignInfo &CampaignData = Campaign.GetCampaign(CampaignIndex);
 	int X = Interface.CenterX, Y = Interface.CenterY - TITLE_Y;
 
 	// Text
@@ -778,7 +778,7 @@ void _Menu::InitVideo() {
 
 	// Video modes
 	Y += TITLE_SPACING - 40;
-	const std::vector<VideoModeStruct> &ModeList = Graphics.GetVideoModes();
+	const std::vector<_VideoMode> &ModeList = Graphics.GetVideoModes();
 	if(ModeList.size() > 0) {
 		AddMenuText(core::position2di(X, Y), L"Screen Resolution", _Interface::FONT_MEDIUM, -1, gui::EGUIA_LOWERRIGHT);
 		gui::IGUIComboBox *ListScreenResolution = irrGUI->addComboBox(Interface.GetCenteredRect(X + 111, Y, 200, 30), CurrentLayout, VIDEO_VIDEOMODES);
