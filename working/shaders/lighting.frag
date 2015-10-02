@@ -27,6 +27,7 @@ void main(void) {
 
 		light_color += attenuation * diffuse; // + specular;
 	}
+	light_color.w = 0;
 
 	// Ambient
 	vec4 ambient = vec4(gl_LightModel.ambient.x, gl_LightModel.ambient.y, gl_LightModel.ambient.z, 1);
