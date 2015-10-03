@@ -153,6 +153,8 @@ void _Replay::LoadHeader() {
 					Log.Write("LevelVersion=%d, PacketSize=%d", LevelVersion, PacketSize);
 			break;
 			case PACKET_LEVELFILE:
+				if(PacketSize > 1024)
+					PacketSize = 1024;
 				File.read(Buffer, PacketSize);
 				Buffer[PacketSize] = 0;
 				LevelName = Buffer;
@@ -161,6 +163,8 @@ void _Replay::LoadHeader() {
 					Log.Write("LevelName=%s, PacketSize=%d", Buffer, PacketSize);
 			break;
 			case PACKET_DESCRIPTION:
+				if(PacketSize > 1024)
+					PacketSize = 1024;
 				File.read(Buffer, PacketSize);
 				Buffer[PacketSize] = 0;
 				Description = Buffer;

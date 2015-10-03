@@ -279,7 +279,7 @@ void _Save::UnlockLevel(const std::string &Level) {
 
 	// Check to see if level exists in database
 	char Query[512];
-	sprintf(Query, "SELECT ID FROM Stats WHERE LevelFile = '%s'", Level.c_str());
+	snprintf(Query, 512, "SELECT ID FROM Stats WHERE LevelFile = '%s'", Level.c_str());
 	int Count = Database->RunCountQuery(Query);
 
 	// Insert

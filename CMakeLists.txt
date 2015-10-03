@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 # define constants
-add_definitions(-DGAME_VERSION="0.2.1")
+add_definitions(-DGAME_VERSION="0.2.2")
 
 # projects
 project(irrlamb)
