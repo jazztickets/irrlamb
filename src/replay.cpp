@@ -139,7 +139,7 @@ void _Replay::LoadHeader() {
 		File.read((char *)&PacketSize, sizeof(PacketSize));
 		switch(PacketType) {
 			case PACKET_REPLAYVERSION:
-				File.read((char *)&ReplayVersion, PacketSize);
+				File.read((char *)&ReplayVersion, sizeof(ReplayVersion));
 				if(ReplayVersion != REPLAY_VERSION)
 					Done = true;
 
@@ -147,7 +147,7 @@ void _Replay::LoadHeader() {
 					Log.Write("ReplayVersion=%d, PacketSize=%d", ReplayVersion, PacketSize);
 			break;
 			case PACKET_LEVELVERSION:
-				File.read((char *)&LevelVersion, PacketSize);
+				File.read((char *)&LevelVersion, sizeof(LevelVersion));
 
 				if(Debug)
 					Log.Write("LevelVersion=%d, PacketSize=%d", LevelVersion, PacketSize);
@@ -173,13 +173,13 @@ void _Replay::LoadHeader() {
 					Log.Write("Description=%s, PacketSize=%d", Buffer, PacketSize);
 			break;
 			case PACKET_DATE:
-				File.read((char *)&TimeStamp, PacketSize);
+				File.read((char *)&TimeStamp, sizeof(TimeStamp));
 
 				if(Debug)
 					Log.Write("TimeStamp=%d, PacketSize=%d", TimeStamp, PacketSize);
 			break;
 			case PACKET_FINISHTIME:
-				File.read((char *)&FinishTime, PacketSize);
+				File.read((char *)&FinishTime, sizeof(FinishTime));
 
 				if(Debug)
 					Log.Write("FinishTime=%f, PacketSize=%d", FinishTime, PacketSize);
