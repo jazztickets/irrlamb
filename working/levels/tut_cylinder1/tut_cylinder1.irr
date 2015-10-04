@@ -17,7 +17,7 @@
       <attributes>
          <bool name="Physics.Enabled" value="false"/>
          <float name="Gravity" value="-9.81"/>
-         <colorf name="BackgroundColor" value="0.056563, 0.220815, 0.4, 1"/>
+         <colorf name="BackgroundColor" value="0, 0, 0, 1"/>
       </attributes>
    </userData>
    <node type="mesh">
