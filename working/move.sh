@@ -20,3 +20,8 @@ for f in $(ls meshes/*.irrmesh 2>/dev/null); do
 done;
 
 rm -f irrb.log
+
+# test level
+if [ -n "$1" ]; then
+	../bin/Debug/irrlamb -level "$1"
+fi
