@@ -144,13 +144,13 @@ void _Replay::LoadHeader() {
 					Done = true;
 
 				if(Debug)
-					Log.Write("ReplayVersion=%d, PacketSize=%d", ReplayVersion, PacketSize);
+					Log.Write("ReplayVersion=%d, PacketSize=%d sizeof=%d", ReplayVersion, PacketSize, sizeof(ReplayVersion));
 			break;
 			case PACKET_LEVELVERSION:
 				File.read((char *)&LevelVersion, sizeof(LevelVersion));
 
 				if(Debug)
-					Log.Write("LevelVersion=%d, PacketSize=%d", LevelVersion, PacketSize);
+					Log.Write("LevelVersion=%d, PacketSize=%d sizeof=%d", LevelVersion, PacketSize, sizeof(LevelVersion));
 			break;
 			case PACKET_LEVELFILE:
 				if(PacketSize > 1024)
@@ -173,16 +173,18 @@ void _Replay::LoadHeader() {
 					Log.Write("Description=%s, PacketSize=%d", Buffer, PacketSize);
 			break;
 			case PACKET_DATE:
-				File.read((char *)&TimeStamp, sizeof(TimeStamp));
+				if(PacketSize > 8)
+					PacketSize = 8;
+				File.read((char *)&TimeStamp, PacketSize);
 
 				if(Debug)
-					Log.Write("TimeStamp=%d, PacketSize=%d", TimeStamp, PacketSize);
+					Log.Write("TimeStamp=%d, PacketSize=%d sizeof=%d", TimeStamp, PacketSize, sizeof(TimeStamp));
 			break;
 			case PACKET_FINISHTIME:
 				File.read((char *)&FinishTime, sizeof(FinishTime));
 
 				if(Debug)
-					Log.Write("FinishTime=%f, PacketSize=%d", FinishTime, PacketSize);
+					Log.Write("FinishTime=%f, PacketSize=%d sizeof=%d", FinishTime, PacketSize, sizeof(FinishTime));
 			break;
 			case PACKET_AUTOSAVE:
 				Autosave = File.get();
