@@ -55,7 +55,11 @@ int _Campaign::Init() {
 	for(; CampaignElement != 0; CampaignElement = CampaignElement->NextSiblingElement("campaign")) {
 
 		_CampaignInfo Campaign;
+		Campaign.Column = 1;
+		Campaign.Row = 0;
 		Campaign.Name = CampaignElement->Attribute("name");
+		CampaignElement->QueryIntAttribute("column", &Campaign.Column);
+		CampaignElement->QueryIntAttribute("row", &Campaign.Row);
 
 		// Get levels
 		XMLElement *LevelElement = CampaignElement->FirstChildElement("level");

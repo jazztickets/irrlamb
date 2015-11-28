@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <campaigns version="1">
-	<campaign name="Tutorial">
+	<campaign name="Tutorials" column="0" row="0">
 		<level unlocked="1">tut_move0</level>
 		<level>tut_jump0</level>
 		<level>tut_move1</level>
@@ -9,24 +9,26 @@
 		<level>tut_hill0</level>
 		<level>tut_jump2</level>
 	</campaign>
-	<campaign name="Advanced Tutorial">
-		<level unlocked="1">tut_move2</level>
+	<campaign name="Advanced Tutorials" column="1" row="0">
+		<level>tut_move2</level>
 		<level>tut_sphere0</level>
 		<level>tut_jump3</level>
 		<level>tut_cylinder1</level>
 		<level>tut_jump4</level>
 		<level>tut_longjump0</level>
+	</campaign>
+	<campaign name="Extreme Tutorials" column="2" row="0">
 		<level>tut_kick0</level>
 	</campaign>
-	<campaign name="Caves">
+	<campaign name="Caves" column="0" row="1">
 		<level unlocked="1">sas_0</level>
 		<!--<level>sas_1</level>-->
 	</campaign>
-	<campaign name="Skate Set">
+	<campaign name="Skate Set" column="1" row="1">
 		<level unlocked="1">skate_0</level>
 		<level>skate_1</level>
 	</campaign>
-	<campaign name="Challenges">
+	<campaign name="Challenges" column="2" row="1">
 		<level unlocked="1">c_roll0</level>
 		<level>c_trees0</level>
 	</campaign>

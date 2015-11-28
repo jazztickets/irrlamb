@@ -559,13 +559,14 @@ void _Menu::InitSinglePlayer() {
 	AddMenuText(core::position2di(X, Y), L"Level Sets");
 
 	// Campaigns
-	Y += TITLE_SPACING - 30;
+	Y += TITLE_SPACING + 70;
 	const std::vector<_CampaignInfo> &Campaigns = Campaign.GetCampaigns();
 	for(uint32_t i = 0; i < Campaigns.size(); i++) {
 		irr::core::stringw Name(Campaigns[i].Name.c_str());
-		AddMenuButton(Interface.GetCenteredRect(X, Y, 194, 52), PLAY_CAMPAIGNID + i, Name.c_str());
 
-		Y += CAMPAIGN_SPACING;
+		int PositionX = (Campaigns[i].Column - 1) * 200;
+		int PositionY = CAMPAIGN_SPACING * Campaigns[i].Row;
+		AddMenuButton(Interface.GetCenteredRect(X + PositionX, Y + PositionY, 194, 52), PLAY_CAMPAIGNID + i, Name.c_str());
 	}
 
 	Y = Interface.CenterY + BACK_Y;
