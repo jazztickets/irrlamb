@@ -322,13 +322,12 @@ void _AudioSource::Play() {
 	}
 }
 
-// Play
+// Stop
 void _AudioSource::Stop() {
 	if(Loaded) {
 		alSourceStop(ID);
 	}
 }
-
 
 // Returns true if the source is playing
 bool _AudioSource::IsPlaying() {
