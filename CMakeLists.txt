@@ -11,12 +11,16 @@ subdirs(tools)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 
 # set default values
-set(EXTRA_LIBS)
 set(BULLET_ROOT "$ENV{BULLET_ROOT}")
 
 # check for -DLUA_VERSION=x.x
 if(NOT LUA_VERSION)
 	set(LUA_VERSION "5.3")
+endif()
+
+# mingw
+if(WIN32)
+	set(EXTRA_LIBS ${EXTRA_LIBS} winmm ws2_32)
 endif()
 
 # windows only options
@@ -143,7 +147,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 	${EXTRA_LIBS}
 	)
 
-if(WIN32)
+if(MSVC)
 
 	# copy libraries to working directory
 	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{IRRLICHT_ROOT}/bin/Win64-VisualStudio/Irrlicht.dll" ${PROJECT_SOURCE_DIR}/working)

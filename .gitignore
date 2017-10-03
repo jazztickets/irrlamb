@@ -6,5 +6,6 @@ build
 CMakeLists.txt.user
 deployment/*.exe
 deployment/*-src
+deployment/out
 working/*.log
 working/*.irr
