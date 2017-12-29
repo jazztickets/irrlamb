@@ -70,6 +70,7 @@ void _Config::Reset() {
 
 	InvertMouse = false;
 	InvertGamepadY = false;
+	DeadZone = ACTIONS_DEADZONE;
 
 	// Replays
 	AutosaveNewRecords = true;
@@ -243,13 +244,14 @@ int _Config::ReadConfig() {
 		InputElement->QueryBoolAttribute("invert_mouse", &InvertMouse);
 		InputElement->QueryBoolAttribute("invert_gamepad_y", &InvertGamepadY);
 		InputElement->QueryBoolAttribute("joystick_enabled", &JoystickEnabled);
+		InputElement->QueryFloatAttribute("deadzone", &DeadZone);
 	}
 
 	// Add action maps
 	Actions.ClearMappings(_Input::KEYBOARD);
 	Actions.ClearMappings(_Input::MOUSE_BUTTON);
 	Actions.ClearMappings(_Input::MOUSE_AXIS);
-	Actions.Unserialize(InputElement);
+	Actions.Unserialize(InputElement, DeadZone);
 
 	return 1;
 }
@@ -326,6 +328,7 @@ int _Config::WriteConfig() {
 	InputElement->SetAttribute("invert_mouse", InvertMouse);
 	InputElement->SetAttribute("invert_gamepad_y", InvertGamepadY);
 	InputElement->SetAttribute("joystick_enabled", JoystickEnabled);
+	InputElement->SetAttribute("deadzone", DeadZone);
 	ConfigElement->LinkEndChild(InputElement);
 
 	// Write action map
@@ -369,7 +372,7 @@ int _Config::ReadJoystickConfig() {
 				// Add action maps
 				Actions.ClearMappings(_Input::JOYSTICK_BUTTON);
 				Actions.ClearMappings(_Input::JOYSTICK_AXIS);
-				Actions.Unserialize(InputMapElement);
+				Actions.Unserialize(InputMapElement, DeadZone);
 
 				// Quit after first valid joystick
 				break;

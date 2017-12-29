@@ -170,7 +170,7 @@ void _Actions::Serialize(int InputType, XMLDocument &Document, XMLElement *Input
 			Element->SetAttribute("action", MapIterator.Action);
 			if(InputType == _Input::JOYSTICK_AXIS) {
 				Element->SetAttribute("scale", MapIterator.Scale);
-				Element->SetAttribute("deadzone", MapIterator.DeadZone);
+				//Element->SetAttribute("deadzone", MapIterator.DeadZone);
 			}
 			InputElement->InsertEndChild(Element);
 		}
@@ -178,7 +178,7 @@ void _Actions::Serialize(int InputType, XMLDocument &Document, XMLElement *Input
 }
 
 // Unserialize
-void _Actions::Unserialize(XMLElement *InputElement) {
+void _Actions::Unserialize(XMLElement *InputElement, float MasterDeadZone) {
 	int Type, Input, Action;
 	float Scale, DeadZone;
 
@@ -197,7 +197,7 @@ void _Actions::Unserialize(XMLElement *InputElement) {
 		if(Element->QueryFloatAttribute("deadzone", &DeadZone) != XML_NO_ERROR) {
 			DeadZone = -1.0f;
 			if(Type == _Input::JOYSTICK_AXIS)
-				DeadZone = ACTIONS_DEADZONE;
+				DeadZone = MasterDeadZone;
 		}
 
 		Actions.AddInputMap(Type, Input, Action, Scale, DeadZone, false);

@@ -47,6 +47,7 @@ const int CAMPAIGN_LEVELID = 1000;
 const int PLAY_CAMPAIGNID = 900;
 
 const int TITLE_Y = 200;
+const int OPTIONSTITLE_Y = 250;
 const int TITLE_SPACING = 120;
 const int BUTTON_SPACING = 70;
 const int CAMPAIGN_SPACING = 60;
@@ -82,7 +83,7 @@ enum GUIElements {
 	OPTIONS_VIDEO, OPTIONS_AUDIO, OPTIONS_CONTROLS, OPTIONS_BACK,
 	VIDEO_SAVE, VIDEO_CANCEL, VIDEO_VIDEOMODES, VIDEO_FULLSCREEN, VIDEO_SHADOWS, VIDEO_SHADERS, VIDEO_VSYNC, VIDEO_ANISOTROPY, VIDEO_ANTIALIASING,
 	AUDIO_ENABLED, AUDIO_SAVE, AUDIO_CANCEL,
-	CONTROLS_SAVE, CONTROLS_CANCEL, CONTROLS_INVERTMOUSE, CONTROLS_INVERTGAMEPADY, CONTROLS_KEYMAP,
+	CONTROLS_SAVE, CONTROLS_CANCEL, CONTROLS_DEADZONE, CONTROLS_INVERTMOUSE, CONTROLS_INVERTGAMEPADY, CONTROLS_KEYMAP,
 	PAUSE_RESUME=(CONTROLS_KEYMAP + _Actions::COUNT), PAUSE_SAVEREPLAY, PAUSE_RESTART, PAUSE_OPTIONS, PAUSE_QUITLEVEL,
 	SAVEREPLAY_NAME, SAVEREPLAY_SAVE, SAVEREPLAY_CANCEL,
 	LOSE_RESTARTLEVEL, LOSE_SAVEREPLAY, LOSE_MAINMENU,
@@ -234,6 +235,8 @@ bool _Menu::HandleKeyPress(int Key) {
 
 				KeyButton = nullptr;
 			}
+			else
+				Processed = false;
 		break;
 		case STATE_SAVEREPLAY:
 			switch(Key) {
@@ -420,6 +423,10 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 					// Save invert gamepad Y
 					gui::IGUICheckBox *InvertGamepadY = static_cast<gui::IGUICheckBox *>(CurrentLayout->getElementFromId(CONTROLS_INVERTGAMEPADY));
 					Config.InvertGamepadY = InvertGamepadY->isChecked();
+
+					// Save deadzone
+					gui::IGUIEditBox *DeadZone = static_cast<gui::IGUIEditBox *>(CurrentLayout->getElementFromId(CONTROLS_DEADZONE));
+					Config.DeadZone = wcstof(DeadZone->getText(), nullptr);
 
 					Config.WriteConfig();
 
@@ -751,7 +758,7 @@ void _Menu::InitOptions() {
 	ClearCurrentLayout();
 
 	// Text
-	int X = Interface.CenterX, Y = Interface.CenterY - TITLE_Y;
+	int X = Interface.CenterX, Y = Interface.CenterY - OPTIONSTITLE_Y;
 	AddMenuText(core::position2di(X, Y), L"Options");
 
 	Y += TITLE_SPACING;
@@ -774,7 +781,7 @@ void _Menu::InitVideo() {
 	ClearCurrentLayout();
 
 	// Text
-	int X = Interface.CenterX, Y = Interface.CenterY - TITLE_Y;
+	int X = Interface.CenterX, Y = Interface.CenterY - OPTIONSTITLE_Y;
 	AddMenuText(core::position2di(X, Y), L"Video");
 
 	// Video modes
@@ -860,7 +867,7 @@ void _Menu::InitAudio() {
 	ClearCurrentLayout();
 
 	// Text
-	int X = Interface.CenterX, Y = Interface.CenterY - TITLE_Y;
+	int X = Interface.CenterX, Y = Interface.CenterY - OPTIONSTITLE_Y;
 	AddMenuText(core::position2di(X, Y), L"Audio");
 
 	// Sound enabled
@@ -885,13 +892,13 @@ void _Menu::InitControls() {
 	ClearCurrentLayout();
 
 	int X = Interface.CenterX;
-	int Y = Interface.CenterY - TITLE_Y;
+	int Y = Interface.CenterY - OPTIONSTITLE_Y;
 
 	// Text
 	AddMenuText(core::position2di(X, Y), L"Controls");
 
 	// Create the key buttons
-	Y = Interface.CenterY - TITLE_Y + TITLE_SPACING - 40;
+	Y = Interface.CenterY - TITLE_Y + TITLE_SPACING - 80;
 	KeyButton = nullptr;
 	for(int i = 0; i <= _Actions::RESET; i++) {
 
@@ -910,6 +917,14 @@ void _Menu::InitControls() {
 	// Invert Gamepad Y
 	AddMenuText(core::position2di(X - 15 + 145, Y), L"Gamepad Y", _Interface::FONT_MEDIUM, -1, gui::EGUIA_LOWERRIGHT);
 	irrGUI->addCheckBox(Config.InvertGamepadY, Interface.GetCenteredRect(X + 15 + 170, Y, 100, 25), CurrentLayout, CONTROLS_INVERTGAMEPADY);
+
+	Y += 40;
+	AddMenuText(core::position2di(X - 60, Y), L"Deadzone", _Interface::FONT_MEDIUM);
+	wchar_t Buffer[32];
+	swprintf(Buffer, 32, L"%.3f", Config.DeadZone);
+	gui::IGUIEditBox *EditDeadZone = irrGUI->addEditBox(Buffer, Interface.GetCenteredRect(X + 60, Y, 100, 32), true, CurrentLayout, CONTROLS_DEADZONE);
+	EditDeadZone->setMax(32);
+	Y += 40;
 
 	// Save
 	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX - SAVE_X, Interface.CenterY + BACK_Y, 108, 44), CONTROLS_SAVE, L"Save", _Interface::IMAGE_BUTTON_SMALL);

@@ -97,7 +97,7 @@ class _Actions {
 
 		// Config
 		void Serialize(int InputType, tinyxml2::XMLDocument &Document, tinyxml2::XMLElement *InputElement);
-		void Unserialize(tinyxml2::XMLElement *InputElement);
+		void Unserialize(tinyxml2::XMLElement *InputElement, float MasterDeadZone);
 
 	private:
 

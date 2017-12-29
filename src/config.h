@@ -56,6 +56,7 @@ class _Config {
 		bool InvertMouse, InvertGamepadY;
 		bool JoystickEnabled;
 		int JoystickIndex;
+		float DeadZone;
 
 		// Replays
 		bool AutosaveNewRecords;
