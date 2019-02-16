@@ -3225,7 +3225,7 @@ void COpenGLDriver::setRenderStates2DMode(bool alpha, bool texture, bool alphaCh
 
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
-			glTranslatef(0.375f, 0.375f, 0.0f);
+			//glTranslatef(0.375f, 0.375f, 0.0f);
 
 			// Make sure we set first texture matrix
 			if (MultiTextureExtension)
