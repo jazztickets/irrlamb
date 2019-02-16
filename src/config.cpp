@@ -67,6 +67,7 @@ void _Config::Reset() {
 
 	MouseScaleX = 1.0f;
 	MouseScaleY = 1.0f;
+	MouseSensitivity = 1.0f;
 
 	InvertMouse = false;
 	InvertGamepadY = false;
@@ -239,6 +240,7 @@ int _Config::ReadConfig() {
 	// Get input element
 	XMLElement *InputElement = ConfigElement->FirstChildElement("input");
 	if(InputElement) {
+		InputElement->QueryFloatAttribute("mouse_sensitivity", &MouseSensitivity);
 		InputElement->QueryFloatAttribute("mousex", &MouseScaleX);
 		InputElement->QueryFloatAttribute("mousey", &MouseScaleY);
 		InputElement->QueryBoolAttribute("invert_mouse", &InvertMouse);
@@ -323,8 +325,9 @@ int _Config::WriteConfig() {
 
 	// Input
 	XMLElement *InputElement = Document.NewElement("input");
-	InputElement->SetAttribute("mousex", 1.0);
-	InputElement->SetAttribute("mousey", 1.0);
+	InputElement->SetAttribute("mouse_sensitivity", MouseSensitivity);
+	InputElement->SetAttribute("mousex", MouseScaleX);
+	InputElement->SetAttribute("mousey", MouseScaleY);
 	InputElement->SetAttribute("invert_mouse", InvertMouse);
 	InputElement->SetAttribute("invert_gamepad_y", InvertGamepadY);
 	InputElement->SetAttribute("joystick_enabled", JoystickEnabled);

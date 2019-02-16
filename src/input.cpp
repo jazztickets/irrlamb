@@ -114,8 +114,8 @@ bool _Input::OnEvent(const SEvent &Event) {
 						if(Config.InvertMouse)
 							MouseScaleY = -MouseScaleY;
 
-						float MouseValueX = (MouseUpdate.X - 0.5f) * irrDriver->getScreenSize().Width * 0.1f * Config.MouseScaleX;
-						float MouseValueY = (MouseUpdate.Y - 0.5f) * irrDriver->getScreenSize().Height * 0.1f * MouseScaleY;
+						float MouseValueX = (MouseUpdate.X - 0.5f) * irrDriver->getScreenSize().Width * 0.1f * Config.MouseScaleX * Config.MouseSensitivity;
+						float MouseValueY = (MouseUpdate.Y - 0.5f) * irrDriver->getScreenSize().Height * 0.1f * MouseScaleY * Config.MouseSensitivity;
 						int AxisX = MouseValueX < 0.0f ? 0 : 1;
 						int AxisY = MouseValueY < 0.0f ? 2 : 3;
 						Actions.InputEvent(_Input::MOUSE_AXIS, AxisX, fabs(MouseValueX));

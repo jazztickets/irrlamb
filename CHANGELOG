@@ -1,6 +1,7 @@
 irrlamb 0.2.2 -
 - Moved "Kick" tutorial to "Extreme Tutorials"
 - Added irrlicht source to project and fixed many irrlicht bugs
+- Added mouse sensitivity to options
 - Fixed replays on 32-bit version
 
 irrlamb 0.2.1 - 2015-10-02

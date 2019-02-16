@@ -52,7 +52,7 @@ class _Config {
 		float SoundVolume, MusicVolume;
 
 		// Input
-		float MouseScaleX, MouseScaleY;
+		float MouseSensitivity, MouseScaleX, MouseScaleY;
 		bool InvertMouse, InvertGamepadY;
 		bool JoystickEnabled;
 		int JoystickIndex;

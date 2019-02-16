@@ -83,7 +83,7 @@ enum GUIElements {
 	OPTIONS_VIDEO, OPTIONS_AUDIO, OPTIONS_CONTROLS, OPTIONS_BACK,
 	VIDEO_SAVE, VIDEO_CANCEL, VIDEO_VIDEOMODES, VIDEO_FULLSCREEN, VIDEO_SHADOWS, VIDEO_SHADERS, VIDEO_VSYNC, VIDEO_ANISOTROPY, VIDEO_ANTIALIASING,
 	AUDIO_ENABLED, AUDIO_SAVE, AUDIO_CANCEL,
-	CONTROLS_SAVE, CONTROLS_CANCEL, CONTROLS_DEADZONE, CONTROLS_INVERTMOUSE, CONTROLS_INVERTGAMEPADY, CONTROLS_KEYMAP,
+	CONTROLS_SAVE, CONTROLS_CANCEL, CONTROLS_DEADZONE, CONTROLS_SENSITIVITY, CONTROLS_INVERTMOUSE, CONTROLS_INVERTGAMEPADY, CONTROLS_KEYMAP,
 	PAUSE_RESUME=(CONTROLS_KEYMAP + _Actions::COUNT), PAUSE_SAVEREPLAY, PAUSE_RESTART, PAUSE_OPTIONS, PAUSE_QUITLEVEL,
 	SAVEREPLAY_NAME, SAVEREPLAY_SAVE, SAVEREPLAY_CANCEL,
 	LOSE_RESTARTLEVEL, LOSE_SAVEREPLAY, LOSE_MAINMENU,
@@ -427,6 +427,10 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 					// Save deadzone
 					gui::IGUIEditBox *DeadZone = static_cast<gui::IGUIEditBox *>(CurrentLayout->getElementFromId(CONTROLS_DEADZONE));
 					Config.DeadZone = wcstof(DeadZone->getText(), nullptr);
+
+					// Save sensitivity
+					gui::IGUIEditBox *MouseSensitivity = static_cast<gui::IGUIEditBox *>(CurrentLayout->getElementFromId(CONTROLS_SENSITIVITY));
+					Config.MouseSensitivity = wcstof(MouseSensitivity->getText(), nullptr);
 
 					Config.WriteConfig();
 
@@ -918,17 +922,24 @@ void _Menu::InitControls() {
 	AddMenuText(core::position2di(X - 15 + 145, Y), L"Gamepad Y", _Interface::FONT_MEDIUM, -1, gui::EGUIA_LOWERRIGHT);
 	irrGUI->addCheckBox(Config.InvertGamepadY, Interface.GetCenteredRect(X + 15 + 170, Y, 100, 25), CurrentLayout, CONTROLS_INVERTGAMEPADY);
 
+	// Add deadzone
 	Y += 40;
-	AddMenuText(core::position2di(X - 60, Y), L"Deadzone", _Interface::FONT_MEDIUM);
+	AddMenuText(core::position2di(X - 90, Y), L"Gamepad Deadzone", _Interface::FONT_MEDIUM);
 	wchar_t Buffer[32];
 	swprintf(Buffer, 32, L"%.3f", Config.DeadZone);
-	gui::IGUIEditBox *EditDeadZone = irrGUI->addEditBox(Buffer, Interface.GetCenteredRect(X + 60, Y, 100, 32), true, CurrentLayout, CONTROLS_DEADZONE);
+	gui::IGUIEditBox *EditDeadZone = irrGUI->addEditBox(Buffer, Interface.GetCenteredRect(X + 90, Y, 100, 32), true, CurrentLayout, CONTROLS_DEADZONE);
 	EditDeadZone->setMax(32);
+
+	// Add mouse sensitivity
 	Y += 40;
+	AddMenuText(core::position2di(X - 90, Y), L"Mouse Sensitivity", _Interface::FONT_MEDIUM);
+	swprintf(Buffer, 32, L"%.3f", Config.MouseSensitivity);
+	gui::IGUIEditBox *EditMouseSensitivity = irrGUI->addEditBox(Buffer, Interface.GetCenteredRect(X + 90, Y, 100, 32), true, CurrentLayout, CONTROLS_SENSITIVITY);
+	EditMouseSensitivity->setMax(32);
 
 	// Save
-	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX - SAVE_X, Interface.CenterY + BACK_Y, 108, 44), CONTROLS_SAVE, L"Save", _Interface::IMAGE_BUTTON_SMALL);
-	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX + SAVE_X, Interface.CenterY + BACK_Y, 108, 44), CONTROLS_CANCEL, L"Cancel", _Interface::IMAGE_BUTTON_SMALL);
+	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX - SAVE_X, Interface.CenterY + BACK_Y + 20, 108, 44), CONTROLS_SAVE, L"Save", _Interface::IMAGE_BUTTON_SMALL);
+	AddMenuButton(Interface.GetCenteredRect(Interface.CenterX + SAVE_X, Interface.CenterY + BACK_Y + 20, 108, 44), CONTROLS_CANCEL, L"Cancel", _Interface::IMAGE_BUTTON_SMALL);
 
 	// Play sound
 	Interface.PlaySound(_Interface::SOUND_CONFIRM);
