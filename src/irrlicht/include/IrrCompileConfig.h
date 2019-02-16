@@ -487,7 +487,7 @@ B3D, MS3D or X meshes */
 
 //! Define _IRR_COMPILE_WITH_BMP_LOADER_ if you want to load .bmp files
 //! Disabling this loader will also disable the built-in font
-//#define _IRR_COMPILE_WITH_BMP_LOADER_
+#define _IRR_COMPILE_WITH_BMP_LOADER_
 #ifdef NO_IRR_COMPILE_WITH_BMP_LOADER_
 #undef _IRR_COMPILE_WITH_BMP_LOADER_
 #endif
