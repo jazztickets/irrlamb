@@ -20,38 +20,38 @@ namespace video
 	*/
 	enum BD3DRENDERSTATETYPE
 	{
-		/*!	BD3DRS_ZENABLE 
+		/*!	BD3DRS_ZENABLE
 			Depth-buffering state as one member of the BD3DZBUFFERTYPE enumerated type.
-			Set this state to D3DZB_TRUE to enable z-buffering, 
-			D3DZB_USEW to enable w-buffering, or D3DZB_FALSE to disable depth buffering. 
-			The default value for this render state is D3DZB_TRUE if a depth stencil was created 
+			Set this state to D3DZB_TRUE to enable z-buffering,
+			D3DZB_USEW to enable w-buffering, or D3DZB_FALSE to disable depth buffering.
+			The default value for this render state is D3DZB_TRUE if a depth stencil was created
 			along with the swap chain by setting the EnableAutoDepthStencil member of the
 			D3DPRESENT_PARAMETERS structure to TRUE, and D3DZB_FALSE otherwise.
 		*/
 		BD3DRS_ZENABLE,
 
-		/*!	BD3DRS_FILLMODE 
-			One or more members of the D3DFILLMODE enumerated type. The default value is D3DFILL_SOLID. 
+		/*!	BD3DRS_FILLMODE
+			One or more members of the D3DFILLMODE enumerated type. The default value is D3DFILL_SOLID.
 		*/
 		BD3DRS_FILLMODE,
 
-		/*!	BD3DRS_SHADEMODE 
-			One or more members of the D3DSHADEMODE enumerated type. The default value is D3DSHADE_GOURAUD. 
+		/*!	BD3DRS_SHADEMODE
+			One or more members of the D3DSHADEMODE enumerated type. The default value is D3DSHADE_GOURAUD.
 		*/
 		BD3DRS_SHADEMODE,
 
-		/*!	BD3DRS_ZWRITEENABLE 
-			TRUE to enable the application to write to the depth buffer. The default value is TRUE. 
+		/*!	BD3DRS_ZWRITEENABLE
+			TRUE to enable the application to write to the depth buffer. The default value is TRUE.
 			This member enables an application to prevent the system from updating the depth buffer with
 			new depth values. If FALSE, depth comparisons are still made according to the render state
 			D3DRS_ZFUNC, assuming that depth buffering is taking place, but depth values are not written
-			to the buffer. 
+			to the buffer.
 		*/
 		BD3DRS_ZWRITEENABLE,
 
-		/*!	BD3DRS_ALPHATESTENABLE 
+		/*!	BD3DRS_ALPHATESTENABLE
 			TRUE to enable per pixel alpha testing. If the test passes, the pixel is processed by the frame
-			buffer. Otherwise, all frame-buffer processing is skipped for the pixel. The test is done by 
+			buffer. Otherwise, all frame-buffer processing is skipped for the pixel. The test is done by
 			comparing the incoming alpha value with the reference alpha value, using the comparison function
 			provided by the D3DRS_ALPHAFUNC render state. The reference alpha value is determined by the value
 			set for D3DRS_ALPHAREF. For more information, see Alpha Testing State.
@@ -59,7 +59,7 @@ namespace video
 		*/
 		BD3DRS_ALPHATESTENABLE,
 
-		/*!	BD3DRS_SRCBLEND 
+		/*!	BD3DRS_SRCBLEND
 			One member of the BD3DBLEND enumerated type. The default value is BD3DBLEND_ONE.
 		*/
 		BD3DRS_SRCBLEND,
@@ -70,14 +70,14 @@ namespace video
 		BD3DRS_DESTBLEND,
 
 		/*!	BD3DRS_CULLMODE
-			Specifies how back-facing triangles are culled, if at all. This can be set to one 
+			Specifies how back-facing triangles are culled, if at all. This can be set to one
 			member of the BD3DCULL enumerated type. The default value is BD3DCULL_CCW.
 		*/
 		BD3DRS_CULLMODE,
 
-		/*!	BD3DRS_ZFUNC 
-			One member of the BD3DCMPFUNC enumerated type. The default value is BD3DCMP_LESSEQUAL. 
-			This member enables an application to accept or reject a pixel, based on its distance from 
+		/*!	BD3DRS_ZFUNC
+			One member of the BD3DCMPFUNC enumerated type. The default value is BD3DCMP_LESSEQUAL.
+			This member enables an application to accept or reject a pixel, based on its distance from
 			the camera. The depth value of the pixel is compared with the depth-buffer value. If the depth
 			value of the pixel passes the comparison function, the pixel is written.
 
@@ -88,98 +88,98 @@ namespace video
 		*/
 		BD3DRS_ZFUNC,
 
-		/*!	BD3DRS_ALPHAREF 
+		/*!	BD3DRS_ALPHAREF
 			Value that specifies a reference alpha value against which pixels are tested when alpha testing
 			is enabled. This is an 8-bit value placed in the low 8 bits of the DWORD render-state value.
-			Values can range from 0x00000000 through 0x000000FF. The default value is 0. 
+			Values can range from 0x00000000 through 0x000000FF. The default value is 0.
 		*/
 		BD3DRS_ALPHAREF,
 
-		/*!	BD3DRS_ALPHAFUNC 
-			One member of the BD3DCMPFUNC enumerated type. The default value is BD3DCMP_ALWAYS. 
+		/*!	BD3DRS_ALPHAFUNC
+			One member of the BD3DCMPFUNC enumerated type. The default value is BD3DCMP_ALWAYS.
 			This member enables an application to accept or reject a pixel, based on its alpha value.
 		*/
 		BD3DRS_ALPHAFUNC,
 
-		/*!	BD3DRS_DITHERENABLE 
-			TRUE to enable dithering. The default value is FALSE. 
+		/*!	BD3DRS_DITHERENABLE
+			TRUE to enable dithering. The default value is FALSE.
 		*/
 		BD3DRS_DITHERENABLE,
 
-		/*!	BD3DRS_ALPHABLENDENABLE 
-			TRUE to enable alpha-blended transparency. The default value is FALSE. 
+		/*!	BD3DRS_ALPHABLENDENABLE
+			TRUE to enable alpha-blended transparency. The default value is FALSE.
 			The type of alpha blending is determined by the BD3DRS_SRCBLEND and BD3DRS_DESTBLEND render states.
 		*/
 		BD3DRS_ALPHABLENDENABLE,
 
-		/*! BD3DRS_FOGENABLE 
+		/*! BD3DRS_FOGENABLE
 			TRUE to enable fog blending. The default value is FALSE. For more information about using fog
-			blending, see Fog. 
+			blending, see Fog.
 		*/
 		BD3DRS_FOGENABLE,
 
-		/*!	BD3DRS_SPECULARENABLE 
+		/*!	BD3DRS_SPECULARENABLE
 			TRUE to enable specular highlights. The default value is FALSE.
-			Specular highlights are calculated as though every vertex in the object being lit is at the 
+			Specular highlights are calculated as though every vertex in the object being lit is at the
 			object's origin. This gives the expected results as long as the object is modeled around the
 			origin and the distance from the light to the object is relatively large. In other cases, the
 			results as undefined.
-			When this member is set to TRUE, the specular color is added to the base color after the 
+			When this member is set to TRUE, the specular color is added to the base color after the
 			texture cascade but before alpha blending.
 		*/
 		BD3DRS_SPECULARENABLE,
 
-		/*! BD3DRS_FOGCOLOR 
+		/*! BD3DRS_FOGCOLOR
 			Value whose type is D3DCOLOR. The default value is 0. For more information about fog color,
-			see Fog Color. 
+			see Fog Color.
 		*/
 		BD3DRS_FOGCOLOR,
 
-		/*!	BD3DRS_FOGTABLEMODE 
+		/*!	BD3DRS_FOGTABLEMODE
 			The fog formula to be used for pixel fog. Set to one of the members of the D3DFOGMODE
-			enumerated type. The default value is D3DFOG_NONE. For more information about pixel fog, 
-			see Pixel Fog. 
+			enumerated type. The default value is D3DFOG_NONE. For more information about pixel fog,
+			see Pixel Fog.
 		*/
 		BD3DRS_FOGTABLEMODE,
 
-		/*! BD3DRS_FOGSTART 
+		/*! BD3DRS_FOGSTART
 			Depth at which pixel or vertex fog effects begin for linear fog mode. The default value is 0.0f.
-			Depth is specified in world space for vertex fog and either device space [0.0, 1.0] or world 
-			space for pixel fog. For pixel fog, these values are in device space when the system uses z for 
-			fog calculations and world-world space when the system is using eye-relative fog (w-fog). For 
-			more information, see Fog Parameters and Eye-Relative vs. Z-based Depth. 
+			Depth is specified in world space for vertex fog and either device space [0.0, 1.0] or world
+			space for pixel fog. For pixel fog, these values are in device space when the system uses z for
+			fog calculations and world-world space when the system is using eye-relative fog (w-fog). For
+			more information, see Fog Parameters and Eye-Relative vs. Z-based Depth.
 			Values for the this render state are floating-point values.
-			Because the IDirect3DDevice9::SetRenderState method accepts DWORD values, your 
+			Because the IDirect3DDevice9::SetRenderState method accepts DWORD values, your
 			application must cast a variable that contains the value, as shown in the following code example.
 			pDevice9->SetRenderState( BD3DRS_FOGSTART, *((DWORD*) (&fFogStart)));
 		*/
 		BD3DRS_FOGSTART,
 
-		/*! BD3DRS_FOGEND 
+		/*! BD3DRS_FOGEND
 			Depth at which pixel or vertex fog effects end for linear fog mode. The default value is 1.0f.
 			Depth is specified in world space for vertex fog and either device space [0.0, 1.0] or world space
 			for pixel fog. For pixel fog, these values are in device space when the system uses z for fog
-			calculations and in world space when the system is using eye-relative fog (w-fog). For more 
-			information, see Fog Parameters and Eye-Relative vs. Z-based Depth. 
-			Values for this render state are floating-point values. 
+			calculations and in world space when the system is using eye-relative fog (w-fog). For more
+			information, see Fog Parameters and Eye-Relative vs. Z-based Depth.
+			Values for this render state are floating-point values.
 		*/
 		BD3DRS_FOGEND,
 
 		/*! BD3DRS_FOGDENSITY
 			Fog density for pixel or vertex fog used in the exponential fog modes (D3DFOG_EXP and D3DFOG_EXP2).
 			Valid density values range from 0.0 through 1.0. The default value is 1.0. For more information,
-			see Fog Parameters. 
+			see Fog Parameters.
 			Values for this render state are floating-point values.
 		*/
 		BD3DRS_FOGDENSITY,
 
 
-		/*! BD3DRS_RANGEFOGENABLE 
+		/*! BD3DRS_RANGEFOGENABLE
 			TRUE to enable range-based vertex fog. The default value is FALSE, in which case the system
 			uses depth-based fog. In range-based fog, the distance of an object from the viewer is used
 			to compute fog effects, not the depth of the object (that is, the z-coordinate) in the scene.
 			In range-based fog, all fog methods work as usual, except that they use range instead of depth
-			in the computations. 
+			in the computations.
 			Range is the correct factor to use for fog computations, but depth is commonly used instead
 			because range is time-consuming to compute and depth is generally already available. Using depth
 			to calculate fog has the undesirable effect of having the fogginess of peripheral objects change
@@ -191,70 +191,70 @@ namespace video
 		*/
 		BD3DRS_RANGEFOGENABLE = 48,
 
-		/*! BD3DRS_STENCILENABLE 
+		/*! BD3DRS_STENCILENABLE
 			TRUE to enable stenciling, or FALSE to disable stenciling. The default value is FALSE.
-			For more information, see Stencil Buffer Techniques. 
+			For more information, see Stencil Buffer Techniques.
 		*/
 		BD3DRS_STENCILENABLE = 52,
 
-		/*!	BD3DRS_STENCILFAIL 
-			Stencil operation to perform if the stencil test fails. Values are from the D3DSTENCILOP 
-			enumerated type. The default value is D3DSTENCILOP_KEEP. 
+		/*!	BD3DRS_STENCILFAIL
+			Stencil operation to perform if the stencil test fails. Values are from the D3DSTENCILOP
+			enumerated type. The default value is D3DSTENCILOP_KEEP.
 		*/
 		BD3DRS_STENCILFAIL = 53,
 
-		/*!	BD3DRS_STENCILZFAIL 
+		/*!	BD3DRS_STENCILZFAIL
 			Stencil operation to perform if the stencil test passes and the depth test (z-test) fails.
-			Values are from the D3DSTENCILOP enumerated type. The default value is D3DSTENCILOP_KEEP. 
+			Values are from the D3DSTENCILOP enumerated type. The default value is D3DSTENCILOP_KEEP.
 		*/
 		BD3DRS_STENCILZFAIL = 54,
 
-		/*!	BD3DRS_STENCILPASS 
+		/*!	BD3DRS_STENCILPASS
 			Stencil operation to perform if both the stencil and the depth (z) tests pass. Values are
-			from the D3DSTENCILOP enumerated type. The default value is D3DSTENCILOP_KEEP. 
+			from the D3DSTENCILOP enumerated type. The default value is D3DSTENCILOP_KEEP.
 		*/
 		BD3DRS_STENCILPASS = 55,
 
-		/*!	BD3DRS_STENCILFUNC 
+		/*!	BD3DRS_STENCILFUNC
 			Comparison function for the stencil test. Values are from the D3DCMPFUNC enumerated type.
-			The default value is D3DCMP_ALWAYS. 
+			The default value is D3DCMP_ALWAYS.
 			The comparison function is used to compare the reference value to a stencil buffer entry.
 			This comparison applies only to the bits in the reference value and stencil buffer entry that
-			are set in the stencil mask (set by the D3DRS_STENCILMASK render state). If TRUE, the stencil 
+			are set in the stencil mask (set by the D3DRS_STENCILMASK render state). If TRUE, the stencil
 			test passes.
 		*/
 		BD3DRS_STENCILFUNC = 56,
 
-		/*! BD3DRS_STENCILREF 
-			An int reference value for the stencil test. The default value is 0. 
+		/*! BD3DRS_STENCILREF
+			An int reference value for the stencil test. The default value is 0.
 		*/
 		BD3DRS_STENCILREF = 57,
 
-		/*! BD3DRS_STENCILMASK 
+		/*! BD3DRS_STENCILMASK
 			Mask applied to the reference value and each stencil buffer entry to determine the significant
-			bits for the stencil test. The default mask is 0xFFFFFFFF. 
+			bits for the stencil test. The default mask is 0xFFFFFFFF.
 		*/
 		BD3DRS_STENCILMASK = 58,
 
-		/*! BD3DRS_STENCILWRITEMASK 
-			Write mask applied to values written into the stencil buffer. The default mask is 0xFFFFFFFF. 
+		/*! BD3DRS_STENCILWRITEMASK
+			Write mask applied to values written into the stencil buffer. The default mask is 0xFFFFFFFF.
 		*/
 		BD3DRS_STENCILWRITEMASK = 59,
 
-		/*!	BD3DRS_TEXTUREFACTOR 
+		/*!	BD3DRS_TEXTUREFACTOR
 			Color used for multiple-texture blending with the D3DTA_TFACTOR texture-blending argument or the
 			D3DTOP_BLENDFACTORALPHA texture-blending operation. The associated value is a D3DCOLOR variable.
-			The default value is opaque white (0xFFFFFFFF). 
+			The default value is opaque white (0xFFFFFFFF).
 		*/
 		BD3DRS_TEXTUREFACTOR = 60,
 
-		/*! BD3DRS_WRAP0 
-			Texture-wrapping behavior for multiple sets of texture coordinates. Valid values for this 
+		/*! BD3DRS_WRAP0
+			Texture-wrapping behavior for multiple sets of texture coordinates. Valid values for this
 			render state can be any combination of the D3DWRAPCOORD_0 (or D3DWRAP_U), D3DWRAPCOORD_1
-			(or D3DWRAP_V), D3DWRAPCOORD_2 (or D3DWRAP_W), and D3DWRAPCOORD_3 flags. These cause the system 
+			(or D3DWRAP_V), D3DWRAPCOORD_2 (or D3DWRAP_W), and D3DWRAPCOORD_3 flags. These cause the system
 			to wrap in the direction of the first, second, third, and fourth dimensions, sometimes referred
 			to as the s, t, r, and q directions, for a given texture. The default value for this render state
-			is 0 (wrapping disabled in all directions). 
+			is 0 (wrapping disabled in all directions).
 		*/
 		BD3DRS_WRAP0 = 128,
 		BD3DRS_WRAP1 = 129,
@@ -265,87 +265,87 @@ namespace video
 		BD3DRS_WRAP6 = 134,
 		BD3DRS_WRAP7 = 135,
 
-		/*! BD3DRS_CLIPPING 
-			TRUE to enable primitive clipping by Direct3D, or FALSE to disable it. The default value is TRUE. 
+		/*! BD3DRS_CLIPPING
+			TRUE to enable primitive clipping by Direct3D, or FALSE to disable it. The default value is TRUE.
 		*/
 		BD3DRS_CLIPPING = 136,
 
-		/*! BD3DRS_LIGHTING 
-			TRUE to enable Direct3D lighting, or FALSE to disable it. The default value is TRUE. Only 
+		/*! BD3DRS_LIGHTING
+			TRUE to enable Direct3D lighting, or FALSE to disable it. The default value is TRUE. Only
 			vertices that include a vertex normal are properly lit; vertices that do not contain a normal
-			employ a dot product of 0 in all lighting calculations. 
+			employ a dot product of 0 in all lighting calculations.
 		*/
 		BD3DRS_LIGHTING = 137,
 
-		/*! D3DRS_AMBIENT 
-			Ambient light color. This value is of type D3DCOLOR. The default value is 0. 
+		/*! D3DRS_AMBIENT
+			Ambient light color. This value is of type D3DCOLOR. The default value is 0.
 		*/
 		BD3DRS_AMBIENT = 139,
 
-		/*! BD3DRS_FOGVERTEXMODE 
+		/*! BD3DRS_FOGVERTEXMODE
 			Fog formula to be used for vertex fog. Set to one member of the BD3DFOGMODE enumerated type.
-			The default value is D3DFOG_NONE. 
+			The default value is D3DFOG_NONE.
 		*/
 		BD3DRS_FOGVERTEXMODE = 140,
 
-		/*! BD3DRS_COLORVERTEX 
+		/*! BD3DRS_COLORVERTEX
 			TRUE to enable per-vertex color or FALSE to disable it. The default value is TRUE. Enabling
 			per-vertex color allows the system to include the color defined for individual vertices in its
-			lighting calculations. 
+			lighting calculations.
 			For more information, see the following render states:
-				BD3DRS_DIFFUSEMATERIALSOURCE 
-				BD3DRS_SPECULARMATERIALSOURCE 
-				BD3DRS_AMBIENTMATERIALSOURCE 
-				BD3DRS_EMISSIVEMATERIALSOURCE 
+				BD3DRS_DIFFUSEMATERIALSOURCE
+				BD3DRS_SPECULARMATERIALSOURCE
+				BD3DRS_AMBIENTMATERIALSOURCE
+				BD3DRS_EMISSIVEMATERIALSOURCE
 		*/
 		BD3DRS_COLORVERTEX = 141,
 
-		/*! BD3DRS_LOCALVIEWER 
-			TRUE to enable camera-relative specular highlights, or FALSE to use orthogonal specular 
-			highlights. The default value is TRUE. Applications that use orthogonal projection should 
-			specify false. 
+		/*! BD3DRS_LOCALVIEWER
+			TRUE to enable camera-relative specular highlights, or FALSE to use orthogonal specular
+			highlights. The default value is TRUE. Applications that use orthogonal projection should
+			specify false.
 		*/
 		BD3DRS_LOCALVIEWER = 142,
 
-		/*! BD3DRS_NORMALIZENORMALS 
+		/*! BD3DRS_NORMALIZENORMALS
 			TRUE to enable automatic normalization of vertex normals, or FALSE to disable it. The default
-			value is FALSE. Enabling this feature causes the system to normalize the vertex normals for 
-			vertices after transforming them to camera space, which can be computationally time-consuming. 
+			value is FALSE. Enabling this feature causes the system to normalize the vertex normals for
+			vertices after transforming them to camera space, which can be computationally time-consuming.
 		*/
 		BD3DRS_NORMALIZENORMALS = 143,
 
-		/*! BD3DRS_DIFFUSEMATERIALSOURCE 
-			Diffuse color source for lighting calculations. Valid values are members of the 
+		/*! BD3DRS_DIFFUSEMATERIALSOURCE
+			Diffuse color source for lighting calculations. Valid values are members of the
 			D3DMATERIALCOLORSOURCE enumerated type. The default value is D3DMCS_COLOR1. The value for this
-			render state is used only if the D3DRS_COLORVERTEX render state is set to TRUE. 
+			render state is used only if the D3DRS_COLORVERTEX render state is set to TRUE.
 		*/
 		BD3DRS_DIFFUSEMATERIALSOURCE = 145,
 
-		/*! BD3DRS_SPECULARMATERIALSOURCE 
-			Specular color source for lighting calculations. Valid values are members of the 
-			D3DMATERIALCOLORSOURCE enumerated type. The default value is D3DMCS_COLOR2. 
+		/*! BD3DRS_SPECULARMATERIALSOURCE
+			Specular color source for lighting calculations. Valid values are members of the
+			D3DMATERIALCOLORSOURCE enumerated type. The default value is D3DMCS_COLOR2.
 		*/
 		BD3DRS_SPECULARMATERIALSOURCE = 146,
 
-		/*! D3DRS_AMBIENTMATERIALSOURCE 
+		/*! D3DRS_AMBIENTMATERIALSOURCE
 			Ambient color source for lighting calculations. Valid values are members of the
-			D3DMATERIALCOLORSOURCE enumerated type. The default value is D3DMCS_MATERIAL. 
+			D3DMATERIALCOLORSOURCE enumerated type. The default value is D3DMCS_MATERIAL.
 		*/
 		BD3DRS_AMBIENTMATERIALSOURCE = 147,
 
-		/*! D3DRS_EMISSIVEMATERIALSOURCE 
-			Emissive color source for lighting calculations. Valid values are members of the 
-			D3DMATERIALCOLORSOURCE enumerated type. The default value is D3DMCS_MATERIAL. 
+		/*! D3DRS_EMISSIVEMATERIALSOURCE
+			Emissive color source for lighting calculations. Valid values are members of the
+			D3DMATERIALCOLORSOURCE enumerated type. The default value is D3DMCS_MATERIAL.
 		*/
 		BD3DRS_EMISSIVEMATERIALSOURCE = 148,
 
-		/*! D3DRS_VERTEXBLEND 
+		/*! D3DRS_VERTEXBLEND
 			Number of matrices to use to perform geometry blending, if any. Valid values are members
-			of the D3DVERTEXBLENDFLAGS enumerated type. The default value is D3DVBF_DISABLE. 
+			of the D3DVERTEXBLENDFLAGS enumerated type. The default value is D3DVBF_DISABLE.
 		*/
 		BD3DRS_VERTEXBLEND = 151,
 
-		/* D3DRS_CLIPPLANEENABLE 
+		/* D3DRS_CLIPPLANEENABLE
 			Enables or disables user-defined clipping planes. Valid values are any DWORD in which the
 			status of each bit (set or not set) toggles the activation state of a corresponding user-defined
 			clipping plane. The least significant bit (bit 0) controls the first clipping plane at index 0,
@@ -424,21 +424,21 @@ namespace video
 	//! Defines the supported compare functions.
 	enum BD3DCMPFUNC
 	{
-		BD3DCMP_NEVER	= 1,// Always fail the test. 
-		BD3DCMP_LESS,		// Accept the new pixel if its value is less than the value of the current pixel. 
-		BD3DCMP_EQUAL,		// Accept the new pixel if its value equals the value of the current pixel. 
-		BD3DCMP_LESSEQUAL,	// Accept the new pixel if its value is less than or equal to the value of the current pixel. 
-		BD3DCMP_GREATER,		// Accept the new pixel if its value is greater than the value of the current pixel. 
-		BD3DCMP_NOTEQUAL,	// Accept the new pixel if its value does not equal the value of the current pixel. 
-		BD3DCMP_GREATEREQUAL,// Accept the new pixel if its value is greater than or equal to the value of the current pixel. 
-		BD3DCMP_ALWAYS		// Always pass the test. 
+		BD3DCMP_NEVER	= 1,// Always fail the test.
+		BD3DCMP_LESS,		// Accept the new pixel if its value is less than the value of the current pixel.
+		BD3DCMP_EQUAL,		// Accept the new pixel if its value equals the value of the current pixel.
+		BD3DCMP_LESSEQUAL,	// Accept the new pixel if its value is less than or equal to the value of the current pixel.
+		BD3DCMP_GREATER,		// Accept the new pixel if its value is greater than the value of the current pixel.
+		BD3DCMP_NOTEQUAL,	// Accept the new pixel if its value does not equal the value of the current pixel.
+		BD3DCMP_GREATEREQUAL,// Accept the new pixel if its value is greater than or equal to the value of the current pixel.
+		BD3DCMP_ALWAYS		// Always pass the test.
 	};
 
 	enum BD3DMATERIALCOLORSOURCE
 	{
-		BD3DMCS_MATERIAL = 0,	// Use the color from the current material. 
-		BD3DMCS_COLOR1 = 1,		// Use the diffuse vertex color. 
-		BD3DMCS_COLOR2 = 2		// Use the specular vertex color. 
+		BD3DMCS_MATERIAL = 0,	// Use the color from the current material.
+		BD3DMCS_COLOR1 = 1,		// Use the diffuse vertex color.
+		BD3DMCS_COLOR2 = 2		// Use the specular vertex color.
 	};
 
 
@@ -460,7 +460,7 @@ namespace video
 		BD3DSHADE_GOURAUD = 2,
 
 		/*!	BD3DSHADE_PHONG
-			Not supported. 
+			Not supported.
 		*/
 		BD3DSHADE_PHONG = 3
 	};
@@ -483,9 +483,9 @@ namespace video
 	*/
 	enum BD3DCULL
 	{
-		BD3DCULL_NONE = 1,	// Do not cull back faces. 
-		BD3DCULL_CW = 2,	// Cull back faces with clockwise vertices. 
-		BD3DCULL_CCW = 3	// Cull back faces with counterclockwise vertices. 
+		BD3DCULL_NONE = 1,	// Do not cull back faces.
+		BD3DCULL_CW = 2,	// Cull back faces with clockwise vertices.
+		BD3DCULL_CCW = 3	// Cull back faces with counterclockwise vertices.
 	};
 
 	struct SShaderParam
@@ -611,7 +611,7 @@ void CBurningShader_Raster_Reference::setMaterial ( const SBurningShaderMaterial
 	);
 
 	// back face culling
-	ShaderParam.SetRenderState( BD3DRS_CULLMODE, 
+	ShaderParam.SetRenderState( BD3DRS_CULLMODE,
 		m.BackfaceCulling ? BD3DCULL_CCW : BD3DCULL_NONE
 	);
 
@@ -795,7 +795,7 @@ REALINLINE void CBurningShader_Raster_Reference::scanline ()
 			pShader.i += 1;
 			if ( pShader.i > pShader.dx )
 				return;
-			
+
 		}
 	}
 
@@ -846,7 +846,7 @@ REALINLINE void CBurningShader_Raster_Reference::scanline ()
 	}
 
 }
-	
+
 
 
 void CBurningShader_Raster_Reference::drawTriangle ( const s4DVertex *a,const s4DVertex *b,const s4DVertex *c )
@@ -938,21 +938,21 @@ void CBurningShader_Raster_Reference::drawTriangle ( const s4DVertex *a,const s4
 
 		// correct to pixel center
 		scan.x[0] += scan.slopeX[0] * subPixel;
-		scan.x[1] += scan.slopeX[1] * subPixel;		
+		scan.x[1] += scan.slopeX[1] * subPixel;
 
 		scan.w[0] += scan.slopeW[0] * subPixel;
-		scan.w[1] += scan.slopeW[1] * subPixel;		
+		scan.w[1] += scan.slopeW[1] * subPixel;
 
 		for ( i = 0; i != ShaderParam.ColorUnits; ++i )
 		{
 			scan.c[i][0] += scan.slopeC[i][0] * subPixel;
-			scan.c[i][1] += scan.slopeC[i][1] * subPixel;		
+			scan.c[i][1] += scan.slopeC[i][1] * subPixel;
 		}
 
 		for ( i = 0; i != ShaderParam.TextureUnits; ++i )
 		{
 			scan.t[i][0] += scan.slopeT[i][0] * subPixel;
-			scan.t[i][1] += scan.slopeT[i][1] * subPixel;		
+			scan.t[i][1] += scan.slopeT[i][1] * subPixel;
 		}
 
 		// rasterize the edge scanlines
@@ -1053,21 +1053,21 @@ void CBurningShader_Raster_Reference::drawTriangle ( const s4DVertex *a,const s4
 
 		// correct to pixel center
 		scan.x[0] += scan.slopeX[0] * subPixel;
-		scan.x[1] += scan.slopeX[1] * subPixel;		
+		scan.x[1] += scan.slopeX[1] * subPixel;
 
 		scan.w[0] += scan.slopeW[0] * subPixel;
-		scan.w[1] += scan.slopeW[1] * subPixel;		
+		scan.w[1] += scan.slopeW[1] * subPixel;
 
 		for ( i = 0; i != ShaderParam.ColorUnits; ++i )
 		{
 			scan.c[i][0] += scan.slopeC[i][0] * subPixel;
-			scan.c[i][1] += scan.slopeC[i][1] * subPixel;		
+			scan.c[i][1] += scan.slopeC[i][1] * subPixel;
 		}
 
 		for ( i = 0; i != ShaderParam.TextureUnits; ++i )
 		{
 			scan.t[i][0] += scan.slopeT[i][0] * subPixel;
-			scan.t[i][1] += scan.slopeT[i][1] * subPixel;		
+			scan.t[i][1] += scan.slopeT[i][1] * subPixel;
 		}
 
 		// rasterize the edge scanlines

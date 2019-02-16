@@ -271,7 +271,7 @@ bool CGUIListBox::OnEvent(const SEvent& event)
 					Selected = 0;
 				if (Selected >= (s32)Items.size())
 					Selected = Items.size() - 1;	// will set Selected to -1 for empty listboxes which is correct
-				
+
 
 				recalculateScrollPos();
 

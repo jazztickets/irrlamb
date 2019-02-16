@@ -366,7 +366,7 @@ namespace video
 		u8 ZBuffer;
 
 		//! Sets the antialiasing mode
-		/** Values are chosen from E_ANTI_ALIASING_MODE. Default is 
+		/** Values are chosen from E_ANTI_ALIASING_MODE. Default is
 		EAAM_SIMPLE|EAAM_LINE_SMOOTH, i.e. simple multi-sample
 		anti-aliasing and lime smoothing is enabled. */
 		u8 AntiAliasing;
@@ -380,7 +380,7 @@ namespace video
 
 		//! Defines the interpretation of vertex color in the lighting equation
 		/** Values should be chosen from E_COLOR_MATERIAL.
-		When lighting is enabled, vertex color can be used instead of the 
+		When lighting is enabled, vertex color can be used instead of the
 		material values for light modulation. This allows to easily change e.g. the
 		diffuse light behavior of each face. The default, ECM_DIFFUSE, will result in
 		a very similar rendering as with lighting turned off, just with light shading. */

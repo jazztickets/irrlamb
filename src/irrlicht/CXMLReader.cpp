@@ -48,22 +48,22 @@ namespace io
 
 	// now create an implementation for IXMLReader using irrXML.
 
-	//! Creates an instance of a wide character xml parser. 
+	//! Creates an instance of a wide character xml parser.
 	IXMLReader* createIXMLReader(IReadFile* file)
 	{
 		if (!file)
 			return 0;
 
-		return new CXMLReaderImpl<wchar_t, IReferenceCounted>(new CIrrXMLFileReadCallBack(file)); 
+		return new CXMLReaderImpl<wchar_t, IReferenceCounted>(new CIrrXMLFileReadCallBack(file));
 	}
 
-	//! Creates an instance of an UFT-8 or ASCII character xml parser. 
+	//! Creates an instance of an UFT-8 or ASCII character xml parser.
 	IXMLReaderUTF8* createIXMLReaderUTF8(IReadFile* file)
 	{
 		if (!file)
 			return 0;
 
-		return new CXMLReaderImpl<char, IReferenceCounted>(new CIrrXMLFileReadCallBack(file)); 
+		return new CXMLReaderImpl<char, IReferenceCounted>(new CIrrXMLFileReadCallBack(file));
 	}
 
 } // end namespace

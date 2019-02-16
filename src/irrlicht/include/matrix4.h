@@ -952,13 +952,13 @@ namespace core
 		const f64 t = 1.0 - c;
 
 		const f64 tx  = t * axis.X;
-		const f64 ty  = t * axis.Y;		
+		const f64 ty  = t * axis.Y;
 		const f64 tz  = t * axis.Z;
 
 		const f64 sx  = s * axis.X;
 		const f64 sy  = s * axis.Y;
 		const f64 sz  = s * axis.Z;
-		
+
 		M[0] = (T)(tx * axis.X + c);
 		M[1] = (T)(tx * axis.Y + sz);
 		M[2] = (T)(tx * axis.Z - sy);
