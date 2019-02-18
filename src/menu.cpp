@@ -47,13 +47,6 @@ const int REPLAY_LEVELID = 1100;
 const int CAMPAIGN_LEVELID = 1000;
 const int PLAY_CAMPAIGNID = 900;
 
-const int TITLE_Y = 200;
-const int OPTIONSTITLE_Y = 250;
-const int TITLE_SPACING = 120;
-const int BUTTON_SPACING = 70;
-const int BACK_Y = 240;
-const int SAVE_X = 60;
-
 const int STATS_MIN_WIDTH = 440;
 const int STATS_MIN_HEIGHT = 580;
 const int STATS_PADDING = 30;
