@@ -1,7 +1,7 @@
 -- Called when an orb is deactivated
 function OnOrbDeactivate()
 	GoalCount = GoalCount - 1
-	if GoalCount == 1 then
+	if GoalCount == 1 and HardMode == 1 then
 		Level.CreateObject("log0", tOrb, 3, 1.5, 0, 0, 0, 0);
 	elseif GoalCount == 0 then
 		Level.Win()
@@ -26,7 +26,8 @@ function OnHitZone(HitType, Zone, HitObject)
 end
 
 -- Set up level
-GoalCount = 4
+HardMode = 0
+GoalCount = 3 + HardMode
 Camera.SetPitch(75)
 
 tOrb = Level.GetTemplate("orb")
