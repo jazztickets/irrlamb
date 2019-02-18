@@ -19,6 +19,16 @@
 #include <IGUIStaticText.h>
 #include <string>
 
+// Constants
+const int BUTTON_SIZE_X = 384;
+const int BUTTON_SIZE_Y = 100;
+const int BUTTON_MEDIUM_SIZE_X = 260;
+const int BUTTON_MEDIUM_SIZE_Y = 88;
+const int BUTTON_SMALL_SIZE_X = 212;
+const int BUTTON_SMALL_SIZE_Y = 84;
+const int BUTTON_LEVEL_SIZE = 128;
+const int BUTTON_ICON_SIZE = 64;
+
 // Forward Declarations
 class _AudioSource;
 
@@ -87,6 +97,7 @@ class _Interface {
 			IMAGE_BUTTON_SMALL,
 			IMAGE_BUTTON_MEDIUM,
 			IMAGE_BUTTON_BIG,
+			IMAGE_BUTTON_KEY,
 			IMAGE_TEXTBOXSHEET0,
 			IMAGE_TEXTBOXSHEET1,
 			IMAGE_TEXTBOXSHEET2,
@@ -99,6 +110,7 @@ class _Interface {
 			IMAGE_SELECTED,
 			IMAGE_BUTTON_UP,
 			IMAGE_BUTTON_DOWN,
+			IMAGE_BUTTON_DELETE,
 			IMAGE_COUNT,
 		};
 
@@ -110,7 +122,7 @@ class _Interface {
 		int Init();
 		int Close();
 		void Update(float FrameTime);
-		void Draw(float Time, bool FirstLoad);
+		void RenderHUD(float Time, bool FirstLoad);
 		void Clear();
 		void ChangeSkin(SkinType Type);
 
@@ -118,8 +130,14 @@ class _Interface {
 		void ConvertSecondsToString(float Time, char *String, const char *Prefix="");
 
 		irr::core::recti GetCenteredRect(int PositionX, int PositionY, int Width, int Height);
+		irr::core::recti GetCenteredRectPercent(float PositionX, float PositionY, float Width, float Height);
 		irr::core::recti GetRightRect(int PositionX, int PositionY, int Width, int Height);
 		irr::core::recti GetRect(int PositionX, int PositionY, int Width, int Height);
+		irr::core::recti GetRectPercent(float PositionX, float PositionY, float Width, float Height);
+		irr::core::recti GetRightRectPercent(float PositionX, float PositionY, float Width, float Height);
+		irr::core::position2di GetPositionPercent(float PositionX, float PositionY);
+
+		float GetUIScale();
 
 		void FadeScreen(float Amount);
 		void RenderText(const char *Text, int PositionX, int PositionY, AlignType AlignType, FontType FontType=FONT_SMALL, const irr::video::SColor &Color=irr::video::SColor(255, 255, 255, 255));
@@ -142,6 +160,7 @@ class _Interface {
 		_TutorialText TutorialText;
 		bool DrawHUD;
 		float Timer;
+		float ScreenHeight;
 
 		_AudioSource *Sounds[SOUND_COUNT];
 

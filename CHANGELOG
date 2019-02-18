@@ -1,8 +1,10 @@
-irrlamb 0.2.2 -
-- Moved "Kick" tutorial to "Extreme Tutorials"
+irrlamb 0.3.0 -
+- UI now scales with resolution
+- Reworked UI theme
 - Added irrlicht source to project and fixed many irrlicht bugs
 - Added mouse sensitivity to options
 - Fixed replays on 32-bit version
+- Increased quality of in-game screenshots
 
 irrlamb 0.2.1 - 2015-10-02
 - Redesigned replay screen

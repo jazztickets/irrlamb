@@ -48,7 +48,7 @@ class _Menu {
 		enum MenuType {
 			STATE_NONE,
 			STATE_MAIN,
-			STATE_SINGLEPLAYER,
+			STATE_CAMPAIGNS,
 			STATE_LEVELS,
 			STATE_REPLAYS,
 			STATE_OPTIONS,
@@ -70,7 +70,7 @@ class _Menu {
 		}
 
 		void InitMain();
-		void InitSinglePlayer();
+		void InitCampaigns();
 		void InitLevels();
 		void InitReplays(bool PlaySound=true);
 		void InitOptions();

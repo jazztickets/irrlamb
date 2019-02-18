@@ -246,7 +246,7 @@ bool _PlayState::HandleKeyPress(int Key) {
 				Interface.DrawHUD = !Interface.DrawHUD;
 			break;
 			case KEY_F12:
-				Graphics.SaveScreenshot();
+				Graphics.SaveScreenshot(Level.LevelName);
 			break;
 		}
 
@@ -351,8 +351,8 @@ void _PlayState::UpdateRender(float TimeStepRemainder) {
 // Draws the current state
 void _PlayState::Draw() {
 
-	// Draw interface elements
-	Interface.Draw(Timer, FirstLoad);
+	// Draw HUD
+	Interface.RenderHUD(Timer, FirstLoad);
 
 	// Darken the screen
 	if(IsPaused())

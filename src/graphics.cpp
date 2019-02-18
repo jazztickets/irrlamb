@@ -115,6 +115,8 @@ int _Graphics::Init(int Width, int Height, bool Fullscreen, video::E_DRIVER_TYPE
 	Input.SetMouseY(Height / 2.0f);
 
 	irrDevice->getCursorControl()->setPosition(Width / 2, Height / 2);
+	irrDriver->getMaterial2D().TextureLayer[0].TrilinearFilter = true;
+	irrDriver->enableMaterial2D(true);
 
 	return 1;
 }
@@ -187,8 +189,9 @@ std::size_t _Graphics::GetCurrentVideoModeIndex() {
 }
 
 // Request screenshot
-void _Graphics::SaveScreenshot() {
+void _Graphics::SaveScreenshot(const std::string &Prefix) {
 	ScreenshotRequested = 1;
+	ScreenshotPrefix = Prefix;
 }
 
 // Create the screenshot
@@ -200,12 +203,12 @@ void _Graphics::CreateScreenshot() {
 
 	// Get filename
 	char Filename[32];
-	strftime(Filename, 32, "%Y%m%d-%H%M%S.jpg", localtime(&Now));
+	strftime(Filename, 32, "-%Y%m%d-%H%M%S.jpg", localtime(&Now));
 
 	// Create image
 	video::IImage *Image = irrDriver->createScreenShot();
-	std::string FilePath = Save.ScreenshotsPath + Filename;
-	irrDriver->writeImageToFile(Image, FilePath.c_str());
+	std::string FilePath = Save.ScreenshotsPath + ScreenshotPrefix + Filename;
+	irrDriver->writeImageToFile(Image, FilePath.c_str(), 100);
 	Image->drop();
 
 	// Drop request

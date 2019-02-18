@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 # define constants
-add_definitions(-DGAME_VERSION="0.2.2")
+add_definitions(-DGAME_VERSION="0.3.0")
 
 # projects
 project(irrlamb)
@@ -9,9 +9,6 @@ subdirs(tools)
 
 # add extra find modules
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
-
-# set default values
-set(BULLET_ROOT "$ENV{BULLET_ROOT}")
 
 # check for -DLUA_VERSION=x.x
 if(NOT LUA_VERSION)
@@ -46,6 +43,9 @@ endif()
 
 # set output path
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
+
+# Set gl preference
+set(OpenGL_GL_PREFERENCE GLVND)
 
 # find libraries
 find_package(OpenGL REQUIRED)
@@ -122,7 +122,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 	${EXTRA_LIBS}
 )
 
-if(MSVC)
+if(WIN32)
 else()
 
 	# linux installation

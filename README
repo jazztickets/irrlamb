@@ -4,20 +4,25 @@ by Alan Witkowski
 Source code at:
 https://github.com/jazztickets/irrlamb
 
-Linux dependencies:
+----- BUILDING -----
+
+-- Dependencies --
 cmake 2.8+
 bullet 2.83
 freetype2
 sqlite3
 lua 5.2+
 openal
+zlib
 libvorbis
 libogg
 libjpeg
 libpng
-libz
 
-Building and running:
+-- Cloning --
+git clone https://github.com/jazztickets/irrlamb.git --recurse-submodules
+
+-- Building and running --
 mkdir build
 cd build
 cmake ..
@@ -27,14 +32,16 @@ cd ../working && ../bin/Release/irrlamb
 Lua 5.2 can be used by setting LUA_VERSION
 cmake .. -DLUA_VERSION=5.2
 
-Installing:
+-- Installing --
 run "sudo make install" from the build directory.
 
-Windows users will need:
-https://www.openal.org/downloads/oalinst.zip
-https://www.microsoft.com/en-us/download/details.aspx?id=48145
+-- Uninstall --
+cat install_manifest.txt | xargs sudo rm
 
-Command-line arguments
+Windows users will need to install OpenAL:
+https://www.openal.org/downloads/oalinst.zip
+
+----- COMMAND-LINE ARGUMENTS -----
 -level [.xml file]        Test a level
 -replay [.replay file]    View a replay
 -noaudio                  Disable audio

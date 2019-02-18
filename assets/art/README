@@ -1,0 +1,2 @@
+# convert screenshots into level icons
+for f in *.jpg; do b="${f%%-*}"; echo $b; mkdir $b; convert $f -gravity center -crop 1080x1080+0+0 -resize 128x128 -quality 98 $b/icon.jpg; done

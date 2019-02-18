@@ -53,7 +53,7 @@ class _Graphics {
 		int GetCustomMaterial(int Type) { return CustomMaterial[Type]; }
 		bool GetShadersSupported() { return ShadersSupported; }
 
-		void SaveScreenshot();
+		void SaveScreenshot(const std::string &Prefix);
 
 		void SetClearColor(const irr::video::SColor &Color) { ClearColor = Color; }
 		void SetDrawScene(bool Value) { DrawScene = Value; }
@@ -78,6 +78,7 @@ class _Graphics {
 
 		// Screenshots
 		bool ScreenshotRequested;
+		std::string ScreenshotPrefix;
 
 		// Modes
 		std::vector<_VideoMode> VideoModes;

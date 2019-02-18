@@ -117,7 +117,7 @@ bool _ViewReplayState::HandleKeyPress(int Key) {
 			Game.ChangeState(&NullState);
 		break;
 		case KEY_F12:
-			Graphics.SaveScreenshot();
+			Graphics.SaveScreenshot(Replay.GetLevelName());
 		break;
 		case KEY_SPACE:
 			Pause();
@@ -283,7 +283,10 @@ void _ViewReplayState::Draw() {
 	char Buffer[256];
 
 	// Draw box
-	int Left = 5, Top = 5, Width = 230, Height = 85;
+	int Left = 10 * Interface.GetUIScale();
+	int Top = 10 * Interface.GetUIScale();
+	int Width = 460 * Interface.GetUIScale();
+	int Height = 150 * Interface.GetUIScale();
 	Interface.DrawTextBox(Left + Width/2, Top + Height/2, Width, Height, video::SColor(150, 255, 255, 255));
 
 	// Draw timer
@@ -294,66 +297,81 @@ void _ViewReplayState::Draw() {
 		DisplayTime = Replay.GetFinishTime();
 
 	// Draw time
-	int X = Left + Width/2 - 10, Y = Top + 15;
-	Interface.RenderText("Time", X - 8, Y, _Interface::ALIGN_RIGHT, _Interface::FONT_MEDIUM);
+	int X = Left + Width/2 - 20 * Interface.GetUIScale();
+	int Y = Top + 15 * Interface.GetUIScale();
+	int Padding = 16 * Interface.GetUIScale();
+	Interface.RenderText("Time", X - Padding, Y, _Interface::ALIGN_RIGHT, _Interface::FONT_MEDIUM);
 	Interface.ConvertSecondsToString(DisplayTime, Buffer);
-	Interface.RenderText(Buffer, X + 8, Y, _Interface::ALIGN_LEFT, _Interface::FONT_MEDIUM);
+	Interface.RenderText(Buffer, X + Padding, Y, _Interface::ALIGN_LEFT, _Interface::FONT_MEDIUM);
 
-	// Draw controls
-	Y += 27;
-	Interface.RenderText("Speed", X - 8, Y, _Interface::ALIGN_RIGHT, _Interface::FONT_MEDIUM);
+	// Draw current speed
+	Y += 60 * Interface.GetUIScale();
+	Interface.RenderText("Speed", X - Padding, Y, _Interface::ALIGN_RIGHT, _Interface::FONT_MEDIUM);
 	sprintf(Buffer, "%.2f", Game.GetTimeScale());
-	Interface.RenderText(Buffer, X + 8, Y, _Interface::ALIGN_LEFT, _Interface::FONT_MEDIUM);
+	Interface.RenderText(Buffer, X + Padding , Y, _Interface::ALIGN_LEFT, _Interface::FONT_MEDIUM);
 
 	irrGUI->drawAll();
 }
 
 // Setup GUI controls
 void _ViewReplayState::SetupGUI() {
-	int Right = irrDriver->getScreenSize().Width;
 
-	// Restart replay
-	int X = Right - 295, Y = 25;
-	gui::IGUIButton *ButtonRewind = irrGUI->addButton(Interface.GetCenteredRect(X, Y, 34, 34), Layout, MAIN_RESTART);
-	ButtonRewind->setImage(Interface.Images[_Interface::IMAGE_REWIND]);
-	ButtonRewind->setUseAlphaChannel(true);
-	ButtonRewind->setDrawBorder(false);
-
-	// Decrease replay speed
-	X += 45;
-	gui::IGUIButton *ButtonDecrease = irrGUI->addButton(Interface.GetCenteredRect(X, Y, 34, 34), Layout, MAIN_DECREASE);
-	ButtonDecrease->setImage(Interface.Images[_Interface::IMAGE_DECREASE]);
-	ButtonDecrease->setUseAlphaChannel(true);
-	ButtonDecrease->setDrawBorder(false);
-
-	// Increase replay speed
-	X += 37;
-	gui::IGUIButton *ButtonIncrease = irrGUI->addButton(Interface.GetCenteredRect(X, Y, 34, 34), Layout, MAIN_INCREASE);
-	ButtonIncrease->setImage(Interface.Images[_Interface::IMAGE_INCREASE]);
-	ButtonIncrease->setUseAlphaChannel(true);
-	ButtonIncrease->setDrawBorder(false);
-
-	// Pause
-	X += 45;
-	gui::IGUIButton *ButtonPause = irrGUI->addButton(Interface.GetCenteredRect(X, Y, 34, 34), Layout, MAIN_PAUSE);
-	ButtonPause->setImage(Interface.Images[_Interface::IMAGE_PAUSE]);
-	ButtonPause->setUseAlphaChannel(true);
-	ButtonPause->setDrawBorder(false);
-
-	// Skip ahead
-	X += 37;
-	gui::IGUIButton *ButtonSkip = irrGUI->addButton(Interface.GetCenteredRect(X, Y, 34, 34), Layout, MAIN_SKIP);
-	ButtonSkip->setImage(Interface.Images[_Interface::IMAGE_FASTFORWARD]);
-	ButtonSkip->setUseAlphaChannel(true);
-	ButtonSkip->setDrawBorder(false);
+	float Padding = 74;
 
 	// Exit
-	X += 108/2 + 20;
-	gui::IGUIButton *ButtonExit = irrGUI->addButton(Interface.GetCenteredRect(X, Y, 108, 44), Layout, MAIN_EXIT, L"Exit");
+	gui::IGUIButton *ButtonExit = irrGUI->addButton(Interface.GetRightRectPercent(0.994, 0.05, BUTTON_SMALL_SIZE_X, BUTTON_SMALL_SIZE_Y), Layout, MAIN_EXIT, L"Exit");
 	ButtonExit->setImage(Interface.Images[_Interface::IMAGE_BUTTON_SMALL]);
 	ButtonExit->setUseAlphaChannel(true);
 	ButtonExit->setDrawBorder(false);
 	ButtonExit->setOverrideFont(Interface.Fonts[_Interface::FONT_BUTTON]);
+	ButtonExit->setScaleImage(true);
+
+	irr::core::recti Bounds = Interface.GetRightRectPercent(0.994, 0.05, BUTTON_ICON_SIZE, BUTTON_ICON_SIZE);
+
+	// Skip ahead
+	Bounds.UpperLeftCorner.X -= (Padding + 180) * Interface.GetUIScale();
+	Bounds.LowerRightCorner.X -= (Padding + 180) * Interface.GetUIScale();
+	gui::IGUIButton *ButtonSkip = irrGUI->addButton(Bounds, Layout, MAIN_SKIP);
+	ButtonSkip->setImage(Interface.Images[_Interface::IMAGE_FASTFORWARD]);
+	ButtonSkip->setUseAlphaChannel(true);
+	ButtonSkip->setDrawBorder(false);
+	ButtonSkip->setScaleImage(true);
+
+	// Pause
+	Bounds.UpperLeftCorner.X -= Padding * Interface.GetUIScale();
+	Bounds.LowerRightCorner.X -= Padding * Interface.GetUIScale();
+	gui::IGUIButton *ButtonPause = irrGUI->addButton(Bounds, Layout, MAIN_PAUSE);
+	ButtonPause->setImage(Interface.Images[_Interface::IMAGE_PAUSE]);
+	ButtonPause->setUseAlphaChannel(true);
+	ButtonPause->setDrawBorder(false);
+	ButtonPause->setScaleImage(true);
+
+	// Restart replay
+	Bounds.UpperLeftCorner.X -= Padding * Interface.GetUIScale();
+	Bounds.LowerRightCorner.X -= Padding * Interface.GetUIScale();
+	gui::IGUIButton *ButtonRewind = irrGUI->addButton(Bounds, Layout, MAIN_RESTART);
+	ButtonRewind->setImage(Interface.Images[_Interface::IMAGE_REWIND]);
+	ButtonRewind->setUseAlphaChannel(true);
+	ButtonRewind->setDrawBorder(false);
+	ButtonRewind->setScaleImage(true);
+
+	// Increase replay speed
+	Bounds.UpperLeftCorner.X -= Padding * Interface.GetUIScale();
+	Bounds.LowerRightCorner.X -= Padding * Interface.GetUIScale();
+	gui::IGUIButton *ButtonIncrease = irrGUI->addButton(Bounds, Layout, MAIN_INCREASE);
+	ButtonIncrease->setImage(Interface.Images[_Interface::IMAGE_INCREASE]);
+	ButtonIncrease->setUseAlphaChannel(true);
+	ButtonIncrease->setDrawBorder(false);
+	ButtonIncrease->setScaleImage(true);
+
+	// Decrease replay speed
+	Bounds.UpperLeftCorner.X -= Padding * Interface.GetUIScale();
+	Bounds.LowerRightCorner.X -= Padding * Interface.GetUIScale();
+	gui::IGUIButton *ButtonDecrease = irrGUI->addButton(Bounds, Layout, MAIN_DECREASE);
+	ButtonDecrease->setImage(Interface.Images[_Interface::IMAGE_DECREASE]);
+	ButtonDecrease->setUseAlphaChannel(true);
+	ButtonDecrease->setDrawBorder(false);
+	ButtonDecrease->setScaleImage(true);
 }
 
 // Change replay speed
