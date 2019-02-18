@@ -133,33 +133,59 @@ void _Config::AddDefaultActionMap(bool Force) {
 	if(Input.HasJoystick())
 		Name = Input.GetCleanJoystickName(0).c_str();
 
-	// Add joystick
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 0, _Actions::MOVE_LEFT, Scale, DeadZone);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 1, _Actions::MOVE_RIGHT, Scale, DeadZone);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 2, _Actions::MOVE_FORWARD, Scale, DeadZone);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 3, _Actions::MOVE_BACK, Scale, DeadZone);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 0, _Actions::CURSOR_LEFT, CursorSpeed, DeadZone);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 1, _Actions::CURSOR_RIGHT, CursorSpeed, DeadZone);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 2, _Actions::CURSOR_UP, CursorSpeed, DeadZone);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 3, _Actions::CURSOR_DOWN, CursorSpeed, DeadZone);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 6, _Actions::CAMERA_LEFT, AxisScaleX, DeadZone);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 7, _Actions::CAMERA_RIGHT, AxisScaleX, DeadZone);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 8, _Actions::CAMERA_UP, AxisScaleY, DeadZone);
-	Actions.AddInputMap(_Input::JOYSTICK_AXIS, 9, _Actions::CAMERA_DOWN, AxisScaleY, DeadZone);
-	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 0, _Actions::JUMP);
-	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 0, _Actions::MENU_GO);
-	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 1, _Actions::MENU_BACK);
-	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 4, _Actions::MENU_PAGEUP);
-	Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 5, _Actions::MENU_PAGEDOWN);
+	// Handle steam controller
+	if(Name == "wireless_steam_controller") {
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 0, _Actions::MOVE_LEFT, Scale, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 1, _Actions::MOVE_RIGHT, Scale, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 2, _Actions::MOVE_FORWARD, Scale, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 3, _Actions::MOVE_BACK, Scale, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 0, _Actions::CURSOR_LEFT, CursorSpeed, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 1, _Actions::CURSOR_RIGHT, CursorSpeed, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 2, _Actions::CURSOR_UP, CursorSpeed, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 3, _Actions::CURSOR_DOWN, CursorSpeed, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 4, _Actions::CAMERA_LEFT, AxisScaleX, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 5, _Actions::CAMERA_RIGHT, AxisScaleX, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 6, _Actions::CAMERA_UP, AxisScaleY, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 7, _Actions::CAMERA_DOWN, AxisScaleY, DeadZone);
 
-	// Add mappings depending on controller used
-	if(Name == "sony_playstation(r)3_controller") {
-		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 8, _Actions::RESET);
-		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 9, _Actions::MENU_PAUSE);
+		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 2, _Actions::JUMP);
+		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 15, _Actions::JUMP, 1.0f, -1.0f, false);
+		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 2, _Actions::MENU_GO);
+		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 3, _Actions::MENU_BACK);
+		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 6, _Actions::MENU_PAGEUP);
+		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 7, _Actions::MENU_PAGEDOWN);
+		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 10, _Actions::RESET);
+		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 16, _Actions::RESET, 1.0f, -1.0f, false);
+		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 11, _Actions::MENU_PAUSE);
 	}
 	else {
-		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 6, _Actions::RESET);
-		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 7, _Actions::MENU_PAUSE);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 0, _Actions::MOVE_LEFT, Scale, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 1, _Actions::MOVE_RIGHT, Scale, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 2, _Actions::MOVE_FORWARD, Scale, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 3, _Actions::MOVE_BACK, Scale, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 0, _Actions::CURSOR_LEFT, CursorSpeed, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 1, _Actions::CURSOR_RIGHT, CursorSpeed, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 2, _Actions::CURSOR_UP, CursorSpeed, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 3, _Actions::CURSOR_DOWN, CursorSpeed, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 6, _Actions::CAMERA_LEFT, AxisScaleX, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 7, _Actions::CAMERA_RIGHT, AxisScaleX, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 8, _Actions::CAMERA_UP, AxisScaleY, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_AXIS, 9, _Actions::CAMERA_DOWN, AxisScaleY, DeadZone);
+		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 0, _Actions::JUMP);
+		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 0, _Actions::MENU_GO);
+		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 1, _Actions::MENU_BACK);
+		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 4, _Actions::MENU_PAGEUP);
+		Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 5, _Actions::MENU_PAGEDOWN);
+
+		// Add mappings depending on controller used
+		if(Name == "sony_playstation(r)3_controller") {
+			Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 8, _Actions::RESET);
+			Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 9, _Actions::MENU_PAUSE);
+		}
+		else {
+			Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 6, _Actions::RESET);
+			Actions.AddInputMap(_Input::JOYSTICK_BUTTON, 7, _Actions::MENU_PAUSE);
+		}
 	}
 }
 

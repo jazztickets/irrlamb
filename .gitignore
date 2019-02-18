@@ -9,3 +9,4 @@ deployment/*-src
 deployment/out
 working/*.log
 working/*.irr
+working/irrlamb
