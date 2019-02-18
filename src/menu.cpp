@@ -731,6 +731,7 @@ void _Menu::InitReplays(bool PlaySound) {
 					ReplayInfo.Description = Replay.GetDescription();
 					ReplayInfo.LevelNiceName = Level.LevelNiceName;
 					ReplayInfo.Autosave = Replay.GetAutosave();
+					ReplayInfo.Won = Replay.GetWon();
 
 					// Date
 					strftime(Buffer, 32, "%Y-%m-%d", localtime(&Replay.GetTimeStamp()));
@@ -1100,7 +1101,7 @@ void _Menu::SaveReplay() {
 	gui::IGUIEditBox *EditName = static_cast<gui::IGUIEditBox *>(CurrentLayout->getElementFromId(SAVEREPLAY_NAME));
 	if(EditName != nullptr) {
 		irr::core::stringc ReplayTitle(EditName->getText());
-		Replay.SaveReplay(ReplayTitle.c_str());
+		Replay.SaveReplay(ReplayTitle.c_str(), false, PreviousState == STATE_WIN);
 	}
 
 	switch(PreviousState) {
@@ -1292,7 +1293,10 @@ void _Menu::Draw() {
 				Y += 60 * Interface.GetUIScale();
 
 				// Finish time
-				Interface.RenderText(ReplayInfo.FinishTime.c_str(), X, Y, _Interface::ALIGN_CENTER, _Interface::FONT_MEDIUM, White);
+				video::SColor Color = Gray;
+				if(ReplayInfo.Won || ReplayInfo.Autosave)
+					Color = White;
+				Interface.RenderText(ReplayInfo.FinishTime.c_str(), X, Y, _Interface::ALIGN_CENTER, _Interface::FONT_MEDIUM, Color);
 			}
 		break;
 		case STATE_LOSE:

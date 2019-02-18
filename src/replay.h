@@ -42,6 +42,7 @@ class _Replay {
 			PACKET_FINISHTIME,
 			PACKET_TIMESTEP,
 			PACKET_AUTOSAVE,
+			PACKET_WON,
 
 			// Object updates
 			PACKET_OBJECTDATA = 127,
@@ -61,7 +62,7 @@ class _Replay {
 		// Recording functions
 		void StartRecording();
 		void StopRecording();
-		bool SaveReplay(const std::string &PlayerDescription, bool Autosave=false);
+		bool SaveReplay(const std::string &PlayerDescription, bool Autosave=false, bool Won=false);
 
 		// Playback functions
 		bool LoadReplay(const std::string &ReplayFile, bool HeaderOnly=false);
@@ -86,6 +87,7 @@ class _Replay {
 		float GetFinishTime() { return FinishTime; }
 		time_t &GetTimeStamp() { return TimeStamp; }
 		bool GetAutosave() { return Autosave; }
+		bool GetWon() { return Won; }
 
 	private:
 
@@ -100,6 +102,7 @@ class _Replay {
 		time_t TimeStamp;
 		float FinishTime;
 		bool Autosave;
+		bool Won;
 
 		// Replay data file name
 		std::string ReplayDataFile;

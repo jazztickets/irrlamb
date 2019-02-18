@@ -393,7 +393,7 @@ void _PlayState::WinLevel() {
 
 		// Autosave replays for new records
 		if(HighScoreIndex == 0)
-			Replay.SaveReplay(std::string("New record for ") + Level.LevelNiceName, true);
+			Replay.SaveReplay(std::string("New record for ") + Level.LevelNiceName, true, true);
 
 		// Unlock next level
 		uint32_t NewCampaign = PlayState.CurrentCampaign;

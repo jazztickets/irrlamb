@@ -59,7 +59,7 @@ void _Replay::StopRecording() {
 }
 
 // Saves the current replay out to a file
-bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave) {
+bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave, bool Won) {
 	Description = PlayerDescription;
 	TimeStamp = time(nullptr);
 	FinishTime = Time;
@@ -101,6 +101,9 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave) {
 
 	// Write autosave value
 	WriteChunk(NewFile, PACKET_AUTOSAVE, (char *)&Autosave, sizeof(Autosave));
+
+	// Write won value
+	WriteChunk(NewFile, PACKET_WON, (char *)&Won, sizeof(Won));
 
 	// Finished with header
 	NewFile.put(PACKET_OBJECTDATA);
@@ -192,6 +195,12 @@ void _Replay::LoadHeader() {
 				if(Debug)
 					Log.Write("Autosave=%d, PacketSize=%d", Autosave, PacketSize);
 			break;
+			case PACKET_WON:
+				Won = File.get();
+
+				if(Debug)
+					Log.Write("Won=%d, PacketSize=%d", Won, PacketSize);
+			break;
 			case PACKET_OBJECTDATA:
 				Done = true;
 			break;
@@ -233,6 +242,8 @@ bool _Replay::LoadReplay(const std::string &ReplayFile, bool HeaderOnly) {
 	LevelName = "";
 	LevelVersion = 0;
 	ReplayVersion = 0;
+	Autosave = false;
+	Won = false;
 
 	// Get file name
 	std::string FilePath = Save.ReplayPath + ReplayFile;
