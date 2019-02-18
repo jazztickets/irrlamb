@@ -92,8 +92,6 @@ rm CIrrDeviceConsole.cpp
 rm CIrrDeviceConsole.h
 rm CIrrDeviceFB.cpp
 rm CIrrDeviceFB.h
-rm CIrrDeviceWin32.cpp
-rm CIrrDeviceWin32.h
 rm CIrrDeviceWinCE.cpp
 rm CIrrDeviceWinCE.h
 rm CIrrMeshWriter.cpp

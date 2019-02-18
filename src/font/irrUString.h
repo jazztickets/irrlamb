@@ -37,7 +37,7 @@
 #	endif
 #endif
 
-#include <endian.h>
+//#include <endian.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

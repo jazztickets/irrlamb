@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 # define constants
-add_definitions(-DGAME_VERSION="0.3.0")
+add_definitions(-DGAME_VERSION="0.3.0" -D_IRR_STATIC_LIB_)
 
 # projects
 project(irrlamb)
@@ -107,8 +107,7 @@ add_executable(${CMAKE_PROJECT_NAME} ${SRC_ALL})
 
 # link libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
-	${OPENGL_opengl_LIBRARY}
-	${OPENGL_glx_LIBRARY}
+	${OPENGL_LIBRARIES}
 	${BULLET_LIBRARIES}
 	${OPENAL_LIBRARY}
 	${LUA_LIBRARIES}

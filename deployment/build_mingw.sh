@@ -41,24 +41,20 @@ build() {
 
 	cd "$projectdir"
 
-	cp /usr/$arch/bin/{libBulletCollision.dll,libLinearMath.dll,libBulletDynamics.dll,libIrrlicht.dll,libfreetype-6.dll,libbz2-1.dll,lua53.dll,libsqlite3-0.dll,libvorbisfile-3.dll,libvorbis-0.dll,libogg-0.dll,libstdc++-6.dll,libwinpthread-1.dll,libgcc_*.dll} working/
+	cp /usr/$arch/bin/{libBulletCollision.dll,libLinearMath.dll,libBulletDynamics.dll,libjpeg-8.dll,libpng16-16.dll,zlib1.dll,libfreetype-6.dll,libbz2-1.dll,lua53.dll,libsqlite3-0.dll,libvorbisfile-3.dll,libvorbis-0.dll,libogg-0.dll,libstdc++-6.dll,libwinpthread-1.dll,libgcc_*.dll} working/
 
 	gitver=`git log --oneline | wc -l`
 	mv bin/Release/irrlamb.exe working/
 	cp README working/
-	echo "irrlamb.exe -server" > working/run_server.bat
-	echo "irrlamb.exe -server -hardcore" > working/run_hardcore_server.bat
-	echo "irrlamb.exe -hardcore" > working/run_hardcore.bat
-	echo "irrlamb.exe -test" > working/run_test.bat
-	chmod +x working/run_*.bat
+	#chmod +x working/run_*.bat
 
 	archive=irrlamb-${version}r${gitver}-win${bits}.zip
-	zip -r $archive working
+	zip -r $archive working -x /working/irrlamb /working/move*
 
 	rm working/irrlamb.exe
 	rm working/*.dll
 	rm working/README
-	rm working/run_*.bat
+	#rm working/run_*.bat
 
 	if [ -n "$upload_server" ]; then
 		scp $archive $upload_server:web/files/
@@ -73,5 +69,5 @@ fi
 
 rm -f "$outputdir"/irrlamb*.zip
 
-build 32
+#build 32
 build 64
