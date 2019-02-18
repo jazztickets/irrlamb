@@ -336,7 +336,7 @@ void _Input::SetMouseLocked(bool Value) {
 		#endif
 	}
 
-	Graphics.ToggleCursor(!Value);
+	Graphics.ShowCursor(!Value);
 }
 
 // Converts an irrlicht key code into a string

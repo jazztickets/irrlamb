@@ -92,7 +92,6 @@ class _Interface {
 		};
 
 		enum ImageType {
-			IMAGE_MOUSECURSOR,
 			IMAGE_FADE,
 			IMAGE_BUTTON_SMALL,
 			IMAGE_BUTTON_MEDIUM,

@@ -34,7 +34,6 @@ _Graphics Graphics;
 
 // Initializes the graphics system
 int _Graphics::Init(int Width, int Height, bool Fullscreen, video::E_DRIVER_TYPE DriverType, IEventReceiver *EventReceiver) {
-	ShowCursor = true;
 	ShadersSupported = false;
 	CustomMaterial[0] = -1;
 	CustomMaterial[1] = -1;
@@ -57,7 +56,7 @@ int _Graphics::Init(int Width, int Height, bool Fullscreen, video::E_DRIVER_TYPE
 
 	irrDevice->setWindowCaption(L"irrlamb");
 	irrDevice->setEventReceiver(EventReceiver);
-	irrDevice->getCursorControl()->setVisible(false);
+	irrDevice->getCursorControl()->setVisible(true);
 	irrDevice->getLogger()->setLogLevel(ELL_ERROR);
 	irrDevice->setResizable(false);
 
@@ -163,11 +162,6 @@ void _Graphics::BeginFrame() {
 
 // Draws the buffer to the screen
 void _Graphics::EndFrame() {
-
-	// Draw cursor
-	if(ShowCursor)
-		Interface.DrawImage(_Interface::IMAGE_MOUSECURSOR, (int)Input.GetMouseX(), (int)Input.GetMouseY(), 16, 16);
-
 	Fader.Draw();
 	irrDriver->endScene();
 
@@ -192,6 +186,11 @@ std::size_t _Graphics::GetCurrentVideoModeIndex() {
 void _Graphics::SaveScreenshot(const std::string &Prefix) {
 	ScreenshotRequested = 1;
 	ScreenshotPrefix = Prefix;
+}
+
+// Show mouse cursor
+void _Graphics::ShowCursor(bool Value) {
+	irrDevice->getCursorControl()->setVisible(Value);
 }
 
 // Create the screenshot

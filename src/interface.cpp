@@ -73,7 +73,6 @@ int _Interface::Init() {
 	Skin->setFont(Fonts[FONT_SMALL]);
 
 	// Load images
-	Images[IMAGE_MOUSECURSOR] = irrDriver->getTexture("ui/cursor.png");
 	Images[IMAGE_FADE] = irrDriver->getTexture("ui/fade.png");
 	Images[IMAGE_BUTTON_SMALL] = irrDriver->getTexture("ui/button_small.png");
 	Images[IMAGE_BUTTON_MEDIUM] = irrDriver->getTexture("ui/button_medium.png");
