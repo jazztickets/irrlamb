@@ -63,7 +63,7 @@ namespace
 	Atom X_ATOM_TARGETS;
 	Atom X_ATOM_UTF8_STRING;
 	Atom X_ATOM_TEXT;
-};
+}
 
 namespace irr
 {
@@ -232,15 +232,30 @@ bool CIrrDeviceLinux::switchToFullscreen(bool reset)
 		return true;
 	if (reset)
 	{
+		os::Printer::log("Leaving vidmode fullscreen mode...", ELL_INFORMATION);
+		// remove fullscreen property
+		Atom key = XInternAtom(display, "_NET_WM_STATE", false);
+		Atom value = XInternAtom(display, "_NET_WM_STATE_FULLSCREEN", false);
+		XDeleteProperty(display, window, key);
+		XEvent xev = {0};
+		xev.type = ClientMessage;
+		xev.xclient.window = window;
+		xev.xclient.message_type = key;
+		xev.xclient.format = 32;
+		xev.xclient.data.l[0] = 0; // 0=remove, 1=set, 2=toggle
+		xev.xclient.data.l[1] = value;
+		XSendEvent(display, DefaultRootWindow(display), false,
+				SubstructureRedirectMask | SubstructureNotifyMask, &xev);
+
 #ifdef _IRR_LINUX_X11_VIDMODE_
-		if (UseXVidMode && CreationParams.Fullscreen)
+		if (UseXVidMode)
 		{
 			XF86VidModeSwitchToMode(display, screennr, &oldVideoMode);
 			XF86VidModeSetViewPort(display, screennr, 0, 0);
 		}
 		#endif
 		#ifdef _IRR_LINUX_X11_RANDR_
-		if (UseXRandR && CreationParams.Fullscreen)
+		if (UseXRandR)
 		{
 			XRRScreenConfiguration *config=XRRGetScreenInfo(display,DefaultRootWindow(display));
 			XRRSetScreenConfig(display,config,DefaultRootWindow(display),oldRandrMode,oldRandrRotation,CurrentTime);
@@ -357,7 +372,28 @@ bool CIrrDeviceLinux::switchToFullscreen(bool reset)
 		"to switch to fullscreen mode. Running in windowed mode instead.", ELL_WARNING);
 		CreationParams.Fullscreen = false;
 	}
-	return CreationParams.Fullscreen;
+
+	if (CreationParams.Fullscreen) {
+		// change window property and notify parent
+		Atom key = XInternAtom(display, "_NET_WM_STATE", false);
+		Atom value = XInternAtom(display, "_NET_WM_STATE_FULLSCREEN", false);
+		XChangeProperty(display, window, key, XA_ATOM, 32, PropModeReplace,
+				reinterpret_cast<unsigned char*>(&value), 1);
+
+		XEvent xev = {0};
+		xev.type = ClientMessage;
+		xev.xclient.window = window;
+		xev.xclient.message_type = key;
+		xev.xclient.format = 32;
+		xev.xclient.data.l[0] = 1; // 0=remove, 1=set, 2=toggle
+		xev.xclient.data.l[1] = value;
+		XSendEvent(display, DefaultRootWindow(display), false,
+				SubstructureRedirectMask | SubstructureNotifyMask, &xev);
+
+		return true;
+	} else {
+		return false;
+}
 }
 
 
@@ -412,8 +448,6 @@ bool CIrrDeviceLinux::createWindow()
 	}
 
 	screennr = DefaultScreen(display);
-
-	switchToFullscreen();
 
 #ifdef _IRR_COMPILE_WITH_OPENGL_
 
@@ -688,31 +722,19 @@ bool CIrrDeviceLinux::createWindow()
 	if (!CreationParams.WindowId)
 	{
 		// create new Window
-		// Remove window manager decoration in fullscreen
-		attributes.override_redirect = CreationParams.Fullscreen;
 		window = XCreateWindow(display,
 				RootWindow(display, visual->screen),
 				0, 0, Width, Height, 0, visual->depth,
 				InputOutput, visual->visual,
-				CWBorderPixel | CWColormap | CWEventMask | CWOverrideRedirect,
+				CWBorderPixel | CWColormap | CWEventMask,
 				&attributes);
 		XMapRaised(display, window);
 		CreationParams.WindowId = (void*)window;
 		Atom wmDelete;
 		wmDelete = XInternAtom(display, wmDeleteWindow, True);
 		XSetWMProtocols(display, window, &wmDelete, 1);
-		if (CreationParams.Fullscreen)
-		{
-			XSetInputFocus(display, window, RevertToParent, CurrentTime);
-			int grabKb = XGrabKeyboard(display, window, True, GrabModeAsync,
-				GrabModeAsync, CurrentTime);
-			IrrPrintXGrabError(grabKb, "XGrabKeyboard");
-			int grabPointer = XGrabPointer(display, window, True, ButtonPressMask,
-				GrabModeAsync, GrabModeAsync, window, None, CurrentTime);
-			IrrPrintXGrabError(grabPointer, "XGrabPointer");
-			XWarpPointer(display, None, window, 0, 0, 0, 0, 0, 0);
+		switchToFullscreen();
 		}
-	}
 	else
 	{
 		// attach external window
@@ -940,11 +962,19 @@ bool CIrrDeviceLinux::run()
 				break;
 
 			case FocusIn:
+				// avoid double treatment
+				if (!WindowHasFocus) {
 				WindowHasFocus=true;
+					switchToFullscreen(false);
+				}
 				break;
 
 			case FocusOut:
+				// avoid double treatment
+				if (WindowHasFocus) {
 				WindowHasFocus=false;
+					switchToFullscreen(true);
+				}
 				break;
 
 			case MotionNotify:
