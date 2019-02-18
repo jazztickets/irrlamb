@@ -1359,19 +1359,24 @@ void _Menu::DrawWinScreen() {
 	HighY += 32 * Interface.GetUIScale();
 	for(uint32_t i = 0; i < WinStats->HighScores.size(); i++) {
 
+		// Set color
+		video::SColor Color = Gray;
+		if(i == (uint32_t)PlayState.HighScoreIndex)
+			Color = White;
+
 		// Number
 		char SmallBuffer[32];
 		sprintf(SmallBuffer, "%d", i+1);
-		Interface.RenderText(SmallBuffer, HighX, HighY, _Interface::ALIGN_LEFT, _Interface::FONT_SMALL, Gray);
+		Interface.RenderText(SmallBuffer, HighX, HighY, _Interface::ALIGN_LEFT, _Interface::FONT_SMALL, Color);
 
 		// Time
 		Interface.ConvertSecondsToString(WinStats->HighScores[i].Time, Buffer);
-		Interface.RenderText(Buffer, HighX + ScorePadding, HighY, _Interface::ALIGN_LEFT, _Interface::FONT_SMALL, Gray);
+		Interface.RenderText(Buffer, HighX + ScorePadding, HighY, _Interface::ALIGN_LEFT, _Interface::FONT_SMALL, Color);
 
 		// Date
 		char DateString[32];
 		strftime(DateString, 32, "%Y-%m-%d", localtime(&WinStats->HighScores[i].DateStamp));
-		Interface.RenderText(DateString, HighX + DatePadding, HighY, _Interface::ALIGN_LEFT, _Interface::FONT_SMALL, Gray);
+		Interface.RenderText(DateString, HighX + DatePadding, HighY, _Interface::ALIGN_LEFT, _Interface::FONT_SMALL, Color);
 
 		HighY += 32 * Interface.GetUIScale();
 	}

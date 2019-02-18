@@ -47,6 +47,7 @@ _PlayState PlayState;
 
 // Initializes the state
 int _PlayState::Init() {
+	HighScoreIndex = -1;
 	Timer = 0.0f;
 	Physics.SetEnabled(true);
 	Interface.ChangeSkin(_Interface::SKIN_GAME);
@@ -99,6 +100,7 @@ int _PlayState::Close() {
 
 // Resets the level
 void _PlayState::ResetLevel() {
+	HighScoreIndex = -1;
 	FirstLoad = false;
 
 	// Handle saves
@@ -387,10 +389,10 @@ void _PlayState::WinLevel() {
 		Save.LevelStats[Level.LevelName].WinCount++;
 
 		// Add high score
-		int InsertIndex = Save.AddScore(Level.LevelName, PlayState.Timer);
+		HighScoreIndex = Save.AddScore(Level.LevelName, PlayState.Timer);
 
 		// Autosave replays for new records
-		if(InsertIndex == 0)
+		if(HighScoreIndex == 0)
 			Replay.SaveReplay(std::string("New record for ") + Level.LevelNiceName, true);
 
 		// Unlock next level
