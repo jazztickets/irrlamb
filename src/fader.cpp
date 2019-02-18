@@ -35,7 +35,7 @@ int _Fader::Init() {
 	TimeStepAccumulator = 0.0f;
 
 	// Load resources
-	FadeImage = irrDriver->getTexture("art/fade.png");
+	FadeImage = irrDriver->getTexture("ui/fade.png");
 
 	return 1;
 }

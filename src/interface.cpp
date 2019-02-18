@@ -73,25 +73,25 @@ int _Interface::Init() {
 	Skin->setFont(Fonts[FONT_SMALL]);
 
 	// Load images
-	Images[IMAGE_MOUSECURSOR] = irrDriver->getTexture("art/cursor.png");
-	Images[IMAGE_FADE] = irrDriver->getTexture("art/fade.png");
-	Images[IMAGE_BUTTON_SMALL] = irrDriver->getTexture("art/button_small.png");
-	Images[IMAGE_BUTTON_MEDIUM] = irrDriver->getTexture("art/button_medium.png");
-	Images[IMAGE_BUTTON_BIG] = irrDriver->getTexture("art/button_big.png");
-	Images[IMAGE_BUTTON_KEY] = irrDriver->getTexture("art/button_key.png");
-	Images[IMAGE_TEXTBOXSHEET0] = irrDriver->getTexture("art/sheet_textbox0.png");
-	Images[IMAGE_TEXTBOXSHEET1] = irrDriver->getTexture("art/sheet_textbox1.png");
-	Images[IMAGE_TEXTBOXSHEET2] = irrDriver->getTexture("art/sheet_textbox2.png");
-	Images[IMAGE_PAUSE] = irrDriver->getTexture("art/button_pause.png");
-	Images[IMAGE_REWIND] = irrDriver->getTexture("art/button_rewind.png");
-	Images[IMAGE_FASTFORWARD] = irrDriver->getTexture("art/button_ff.png");
-	Images[IMAGE_FASTREVERSE] = irrDriver->getTexture("art/button_fr.png");
-	Images[IMAGE_INCREASE] = irrDriver->getTexture("art/button_inc.png");
-	Images[IMAGE_DECREASE] = irrDriver->getTexture("art/button_dec.png");
-	Images[IMAGE_SELECTED] = irrDriver->getTexture("art/selected.png");
-	Images[IMAGE_BUTTON_UP] = irrDriver->getTexture("art/button_up.png");
-	Images[IMAGE_BUTTON_DOWN] = irrDriver->getTexture("art/button_down.png");
-	Images[IMAGE_BUTTON_DELETE] = irrDriver->getTexture("art/button_delete.png");
+	Images[IMAGE_MOUSECURSOR] = irrDriver->getTexture("ui/cursor.png");
+	Images[IMAGE_FADE] = irrDriver->getTexture("ui/fade.png");
+	Images[IMAGE_BUTTON_SMALL] = irrDriver->getTexture("ui/button_small.png");
+	Images[IMAGE_BUTTON_MEDIUM] = irrDriver->getTexture("ui/button_medium.png");
+	Images[IMAGE_BUTTON_BIG] = irrDriver->getTexture("ui/button_big.png");
+	Images[IMAGE_BUTTON_KEY] = irrDriver->getTexture("ui/button_key.png");
+	Images[IMAGE_TEXTBOXSHEET0] = irrDriver->getTexture("ui/sheet_textbox0.png");
+	Images[IMAGE_TEXTBOXSHEET1] = irrDriver->getTexture("ui/sheet_textbox1.png");
+	Images[IMAGE_TEXTBOXSHEET2] = irrDriver->getTexture("ui/sheet_textbox2.png");
+	Images[IMAGE_PAUSE] = irrDriver->getTexture("ui/button_pause.png");
+	Images[IMAGE_REWIND] = irrDriver->getTexture("ui/button_rewind.png");
+	Images[IMAGE_FASTFORWARD] = irrDriver->getTexture("ui/button_ff.png");
+	Images[IMAGE_FASTREVERSE] = irrDriver->getTexture("ui/button_fr.png");
+	Images[IMAGE_INCREASE] = irrDriver->getTexture("ui/button_inc.png");
+	Images[IMAGE_DECREASE] = irrDriver->getTexture("ui/button_dec.png");
+	Images[IMAGE_SELECTED] = irrDriver->getTexture("ui/selected.png");
+	Images[IMAGE_BUTTON_UP] = irrDriver->getTexture("ui/button_up.png");
+	Images[IMAGE_BUTTON_DOWN] = irrDriver->getTexture("ui/button_down.png");
+	Images[IMAGE_BUTTON_DELETE] = irrDriver->getTexture("ui/button_delete.png");
 
 	// Set sounds to nullptr
 	for(int i = 0; i < SOUND_COUNT; i++)

@@ -543,7 +543,7 @@ void _Menu::InitMain() {
 	ClearCurrentLayout();
 
 	// Title
-	irr::video::ITexture *Texture = irrDriver->getTexture("art/title.png");
+	irr::video::ITexture *Texture = irrDriver->getTexture("ui/title.png");
 	irr::gui::IGUIImage *Image = irrGUI->addImage(
 			Interface.GetCenteredRectPercent(
 				0.5,
@@ -665,7 +665,7 @@ void _Menu::InitLevels() {
 		if(Unlocked)
 			Level->setImage(irrDriver->getTexture((CampaignData.Levels[i].DataPath + "icon.jpg").c_str()));
 		else
-			Level->setImage(irrDriver->getTexture("art/locked.png"));
+			Level->setImage(irrDriver->getTexture("ui/locked.png"));
 
 		// Update columns and rows
 		Column++;
