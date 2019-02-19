@@ -7,6 +7,7 @@
 		<script file="tut_sphere0.lua" />
 		<scene file="tut_sphere0.irr" />
 		<collision file="tut_sphere0.col" />
+		<sound file="splash.ogg" />
 	</resources>
 	<templates>
 		<player name="player" />
@@ -29,7 +30,7 @@
 		<object name="player" template="player">
 			<position x="0" y="0.5" z="0" />
 		</object>
-		<object name="orb0" template="orb">
+		<object name="orb" template="orb">
 			<position x="0" y="0.5" z="22" />
 		</object>
 		<object name="ball" template="ball">
@@ -37,10 +38,10 @@
 			<rotation x="0" y="0" z="90" />
 		</object>
 		<object name="losezone" template="losezone">
-			<position x="0" y="-7" z="7" />
+			<position x="0" y="-8.75" z="7" />
 		</object>
 		<object name="floor" template="floor">
 			<position x="0" y="-9" z="11" />
-		</object>		
+		</object>
 	</objects>
 </level>

@@ -8,13 +8,19 @@ function OnOrbDeactivate()
 end
 
 -- Display lose message
-function OnHitZone(HitType, Zone, Object)
-	
-	if Object == Player then
-		GUI.TutorialText("Hit [".. KEY_RESET .. "] to restart.", 15)
+function OnHitZone(HitType, Zone, HitObject)
+
+	Name = Object.GetName(HitObject)
+	if Name == "orb" or HitObject == Player then
+		X, Y, Z = Object.GetPosition(HitObject)
+		Audio.Play("splash.ogg", X, Y, Z, 0, 0.3, 0.7)
+	end
+
+	if HitObject == Player then
+		Level.Lose("You drowned!")
 		return 1
 	end
-	
+
 	return 0
 end
 
