@@ -3,6 +3,7 @@ build
 *.blend[0-9]
 *.dll
 *.swp
+TODO
 CMakeLists.txt.user
 deployment/*.exe
 deployment/*-src
