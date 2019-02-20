@@ -32,9 +32,7 @@
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="0" y="12" z="-10" />
-			<!--<position x="-5" y="14" z="4" />-->
-			<!--<position x="11.290" y="13.605" z="11.184" />-->
+			<position x="0" y="12.5" z="-10" />
 		</object>
 		<object name="losezone" template="losezone">
 			<position x="0" y="0" z="0" />

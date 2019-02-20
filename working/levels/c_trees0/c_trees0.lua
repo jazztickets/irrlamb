@@ -14,12 +14,12 @@ function OnHitZone(HitType, Zone, HitObject)
 		X, Y, Z = Object.GetPosition(HitObject)
 		Audio.Play("splash.ogg", X, Y, Z, 0, 0.3, 0.7)
 	end
-		
+
 	if HitObject == Player then
 		Level.Lose("You drowned!")
 		return 1
 	end
-	
+
 	return 0
 end
 
@@ -44,16 +44,14 @@ oLog = Level.CreateObject("log3", tLog, X, 6, Z, 0, 0, 0);
 X = X - 5;
 Z = Z + 1;
 oLog = Level.CreateObject("log4", tLog, X, 6, Z, 0, 0, 0);
-Level.CreateObject("orb", tOrb, X, 12, Z, 0, 0, 0);
-
+Level.CreateObject("orb", tOrb, X, 12.5, Z, 0, 0, 0);
 Level.CreateObject("orb", tOrb, -14.318, 13.974, 13.698, 0, 0, 0);
 Level.CreateObject("orb", tOrb, 9.084, 13.234, 15.085, 0, 0, 0);
 
 X = 14.457
 Z = 20
 Level.CreateObject("log5", tLog, X, 6, Z, 0, 0, 0);
-Level.CreateObject("orb", tOrb, X, 12, Z, 0, 0, 0);
-
+Level.CreateObject("orb", tOrb, X, 12.5, Z, 0, 0, 0);
 
 -- Set up goal
 GoalCount = 4
