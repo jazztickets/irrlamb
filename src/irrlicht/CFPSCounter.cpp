@@ -57,7 +57,7 @@ void CFPSCounter::registerFrame(u32 now, u32 primitivesDrawn)
 
 	const u32 milliseconds = now - StartTime;
 
-	if (milliseconds >= 1500 )
+	if (milliseconds >= 1000 )
 	{
 		const f32 invMilli = core::reciprocal ( (f32) milliseconds );
 

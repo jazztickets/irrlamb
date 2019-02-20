@@ -356,6 +356,9 @@ void _PlayState::Draw() {
 	// Draw HUD
 	Interface.RenderHUD(Timer, FirstLoad);
 
+	// Draw fps
+	//Interface.RenderFPS();
+
 	// Darken the screen
 	if(IsPaused())
 		Interface.FadeScreen(FADE_AMOUNT);

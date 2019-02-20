@@ -20,6 +20,7 @@
 #include <globals.h>
 #include <save.h>
 #include <input.h>
+#include <constants.h>
 
 using namespace irr;
 
@@ -55,6 +56,7 @@ void _Config::Reset() {
 	AnisotropicFiltering = 0;
 	AntiAliasing = 0;
 	Vsync = false;
+	MaxFPS = MAXFPS;
 
 	// Audio
 	AudioEnabled = 1;
@@ -244,6 +246,12 @@ int _Config::ReadConfig() {
 		if(Element) {
 			Element->QueryBoolAttribute("enabled", &Vsync);
 		}
+
+		// Check max fps tag
+		Element = VideoElement->FirstChildElement("maxfps");
+		if(Element) {
+			Element->QueryIntAttribute("value", &MaxFPS);
+		}
 	}
 
 	// Check for the audio tag
@@ -341,6 +349,11 @@ int _Config::WriteConfig() {
 	XMLElement *VsyncElement = Document.NewElement("vsync");
 	VsyncElement->SetAttribute("enabled", Vsync);
 	VideoElement->LinkEndChild(VsyncElement);
+
+	// Max fps
+	XMLElement *MaxFPSElement = Document.NewElement("maxfps");
+	MaxFPSElement->SetAttribute("value", MaxFPS);
+	VideoElement->LinkEndChild(MaxFPSElement);
 
 	// Create audio element
 	XMLElement *AudioElement = Document.NewElement("audio");

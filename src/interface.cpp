@@ -342,6 +342,13 @@ void _Interface::RenderText(const char *Text, int PositionX, int PositionY, Alig
 	Fonts[FontType]->draw(String.c_str(), core::recti(PositionX, PositionY, PositionX + TextArea.Width, PositionY + TextArea.Height), Color);
 }
 
+// Draw frames per second
+void _Interface::RenderFPS() {
+	char Buffer[32];
+	sprintf(Buffer, "%d FPS", irrDriver->getFPS());
+	Interface.RenderText(Buffer, irrDriver->getScreenSize().Width - 120 * GetUIScale(), 10 * GetUIScale(), _Interface::ALIGN_LEFT, _Interface::FONT_SMALL);
+}
+
 // Draws an interface image centered around a position
 void _Interface::DrawImage(ImageType Type, int PositionX, int PositionY, int Width, int Height, const video::SColor &Color) {
 

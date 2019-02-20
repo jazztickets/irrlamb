@@ -17,6 +17,7 @@
 *******************************************************************************/
 #pragma once
 #include <string>
+#include <chrono>
 #include <irrTypes.h>
 
 // Forward Declarations
@@ -45,7 +46,7 @@ class _Game {
 
 		float &GetTimeStep() { return TimeStep; }
 		float GetTimeScale() { return TimeScale; }
-		float GetLastFrameTime() { return LastFrameTime; }
+		float GetLastFrameTime() { return LastFrameTime.count(); }
 		bool GetWindowActive() { return WindowActive; }
 		void SetTimeScale(float Value) { TimeScale = Value; }
 		void UpdateTimeStepAccumulator(float Value) { TimeStepAccumulator += Value; }
@@ -69,11 +70,11 @@ class _Game {
 		bool Done, MouseWasLocked;
 
 		// Time
-		uint32_t TimeStamp;
-		float SleepRate;
+		std::chrono::high_resolution_clock::time_point TimeStamp;
+		std::chrono::high_resolution_clock::time_point FrameLimitTimeStamp;
 
 		// Physics
-		float LastFrameTime;
+		std::chrono::duration<float> LastFrameTime;
 		float TimeStep, TimeStepAccumulator, TimeScale;
 
 		// Misc

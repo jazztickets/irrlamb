@@ -39,6 +39,7 @@ class _Config {
 		// Video
 		int DriverType;
 		int ScreenWidth, ScreenHeight;
+		int MaxFPS;
 		bool Fullscreen;
 		bool Shadows;
 		bool TrilinearFiltering;

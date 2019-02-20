@@ -35,6 +35,7 @@
 #include <states/viewreplay.h>
 #include <states/null.h>
 #include <menu.h>
+#include <iostream>
 #include <IFileSystem.h>
 
 using namespace irr;
@@ -45,12 +46,9 @@ _Game Game;
 int _Game::Init(int Count, char **Arguments) {
 
 	// Defaults
-	SleepRate = SLEEP_RATE;
 	TimeStep = PHYSICS_TIMESTEP;
 	TimeStepAccumulator = 0.0f;
 	TimeScale = 1.0f;
-	LastFrameTime = 0.0f;
-	TimeStamp = 0;
 	WindowActive = true;
 	MouseWasLocked = false;
 	Done = false;
@@ -188,14 +186,8 @@ void _Game::Update() {
 		Done = true;
 
 	// Get time difference from last frame
-	LastFrameTime = (irrTimer->getTime() - TimeStamp) * 0.001f;
-	TimeStamp = irrTimer->getTime();
-
-	// Limit frame rate
-	float ExtraTime = SleepRate - LastFrameTime;
-	if(ExtraTime > 0.0f) {
-		irrDevice->sleep((uint32_t)(ExtraTime * 1000));
-	}
+	LastFrameTime = std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - TimeStamp);
+	TimeStamp = std::chrono::high_resolution_clock::now();
 
 	// Check for window activity
 	PreviousWindowActive = WindowActive;
@@ -215,7 +207,7 @@ void _Game::Update() {
 	}
 
 	// Update fader
-	Fader.Update(LastFrameTime * TimeScale);
+	Fader.Update(LastFrameTime.count() * TimeScale);
 	Graphics.BeginFrame();
 
 	// Update the current state
@@ -233,7 +225,7 @@ void _Game::Update() {
 			ManagerState = STATE_UPDATE;
 		break;
 		case STATE_UPDATE:
-			TimeStepAccumulator += LastFrameTime * TimeScale;
+			TimeStepAccumulator += LastFrameTime.count() * TimeScale;
 			while(TimeStepAccumulator >= TimeStep) {
 				State->Update(TimeStep);
 				TimeStepAccumulator -= TimeStep;
@@ -253,6 +245,16 @@ void _Game::Update() {
 	Audio.Update();
 	State->Draw();
 	Graphics.EndFrame();
+
+	// Limit frame rate
+	if(Config.MaxFPS > 0) {
+		auto LastFrameLimitTime = std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - FrameLimitTimeStamp);
+		float ExtraTime = (1.0 / Config.MaxFPS) - LastFrameLimitTime.count();
+		if(ExtraTime > 0.0f)
+			irrDevice->sleep((uint32_t)(ExtraTime * 1000));
+
+		FrameLimitTimeStamp = std::chrono::high_resolution_clock::now();
+	}
 }
 
 // Shuts down the system
@@ -277,9 +279,8 @@ void _Game::Close() {
 
 // Resets the game timer
 void _Game::ResetTimer() {
-
-	irrTimer->setTime(0);
-	TimeStamp = irrTimer->getTime();
+	TimeStamp = std::chrono::high_resolution_clock::now();
+	FrameLimitTimeStamp = std::chrono::high_resolution_clock::now();
 }
 
 // Resets the graphics for a state
