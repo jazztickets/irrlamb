@@ -94,7 +94,7 @@ int _Framework::Init(int Count, char **Arguments) {
 
 	// Set up the graphics
 	DriverType = (video::E_DRIVER_TYPE)Config.DriverType;
-	if(!Graphics.Init(Config.ScreenWidth, Config.ScreenHeight, Config.Fullscreen, DriverType, &Input))
+	if(!Graphics.Init(!HasConfigFile, Config.ScreenWidth, Config.ScreenHeight, Config.Fullscreen, DriverType, &Input))
 		return 0;
 
 	// Initialize joystick

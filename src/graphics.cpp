@@ -33,14 +33,29 @@ using namespace irr;
 _Graphics Graphics;
 
 // Initializes the graphics system
-int _Graphics::Init(int Width, int Height, bool Fullscreen, video::E_DRIVER_TYPE DriverType, IEventReceiver *EventReceiver) {
+int _Graphics::Init(bool UseDesktopResolution, int Width, int Height, bool Fullscreen, video::E_DRIVER_TYPE DriverType, IEventReceiver *EventReceiver) {
 	ShadersSupported = false;
 	CustomMaterial[0] = -1;
 	CustomMaterial[1] = -1;
 	LightCount = 0;
 
-	// irrlicht parameters
+	// Default to desktop resolution when no config file exists
 	SIrrlichtCreationParameters Parameters;
+	if(UseDesktopResolution) {
+		Parameters.DriverType = video::EDT_NULL;
+		irrDevice = createDeviceEx(Parameters);
+		if(irrDevice == nullptr)
+			return 0;
+
+		// Get desktop resolution
+		core::dimension2d<u32> DesktopResolution = irrDevice->getVideoModeList()->getDesktopResolution();
+		Config.ScreenWidth = Width = DesktopResolution.Width;
+		Config.ScreenHeight = Height = DesktopResolution.Height;
+		Config.Fullscreen = Fullscreen = true;
+		irrDevice->drop();
+	}
+
+	// irrlicht parameters
 	Parameters.DriverType = DriverType;
 	Parameters.Fullscreen = Fullscreen;
 	Parameters.Bits = 32;

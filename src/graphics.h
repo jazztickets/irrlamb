@@ -43,7 +43,7 @@ class _Graphics {
 
 	public:
 
-		int Init(int Width, int Height, bool Fullscreen, irr::video::E_DRIVER_TYPE DriverType, irr::IEventReceiver *EventReceiver);
+		int Init(bool UseDesktopResolution, int Width, int Height, bool Fullscreen, irr::video::E_DRIVER_TYPE DriverType, irr::IEventReceiver *EventReceiver);
 		int Close();
 
 		void BeginFrame();
