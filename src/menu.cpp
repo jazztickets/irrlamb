@@ -79,7 +79,8 @@ enum GUIElements {
 	LEVELS_GO, LEVELS_BUY, LEVELS_HIGHSCORES, LEVELS_BACK, LEVELS_SELECTEDLEVEL,
 	LEVELINFO_DESCRIPTION, LEVELINFO_ATTEMPTS, LEVELINFO_WINS, LEVELINFO_LOSSES, LEVELINFO_PLAYTIME, LEVELINFO_BESTTIME,
 	REPLAYS_VIEW, REPLAYS_DELETE, REPLAYS_BACK, REPLAYS_UP, REPLAYS_DOWN,
-	OPTIONS_VIDEO, OPTIONS_AUDIO, OPTIONS_CONTROLS, OPTIONS_BACK,
+	OPTIONS_GAMEPLAY, OPTIONS_VIDEO, OPTIONS_AUDIO, OPTIONS_CONTROLS, OPTIONS_BACK,
+	GAMEPLAY_SHOWFPS, GAMEPLAY_SHOWTUTORIAL, GAMEPLAY_SAVE, GAMEPLAY_CANCEL,
 	VIDEO_SAVE, VIDEO_CANCEL, VIDEO_VIDEOMODES, VIDEO_FULLSCREEN, VIDEO_SHADOWS, VIDEO_SHADERS, VIDEO_VSYNC, VIDEO_ANISOTROPY, VIDEO_ANTIALIASING,
 	AUDIO_ENABLED, AUDIO_SAVE, AUDIO_CANCEL,
 	CONTROLS_SAVE, CONTROLS_CANCEL, CONTROLS_DEADZONE, CONTROLS_SENSITIVITY, CONTROLS_INVERTMOUSE, CONTROLS_INVERTGAMEPADY, CONTROLS_KEYMAP,
@@ -114,9 +115,10 @@ bool _Menu::HandleAction(int InputType, int Action, float Value) {
 					case STATE_LEVELS:
 						InitCampaigns();
 					break;
-					case STATE_VIDEO:
-					case STATE_AUDIO:
-					case STATE_CONTROLS:
+					case STATE_OPTIONS_GAMEPLAY:
+					case STATE_OPTIONS_VIDEO:
+					case STATE_OPTIONS_AUDIO:
+					case STATE_OPTIONS_CONTROLS:
 						InitOptions();
 					break;
 					case STATE_PAUSED:
@@ -203,7 +205,7 @@ bool _Menu::HandleKeyPress(int Key) {
 				break;
 			}
 		break;
-		case STATE_CONTROLS:
+		case STATE_OPTIONS_CONTROLS:
 			if(KeyButton != nullptr) {
 				core::stringw KeyName = Input.GetKeyName(Key);
 
@@ -311,20 +313,37 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 				case REPLAYS_DOWN:
 					ReplayScrollDown();
 				break;
+				case OPTIONS_GAMEPLAY:
+					InitGameplayOptions();
+				break;
 				case OPTIONS_VIDEO:
-					InitVideo();
+					InitVideoOptions();
 				break;
 				case OPTIONS_AUDIO:
-					InitAudio();
+					InitAudioOptions();
 				break;
 				case OPTIONS_CONTROLS:
-					InitControls();
+					InitControlOptions();
 				break;
 				case OPTIONS_BACK:
 					if(Framework.GetState() == &PlayState)
 						InitPause();
 					else
 						InitMain();
+				break;
+				case GAMEPLAY_SAVE: {
+
+					// Get settings
+					gui::IGUICheckBox *ShowFPS = static_cast<gui::IGUICheckBox *>(CurrentLayout->getElementFromId(GAMEPLAY_SHOWFPS));
+					gui::IGUICheckBox *ShowTutorial = static_cast<gui::IGUICheckBox *>(CurrentLayout->getElementFromId(GAMEPLAY_SHOWTUTORIAL));
+					Config.ShowFPS = ShowFPS->isChecked();
+					Config.ShowTutorial = ShowTutorial->isChecked();
+					Config.WriteConfig();
+					InitOptions();
+				}
+				break;
+				case GAMEPLAY_CANCEL:
+					InitOptions();
 				break;
 				case VIDEO_SAVE: {
 
@@ -805,8 +824,9 @@ void _Menu::InitOptions() {
 	AddMenuText(Interface.GetPositionPercent(0.5, 0.1), L"Options");
 
 	// Buttons
-	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.35, BUTTON_SIZE_X, BUTTON_SIZE_Y), OPTIONS_VIDEO, L"Video");
-	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.50, BUTTON_SIZE_X, BUTTON_SIZE_Y), OPTIONS_AUDIO, L"Audio");
+	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.35, BUTTON_SIZE_X, BUTTON_SIZE_Y), OPTIONS_GAMEPLAY, L"Gameplay");
+	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.45, BUTTON_SIZE_X, BUTTON_SIZE_Y), OPTIONS_VIDEO, L"Video");
+	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.55, BUTTON_SIZE_X, BUTTON_SIZE_Y), OPTIONS_AUDIO, L"Audio");
 	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.65, BUTTON_SIZE_X, BUTTON_SIZE_Y), OPTIONS_CONTROLS, L"Controls");
 
 	// Back button
@@ -819,8 +839,39 @@ void _Menu::InitOptions() {
 	State = STATE_OPTIONS;
 }
 
+// Gameplay options
+void _Menu::InitGameplayOptions() {
+	ClearCurrentLayout();
+	float X = 0.5;
+	float Y = 0.4;
+	float SpacingY = 0.05;
+	float SidePadding = 0.01;
+
+	// Title
+	AddMenuText(Interface.GetPositionPercent(0.5, 0.1), L"Gameplay");
+
+	// Show FPS
+	AddMenuText(Interface.GetPositionPercent(X - SidePadding, Y), L"Show FPS", _Interface::FONT_SMALL, -1, gui::EGUIA_LOWERRIGHT);
+	irrGUI->addCheckBox(Config.ShowFPS, Interface.GetRectPercent(X + SidePadding, Y, 32, 32), CurrentLayout, GAMEPLAY_SHOWFPS);
+
+	// Show tutorial
+	Y += SpacingY;
+	AddMenuText(Interface.GetPositionPercent(X - SidePadding, Y), L"Show Tutorial Messages", _Interface::FONT_SMALL, -1, gui::EGUIA_LOWERRIGHT);
+	irrGUI->addCheckBox(Config.ShowTutorial, Interface.GetRectPercent(X + SidePadding, Y, 32, 32), CurrentLayout, GAMEPLAY_SHOWTUTORIAL);
+
+	// Save and cancel buttons
+	AddMenuButton(Interface.GetRightRectPercent(0.5 - SidePadding, 0.9, BUTTON_SMALL_SIZE_X, BUTTON_SMALL_SIZE_Y), GAMEPLAY_SAVE, L"Save", _Interface::IMAGE_BUTTON_SMALL);
+	AddMenuButton(Interface.GetRectPercent(0.5 + SidePadding, 0.9, BUTTON_SMALL_SIZE_X, BUTTON_SMALL_SIZE_Y), GAMEPLAY_CANCEL, L"Cancel", _Interface::IMAGE_BUTTON_SMALL);
+
+	// Play sound
+	Interface.PlaySound(_Interface::SOUND_CONFIRM);
+
+	PreviousState = State;
+	State = STATE_OPTIONS_GAMEPLAY;
+}
+
 // Create the video options menu
-void _Menu::InitVideo() {
+void _Menu::InitVideoOptions() {
 	ClearCurrentLayout();
 	float X = 0.5;
 	float Y = 0.3;
@@ -902,11 +953,11 @@ void _Menu::InitVideo() {
 	Interface.PlaySound(_Interface::SOUND_CONFIRM);
 
 	PreviousState = State;
-	State = STATE_VIDEO;
+	State = STATE_OPTIONS_VIDEO;
 }
 
 // Create the audio options menu
-void _Menu::InitAudio() {
+void _Menu::InitAudioOptions() {
 	ClearCurrentLayout();
 	float X = 0.5;
 	float Y = 0.5;
@@ -927,11 +978,11 @@ void _Menu::InitAudio() {
 	Interface.PlaySound(_Interface::SOUND_CONFIRM);
 
 	PreviousState = State;
-	State = STATE_AUDIO;
+	State = STATE_OPTIONS_AUDIO;
 }
 
 // Create the control options menu
-void _Menu::InitControls() {
+void _Menu::InitControlOptions() {
 	ClearCurrentLayout();
 	float X = 0.5;
 	float Y = 0.21;
@@ -986,7 +1037,7 @@ void _Menu::InitControls() {
 	Interface.PlaySound(_Interface::SOUND_CONFIRM);
 
 	PreviousState = State;
-	State = STATE_CONTROLS;
+	State = STATE_OPTIONS_CONTROLS;
 }
 
 // Init play GUI

@@ -163,9 +163,6 @@ void _Interface::Clear() {
 
 // Adds tutorial text to the screen
 void _Interface::SetTutorialText(const std::string &Text, float Length) {
-	if(!Config.ShowTutorial)
-		return;
-
 	if(TutorialText.Text) {
 		TutorialText.Text->remove();
 		TutorialText.Text = nullptr;
@@ -225,7 +222,7 @@ void _Interface::RenderHUD(float Time, bool FirstLoad) {
 
 	// Draw message box
 	if(TutorialText.Text) {
-		TutorialText.Text->setVisible(DrawHUD);
+		TutorialText.Text->setVisible(DrawHUD && Config.ShowTutorial);
 
 		// Get tutorial text alpha
 		video::SColor TextColor(255, 255, 255, 255), BoxColor(160, 255, 255, 255);
@@ -239,7 +236,7 @@ void _Interface::RenderHUD(float Time, bool FirstLoad) {
 		TutorialText.Text->setOverrideColor(TextColor);
 
 		// Draw tutorial text
-		if(DrawHUD)
+		if(DrawHUD && Config.ShowTutorial)
 			DrawTextBox(TutorialText.MessageX, TutorialText.MessageY, MESSAGE_WIDTH * GetUIScale(), MESSAGE_HEIGHT * GetUIScale(), BoxColor);
 	}
 }

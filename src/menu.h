@@ -53,9 +53,10 @@ class _Menu {
 			STATE_LEVELS,
 			STATE_REPLAYS,
 			STATE_OPTIONS,
-			STATE_VIDEO,
-			STATE_AUDIO,
-			STATE_CONTROLS,
+			STATE_OPTIONS_GAMEPLAY,
+			STATE_OPTIONS_VIDEO,
+			STATE_OPTIONS_AUDIO,
+			STATE_OPTIONS_CONTROLS,
 			STATE_PAUSED,
 			STATE_SAVEREPLAY,
 			STATE_LOSE,
@@ -75,9 +76,10 @@ class _Menu {
 		void InitLevels();
 		void InitReplays(bool PlaySound=true);
 		void InitOptions();
-		void InitVideo();
-		void InitAudio();
-		void InitControls();
+		void InitGameplayOptions();
+		void InitVideoOptions();
+		void InitAudioOptions();
+		void InitControlOptions();
 
 		void InitPlay();
 		void InitLose();
