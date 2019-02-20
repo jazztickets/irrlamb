@@ -57,6 +57,8 @@ void _Config::Reset() {
 	AntiAliasing = 0;
 	Vsync = false;
 	MaxFPS = MAXFPS;
+	ShowFPS = false;
+	ShowTutorial = true;
 
 	// Audio
 	AudioEnabled = 1;
@@ -254,6 +256,13 @@ int _Config::ReadConfig() {
 		}
 	}
 
+	// Check for the gameplay tag
+	XMLElement *GameplayElement = ConfigElement->FirstChildElement("gameplay");
+	if(GameplayElement) {
+		GameplayElement->QueryBoolAttribute("showfps", &ShowFPS);
+		GameplayElement->QueryBoolAttribute("showtutorial", &ShowTutorial);
+	}
+
 	// Check for the audio tag
 	XMLElement *AudioElement = ConfigElement->FirstChildElement("audio");
 	if(AudioElement) {
@@ -318,7 +327,6 @@ int _Config::WriteConfig() {
 
 	// Create video element
 	XMLElement *VideoElement = Document.NewElement("video");
-	//VideoElement->SetAttribute("driver", DriverType);
 	ConfigElement->LinkEndChild(VideoElement);
 
 	// Screen settings
@@ -354,6 +362,12 @@ int _Config::WriteConfig() {
 	XMLElement *MaxFPSElement = Document.NewElement("maxfps");
 	MaxFPSElement->SetAttribute("value", MaxFPS);
 	VideoElement->LinkEndChild(MaxFPSElement);
+
+	// Create gameplay element
+	XMLElement *GameplayElement = Document.NewElement("gameplay");
+	GameplayElement->SetAttribute("showfps", ShowFPS);
+	GameplayElement->SetAttribute("showtutorial", ShowTutorial);
+	ConfigElement->LinkEndChild(GameplayElement);
 
 	// Create audio element
 	XMLElement *AudioElement = Document.NewElement("audio");

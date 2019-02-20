@@ -45,6 +45,8 @@ class _Config {
 		bool TrilinearFiltering;
 		bool Shaders;
 		bool Vsync;
+		bool ShowFPS;
+		bool ShowTutorial;
 		int AnisotropicFiltering;
 		int AntiAliasing;
 

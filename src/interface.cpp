@@ -163,6 +163,9 @@ void _Interface::Clear() {
 
 // Adds tutorial text to the screen
 void _Interface::SetTutorialText(const std::string &Text, float Length) {
+	if(!Config.ShowTutorial)
+		return;
+
 	if(TutorialText.Text) {
 		TutorialText.Text->remove();
 		TutorialText.Text = nullptr;
@@ -343,10 +346,13 @@ void _Interface::RenderText(const char *Text, int PositionX, int PositionY, Alig
 }
 
 // Draw frames per second
-void _Interface::RenderFPS() {
+void _Interface::RenderFPS(int PositionX, int PositionY) {
+	if(!DrawHUD)
+		return;
+
 	char Buffer[32];
 	sprintf(Buffer, "%d FPS", irrDriver->getFPS());
-	Interface.RenderText(Buffer, irrDriver->getScreenSize().Width - 120 * GetUIScale(), 10 * GetUIScale(), _Interface::ALIGN_LEFT, _Interface::FONT_SMALL);
+	Interface.RenderText(Buffer, PositionX, PositionY, _Interface::ALIGN_LEFT, _Interface::FONT_SMALL);
 }
 
 // Draws an interface image centered around a position

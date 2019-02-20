@@ -357,7 +357,8 @@ void _PlayState::Draw() {
 	Interface.RenderHUD(Timer, FirstLoad);
 
 	// Draw fps
-	//Interface.RenderFPS();
+	if(Config.ShowFPS)
+		Interface.RenderFPS(irrDriver->getScreenSize().Width - 140 * Interface.GetUIScale(), 10 * Interface.GetUIScale());
 
 	// Darken the screen
 	if(IsPaused())

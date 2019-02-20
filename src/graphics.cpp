@@ -86,7 +86,6 @@ int _Graphics::Init(int Width, int Height, bool Fullscreen, video::E_DRIVER_TYPE
 		}
 	}
 
-	//irrScene->setShadowColor(video::SColor(150, 0, 0, 0));
 	DrawScene = true;
 	ScreenshotRequested = false;
 

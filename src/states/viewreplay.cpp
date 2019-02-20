@@ -310,6 +310,10 @@ void _ViewReplayState::Draw() {
 	sprintf(Buffer, "%.2f", Game.GetTimeScale());
 	Interface.RenderText(Buffer, X + Padding , Y, _Interface::ALIGN_LEFT, _Interface::FONT_MEDIUM);
 
+	// Draw fps
+	if(Config.ShowFPS)
+		Interface.RenderFPS(10 * Interface.GetUIScale(), irrDriver->getScreenSize().Height - 50 * Interface.GetUIScale());
+
 	irrGUI->drawAll();
 }
 
