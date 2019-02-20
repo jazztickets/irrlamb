@@ -23,7 +23,7 @@
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="0.71" y="2.5" z="0.800" />
+			<position x="0.8" y="2.5" z="0.71" />
 		</object>
 		<!--<object name="a" template="box">
 			<position x="0" y="4.5" z="0" />
