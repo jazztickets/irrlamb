@@ -125,6 +125,21 @@ bool _ViewReplayState::HandleKeyPress(int Key) {
 		case KEY_RIGHT:
 			Skip(1.0f);
 		break;
+		case KEY_KEY_1:
+			Framework.SetTimeScale(0.5);
+		break;
+		case KEY_KEY_2:
+			Framework.SetTimeScale(1.0);
+		break;
+		case KEY_KEY_3:
+			Framework.SetTimeScale(2.0);
+		break;
+		case KEY_KEY_4:
+			Framework.SetTimeScale(4.0);
+		break;
+		case KEY_KEY_5:
+			Framework.SetTimeScale(8.0);
+		break;
 		case KEY_UP:
 			ChangeReplaySpeed(REPLAY_TIME_INCREMENT);
 		break;
