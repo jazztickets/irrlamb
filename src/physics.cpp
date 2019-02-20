@@ -17,7 +17,7 @@
 *******************************************************************************/
 #include <physics.h>
 #include <globals.h>
-#include <game.h>
+#include <framework.h>
 #include <constants.h>
 #include <objects/object.h>
 #include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>

@@ -21,7 +21,7 @@
 #include <config.h>
 #include <constants.h>
 #include <level.h>
-#include <game.h>
+#include <framework.h>
 #include <sstream>
 
 _Replay Replay;
@@ -85,7 +85,7 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave, bo
 	WriteChunk(NewFile, PACKET_LEVELVERSION, (char *)&LevelVersion, sizeof(LevelVersion));
 
 	// Write timestep value
-	WriteChunk(NewFile, PACKET_TIMESTEP, (char *)&Game.GetTimeStep(), sizeof(Game.GetTimeStep()));
+	WriteChunk(NewFile, PACKET_TIMESTEP, (char *)&Framework.GetTimeStep(), sizeof(Framework.GetTimeStep()));
 
 	// Write level file
 	WriteChunk(NewFile, PACKET_LEVELFILE, LevelName.c_str(), LevelName.length());

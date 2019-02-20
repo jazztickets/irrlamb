@@ -18,7 +18,7 @@
 #include <campaign.h>
 #include <globals.h>
 #include <log.h>
-#include <game.h>
+#include <framework.h>
 #include <level.h>
 #include <tinyxml/tinyxml2.h>
 
@@ -66,7 +66,7 @@ int _Campaign::Init() {
 		for(; LevelElement != 0; LevelElement = LevelElement->NextSiblingElement("level")) {
 			_LevelInfo Level;
 			Level.File = LevelElement->GetText();
-			Level.DataPath = Game.GetWorkingPath() + "levels/" + Level.File + "/";
+			Level.DataPath = Framework.GetWorkingPath() + "levels/" + Level.File + "/";
 			Level.Unlocked = 0;
 			LevelElement->QueryIntAttribute("unlocked", &Level.Unlocked);
 

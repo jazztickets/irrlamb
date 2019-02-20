@@ -25,7 +25,7 @@
 #include <objectmanager.h>
 #include <replay.h>
 #include <camera.h>
-#include <game.h>
+#include <framework.h>
 #include <interface.h>
 #include <constants.h>
 #include <objects/orb.h>
@@ -49,7 +49,7 @@ int _ViewReplayState::Init() {
 
 	// Set up state
 	PauseSpeed = 1.0f;
-	Game.SetTimeScale(1.0f);
+	Framework.SetTimeScale(1.0f);
 	Timer = 0.0f;
 	Input.SetMouseLocked(false);
 	Interface.ChangeSkin(_Interface::SKIN_GAME);
@@ -110,11 +110,11 @@ bool _ViewReplayState::HandleKeyPress(int Key) {
 	switch(Key) {
 		case KEY_ESCAPE:
 			NullState.State = _Menu::STATE_REPLAYS;
-			Game.ChangeState(&NullState);
+			Framework.ChangeState(&NullState);
 		break;
 		case KEY_F1:
 			NullState.State = _Menu::STATE_REPLAYS;
-			Game.ChangeState(&NullState);
+			Framework.ChangeState(&NullState);
 		break;
 		case KEY_F12:
 			Graphics.SaveScreenshot(Replay.GetLevelName());
@@ -164,7 +164,7 @@ void _ViewReplayState::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIE
 			switch(Element->getID()) {
 				case MAIN_EXIT:
 					NullState.State = _Menu::STATE_REPLAYS;
-					Game.ChangeState(&NullState);
+					Framework.ChangeState(&NullState);
 				break;
 				case MAIN_DECREASE:
 					ChangeReplaySpeed(-REPLAY_TIME_INCREMENT);
@@ -176,7 +176,7 @@ void _ViewReplayState::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIE
 					Pause();
 				break;
 				case MAIN_RESTART:
-					Game.ChangeState(this);
+					Framework.ChangeState(this);
 				break;
 				case MAIN_SKIP:
 					Skip(1.0f);
@@ -307,7 +307,7 @@ void _ViewReplayState::Draw() {
 	// Draw current speed
 	Y += 60 * Interface.GetUIScale();
 	Interface.RenderText("Speed", X - Padding, Y, _Interface::ALIGN_RIGHT, _Interface::FONT_MEDIUM);
-	sprintf(Buffer, "%.2f", Game.GetTimeScale());
+	sprintf(Buffer, "%.2f", Framework.GetTimeScale());
 	Interface.RenderText(Buffer, X + Padding , Y, _Interface::ALIGN_LEFT, _Interface::FONT_MEDIUM);
 
 	// Draw fps
@@ -380,7 +380,7 @@ void _ViewReplayState::SetupGUI() {
 
 // Change replay speed
 void _ViewReplayState::ChangeReplaySpeed(float Amount) {
-	float Scale = Game.GetTimeScale();
+	float Scale = Framework.GetTimeScale();
 
 	Scale += Amount;
 	if(Scale >= 10.0f)
@@ -388,23 +388,23 @@ void _ViewReplayState::ChangeReplaySpeed(float Amount) {
 	else if(Scale <= 0.0f)
 		Scale = 0.0f;
 
-	Game.SetTimeScale(Scale);
+	Framework.SetTimeScale(Scale);
 }
 
 // Pause the replay
 void _ViewReplayState::Pause() {
 
 	// Pause or play
-	if(Game.GetTimeScale() == 0.0f) {
-		Game.SetTimeScale(PauseSpeed);
+	if(Framework.GetTimeScale() == 0.0f) {
+		Framework.SetTimeScale(PauseSpeed);
 	}
 	else {
-		PauseSpeed = Game.GetTimeScale();
-		Game.SetTimeScale(0.0f);
+		PauseSpeed = Framework.GetTimeScale();
+		Framework.SetTimeScale(0.0f);
 	}
 }
 
 // Skip ahead
 void _ViewReplayState::Skip(float Amount) {
-	Game.UpdateTimeStepAccumulator(Amount);
+	Framework.UpdateTimeStepAccumulator(Amount);
 }

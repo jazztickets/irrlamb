@@ -29,7 +29,7 @@
 #include <replay.h>
 #include <interface.h>
 #include <camera.h>
-#include <game.h>
+#include <framework.h>
 #include <level.h>
 #include <campaign.h>
 #include <fader.h>

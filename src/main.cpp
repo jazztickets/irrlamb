@@ -15,7 +15,7 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <game.h>
+#include <framework.h>
 
 #if defined(_WIN32) && defined(NDEBUG)
 
@@ -26,17 +26,17 @@
 int main(int ArgumentCount, char **Arguments) {
 
 	// Initialize the game
-	if(!Game.Init(ArgumentCount, Arguments))
+	if(!Framework.Init(ArgumentCount, Arguments))
 		return 0;
 
 	// Main game loop
-	while(!Game.IsDone()) {
+	while(!Framework.IsDone()) {
 
-		Game.Update();
+		Framework.Update();
 	}
 
 	// Shut down the system
-	Game.Close();
+	Framework.Close();
 
 	return 0;
 }

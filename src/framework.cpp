@@ -15,7 +15,7 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <game.h>
+#include <framework.h>
 #include <input.h>
 #include <globals.h>
 #include <graphics.h>
@@ -40,10 +40,10 @@
 
 using namespace irr;
 
-_Game Game;
+_Framework Framework;
 
 // Processes parameters and initializes the game
-int _Game::Init(int Count, char **Arguments) {
+int _Framework::Init(int Count, char **Arguments) {
 
 	// Defaults
 	TimeStep = PHYSICS_TIMESTEP;
@@ -170,7 +170,7 @@ int _Game::Init(int Count, char **Arguments) {
 }
 
 // Requests a state change
-void _Game::ChangeState(_State *State) {
+void _Framework::ChangeState(_State *State) {
 	TimeScale = 1.0f;
 	Fader.Start(-FADE_SPEED);
 
@@ -179,7 +179,7 @@ void _Game::ChangeState(_State *State) {
 }
 
 // Updates the current state and runs the game engine
-void _Game::Update() {
+void _Framework::Update() {
 
 	// Run irrlicht engine
 	if(!irrDevice->run())
@@ -258,7 +258,7 @@ void _Game::Update() {
 }
 
 // Shuts down the system
-void _Game::Close() {
+void _Framework::Close() {
 
 	// Close the state
 	State->Close();
@@ -278,20 +278,20 @@ void _Game::Close() {
 }
 
 // Resets the game timer
-void _Game::ResetTimer() {
+void _Framework::ResetTimer() {
 	TimeStamp = std::chrono::high_resolution_clock::now();
 	FrameLimitTimeStamp = std::chrono::high_resolution_clock::now();
 }
 
 // Resets the graphics for a state
-void _Game::ResetGraphics() {
+void _Framework::ResetGraphics() {
 	Graphics.SetClearColor(video::SColor(0, 0, 0, 0));
 	Graphics.SetDrawScene(true);
 	Interface.Clear();
 }
 
 // Initialize the audio system and load basic buffers
-void _Game::EnableAudio() {
+void _Framework::EnableAudio() {
 	Audio.Init(true);
 	Audio.LoadBuffer("confirm.ogg");
 	Audio.LoadBuffer("orb.ogg");
@@ -300,7 +300,7 @@ void _Game::EnableAudio() {
 }
 
 // Disable audio system
-void _Game::DisableAudio() {
+void _Framework::DisableAudio() {
 	Audio.Close();
 	Interface.UnloadSounds();
 }

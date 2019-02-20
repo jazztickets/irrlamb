@@ -29,7 +29,7 @@
 #include <replay.h>
 #include <interface.h>
 #include <camera.h>
-#include <game.h>
+#include <framework.h>
 #include <level.h>
 #include <campaign.h>
 #include <fader.h>
@@ -151,7 +151,7 @@ void _PlayState::ResetLevel() {
 	Camera->RecordReplay();
 
 	// Reset game timer
-	Game.ResetTimer();
+	Framework.ResetTimer();
 	Fader.Start(FADE_SPEED);
 	Resetting = false;
 }
@@ -178,7 +178,7 @@ bool _PlayState::HandleAction(int InputType, int Action, float Value) {
 					return false;
 
 				if(TestLevel != "")
-					Game.SetDone(true);
+					Framework.SetDone(true);
 				else
 					Menu.InitPause();
 
@@ -187,28 +187,28 @@ bool _PlayState::HandleAction(int InputType, int Action, float Value) {
 			case _Actions::CAMERA_LEFT:
 				if(Camera) {
 					if(InputType == _Input::JOYSTICK_AXIS)
-						Value *= Game.GetLastFrameTime();
+						Value *= Framework.GetLastFrameTime();
 					Camera->HandleMouseMotion(-Value, 0);
 				}
 			break;
 			case _Actions::CAMERA_RIGHT:
 				if(Camera) {
 					if(InputType == _Input::JOYSTICK_AXIS)
-						Value *= Game.GetLastFrameTime();
+						Value *= Framework.GetLastFrameTime();
 					Camera->HandleMouseMotion(Value, 0);
 				}
 			break;
 			case _Actions::CAMERA_UP:
 				if(Camera) {
 					if(InputType == _Input::JOYSTICK_AXIS)
-						Value *= Game.GetLastFrameTime();
+						Value *= Framework.GetLastFrameTime();
 					Camera->HandleMouseMotion(0, -Value);
 				}
 			break;
 			case _Actions::CAMERA_DOWN:
 				if(Camera) {
 					if(InputType == _Input::JOYSTICK_AXIS)
-						Value *= Game.GetLastFrameTime();
+						Value *= Framework.GetLastFrameTime();
 					Camera->HandleMouseMotion(0, Value);
 				}
 			break;
@@ -242,7 +242,7 @@ bool _PlayState::HandleKeyPress(int Key) {
 				Log.Write("Player: <position x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" />", Player->GetPosition()[0], Player->GetPosition()[1], Player->GetPosition()[2]);
 			break;
 			case KEY_F5:
-				Game.ChangeState(&PlayState);
+				Framework.ChangeState(&PlayState);
 			break;
 			case KEY_F11:
 				Interface.DrawHUD = !Interface.DrawHUD;

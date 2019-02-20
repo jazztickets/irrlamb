@@ -20,7 +20,7 @@
 #include <config.h>
 #include <globals.h>
 #include <graphics.h>
-#include <game.h>
+#include <framework.h>
 #include <actions.h>
 #include <log.h>
 #include <irrlicht.h>
@@ -51,7 +51,7 @@ _Input::_Input()
 bool _Input::OnEvent(const SEvent &Event) {
 	bool Processed = false;
 
-	if(Game.GetManagerState() != _Game::STATE_UPDATE)
+	if(Framework.GetManagerState() != _Framework::STATE_UPDATE)
 		return false;
 
 	switch(Event.EventType) {
@@ -59,11 +59,11 @@ bool _Input::OnEvent(const SEvent &Event) {
 
 			// Send key press events
 			if(Event.KeyInput.PressedDown && !GetKeyState(Event.KeyInput.Key)) {
-				Processed = Game.GetState()->HandleKeyPress(Event.KeyInput.Key);
+				Processed = Framework.GetState()->HandleKeyPress(Event.KeyInput.Key);
 				Actions.InputEvent(_Input::KEYBOARD, Event.KeyInput.Key, Event.KeyInput.PressedDown);
 			}
 			else if(!Event.KeyInput.PressedDown) {
-				Processed = Game.GetState()->HandleKeyLift(Event.KeyInput.Key);
+				Processed = Framework.GetState()->HandleKeyLift(Event.KeyInput.Key);
 				Actions.InputEvent(_Input::KEYBOARD, Event.KeyInput.Key, Event.KeyInput.PressedDown);
 			}
 
@@ -81,7 +81,7 @@ bool _Input::OnEvent(const SEvent &Event) {
 					SetMouseState(Event.MouseInput.Event, true);
 					if(!Event.UserEvent.UserData1)
 						Actions.InputEvent(_Input::MOUSE_BUTTON, Event.MouseInput.Event, true);
-					return Game.GetState()->HandleMousePress(Event.MouseInput.Event, Event.MouseInput.X, Event.MouseInput.Y);
+					return Framework.GetState()->HandleMousePress(Event.MouseInput.Event, Event.MouseInput.X, Event.MouseInput.Y);
 				break;
 				case EMIE_LMOUSE_LEFT_UP:
 				case EMIE_RMOUSE_LEFT_UP:
@@ -89,7 +89,7 @@ bool _Input::OnEvent(const SEvent &Event) {
 					SetMouseState(Event.MouseInput.Event - MOUSE_COUNT, false);
 					if(!Event.UserEvent.UserData1)
 						Actions.InputEvent(_Input::MOUSE_BUTTON, Event.MouseInput.Event - MOUSE_COUNT, false);
-					Game.GetState()->HandleMouseLift(Event.MouseInput.Event - MOUSE_COUNT, Event.MouseInput.X, Event.MouseInput.Y);
+					Framework.GetState()->HandleMouseLift(Event.MouseInput.Event - MOUSE_COUNT, Event.MouseInput.X, Event.MouseInput.Y);
 				break;
 				case EMIE_MOUSE_MOVED:
 
@@ -120,7 +120,7 @@ bool _Input::OnEvent(const SEvent &Event) {
 						int AxisY = MouseValueY < 0.0f ? 2 : 3;
 						Actions.InputEvent(_Input::MOUSE_AXIS, AxisX, fabs(MouseValueX));
 						Actions.InputEvent(_Input::MOUSE_AXIS, AxisY, fabs(MouseValueY));
-						Game.GetState()->HandleMouseMotion(MouseValueX, MouseValueY);
+						Framework.GetState()->HandleMouseMotion(MouseValueX, MouseValueY);
 					}
 				break;
 				case EMIE_MOUSE_WHEEL:
@@ -128,7 +128,7 @@ bool _Input::OnEvent(const SEvent &Event) {
 						Actions.InputEvent(_Input::MOUSE_AXIS, 4, Event.MouseInput.Wheel);
 					else
 						Actions.InputEvent(_Input::MOUSE_AXIS, 5, Event.MouseInput.Wheel);
-					Game.GetState()->HandleMouseWheel(Event.MouseInput.Wheel);
+					Framework.GetState()->HandleMouseWheel(Event.MouseInput.Wheel);
 				break;
 				default:
 				break;
@@ -137,7 +137,7 @@ bool _Input::OnEvent(const SEvent &Event) {
 			return false;
 		break;
 		case EET_GUI_EVENT:
-			Game.GetState()->HandleGUI(Event.GUIEvent.EventType, Event.GUIEvent.Caller);
+			Framework.GetState()->HandleGUI(Event.GUIEvent.EventType, Event.GUIEvent.Caller);
 		break;
 		case EET_JOYSTICK_INPUT_EVENT: {
 			if(!Config.JoystickEnabled || Event.JoystickEvent.Joystick != Config.JoystickIndex)
@@ -273,7 +273,7 @@ float _Input::GetAxis(int Axis) {
 
 // Use actions to drive the mouse
 void _Input::DriveMouse(int Action, float Value) {
-	if(!Game.GetWindowActive())
+	if(!Framework.GetWindowActive())
 		return;
 
 	if(Action == _Actions::MENU_GO) {
@@ -296,16 +296,16 @@ void _Input::DriveMouse(int Action, float Value) {
 
 	switch(Action) {
 		case _Actions::CURSOR_LEFT:
-			MouseX -= Value * Game.GetLastFrameTime();
+			MouseX -= Value * Framework.GetLastFrameTime();
 		break;
 		case _Actions::CURSOR_RIGHT:
-			MouseX += Value * Game.GetLastFrameTime();
+			MouseX += Value * Framework.GetLastFrameTime();
 		break;
 		case _Actions::CURSOR_UP:
-			MouseY -= Value * Game.GetLastFrameTime();
+			MouseY -= Value * Framework.GetLastFrameTime();
 		break;
 		case _Actions::CURSOR_DOWN:
-			MouseY += Value * Game.GetLastFrameTime();
+			MouseY += Value * Framework.GetLastFrameTime();
 		break;
 	}
 

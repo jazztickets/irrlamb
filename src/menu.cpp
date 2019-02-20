@@ -22,7 +22,7 @@
 #include <interface.h>
 #include <globals.h>
 #include <config.h>
-#include <game.h>
+#include <framework.h>
 #include <save.h>
 #include <campaign.h>
 #include <level.h>
@@ -101,12 +101,12 @@ bool _Menu::HandleAction(int InputType, int Action, float Value) {
 			case _Actions::MENU_BACK:
 				switch(State) {
 					case STATE_MAIN:
-						Game.SetDone(true);
+						Framework.SetDone(true);
 					break;
 					case STATE_CAMPAIGNS:
 					case STATE_OPTIONS:
 					case STATE_REPLAYS:
-						if(Game.GetState() == &PlayState)
+						if(Framework.GetState() == &PlayState)
 							InitPause();
 						else
 							InitMain();
@@ -125,7 +125,7 @@ bool _Menu::HandleAction(int InputType, int Action, float Value) {
 					case STATE_LOSE:
 					case STATE_WIN:
 						NullState.State = STATE_LEVELS;
-						Game.ChangeState(&NullState);
+						Framework.ChangeState(&NullState);
 					break;
 					case STATE_SAVEREPLAY:
 						if(PreviousState == STATE_WIN)
@@ -271,7 +271,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 					InitOptions();
 				break;
 				case MAIN_QUIT:
-					Game.SetDone(true);
+					Framework.SetDone(true);
 				break;
 				case CAMPAIGNS_BACK:
 					InitMain();
@@ -321,7 +321,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 					InitControls();
 				break;
 				case OPTIONS_BACK:
-					if(Game.GetState() == &PlayState)
+					if(Framework.GetState() == &PlayState)
 						InitPause();
 					else
 						InitMain();
@@ -395,10 +395,10 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 					// Init or disable audio system
 					if(OldAudioEnabled != Enabled) {
 						if(Enabled) {
-							Game.EnableAudio();
+							Framework.EnableAudio();
 						}
 						else
-							Game.DisableAudio();
+							Framework.DisableAudio();
 					}
 
 					InitOptions();
@@ -480,7 +480,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 				break;
 				case PAUSE_QUITLEVEL:
 					NullState.State = STATE_LEVELS;
-					Game.ChangeState(&NullState);
+					Framework.ChangeState(&NullState);
 				break;
 				case SAVEREPLAY_SAVE:
 					SaveReplay();
@@ -499,7 +499,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 				break;
 				case WIN_NEXTLEVEL:
 					Campaign.GetNextLevel(PlayState.CurrentCampaign, PlayState.CampaignLevel, true);
-					Game.ChangeState(&PlayState);
+					Framework.ChangeState(&PlayState);
 					CampaignIndex = PlayState.CurrentCampaign;
 				break;
 				case LOSE_SAVEREPLAY:
@@ -509,7 +509,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 				case LOSE_MAINMENU:
 				case WIN_MAINMENU:
 					NullState.State = STATE_LEVELS;
-					Game.ChangeState(&NullState);
+					Framework.ChangeState(&NullState);
 				break;
 			}
 		break;
@@ -753,7 +753,7 @@ void _Menu::InitReplays(bool PlaySound) {
 						CurrentLayout,
 						REPLAY_LEVELID + ReplayIndex
 					);
-					Level->setImage(irrDriver->getTexture((Game.GetWorkingPath() + "levels/" + Replay.GetLevelName() + "/icon.jpg").c_str()));
+					Level->setImage(irrDriver->getTexture((Framework.GetWorkingPath() + "levels/" + Replay.GetLevelName() + "/icon.jpg").c_str()));
 					Level->setScaleImage(true);
 
 					// Update columns and rows
@@ -1404,7 +1404,7 @@ void _Menu::LaunchLevel() {
 	PlayState.SetTestLevel("");
 	PlayState.SetCampaign(CampaignIndex);
 	PlayState.SetCampaignLevel(SelectedLevel);
-	Game.ChangeState(&PlayState);
+	Framework.ChangeState(&PlayState);
 }
 
 // Scroll the replay list up
@@ -1431,7 +1431,7 @@ void _Menu::LaunchReplay() {
 
 		// Load replay
 		ViewReplayState.SetCurrentReplay(ReplayFiles[SelectedLevel].Filename);
-		Game.ChangeState(&ViewReplayState);
+		Framework.ChangeState(&ViewReplayState);
 	}
 }
 

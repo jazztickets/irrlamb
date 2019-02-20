@@ -17,7 +17,7 @@
 *******************************************************************************/
 #include <level.h>
 #include <globals.h>
-#include <game.h>
+#include <framework.h>
 #include <objectmanager.h>
 #include <scripting.h>
 #include <graphics.h>
@@ -78,9 +78,9 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 	this->LevelName = LevelName;
 	LevelNiceName = "";
 	std::string LevelFile = LevelName + "/" + LevelName + ".xml";
-	std::string FilePath = Game.GetWorkingPath() + std::string("levels/") + LevelFile;
+	std::string FilePath = Framework.GetWorkingPath() + std::string("levels/") + LevelFile;
 	std::string CustomFilePath = Save.CustomLevelsPath + LevelFile;
-	std::string DataPath = Game.GetWorkingPath() + std::string("levels/") + LevelName + "/";
+	std::string DataPath = Framework.GetWorkingPath() + std::string("levels/") + LevelName + "/";
 
 	// See if custom level exists first
 	IsCustomLevel = false;
@@ -142,7 +142,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 
 	// Load default lua script
 	Scripts.clear();
-	Scripts.push_back(Game.GetWorkingPath() + "scripts/default.lua");
+	Scripts.push_back(Framework.GetWorkingPath() + "scripts/default.lua");
 
 	// Options
 	bool Fog = false;
@@ -182,7 +182,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 			if(IsCustomLevel) {
 				irrFile->changeWorkingDirectoryTo(DataPath.c_str());
 				irrScene->loadScene(File.c_str(), &UserDataLoader);
-				irrFile->changeWorkingDirectoryTo(Game.GetWorkingPath().c_str());
+				irrFile->changeWorkingDirectoryTo(Framework.GetWorkingPath().c_str());
 			}
 			else {
 				irrScene->loadScene((DataPath + File).c_str(), &UserDataLoader);
@@ -446,7 +446,7 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 		// Get filename
 		const char *Filename = Element->Attribute("file");
 		if(Filename) {
-			Object.Textures[Index] = Game.GetWorkingPath() + std::string("textures/") + Filename;
+			Object.Textures[Index] = Framework.GetWorkingPath() + std::string("textures/") + Filename;
 			if(!irrFile->existFile(Object.Textures[Index].c_str())) {
 				Log.Write("Texture file does not exist: %s", Filename);
 				return 0;

@@ -16,7 +16,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #include <actions.h>
-#include <game.h>
+#include <framework.h>
 #include <state.h>
 #include <config.h>
 #include <tinyxml/tinyxml2.h>
@@ -149,7 +149,7 @@ void _Actions::InputEvent(int InputType, int Input, float Value) {
 		}
 
 		// If true is returned, stop handling the same key
-		if(Game.GetState()->HandleAction(InputType, MapIterator.Action, InputValue))
+		if(Framework.GetState()->HandleAction(InputType, MapIterator.Action, InputValue))
 			break;
 	}
 }

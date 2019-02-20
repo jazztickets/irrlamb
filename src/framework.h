@@ -23,7 +23,7 @@
 // Forward Declarations
 class _State;
 
-class _Game {
+class _Framework {
 
 	public:
 
@@ -82,4 +82,4 @@ class _Game {
 };
 
 // Singletons
-extern _Game Game;
+extern _Framework Framework;
