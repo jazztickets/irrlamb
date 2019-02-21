@@ -26,4 +26,4 @@ Camera.SetPitch(5)
 GoalCount = 1
 
 -- Show text
-GUI.TutorialText("Jump and hold [" .. KEY_RIGHT .. "] at the same time. Then jump again shortly after you land.", 15)
+GUI.TutorialText("Jump and hold [" .. KEY_RIGHT .. "] at the same time. While still holding [" .. KEY_RIGHT .. "], jump again right as you land.", 15)

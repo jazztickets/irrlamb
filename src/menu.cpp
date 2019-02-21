@@ -736,7 +736,7 @@ void _Menu::InitReplays(bool PlaySound) {
 
 			// Load header
 			bool Loaded = Replay.LoadReplay(FileList->getFileName(i).c_str(), true);
-			if(Loaded && Replay.GetVersion() == REPLAY_VERSION) {
+			if(Loaded && Replay.GetVersion() == REPLAY_VERSION && Replay.GetTimeStep() == PHYSICS_TIMESTEP) {
 				if(ReplayCount >= StartOffset) {
 
 					char Buffer[256];

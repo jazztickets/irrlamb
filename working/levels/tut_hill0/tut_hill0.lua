@@ -11,4 +11,4 @@ end
 GoalCount = 1
 
 -- Show text
-GUI.TutorialText("When climbing a steep hill, try hitting [" .. KEY_JUMP .. "] repeatedly.", 20)
+GUI.TutorialText("Jumping can help you get up steep hills, or you can try an easier path.", 10)

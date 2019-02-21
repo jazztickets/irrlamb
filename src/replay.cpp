@@ -189,6 +189,12 @@ void _Replay::LoadHeader() {
 				if(Debug)
 					Log.Write("FinishTime=%f, PacketSize=%d sizeof=%d", FinishTime, PacketSize, sizeof(FinishTime));
 			break;
+			case PACKET_TIMESTEP:
+				File.read((char *)&TimeStep, sizeof(TimeStep));
+
+				if(Debug)
+					Log.Write("TimeStep=%f, PacketSize=%d sizeof=%d", TimeStep, PacketSize, sizeof(TimeStep));
+			break;
 			case PACKET_AUTOSAVE:
 				Autosave = File.get();
 

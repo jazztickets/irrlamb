@@ -85,6 +85,7 @@ class _Replay {
 		const std::string &GetDescription() { return Description; }
 		int32_t GetVersion() { return ReplayVersion; }
 		int32_t GetLevelVersion() { return LevelVersion; }
+		float GetTimeStep() { return TimeStep; }
 		float GetFinishTime() { return FinishTime; }
 		time_t &GetTimeStamp() { return TimeStamp; }
 		bool GetAutosave() { return Autosave; }
@@ -102,6 +103,7 @@ class _Replay {
 		std::string Description;
 		time_t TimeStamp;
 		float FinishTime;
+		float TimeStep;
 		bool Autosave;
 		bool Won;
 

@@ -6,9 +6,9 @@
 		<level>tut_move1</level>
 		<level>tut_jump1</level>
 		<level>tut_cylinder0</level>
-		<level>tut_hill0</level>
-		<level>tut_jump2</level>
 		<level>tut_move2</level>
+		<level>tut_jump2</level>
+		<level>tut_hill0</level>
 		<level>tut_sphere0</level>
 		<level>tut_jump3</level>
 		<level>tut_cylinder1</level>
