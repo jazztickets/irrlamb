@@ -1,8 +1,46 @@
 irrlamb - 3D physics game
+https://github.com/jazztickets/irrlamb
 by Alan Witkowski
 
-Source code at:
-https://github.com/jazztickets/irrlamb
+----- HOW TO PLAY -----
+
+-- Game Controls --
+E                     Move forward
+D                     Move backwards
+S                     Move left
+F                     Move right
+X                     Restart level
+Spacebar              Jump
+Escape                Menu (or quit game in test mode)
+F1                    Menu
+F2                    Invert mouse Y-axis
+F3                    Show player position in console
+F5                    Reload level from disk
+F11                   Toggle HUD
+F12                   Screenshot
+
+-- Gamepad Controls --
+Left Analog Stick     Move
+Right Analog Stick    Adjust camera
+A                     Jump
+B                     Go back in menu
+Select                Restart level
+Start                 Menu
+
+-- Replay Controls --
+Right Mouse Button    Enable free camera mode
+Spacebar              Pause
+Right Arrow           Skip 1 second
+Up Arrow*             Increase replay speed by 0.1x
+Down Arrow*           Decrease replay speed by 0.1x
+Mouse Wheel*          Increase/decrease replay speed by 0.1x
+1                     Set replay speed to 0.5x
+2                     Set replay speed to 1.0x
+3                     Set replay speed to 2.0x
+4                     Set replay speed to 4.0x
+5                     Set replay speed to 8.0x
+
+*Holding Left Shift changes by 0.01x
 
 ----- BUILDING -----
 
@@ -46,24 +84,9 @@ https://www.openal.org/downloads/oalinst.zip
 -replay [.replay file]    View a replay
 -noaudio                  Disable audio
 
-Keys
-E                         Move Forward
-D                         Move Backwards
-S                         Move Left
-F                         Move Right
-X                         Restart level
-Space                     Jump
-Escape                    Menu (or quit game in test mode)
-F1                        Menu
-F2                        Invert mouse
-F3                        Show position in console
-F5                        Reload level from disk
-F11                       Toggle HUD
-F12                       Screenshot
-
-
 Save data is in ~/.local/share/irrlamb for linux and %APPDATA%/irrlamb for windows.
 
+----- DEVELOPMENT -----
 
 Setting up blender for exporting:
 
