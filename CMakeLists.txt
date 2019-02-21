@@ -45,7 +45,9 @@ endif()
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
 
 # Set gl preference
-set(OpenGL_GL_PREFERENCE GLVND)
+if(NOT DEFINED OpenGL_GL_PREFERENCE)
+	set(OpenGL_GL_PREFERENCE GLVND)
+endif()
 
 # find libraries
 find_package(OpenGL REQUIRED)
