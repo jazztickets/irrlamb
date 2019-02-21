@@ -743,6 +743,8 @@ void _Menu::InitReplays(bool PlaySound) {
 
 					// Get level info
 					Level.Init(Replay.GetLevelName(), true);
+					if(Level.LevelVersion > Replay.GetLevelVersion())
+						continue;
 
 					// Get replay info
 					_ReplayInfo ReplayInfo;
@@ -762,7 +764,7 @@ void _Menu::InitReplays(bool PlaySound) {
 					ReplayFiles.push_back(ReplayInfo);
 
 					// Add button
-					gui::IGUIButton *Level = irrGUI->addButton(
+					gui::IGUIButton *LevelButton = irrGUI->addButton(
 						Interface.GetCenteredRectPercent(
 							StartX + Column * SpacingX,
 							StartY + Row * SpacingY,
@@ -772,8 +774,8 @@ void _Menu::InitReplays(bool PlaySound) {
 						CurrentLayout,
 						REPLAY_LEVELID + ReplayIndex
 					);
-					Level->setImage(irrDriver->getTexture((Framework.GetWorkingPath() + "levels/" + Replay.GetLevelName() + "/icon.jpg").c_str()));
-					Level->setScaleImage(true);
+					LevelButton->setImage(irrDriver->getTexture((Framework.GetWorkingPath() + "levels/" + Replay.GetLevelName() + "/icon.jpg").c_str()));
+					LevelButton->setScaleImage(true);
 
 					// Update columns and rows
 					Column++;

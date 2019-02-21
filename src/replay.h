@@ -84,6 +84,7 @@ class _Replay {
 		const std::string &GetLevelName() { return LevelName; }
 		const std::string &GetDescription() { return Description; }
 		int32_t GetVersion() { return ReplayVersion; }
+		int32_t GetLevelVersion() { return LevelVersion; }
 		float GetFinishTime() { return FinishTime; }
 		time_t &GetTimeStamp() { return TimeStamp; }
 		bool GetAutosave() { return Autosave; }
