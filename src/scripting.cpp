@@ -765,13 +765,13 @@ void _Scripting::AddTimedCallback(const std::string &FunctionName, float Time) {
 
 	// Create callback structure
 	_TimedCallback Callback;
-	Callback.TimeStamp = PlayState.GetTimer() + Time;
+	Callback.Timestamp = PlayState.GetTimer() + Time;
 	Callback.Function = FunctionName;
 
 	// Insert in order
 	auto Iterator = TimedCallbacks.begin();
 	for(; Iterator != TimedCallbacks.end(); ++Iterator) {
-		if(Callback.TimeStamp < (*Iterator).TimeStamp)
+		if(Callback.Timestamp < (*Iterator).Timestamp)
 			break;
 	}
 
@@ -783,7 +783,7 @@ void _Scripting::AddTimedCallback(const std::string &FunctionName, float Time) {
 void _Scripting::UpdateTimedCallbacks() {
 
 	for(auto Iterator = TimedCallbacks.begin(); Iterator != TimedCallbacks.end(); ++Iterator) {
-		if(PlayState.GetTimer() >= (*Iterator).TimeStamp) {
+		if(PlayState.GetTimer() >= (*Iterator).Timestamp) {
 			Scripting.CallFunction((*Iterator).Function);
 
 			// Remove callback

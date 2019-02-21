@@ -53,7 +53,7 @@ int _NullState::Init() {
 			Menu.InitLevels();
 		break;
 		case _Menu::STATE_REPLAYS:
-			Menu.InitReplays();
+			Menu.InitReplays(true);
 		break;
 		default:
 			Menu.InitMain();

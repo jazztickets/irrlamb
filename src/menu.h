@@ -30,10 +30,12 @@ struct _LevelStat;
 // Replay info struct
 struct _ReplayInfo {
 	std::string Filename;
+	std::string LevelName;
 	std::string LevelNiceName;
 	std::string Description;
 	std::string FinishTime;
 	std::string Date;
+	int Timestamp;
 	bool Autosave;
 	bool Won;
 };
@@ -63,18 +65,25 @@ class _Menu {
 			STATE_WIN
 		};
 
+		enum ReplaySortType {
+			SORT_TIMESTAMP,
+			SORT_LEVELNAME,
+			SORT_MAX,
+		};
+
 		_Menu() {
 			State = PreviousState = STATE_NONE;
 			FirstStateLoad = true;
 			CurrentLayout = 0;
 			SelectedElement = nullptr;
 			StartOffset = 0;
+			ReplaySort = SORT_TIMESTAMP;
 		}
 
 		void InitMain();
 		void InitCampaigns();
 		void InitLevels();
-		void InitReplays(bool PlaySound=true);
+		void InitReplays(bool LoadReplays);
 		void InitOptions();
 		void InitGameplayOptions();
 		void InitVideoOptions();
@@ -118,6 +127,7 @@ class _Menu {
 		// Replays
 		std::vector<_ReplayInfo> ReplayFiles;
 		irr::gui::IGUIElement *SelectedElement;
+		int ReplaySort;
 		uint32_t StartOffset;
 
 		// Campaigns

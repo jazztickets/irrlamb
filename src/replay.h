@@ -23,7 +23,7 @@
 // Event packet structure
 struct _ReplayEvent {
 	uint8_t Type;
-	float TimeStamp;
+	float Timestamp;
 };
 
 // Classes
@@ -87,7 +87,7 @@ class _Replay {
 		int32_t GetLevelVersion() { return LevelVersion; }
 		float GetTimeStep() { return TimeStep; }
 		float GetFinishTime() { return FinishTime; }
-		time_t &GetTimeStamp() { return TimeStamp; }
+		time_t &GetTimestamp() { return Timestamp; }
 		bool GetAutosave() { return Autosave; }
 		bool GetWon() { return Won; }
 
@@ -101,7 +101,7 @@ class _Replay {
 		int32_t LevelVersion;
 		std::string LevelName;
 		std::string Description;
-		time_t TimeStamp;
+		time_t Timestamp;
 		float FinishTime;
 		float TimeStep;
 		bool Autosave;

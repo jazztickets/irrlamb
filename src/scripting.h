@@ -23,7 +23,7 @@
 
 // Structures
 struct _TimedCallback {
-	float TimeStamp;
+	float Timestamp;
 	std::string Function;
 };
 

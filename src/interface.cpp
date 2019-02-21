@@ -90,6 +90,7 @@ int _Interface::Init() {
 	Images[IMAGE_SELECTED] = irrDriver->getTexture("ui/selected.png");
 	Images[IMAGE_BUTTON_UP] = irrDriver->getTexture("ui/button_up.png");
 	Images[IMAGE_BUTTON_DOWN] = irrDriver->getTexture("ui/button_down.png");
+	Images[IMAGE_BUTTON_SORT] = irrDriver->getTexture("ui/button_sort.png");
 	Images[IMAGE_BUTTON_DELETE] = irrDriver->getTexture("ui/button_delete.png");
 
 	// Set sounds to nullptr

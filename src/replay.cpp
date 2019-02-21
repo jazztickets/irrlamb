@@ -61,7 +61,7 @@ void _Replay::StopRecording() {
 // Saves the current replay out to a file
 bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave, bool Won) {
 	Description = PlayerDescription;
-	TimeStamp = time(nullptr);
+	Timestamp = time(nullptr);
 	FinishTime = Time;
 
 	// Flush current replay file
@@ -69,7 +69,7 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave, bo
 
 	// Get new file name
 	std::stringstream ReplayFilePath;
-	ReplayFilePath << Save.ReplayPath << (uint32_t)TimeStamp << ".replay";
+	ReplayFilePath << Save.ReplayPath << (uint32_t)Timestamp << ".replay";
 
 	// Open new file
 	std::fstream NewFile(ReplayFilePath.str().c_str(), std::ios::out | std::ios::binary);
@@ -94,7 +94,7 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave, bo
 	WriteChunk(NewFile, PACKET_DESCRIPTION, Description.c_str(), Description.length());
 
 	// Write time stamp
-	WriteChunk(NewFile, PACKET_DATE, (char *)&TimeStamp, sizeof(TimeStamp));
+	WriteChunk(NewFile, PACKET_DATE, (char *)&Timestamp, sizeof(Timestamp));
 
 	// Write finish time
 	WriteChunk(NewFile, PACKET_FINISHTIME, (char *)&FinishTime, sizeof(FinishTime));
@@ -178,10 +178,10 @@ void _Replay::LoadHeader() {
 			case PACKET_DATE:
 				if(PacketSize > 8)
 					PacketSize = 8;
-				File.read((char *)&TimeStamp, PacketSize);
+				File.read((char *)&Timestamp, PacketSize);
 
 				if(Debug)
-					Log.Write("TimeStamp=%d, PacketSize=%d sizeof=%d", TimeStamp, PacketSize, sizeof(TimeStamp));
+					Log.Write("Timestamp=%d, PacketSize=%d sizeof=%d", Timestamp, PacketSize, sizeof(Timestamp));
 			break;
 			case PACKET_FINISHTIME:
 				File.read((char *)&FinishTime, sizeof(FinishTime));
@@ -291,5 +291,5 @@ void _Replay::WriteEvent(uint8_t Type) {
 // Reads a packet header
 void _Replay::ReadEvent(_ReplayEvent &Packet) {
 	Packet.Type = File.get();
-	File.read((char *)&Packet.TimeStamp, sizeof(Packet.TimeStamp));
+	File.read((char *)&Packet.Timestamp, sizeof(Packet.Timestamp));
 }

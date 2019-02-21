@@ -186,8 +186,8 @@ void _Framework::Update() {
 		Done = true;
 
 	// Get time difference from last frame
-	LastFrameTime = std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - TimeStamp);
-	TimeStamp = std::chrono::high_resolution_clock::now();
+	LastFrameTime = std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - Timestamp);
+	Timestamp = std::chrono::high_resolution_clock::now();
 
 	// Check for window activity
 	PreviousWindowActive = WindowActive;
@@ -248,12 +248,12 @@ void _Framework::Update() {
 
 	// Limit frame rate
 	if(Config.MaxFPS > 0) {
-		auto LastFrameLimitTime = std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - FrameLimitTimeStamp);
+		auto LastFrameLimitTime = std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - FrameLimitTimestamp);
 		float ExtraTime = (1.0 / Config.MaxFPS) - LastFrameLimitTime.count();
 		if(ExtraTime > 0.0f)
 			irrDevice->sleep((uint32_t)(ExtraTime * 1000));
 
-		FrameLimitTimeStamp = std::chrono::high_resolution_clock::now();
+		FrameLimitTimestamp = std::chrono::high_resolution_clock::now();
 	}
 }
 
@@ -279,8 +279,8 @@ void _Framework::Close() {
 
 // Resets the game timer
 void _Framework::ResetTimer() {
-	TimeStamp = std::chrono::high_resolution_clock::now();
-	FrameLimitTimeStamp = std::chrono::high_resolution_clock::now();
+	Timestamp = std::chrono::high_resolution_clock::now();
+	FrameLimitTimestamp = std::chrono::high_resolution_clock::now();
 }
 
 // Resets the graphics for a state

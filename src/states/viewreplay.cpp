@@ -208,8 +208,8 @@ void _ViewReplayState::Update(float FrameTime) {
 
 	// Update the replay
 	Timer += FrameTime;
-	while(!Replay.ReplayStopped() && Timer >= NextEvent.TimeStamp) {
-		//printf("Processing header packet: type=%d time=%f\n", NextEvent.Type, NextEvent.TimeStamp);
+	while(!Replay.ReplayStopped() && Timer >= NextEvent.Timestamp) {
+		//printf("Processing header packet: type=%d time=%f\n", NextEvent.Type, NextEvent.Timestamp);
 
 		switch(NextEvent.Type) {
 			case _Replay::PACKET_MOVEMENT:

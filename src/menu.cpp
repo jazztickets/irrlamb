@@ -78,7 +78,7 @@ enum GUIElements {
 	CAMPAIGNS_BACK,
 	LEVELS_GO, LEVELS_BUY, LEVELS_HIGHSCORES, LEVELS_BACK, LEVELS_SELECTEDLEVEL,
 	LEVELINFO_DESCRIPTION, LEVELINFO_ATTEMPTS, LEVELINFO_WINS, LEVELINFO_LOSSES, LEVELINFO_PLAYTIME, LEVELINFO_BESTTIME,
-	REPLAYS_VIEW, REPLAYS_DELETE, REPLAYS_BACK, REPLAYS_UP, REPLAYS_DOWN,
+	REPLAYS_SORT, REPLAYS_DELETE, REPLAYS_BACK, REPLAYS_UP, REPLAYS_DOWN,
 	OPTIONS_GAMEPLAY, OPTIONS_VIDEO, OPTIONS_AUDIO, OPTIONS_CONTROLS, OPTIONS_BACK,
 	GAMEPLAY_SHOWFPS, GAMEPLAY_SHOWTUTORIAL, GAMEPLAY_SAVE, GAMEPLAY_CANCEL,
 	VIDEO_SAVE, VIDEO_CANCEL, VIDEO_VIDEOMODES, VIDEO_FULLSCREEN, VIDEO_SHADOWS, VIDEO_SHADERS, VIDEO_VSYNC, VIDEO_ANISOTROPY, VIDEO_ANTIALIASING,
@@ -89,6 +89,16 @@ enum GUIElements {
 	LOSE_RESTARTLEVEL, LOSE_SAVEREPLAY, LOSE_MAINMENU,
 	WIN_RESTARTLEVEL, WIN_NEXTLEVEL, WIN_SAVEREPLAY, WIN_MAINMENU,
 };
+
+// Compare function for sorting replays by timestamp
+bool CompareReplaysTimestamp(const _ReplayInfo &Left, const _ReplayInfo &Right) {
+	return Left.Timestamp > Right.Timestamp;
+}
+
+// Compare function for sorting replays by level, then timestamp
+bool CompareReplaysLevel(const _ReplayInfo &Left, const _ReplayInfo &Right) {
+	return Left.LevelName < Right.LevelName || (Left.LevelName == Right.LevelName && Left.Timestamp > Right.Timestamp);
+}
 
 // Handle action inputs
 bool _Menu::HandleAction(int InputType, int Action, float Value) {
@@ -267,7 +277,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 				break;
 				case MAIN_REPLAYS:
 					StartOffset = 0;
-					InitReplays();
+					InitReplays(true);
 				break;
 				case MAIN_OPTIONS:
 					InitOptions();
@@ -284,8 +294,11 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 				case LEVELS_BACK:
 					InitCampaigns();
 				break;
-				case REPLAYS_VIEW:
-					LaunchReplay();
+				case REPLAYS_SORT:
+					ReplaySort++;
+					if(ReplaySort >= SORT_MAX)
+						ReplaySort = 0;
+					InitReplays(true);
 				break;
 				case REPLAYS_DELETE: {
 
@@ -300,7 +313,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 						remove(FilePath.c_str());
 
 						// Refresh screen
-						InitReplays();
+						InitReplays(true);
 					}
 				}
 				break;
@@ -700,7 +713,7 @@ void _Menu::InitLevels() {
 }
 
 // Create the replay menu
-void _Menu::InitReplays(bool PlaySound) {
+void _Menu::InitReplays(bool LoadReplays) {
 	Interface.ChangeSkin(_Interface::SKIN_MENU);
 	ClearCurrentLayout();
 
@@ -710,35 +723,25 @@ void _Menu::InitReplays(bool PlaySound) {
 	// Text
 	AddMenuText(Interface.GetPositionPercent(0.5, 0.1), L"Replays");
 
-	// Change directories
-	std::string OldWorkingDirectory(irrFile->getWorkingDirectory().c_str());
-	irrFile->changeWorkingDirectoryTo(Save.ReplayPath.c_str());
+	// Load replay files
+	if(LoadReplays) {
 
-	// Clear list
-	ReplayFiles.clear();
+		// Change directories
+		std::string OldWorkingDirectory(irrFile->getWorkingDirectory().c_str());
+		irrFile->changeWorkingDirectoryTo(Save.ReplayPath.c_str());
 
-	// Calculate layout
-	int ColumnsPerRow = REPLAY_COLUMNS;
-	int Column = 0, Row = 0;
-	float SpacingX = (BUTTON_LEVEL_SIZE * Interface.GetUIScale()) / irrDriver->getScreenSize().Width + 0.01f * irrDriver->getScreenSize().Height / irrDriver->getScreenSize().Width;
-	float SpacingY = (BUTTON_LEVEL_SIZE * Interface.GetUIScale()) / irrDriver->getScreenSize().Height + 0.01f;
-	float StartX = 0.5f - (SpacingX * (ColumnsPerRow - 1) / 2.0f);
-	float StartY = 0.3f;
-	float EndX = 0.5f + (SpacingX * (ColumnsPerRow - 1) / 2.0f) + SpacingX;
+		// Clear list
+		ReplayFiles.clear();
 
-	// Get a list of replays
-	io::IFileList *FileList = irrFile->createFileList();
-	uint32_t FileCount = FileList->getFileCount();
-	uint32_t ReplayIndex = 0;
-	uint32_t ReplayCount = 0;
-	for(uint32_t i = 0; i < FileCount; i++) {
-		if(!FileList->isDirectory(i) && FileList->getFileName(i).find(".replay") != -1) {
+		// Get a list of replays
+		io::IFileList *FileList = irrFile->createFileList();
+		uint32_t FileCount = FileList->getFileCount();
+		for(uint32_t i = 0; i < FileCount; i++) {
+			if(!FileList->isDirectory(i) && FileList->getFileName(i).find(".replay") != -1) {
 
-			// Load header
-			bool Loaded = Replay.LoadReplay(FileList->getFileName(i).c_str(), true);
-			if(Loaded && Replay.GetVersion() == REPLAY_VERSION && Replay.GetTimeStep() == PHYSICS_TIMESTEP) {
-				if(ReplayCount >= StartOffset) {
-
+				// Load header
+				bool Loaded = Replay.LoadReplay(FileList->getFileName(i).c_str(), true);
+				if(Loaded && Replay.GetVersion() == REPLAY_VERSION && Replay.GetTimeStep() == PHYSICS_TIMESTEP) {
 					char Buffer[256];
 
 					// Get level info
@@ -750,66 +753,91 @@ void _Menu::InitReplays(bool PlaySound) {
 					_ReplayInfo ReplayInfo;
 					ReplayInfo.Filename = FileList->getFileName(i).c_str();
 					ReplayInfo.Description = Replay.GetDescription();
+					ReplayInfo.LevelName = Level.LevelName;
 					ReplayInfo.LevelNiceName = Level.LevelNiceName;
 					ReplayInfo.Autosave = Replay.GetAutosave();
 					ReplayInfo.Won = Replay.GetWon();
+					ReplayInfo.Timestamp = Replay.GetTimestamp();
 
 					// Date
-					strftime(Buffer, 32, "%Y-%m-%d", localtime(&Replay.GetTimeStamp()));
+					strftime(Buffer, 32, "%Y-%m-%d %H:%M:%S", localtime(&Replay.GetTimestamp()));
 					ReplayInfo.Date = Buffer;
 
 					// Get time string
 					Interface.ConvertSecondsToString(Replay.GetFinishTime(), Buffer);
 					ReplayInfo.FinishTime = Buffer;
 					ReplayFiles.push_back(ReplayInfo);
-
-					// Add button
-					gui::IGUIButton *LevelButton = irrGUI->addButton(
-						Interface.GetCenteredRectPercent(
-							StartX + Column * SpacingX,
-							StartY + Row * SpacingY,
-							BUTTON_LEVEL_SIZE,
-							BUTTON_LEVEL_SIZE
-						),
-						CurrentLayout,
-						REPLAY_LEVELID + ReplayIndex
-					);
-					LevelButton->setImage(irrDriver->getTexture((Framework.GetWorkingPath() + "levels/" + Replay.GetLevelName() + "/icon.jpg").c_str()));
-					LevelButton->setScaleImage(true);
-
-					// Update columns and rows
-					Column++;
-					if(Column >= REPLAY_COLUMNS) {
-						Column = 0;
-						Row++;
-					}
-
-					// Cap display count
-					ReplayIndex++;
-					if(ReplayIndex >= REPLAY_DISPLAY_COUNT)
-						break;
 				}
-
-				ReplayCount++;
 			}
 		}
+		FileList->drop();
+		irrFile->changeWorkingDirectoryTo(OldWorkingDirectory.c_str());
+
+		// Sort replays
+		if(ReplaySort == SORT_TIMESTAMP)
+			std::sort(ReplayFiles.begin(), ReplayFiles.end(), CompareReplaysTimestamp);
+		else if(ReplaySort == SORT_LEVELNAME)
+			std::sort(ReplayFiles.begin(), ReplayFiles.end(), CompareReplaysLevel);
 	}
-	FileList->drop();
-	irrFile->changeWorkingDirectoryTo(OldWorkingDirectory.c_str());
+
+	// Calculate layout
+	int ColumnsPerRow = REPLAY_COLUMNS;
+	int Column = 0, Row = 0;
+	float SpacingX = (BUTTON_LEVEL_SIZE * Interface.GetUIScale()) / irrDriver->getScreenSize().Width + 0.01f * irrDriver->getScreenSize().Height / irrDriver->getScreenSize().Width;
+	float SpacingY = (BUTTON_LEVEL_SIZE * Interface.GetUIScale()) / irrDriver->getScreenSize().Height + 0.01f;
+	float StartX = 0.5f - (SpacingX * (ColumnsPerRow - 1) / 2.0f);
+	float StartY = 0.3f;
+	float EndX = 0.5f + (SpacingX * (ColumnsPerRow - 1) / 2.0f) + SpacingX;
+
+	// Add replay buttons
+	uint32_t ReplayIndex = 0;
+	uint32_t ReplayCount = 0;
+	for(const auto &ReplayInfo : ReplayFiles) {
+		if(ReplayCount >= StartOffset) {
+
+			// Add button
+			gui::IGUIButton *LevelButton = irrGUI->addButton(
+				Interface.GetCenteredRectPercent(
+					StartX + Column * SpacingX,
+					StartY + Row * SpacingY,
+					BUTTON_LEVEL_SIZE,
+					BUTTON_LEVEL_SIZE
+				),
+				CurrentLayout,
+				REPLAY_LEVELID + ReplayIndex + StartOffset
+			);
+			LevelButton->setImage(irrDriver->getTexture((Framework.GetWorkingPath() + "levels/" + ReplayInfo.LevelName + "/icon.jpg").c_str()));
+			LevelButton->setScaleImage(true);
+
+			// Update columns and rows
+			Column++;
+			if(Column >= REPLAY_COLUMNS) {
+				Column = 0;
+				Row++;
+			}
+
+			// Cap display count
+			ReplayIndex++;
+			if(ReplayIndex >= REPLAY_DISPLAY_COUNT)
+				break;
+		}
+
+		ReplayCount++;
+	}
 
 	// Page buttons
 	AddMenuButton(Interface.GetCenteredRectPercent(EndX, 0.46, BUTTON_ICON_SIZE, BUTTON_ICON_SIZE), REPLAYS_UP, L"", _Interface::IMAGE_BUTTON_UP);
 	AddMenuButton(Interface.GetCenteredRectPercent(EndX, 0.54, BUTTON_ICON_SIZE, BUTTON_ICON_SIZE), REPLAYS_DOWN, L"", _Interface::IMAGE_BUTTON_DOWN);
 
 	// Controls
-	//AddMenuButton(Interface.GetCenteredRectPercent(EndX, 0.5, BUTTON_SMALL_SIZE_X, BUTTON_SMALL_SIZE_Y), REPLAYS_VIEW, L"View", _Interface::IMAGE_BUTTON_SMALL);
+	AddMenuButton(Interface.GetCenteredRectPercent(EndX, 0.3, BUTTON_ICON_SIZE, BUTTON_ICON_SIZE), REPLAYS_SORT, L"", _Interface::IMAGE_BUTTON_SORT);
 	AddMenuButton(Interface.GetCenteredRectPercent(EndX, 0.7, BUTTON_ICON_SIZE, BUTTON_ICON_SIZE), REPLAYS_DELETE, L"", _Interface::IMAGE_BUTTON_DELETE);
 
 	// Back button
 	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.9, BUTTON_SMALL_SIZE_X, BUTTON_SMALL_SIZE_Y), REPLAYS_BACK, L"Back", _Interface::IMAGE_BUTTON_SMALL);
 
 	// Play sound
-	if(!FirstStateLoad && PlaySound)
+	if(!FirstStateLoad && LoadReplays)
 		Interface.PlaySound(_Interface::SOUND_CONFIRM);
 	FirstStateLoad = false;
 
@@ -1470,7 +1498,7 @@ void _Menu::ReplayScrollUp() {
 
 // Scroll the replay list down
 void _Menu::ReplayScrollDown() {
-	if(ReplayFiles.size() > REPLAY_SCROLL_AMOUNT)
+	if(StartOffset < ReplayFiles.size() - REPLAY_SCROLL_AMOUNT)
 		StartOffset += REPLAY_SCROLL_AMOUNT;
 
 	InitReplays(false);

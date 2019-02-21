@@ -70,8 +70,8 @@ class _Framework {
 		bool Done, MouseWasLocked;
 
 		// Time
-		std::chrono::high_resolution_clock::time_point TimeStamp;
-		std::chrono::high_resolution_clock::time_point FrameLimitTimeStamp;
+		std::chrono::high_resolution_clock::time_point Timestamp;
+		std::chrono::high_resolution_clock::time_point FrameLimitTimestamp;
 
 		// Physics
 		std::chrono::duration<float> LastFrameTime;
