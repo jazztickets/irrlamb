@@ -142,10 +142,10 @@ bool _ViewReplayState::HandleKeyPress(int Key) {
 			Framework.SetTimeScale(8.0);
 		break;
 		case KEY_UP:
-			ChangeReplaySpeed(REPLAY_TIME_INCREMENT);
+			ChangeReplaySpeed(GetTimeIncrement());
 		break;
 		case KEY_DOWN:
-			ChangeReplaySpeed(-REPLAY_TIME_INCREMENT);
+			ChangeReplaySpeed(-GetTimeIncrement());
 		break;
 		default:
 			Processed = false;
@@ -218,14 +218,10 @@ bool _ViewReplayState::HandleAction(int InputType, int Action, float Value) {
 
 // Mouse wheel
 void _ViewReplayState::HandleMouseWheel(float Direction) {
-	float Scale = REPLAY_TIME_INCREMENT;
-	if(Input.GetKeyState(KEY_LSHIFT))
-		Scale *= 0.1f;
-
 	if(Direction < 0)
-		ChangeReplaySpeed(-Scale);
+		ChangeReplaySpeed(-GetTimeIncrement());
 	else
-		ChangeReplaySpeed(Scale);
+		ChangeReplaySpeed(GetTimeIncrement());
 }
 
 // GUI events
@@ -239,10 +235,10 @@ void _ViewReplayState::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIE
 					Framework.ChangeState(&NullState);
 				break;
 				case MAIN_DECREASE:
-					ChangeReplaySpeed(-REPLAY_TIME_INCREMENT);
+					ChangeReplaySpeed(-GetTimeIncrement());
 				break;
 				case MAIN_INCREASE:
-					ChangeReplaySpeed(REPLAY_TIME_INCREMENT);
+					ChangeReplaySpeed(GetTimeIncrement());
 				break;
 				case MAIN_PAUSE:
 					Pause();
@@ -488,4 +484,13 @@ void _ViewReplayState::Pause() {
 // Skip ahead
 void _ViewReplayState::Skip(float Amount) {
 	Framework.UpdateTimeStepAccumulator(Amount);
+}
+
+// Get how much time to adjust replay speed
+float _ViewReplayState::GetTimeIncrement() {
+	float Scale = REPLAY_TIME_INCREMENT;
+	if(Input.GetKeyState(KEY_LSHIFT))
+		Scale *= 0.1f;
+
+	return Scale;
 }

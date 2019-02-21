@@ -62,6 +62,7 @@ class _ViewReplayState : public _State {
 		void ChangeReplaySpeed(float Amount);
 		void Pause();
 		void Skip(float Amount);
+		float GetTimeIncrement();
 
 		// States
 		std::string CurrentReplay;
