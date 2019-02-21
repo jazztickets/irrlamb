@@ -20,6 +20,7 @@
 // Libraries
 #include <state.h>
 #include <replay.h>
+#include <vector3d.h>
 
 // Forward Declarations
 class _Object;
@@ -44,6 +45,8 @@ class _ViewReplayState : public _State {
 		int Close();
 
 		bool HandleKeyPress(int Key);
+		bool HandleMousePress(int Button, int MouseX, int MouseY);
+		void HandleMouseLift(int Button, int MouseX, int MouseY);
 		void HandleMouseWheel(float Direction);
 		void HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, irr::gui::IGUIElement *Element);
 		bool HandleAction(int InputType, int Action, float Value);
@@ -63,9 +66,11 @@ class _ViewReplayState : public _State {
 		// States
 		std::string CurrentReplay;
 		float Timer;
+		bool FreeCamera;
 
 		// Objects
 		_Camera *Camera;
+		irr::core::vector3df PlayerPosition;
 
 		// Replay information
 		_ReplayEvent NextEvent;

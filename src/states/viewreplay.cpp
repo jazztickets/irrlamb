@@ -46,6 +46,7 @@ int _ViewReplayState::Init() {
 	Layout = new CGUIEmptyElement(irrGUI, irrGUI->getRootGUIElement());
 	Layout->drop();
 	Camera = nullptr;
+	FreeCamera = false;
 
 	// Set up state
 	PauseSpeed = 1.0f;
@@ -154,21 +155,77 @@ bool _ViewReplayState::HandleKeyPress(int Key) {
 	return Processed;
 }
 
+// Mouse press
+bool _ViewReplayState::HandleMousePress(int Button, int MouseX, int MouseY) {
+
+	// RMB enables free camera mode
+	if(Button == 1) {
+		FreeCamera = true;
+		Input.SetMouseLocked(true);
+	}
+
+	return false;
+}
+
+// Mouse lift
+void _ViewReplayState::HandleMouseLift(int Button, int MouseX, int MouseY) {
+	if(Button == 1) {
+		FreeCamera = false;
+		Input.SetMouseLocked(false);
+	}
+}
+
 // Handle action inputs
 bool _ViewReplayState::HandleAction(int InputType, int Action, float Value) {
 	if(Input.HasJoystick())
 		Input.DriveMouse(Action, Value);
+
+	if(FreeCamera) {
+		switch(Action) {
+			case _Actions::CAMERA_LEFT:
+				if(Camera) {
+					if(InputType == _Input::JOYSTICK_AXIS)
+						Value *= Framework.GetLastFrameTime();
+					Camera->HandleMouseMotion(-Value, 0);
+				}
+			break;
+			case _Actions::CAMERA_RIGHT:
+				if(Camera) {
+					if(InputType == _Input::JOYSTICK_AXIS)
+						Value *= Framework.GetLastFrameTime();
+					Camera->HandleMouseMotion(Value, 0);
+				}
+			break;
+			case _Actions::CAMERA_UP:
+				if(Camera) {
+					if(InputType == _Input::JOYSTICK_AXIS)
+						Value *= Framework.GetLastFrameTime();
+					Camera->HandleMouseMotion(0, -Value);
+				}
+			break;
+			case _Actions::CAMERA_DOWN:
+				if(Camera) {
+					if(InputType == _Input::JOYSTICK_AXIS)
+						Value *= Framework.GetLastFrameTime();
+					Camera->HandleMouseMotion(0, Value);
+				}
+			break;
+		}
+	}
 
 	return false;
 }
 
 // Mouse wheel
 void _ViewReplayState::HandleMouseWheel(float Direction) {
+	float Scale = REPLAY_TIME_INCREMENT;
+	if(Input.GetKeyState(KEY_LSHIFT))
+		Scale *= 0.1f;
 
 	if(Direction < 0)
-		ChangeReplaySpeed(-REPLAY_TIME_INCREMENT);
+		ChangeReplaySpeed(-Scale);
 	else
-		ChangeReplaySpeed(REPLAY_TIME_INCREMENT);
+		ChangeReplaySpeed(Scale);
 }
 
 // GUI events
@@ -258,8 +315,16 @@ void _ViewReplayState::Update(float FrameTime) {
 				ReplayFile.read((char *)&LookAt.X, sizeof(float) * 3);
 
 				// Set camera orientation
-				Camera->GetNode()->setPosition(Position);
-				Camera->GetNode()->setTarget(LookAt);
+				PlayerPosition = LookAt;
+				if(!FreeCamera) {
+					Camera->GetNode()->setPosition(Position);
+					Camera->GetNode()->setTarget(LookAt);
+
+					// Set yaw and pitch of free camera
+					core::vector3df Direction = (Position - LookAt).normalize();
+					Camera->SetYaw(-std::atan2(Direction.X, -Direction.Z) * core::RADTODEG);
+					Camera->SetPitch(std::asin(Direction.Y) * core::RADTODEG);
+				}
 				Graphics.SetDrawScene(true);
 
 				//printf("Camera Position=%f %f %f Target=%f %f %f\n", Position.X, Position.Y, Position.Z, LookAt.X, LookAt.Y, LookAt.Z);
@@ -295,9 +360,11 @@ void _ViewReplayState::Update(float FrameTime) {
 
 // Draws the current state
 void _ViewReplayState::Draw() {
-	char Buffer[256];
+	if(FreeCamera)
+		Camera->Update(PlayerPosition);
 
 	// Draw box
+	char Buffer[256];
 	int Left = 10 * Interface.GetUIScale();
 	int Top = 10 * Interface.GetUIScale();
 	int Width = 460 * Interface.GetUIScale();
@@ -334,7 +401,6 @@ void _ViewReplayState::Draw() {
 
 // Setup GUI controls
 void _ViewReplayState::SetupGUI() {
-
 	float Padding = 74;
 
 	// Exit

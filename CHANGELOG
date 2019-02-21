@@ -3,6 +3,7 @@ irrlamb 0.3.0 -
 - Reworked UI theme
 - Physics now runs at 1000hz
 - Added replay sorting
+- Added freecamera mode to replays
 - Added gameplay options
 - Updated some tutorial levels
 - Windows build now uses MinGW-w64
