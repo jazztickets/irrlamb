@@ -37,7 +37,6 @@ int _Physics::Init() {
 	World->setGravity(btVector3(0.0f, -9.81f, 0.0f));
 	btContactSolverInfo &SolverInfo = World->getSolverInfo();
 	SolverInfo.m_timeStep = PHYSICS_TIMESTEP;
-	SolverInfo.m_solverMode |= SOLVER_USE_2_FRICTION_DIRECTIONS;
 
 	Enabled = false;
 
