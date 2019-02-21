@@ -569,7 +569,7 @@ void _Menu::InitMain() {
 	Image->setImage(Texture);
 
 	// Add version
-	AddMenuText(core::position2di(0.03 * irrDriver->getScreenSize().Width, 0.97 * irrDriver->getScreenSize().Height), core::stringw(GAME_VERSION).c_str(), _Interface::FONT_SMALL);
+	AddMenuText(Interface.GetPositionPercent(0.03, 0.97), core::stringw(GAME_VERSION).c_str(), _Interface::FONT_SMALL);
 
 	// Buttons
 	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.36, BUTTON_SIZE_X, BUTTON_SIZE_Y), MAIN_CAMPAIGNS, L"Play", _Interface::IMAGE_BUTTON_BIG);
@@ -596,7 +596,7 @@ void _Menu::InitCampaigns() {
 	HighlightedLevel = -1;
 
 	// Text
-	AddMenuText(core::position2di(Interface.CenterX, 0.1 * irrDriver->getScreenSize().Height), L"Categories");
+	AddMenuText(Interface.GetPositionPercent(0.5, 0.1), L"Categories");
 
 	// Campaigns
 	//const float CAMPAIGN_SPACING_X = 0.25;
@@ -630,7 +630,7 @@ void _Menu::InitLevels() {
 	const _CampaignInfo &CampaignData = Campaign.GetCampaign(CampaignIndex);
 
 	// Title
-	AddMenuText(core::position2di(Interface.CenterX, 0.1 * irrDriver->getScreenSize().Height), core::stringw(CampaignData.Name.c_str()).c_str());
+	AddMenuText(Interface.GetPositionPercent(0.5, 0.1), core::stringw(CampaignData.Name.c_str()).c_str());
 
 	// Calculate layout
 	int ColumnsPerRow = std::min((std::size_t)CAMPAIGN_COLUMNS, CampaignData.Levels.size());
@@ -708,7 +708,7 @@ void _Menu::InitReplays(bool PlaySound) {
 	HighlightedLevel = -1;
 
 	// Text
-	AddMenuText(core::position2di(Interface.CenterX, 0.1 * irrDriver->getScreenSize().Height), L"Replays");
+	AddMenuText(Interface.GetPositionPercent(0.5, 0.1), L"Replays");
 
 	// Change directories
 	std::string OldWorkingDirectory(irrFile->getWorkingDirectory().c_str());
@@ -1059,11 +1059,11 @@ void _Menu::InitPlay() {
 void _Menu::InitPause() {
 	ClearCurrentLayout();
 
-	AddMenuButton(Interface.GetCenteredRect(0.5 * irrDriver->getScreenSize().Width, 0.3 * irrDriver->getScreenSize().Height, BUTTON_SIZE_X * Interface.GetUIScale(), BUTTON_SIZE_Y * Interface.GetUIScale()), PAUSE_RESUME, L"Resume");
-	AddMenuButton(Interface.GetCenteredRect(0.5 * irrDriver->getScreenSize().Width, 0.4 * irrDriver->getScreenSize().Height, BUTTON_SIZE_X * Interface.GetUIScale(), BUTTON_SIZE_Y * Interface.GetUIScale()), PAUSE_SAVEREPLAY, L"Save Replay");
-	AddMenuButton(Interface.GetCenteredRect(0.5 * irrDriver->getScreenSize().Width, 0.5 * irrDriver->getScreenSize().Height, BUTTON_SIZE_X * Interface.GetUIScale(), BUTTON_SIZE_Y * Interface.GetUIScale()), PAUSE_RESTART, L"Restart Level");
-	AddMenuButton(Interface.GetCenteredRect(0.5 * irrDriver->getScreenSize().Width, 0.6 * irrDriver->getScreenSize().Height, BUTTON_SIZE_X * Interface.GetUIScale(), BUTTON_SIZE_Y * Interface.GetUIScale()), PAUSE_OPTIONS, L"Options");
-	AddMenuButton(Interface.GetCenteredRect(0.5 * irrDriver->getScreenSize().Width, 0.7 * irrDriver->getScreenSize().Height, BUTTON_SIZE_X * Interface.GetUIScale(), BUTTON_SIZE_Y * Interface.GetUIScale()), PAUSE_QUITLEVEL, L"Quit Level");
+	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.3, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_RESUME, L"Resume");
+	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.4, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_SAVEREPLAY, L"Save Replay");
+	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.5, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_RESTART, L"Restart Level");
+	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.6, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_OPTIONS, L"Options");
+	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.7, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_QUITLEVEL, L"Quit Level");
 
 	Input.SetMouseLocked(false);
 
