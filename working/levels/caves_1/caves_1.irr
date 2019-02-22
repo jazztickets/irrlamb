@@ -30,7 +30,7 @@
    </userData>
    <node type="mesh">
       <attributes>
-         <string name="Name" value="sas_1"/>
+         <string name="Name" value="caves_1"/>
          <int name="Id" value="-1"/>
          <bool name="Visible" value="true"/>
          <vector3d name="Position" value="0, 0, 0"/>
@@ -40,7 +40,7 @@
          <bool name="DebugDataVisible" value="false"/>
          <bool name="IsDebugObject" value="false"/>
          <bool name="ReadOnlyMaterials" value="false"/>
-         <string name="Mesh" value="meshes/sas_1.irrbmesh"/>
+         <string name="Mesh" value="meshes/caves_1.irrbmesh"/>
          <enum name="HardwareMappingHint" value="never"/>
          <enum name="HardwareMappingBufferType" value="vertexindex"/>
       </attributes>

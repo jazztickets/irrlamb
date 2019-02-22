@@ -17,8 +17,8 @@
 		<level>tut_kick0</level>
 	</campaign>
 	<campaign name="Caves">
-		<level unlocked="1">sas_0</level>
-		<!--<level>sas_1</level>-->
+		<level unlocked="1">caves_0</level>
+		<!--<level>caves_1</level>-->
 	</campaign>
 	<campaign name="Skate Set">
 		<level unlocked="1">skate_0</level>

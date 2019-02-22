@@ -208,7 +208,7 @@
    </node>
    <node type="mesh">
       <attributes>
-         <string name="Name" value="sas_0"/>
+         <string name="Name" value="caves_0"/>
          <int name="Id" value="-1"/>
          <bool name="Visible" value="true"/>
          <vector3d name="Position" value="0, 0, 0"/>
@@ -218,7 +218,7 @@
          <bool name="DebugDataVisible" value="false"/>
          <bool name="IsDebugObject" value="false"/>
          <bool name="ReadOnlyMaterials" value="false"/>
-         <string name="Mesh" value="meshes/sas_0.irrbmesh"/>
+         <string name="Mesh" value="meshes/caves_0.irrbmesh"/>
          <enum name="HardwareMappingHint" value="never"/>
          <enum name="HardwareMappingBufferType" value="vertexindex"/>
       </attributes>

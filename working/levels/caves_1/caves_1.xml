@@ -7,9 +7,9 @@
 		<emitlight enabled="1" />
 	</options>
 	<resources>
-		<script file="sas_1.lua" />
-		<scene file="sas_1.irr" />
-		<collision file="sas_1.col" />
+		<script file="caves_1.lua" />
+		<scene file="caves_1.irr" />
+		<collision file="caves_1.col" />
 	</resources>
 	<templates>
 		<player name="player" />

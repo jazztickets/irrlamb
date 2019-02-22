@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<level version="1" gameversion="0.3.0">
+<level version="0" gameversion="0.3.0">
 	<info>
 		<name>Hills</name>
 	</info>
@@ -7,9 +7,9 @@
 		<emitlight enabled="1" />
 	</options>
 	<resources>
-		<script file="sas_0.lua" />
-		<scene file="sas_0.irr" />
-		<collision file="sas_0.col" />
+		<script file="caves_0.lua" />
+		<scene file="caves_0.irr" />
+		<collision file="caves_0.col" />
 	</resources>
 	<templates>
 		<player name="player" />
