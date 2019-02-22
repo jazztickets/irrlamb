@@ -12,9 +12,7 @@
 	</resources>
 	<templates>
 		<player name="player" />
-		<orb name="orb">
-			<physics sleep="1" />
-		</orb>
+		<orb name="orb" />
 		<terrain name="terrain" smooth="8">
 			<mesh file="height0.png" />
 			<shape w="1" h="0.1" l="1" />

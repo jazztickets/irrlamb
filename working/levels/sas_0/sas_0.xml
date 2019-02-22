@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<level version="0" gameversion="0.1.0">
+<level version="1" gameversion="0.3.0">
 	<info>
 		<name>Hills</name>
 	</info>
@@ -20,19 +20,19 @@
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="2.535" y="-8.702" z="2.598" />
+			<position x="1.284" y="-8.587" z="2.905" />
 		</object>
 		<object name="orb0" template="orb">
-			<position x="-56.812" y="-10.594" z="-54.233" />
+			<position x="-57.679" y="-10.430" z="-54.364" />
 		</object>
 		<object name="orb1" template="orb">
-			<position x="-67.027" y="-21.332" z="64.512" />
+			<position x="-65.757" y="-21.222" z="64.592" />
 		</object>
 		<object name="orb2" template="orb">
-			<position x="67.065" y="-20.452" z="56.777" />
+			<position x="66.147" y="-20.295" z="56.606" />
 		</object>
 		<object name="orb3" template="orb">
-			<position x="49.392" y="-11.781" z="-69.656" />
+			<position x="50.827" y="-11.683" z="-69.261" />
 		</object>
 		<object name="losezone" template="losezone">
 			<position x="0" y="-300" z="0" />

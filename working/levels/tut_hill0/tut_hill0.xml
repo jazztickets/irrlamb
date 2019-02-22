@@ -13,9 +13,7 @@
 	</resources>
 	<templates>
 		<player name="player" />
-		<orb name="orb">
-			<physics sleep="1" />
-		</orb>
+		<orb name="orb" />
 	</templates>
 	<objects>
 		<object name="player" template="player">

@@ -18,7 +18,7 @@
 			<mesh file="cube.irrbmesh" scale="1" />
 			<shape w="1" h="1" l="1" />
 			<texture file="crate0.jpg" />
-			<physics mass="0.5" />
+			<physics mass="0.5" sleep="1" />
 		</box>
 	</templates>
 	<objects>
