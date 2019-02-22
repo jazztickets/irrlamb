@@ -390,6 +390,7 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 			Object.Mesh = String;
 
 		Element->QueryFloatAttribute("scale", &Object.Scale);
+		Element->QueryBoolAttribute("shadows", &Object.Shadows);
 	}
 
 	// Get physical attributes

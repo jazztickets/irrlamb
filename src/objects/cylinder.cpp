@@ -49,7 +49,7 @@ _Cylinder::_Cylinder(const _ObjectSpawn &Object)
 				Node->setMaterialType((video::E_MATERIAL_TYPE)Template->CustomMaterial);
 
 			// Add shadows
-			if(Config.Shadows) {
+			if(Config.Shadows && Template->Shadows) {
 				//((scene::IAnimatedMeshSceneNode *)Node)->addShadowVolumeSceneNode();
 			}
 		}
