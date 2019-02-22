@@ -356,6 +356,11 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 	// Get type
 	std::string ObjectType = TemplateElement->Value();
 
+	// Object defaults
+	if(ObjectType == "orb") {
+		Object.Sleep = true;
+	}
+
 	// Get name
 	String = TemplateElement->Attribute("name");
 	if(!String) {
