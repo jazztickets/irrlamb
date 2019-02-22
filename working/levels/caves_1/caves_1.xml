@@ -14,13 +14,23 @@
 	<templates>
 		<player name="player" />
 		<orb name="orb" />
+		<box name="rubble">
+			<mesh file="cube.irrbmesh" scale="0.5" shadows="0" />
+			<shape w="0.5" h="0.5" l="0.5" />
+			<texture file="concrete0.jpg" />
+			<physics mass="0.25" sleep="1" />
+		</box>
 	</templates>
 	<objects>
 		<object name="player" template="player">
+			<!--<position x="-28.231" y="15.369" z="76.448" />-->
 			<position x="-0.478" y="-1.468" z="0" />
 		</object>
-		<object name="orb0" template="orb">
+		<object name="orb" template="orb">
 			<position x="64.953" y="42.5" z="104.361" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="-26.25" y="15.0" z="76.5" />
 		</object>
 		<!--
 
