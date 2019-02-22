@@ -45,16 +45,19 @@ build() {
 
 	gitver=`git log --oneline | wc -l`
 	mv bin/Release/irrlamb.exe working/
-	cp README working/
+	cp {README,CHANGELOG} working/
 	#chmod +x working/run_*.bat
 
-	archive=irrlamb-${version}r${gitver}-win${bits}.zip
-	zip -r $archive working -x /working/irrlamb /working/move*
+	archive_base=irrlamb-${version}r${gitver}-win${bits}
+	archive=${archive_base}.zip
+	ln -s working "$archive_base"
+	zip -r "$archive" "$archive_base" -x /"${archive_base}"/irrlamb /"${archive_base}"/move*
+	rm "${archive_base}"
 
 	rm working/irrlamb.exe
 	rm working/*.dll
 	rm working/README
-	#rm working/run_*.bat
+	rm working/CHANGELOG
 
 	if [ -n "$upload_server" ]; then
 		scp $archive $upload_server:web/files/
