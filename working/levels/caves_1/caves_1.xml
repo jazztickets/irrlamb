@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<level version="0" gameversion="0.1.0">
+<level version="0" gameversion="0.3.0">
 	<info>
 		<name>Caves</name>
 	</info>
@@ -14,21 +14,34 @@
 	<templates>
 		<player name="player" />
 		<orb name="orb" />
-		<box name="rubble">
-			<mesh file="cube.irrbmesh" scale="0.5" shadows="0" />
-			<shape w="0.5" h="0.5" l="0.5" />
-			<texture file="concrete0.jpg" />
-			<physics mass="0.25" sleep="1" />
-		</box>
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="0" y="0" z="0" />
-		</object>
+			<position x="0" y="0" z="-1" />
 		<!--
-		<object name="orb" template="orb">
-			<position x="64.953" y="42.5" z="104.361" />
-		</object>
+			<position x="0.079" y="-116.093" z="116.507" />
+			<position x="44.978" y="-138.693" z="165.914" />
+			<position x="-31.803" y="-160.812" z="188.342" />
+			<position x="7.946" y="-206.498" z="185.953" />
 		-->
+		</object>
+		<object name="orb" template="orb">
+			<position x="-0.290" y="-105.5" z="114.5" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="4.299" y="-112.300" z="189.914" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="-1.262" y="-142.688" z="170.036" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="17.530" y="-188.107" z="185.220" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="-24.256" y="-196.570" z="289.398" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="-10.752" y="-203.102" z="342.754" />
+		</object>
 	</objects>
 </level>

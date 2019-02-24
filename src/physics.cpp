@@ -60,6 +60,7 @@ void _Physics::Update(float FrameTime) {
 
 	if(Enabled) {
 
+		// Run simulation
 		World->stepSimulation(FrameTime);
 
 		// Handle collision callbacks

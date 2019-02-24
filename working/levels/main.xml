@@ -18,7 +18,7 @@
 	</campaign>
 	<campaign name="Caves">
 		<level unlocked="1">caves_0</level>
-		<!--<level>caves_1</level>-->
+		<level>caves_1</level>
 	</campaign>
 	<campaign name="Skate Set">
 		<level unlocked="1">skate_0</level>
