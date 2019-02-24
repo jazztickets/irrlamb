@@ -69,7 +69,7 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave, bo
 
 	// Get new file name
 	std::stringstream ReplayFilePath;
-	ReplayFilePath << Save.ReplayPath << (uint32_t)Timestamp << ".replay";
+	ReplayFilePath << Save.ReplayPath << (uint32_t)Timestamp << "-" << Level.LevelName << ".replay";
 
 	// Open new file
 	std::fstream NewFile(ReplayFilePath.str().c_str(), std::ios::out | std::ios::binary);
