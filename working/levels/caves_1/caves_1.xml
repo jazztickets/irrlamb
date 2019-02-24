@@ -23,35 +23,11 @@
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<!--<position x="-28.231" y="15.369" z="76.448" />-->
-			<position x="-0.478" y="-1.468" z="0" />
-		</object>
-		<object name="orb" template="orb">
-			<position x="64.953" y="42.5" z="104.361" />
-		</object>
-		<object name="orb" template="orb">
-			<position x="-26.25" y="15.0" z="76.5" />
+			<position x="0" y="0" z="0" />
 		</object>
 		<!--
-
-		<object name="player" template="player">
-		Start Position:
-			<position x="-0.478" y="-1.468" z="0" />
-		Upper test:
-			<position x="-4.08" y="15.436" z="53.523" />
-		</object>
-
-		<object name="orb0" template="orb">
-			<position x="-56.812" y="-10.594" z="-54.233" />
-		</object>
-		<object name="orb1" template="orb">
-			<position x="-67.027" y="-21.332" z="64.512" />
-		</object>
-		<object name="orb2" template="orb">
-			<position x="67.065" y="-20.452" z="56.777" />
-		</object>
-		<object name="orb3" template="orb">
-			<position x="49.392" y="-11.781" z="-69.656" />
+		<object name="orb" template="orb">
+			<position x="64.953" y="42.5" z="104.361" />
 		</object>
 		-->
 	</objects>

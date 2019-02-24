@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Created 03/23/2015 19:25 by irrb v0.6 - "Irrlicht/Blender Exporter" -->
+<!-- Created by irrb v0.6 - "Irrlicht/Blender Exporter" -->
 <irr_scene>
    <attributes>
       <string name="Name" value="root"/>
@@ -7,7 +7,7 @@
       <vector3d name="Position" value="0, 0, 0"/>
       <vector3d name="Rotation" value="0, 0, 0"/>
       <vector3d name="Scale" value="1, 1, 1"/>
-      <colorf name="AmbientLight" value="0.2, 0.2, 0.2, 1"/>
+      <colorf name="AmbientLight" value="0.779993, 0.779993, 0.779993, 1"/>
       <bool name="AutomaticCulling" value="true"/>
       <bool name="DebugDataVisible" value="false"/>
       <bool name="IsDebugObject" value="false"/>
@@ -33,7 +33,7 @@
          <string name="Name" value="caves_1"/>
          <int name="Id" value="-1"/>
          <bool name="Visible" value="true"/>
-         <vector3d name="Position" value="0, 0, 0"/>
+         <vector3d name="Position" value="-2.910215, -24.96044, 42.542507"/>
          <vector3d name="Rotation" value="0, 0, 0"/>
          <vector3d name="Scale" value="1, 1, 1"/>
          <enum name="AutomaticCulling" value="frustum_box"/>
