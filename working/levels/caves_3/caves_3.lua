@@ -10,7 +10,7 @@ end
 function OnHitZone(HitType, Zone, HitObject)
 
 	if HitObject == Player then
-		Level.Lose()
+		Level.Lose("You fell down the chasm!")
 	else
 		Object.SetLifetime(HitObject, 2)
 	end
@@ -21,4 +21,5 @@ end
 -- Set up goal
 GoalCount = 7
 
+-- set up camera
 Camera.SetYaw(-180)

@@ -9,6 +9,7 @@
 	<resources>
 		<script file="caves_3.lua" />
 		<scene file="caves_3.irr" />
+		<collision file="caves_3.col" />
 	</resources>
 	<templates>
 		<player name="player" />
@@ -53,7 +54,7 @@
 			<position x="32.390" y="-2.732" z="52.742" />
 		</object>
 		<object name="losezone" template="losezone">
-			<position x="0" y="-100" z="0" />
+			<position x="0" y="-75" z="0" />
 		</object>
 	</objects>
 </level>

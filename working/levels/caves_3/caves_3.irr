@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Created 03/20/2015 13:00 by irrb v0.6 - "Irrlicht/Blender Exporter" -->
+<!-- Created by irrb v0.6 - "Irrlicht/Blender Exporter" -->
 <irr_scene>
    <attributes>
       <string name="Name" value="root"/>
@@ -17,7 +17,7 @@
       <float name="FogEnd" value="50.000000"/>
       <float name="FogHeight" value="0.000000"/>
       <float name="FogDensity" value="0.050000"/>
-      <colorf name="FogColor" value="0.08, 0.05, 0.05, 1.000000"/>
+      <colorf name="FogColor" value="0.080000, 0.050000, 0.050000, 1.000000"/>
       <bool name="FogPixel" value="false"/>
       <bool name="FogRange" value="false"/>
    </attributes>
@@ -28,4 +28,25 @@
          <colorf name="BackgroundColor" value="0.08, 0.05, 0.05, 1"/>
       </attributes>
    </userData>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="caves_3"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="21.01523, 101.522972, -53.75"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="1, 1, 1"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/caves_3.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
 </irr_scene>
