@@ -102,7 +102,6 @@ source_group(states FILES ${SRC_STATES})
 source_group(objects FILES ${SRC_OBJECTS})
 source_group(irrb FILES ${SRC_IRRB})
 source_group(font FILES ${SRC_FONT})
-source_group(tinyxml FILES ${SRC_TINYXML})
 
 # create executable
 add_executable(${CMAKE_PROJECT_NAME} ${SRC_ALL})
