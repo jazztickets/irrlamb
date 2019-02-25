@@ -17,13 +17,13 @@
 		<sphere name="boulder_med">
 			<mesh file="sphere_hi.irrbmesh" scale="5" shadows="0" />
 			<shape r="2.5" />
-			<physics mass="1.5" />
+			<physics mass="3.0" />
 			<texture file="dirt0.jpg" />
 		</sphere>
 		<sphere name="boulder_high">
 			<mesh file="sphere_hi.irrbmesh" scale="7" shadows="0" />
 			<shape r="3.5" />
-			<physics mass="2.0" />
+			<physics mass="5.0" />
 			<texture file="dirt0.jpg" />
 		</sphere>
 		<box name="pillar_med" >
@@ -50,22 +50,40 @@
 			<position x="0" y="-0.45" z="40" />
 		</object>
 		<object name="boulder" template="boulder_med">
-			<position x="0" y="2.5" z="15" />
+			<position x="-2.5" y="2.5" z="15" />
 		</object>
-		<object name="boulder" template="boulder_high">
-			<position x="-5" y="3.5" z="50" />
+		<object name="boulder" template="boulder_med">
+			<position x="-13.5" y="2.5" z="41" />
 		</object>
 		<object name="boulder" template="boulder_med">
 			<position x="12" y="2.5" z="40" />
 		</object>
+		<object name="boulder" template="boulder_high">
+			<position x="-5" y="3.5" z="50" />
+		</object>
 		<object name="pillar" template="pillar_med">
 			<position x="4" y="2.5" z="25" />
+		</object>
+		<object name="pillar" template="pillar_med">
+			<position x="8" y="2.5" z="55" />
 		</object>
 		<object name="pillar" template="pillar_high">
 			<position x="-15" y="3.5" z="35" />
 		</object>
+		<object name="pillar" template="pillar_high">
+			<position x="25" y="3.5" z="45" />
+		</object>
 		<object name="orb" template="orb">
 			<position x="4" y="5.5" z="25" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="-15" y="7.5" z="35" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="25" y="7.5" z="45" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="8" y="5.5" z="55" />
 		</object>
 	</objects>
 </level>
