@@ -5,8 +5,6 @@ build
 *.swp
 TODO
 CMakeLists.txt.user
-deployment/*.exe
-deployment/*-src
 deployment/out
 working/*.log
 working/*.irr

@@ -1,8 +1,25 @@
 #!/bin/bash
 version=`grep 'GAME_VERSION=".*"' -o ../CMakeLists.txt | sed -r "s/GAME_VERSION=\"(.*)\"/\1/"`
-base=irrlamb-${version}
+gitver=`git log --oneline | wc -l`
+base=irrlamb-${version}r${gitver}
 pkg=${base}-src.tar.gz
 
-tar --transform "s,^,${base}/," -czvf ${pkg} -C ../ src/ tools/ working/ deployment/ cmake/ CMakeLists.txt README CHANGELOG LICENSE --exclude=$pkg --exclude=move.{sh,bat} --exclude=*.swp --exclude=*.nsi --exclude=make_src.sh
+tar --transform "s,^,${base}/," -czvf out/${pkg} -C ../ \
+--exclude=${pkg} \
+--exclude=move.{sh,bat} \
+--exclude=*.swp \
+--exclude=.git \
+--exclude=working/irrlamb \
+--exclude=deployment/out \
+--exclude=deployment/*.sh \
+src/ \
+tools/ \
+working/ \
+deployment/ \
+cmake/ \
+CMakeLists.txt \
+README \
+CHANGELOG \
+LICENSE
 
 echo -e "\nMade ${pkg}"
