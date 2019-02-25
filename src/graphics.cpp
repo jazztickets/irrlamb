@@ -120,7 +120,7 @@ int _Graphics::Init(bool UseDesktopResolution, int Width, int Height, bool Fulls
 			LoadShaders();
 	}
 	else {
-		Log.Write("Shaders not supported.");
+		Log.Write("Shaders not supported");
 		Config.Shaders = false;
 	}
 

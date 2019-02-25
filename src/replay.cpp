@@ -45,7 +45,7 @@ void _Replay::StartRecording() {
 	ReplayDataFile = Save.ReplayPath + "replay.dat";
 	File.open(ReplayDataFile.c_str(), std::ios::out | std::ios::binary);
 	if(!File.is_open())
-		Log.Write("_Replay::StartRecording - Unable to open %s!", ReplayDataFile.c_str());
+		Log.Write("Unable to open: %s", ReplayDataFile.c_str());
 }
 
 // Stops the recording process
@@ -74,7 +74,7 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave, bo
 	// Open new file
 	std::fstream NewFile(ReplayFilePath.str().c_str(), std::ios::out | std::ios::binary);
 	if(!NewFile) {
-		Log.Write("_Replay::SaveReplay - Unable to open %s for writing!", ReplayFilePath.str().c_str());
+		Log.Write("Unable to open for writing: %s", ReplayFilePath.str().c_str());
 		return false;
 	}
 

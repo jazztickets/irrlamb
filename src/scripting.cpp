@@ -212,7 +212,7 @@ int _Scripting::LoadFile(const std::string &FilePath) {
 
 	// Load the file
 	if(luaL_dofile(LuaObject, FilePath.c_str()) != 0) {
-		Log.Write("_Scripting::LoadFile - failed to load script %s", FilePath.c_str());
+		Log.Write("Failed to load script: %s", FilePath.c_str());
 		Log.Write("%s", lua_tostring(LuaObject, -1));
 		return 0;
 	}

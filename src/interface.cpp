@@ -66,7 +66,7 @@ int _Interface::Init() {
 		// Load font
 		Fonts[DefaultFonts[i].Type] = gui::CGUITTFont::createTTFont(irrGUI, DefaultFonts[i].Path, DefaultFonts[i].Size * GetUIScale());
 		if(!Fonts[DefaultFonts[i].Type]) {
-			Log.Write("_Interface::Init - Unable to load font %s", DefaultFonts[i].Path);
+			Log.Write("Unable to load font: %s", DefaultFonts[i].Path);
 			return 0;
 		}
 	}

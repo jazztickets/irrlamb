@@ -30,7 +30,7 @@ using namespace tinyxml2;
 int _Campaign::Init() {
 	Campaigns.clear();
 
-	Log.Write("_Campaign::Init - Loading file irrlamb.xml");
+	Log.Write("Loading campaign file main.xml");
 
 	// Open the XML file
 	std::string LevelFile = std::string("levels/main.xml");

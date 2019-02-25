@@ -42,7 +42,7 @@ int _Database::OpenDatabase(const char *Filename) {
 	// Open database file
 	int Result = sqlite3_open_v2(Filename, &Database, SQLITE_OPEN_READWRITE, nullptr);
 	if(Result != SQLITE_OK) {
-		Log.Write("_Database::OpenDatabase - %s", sqlite3_errmsg(Database));
+		Log.Write("Failed to open sqlite database: %s", sqlite3_errmsg(Database));
 		sqlite3_close(Database);
 
 		return 0;
@@ -57,7 +57,7 @@ int _Database::OpenDatabaseCreate(const char *Filename) {
 	// Open database file
 	int Result = sqlite3_open_v2(Filename, &Database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, nullptr);
 	if(Result != SQLITE_OK) {
-		Log.Write("_Database::OpenDatabaseCreate - %s", sqlite3_errmsg(Database));
+		Log.Write("Failed to open sqlite database for creating: %s", sqlite3_errmsg(Database));
 		sqlite3_close(Database);
 
 		return 0;
@@ -73,19 +73,19 @@ int _Database::RunQuery(const char *QueryString) {
 	const char *Tail;
 	int Result = sqlite3_prepare_v2(Database, QueryString, strlen(QueryString), &NewQueryHandle, &Tail);
 	if(Result != SQLITE_OK) {
-		Log.Write("_Database::RunQuery - %s", sqlite3_errmsg(Database));
+		Log.Write("sqlite3_prepare_v2 failed: %s", sqlite3_errmsg(Database));
 		return 0;
 	}
 
 	Result = sqlite3_step(NewQueryHandle);
 	if(Result != SQLITE_DONE && Result != SQLITE_ROW) {
-		Log.Write("_Database::RunQuery - %s", sqlite3_errmsg(Database));
+		Log.Write("sqlite3_step failed: %s", sqlite3_errmsg(Database));
 		return 0;
 	}
 
 	Result = sqlite3_finalize(NewQueryHandle);
 	if(Result != SQLITE_OK) {
-		Log.Write("_Database::RunQuery - %s", sqlite3_errmsg(Database));
+		Log.Write("sqlite3_finalize failed: %s", sqlite3_errmsg(Database));
 		return 0;
 	}
 
@@ -99,7 +99,7 @@ int _Database::RunDataQuery(const char *QueryString, int Handle) {
 	const char *Tail;
 	int Result = sqlite3_prepare_v2(Database, QueryString, strlen(QueryString), &QueryHandle[Handle], &Tail);
 	if(Result != SQLITE_OK) {
-		Log.Write("_Database::RunDataQuery - %s", sqlite3_errmsg(Database));
+		Log.Write("sqlite3_prepare_v2 failed: %s", sqlite3_errmsg(Database));
 		return 0;
 	}
 
@@ -140,7 +140,7 @@ int _Database::CloseQuery(int Handle) {
 
 	int Result = sqlite3_finalize(QueryHandle[Handle]);
 	if(Result != SQLITE_OK) {
-		Log.Write("_Database::CloseQuery - %s", sqlite3_errmsg(Database));
+		Log.Write("sqlite3_finalize failed: %s", sqlite3_errmsg(Database));
 		return 0;
 	}
 	QueryHandle[Handle] = nullptr;

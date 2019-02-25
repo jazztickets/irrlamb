@@ -99,7 +99,7 @@ int _Save::InitStatsDatabase() {
 	if(DatabaseVersion == -1) {
 
 		// Create new database
-		Log.Write("_Save::InitStatsDatabase - Creating new stats database...\n");
+		Log.Write("Creating new stats database");
 		if(!Database->OpenDatabaseCreate(StatsFile.c_str())) {
 			return 0;
 		}
@@ -150,7 +150,7 @@ int _Save::InitStatsDatabase() {
 
 // Populates the level stats map
 int _Save::LoadLevelStats() {
-	Log.Write("_Save::LoadLevelStats - Loading save file");
+	Log.Write("Loading save file");
 	LevelStats.clear();
 	char Buffer[256];
 

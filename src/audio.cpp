@@ -31,7 +31,7 @@ int _Audio::Init(bool Enabled) {
 	if(!Enabled)
 		return 1;
 
-	Log.Write("_Audio::Init - Initializing audio");
+	Log.Write("Initializing audio");
 
 	// Create device
 	#ifdef _WIN32
@@ -40,7 +40,7 @@ int _Audio::Init(bool Enabled) {
 		ALCdevice *Device = alcOpenDevice(nullptr);
 	#endif
 	if(Device == nullptr) {
-		Log.Write("_Audio::Init - Unable to create audio device");
+		Log.Write("Unable to create audio device");
 		Enabled = false;
 		return 0;
 	}
@@ -144,7 +144,7 @@ bool _Audio::LoadBuffer(const std::string &File) {
 	OggVorbis_File VorbisStream;
 	int ReturnCode = ov_fopen(Path.c_str(), &VorbisStream);
 	if(ReturnCode != 0) {
-		Log.Write("_Audio::LoadBuffer - ov_fopen failed on file %s with code %d", Path.c_str(), ReturnCode);
+		Log.Write("ov_fopen failed on file %s with code %d", Path.c_str(), ReturnCode);
 		return false;
 	}
 
@@ -161,7 +161,7 @@ bool _Audio::LoadBuffer(const std::string &File) {
 			AudioBuffer.Format = AL_FORMAT_STEREO16;
 		break;
 		default:
-			Log.Write("_Audio::LoadBuffer - Unsupported # of channels %d for %s", Path.c_str());
+			Log.Write("Unsupported # of channels %d for %s", Path.c_str());
 			return false;
 		break;
 	}

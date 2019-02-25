@@ -66,7 +66,7 @@ void _UserDataLoader::OnReadUserData(irr::scene::ISceneNode *ForSceneNode, irr::
 // Loads a level file
 int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 	if(!HeaderOnly)
-		Log.Write("_Level::Init - Loading level: %s", LevelName.c_str());
+		Log.Write("Loading level: %s", LevelName.c_str());
 
 	// Get fastest time
 	FastestTime = 0.0f;
