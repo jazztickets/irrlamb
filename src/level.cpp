@@ -39,7 +39,7 @@
 #include <objects/collision.h>
 #include <objects/constraint.h>
 #include <objects/springjoint.h>
-#include <tinyxml/tinyxml2.h>
+#include <tinyxml2.h>
 #include <ISceneManager.h>
 #include <IFileSystem.h>
 
@@ -94,10 +94,9 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 
 	// Open the XML file
 	XMLDocument Document;
-	if(Document.LoadFile(FilePath.c_str()) != XML_NO_ERROR) {
+	if(Document.LoadFile(FilePath.c_str()) != XML_SUCCESS) {
 		Log.Write("Error loading level file with error id = %d", Document.ErrorID());
-		Log.Write("Error string 1: %s", Document.GetErrorStr1());
-		Log.Write("Error string 2: %s", Document.GetErrorStr2());
+		Log.Write("Error string: %s", Document.ErrorStr());
 		Close();
 		return 0;
 	}

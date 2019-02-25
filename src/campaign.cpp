@@ -20,7 +20,7 @@
 #include <log.h>
 #include <framework.h>
 #include <level.h>
-#include <tinyxml/tinyxml2.h>
+#include <tinyxml2.h>
 
 _Campaign Campaign;
 
@@ -35,10 +35,9 @@ int _Campaign::Init() {
 	// Open the XML file
 	std::string LevelFile = std::string("levels/main.xml");
 	XMLDocument Document;
-	if(Document.LoadFile(LevelFile.c_str()) != XML_NO_ERROR) {
+	if(Document.LoadFile(LevelFile.c_str()) != XML_SUCCESS) {
 		Log.Write("Error loading level file with error id = %d", Document.ErrorID());
-		Log.Write("Error string 1: %s", Document.GetErrorStr1());
-		Log.Write("Error string 2: %s", Document.GetErrorStr2());
+		Log.Write("Error string: %s", Document.ErrorStr());
 		Close();
 		return 0;
 	}

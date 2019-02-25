@@ -19,7 +19,7 @@
 #include <framework.h>
 #include <state.h>
 #include <config.h>
-#include <tinyxml/tinyxml2.h>
+#include <tinyxml2.h>
 
 _Actions Actions;
 
@@ -184,17 +184,17 @@ void _Actions::Unserialize(XMLElement *InputElement, float MasterDeadZone) {
 
 	// Get input mapping
 	for(XMLElement *Element = InputElement->FirstChildElement("map"); Element != 0; Element = Element->NextSiblingElement("map")) {
-		if(Element->QueryIntAttribute("type", &Type) != XML_NO_ERROR
-			|| Element->QueryIntAttribute("input", &Input) != XML_NO_ERROR
-			|| Element->QueryIntAttribute("action", &Action) != XML_NO_ERROR)
+		if(Element->QueryIntAttribute("type", &Type) != XML_SUCCESS
+			|| Element->QueryIntAttribute("input", &Input) != XML_SUCCESS
+			|| Element->QueryIntAttribute("action", &Action) != XML_SUCCESS)
 			continue;
 
 		// Read scale if it exists
-		if(Element->QueryFloatAttribute("scale", &Scale) != XML_NO_ERROR)
+		if(Element->QueryFloatAttribute("scale", &Scale) != XML_SUCCESS)
 			Scale = ACTIONS_SCALE;
 
 		// Read deadzone if it exists
-		if(Element->QueryFloatAttribute("deadzone", &DeadZone) != XML_NO_ERROR) {
+		if(Element->QueryFloatAttribute("deadzone", &DeadZone) != XML_SUCCESS) {
 			DeadZone = -1.0f;
 			if(Type == _Input::JOYSTICK_AXIS)
 				DeadZone = MasterDeadZone;

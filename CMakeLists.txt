@@ -58,6 +58,7 @@ find_package(Vorbis REQUIRED)
 find_package(Ogg REQUIRED)
 find_package(SQLite REQUIRED)
 find_package(Lua ${LUA_VERSION} REQUIRED)
+find_package(TinyXML2 REQUIRED)
 find_package(ZLIB REQUIRED)
 find_package(PNG REQUIRED)
 find_package(JPEG REQUIRED)
@@ -66,12 +67,13 @@ find_package(JPEG REQUIRED)
 include_directories("src")
 include_directories("src/irrlicht/include")
 include_directories(${BULLET_INCLUDE_DIRS})
+include_directories(${FREETYPE_INCLUDE_DIRS})
 include_directories(${OPENAL_INCLUDE_DIR})
 include_directories(${VORBIS_INCLUDE_DIR})
 include_directories(${OGG_INCLUDE_DIR})
-include_directories(${LUA_INCLUDE_DIR})
 include_directories(${SQLITE_INCLUDE_DIR})
-include_directories(${FREETYPE_INCLUDE_DIRS})
+include_directories(${LUA_INCLUDE_DIR})
+include_directories(${TINYXML2_INCLUDE_DIR})
 include_directories(${ZLIB_INCLUDE_DIRS})
 include_directories(${PNG_INCLUDE_DIRS})
 include_directories(${JPEG_INCLUDE_DIRS})
@@ -82,7 +84,6 @@ file(GLOB SRC_STATES src/states/*.cpp src/states/*.h)
 file(GLOB SRC_OBJECTS src/objects/*.cpp src/objects/*.h)
 file(GLOB SRC_IRRB src/irrb/*.cpp src/irrb/*.h)
 file(GLOB SRC_FONT src/font/*.cpp src/font/*.h)
-file(GLOB SRC_TINYXML src/tinyxml/*.cpp src/tinyxml/*.h)
 file(GLOB SRC_IRRLICHT src/irrlicht/*.cpp src/irrlicht/*.h src/irrlicht/include/*.h)
 
 file(GLOB SRC_ALL
@@ -91,7 +92,6 @@ file(GLOB SRC_ALL
 	${SRC_OBJECTS}
 	${SRC_IRRB}
 	${SRC_FONT}
-	${SRC_TINYXML}
 	${SRC_IRRLICHT}
 	src/resource.rc
 )
@@ -111,12 +111,13 @@ add_executable(${CMAKE_PROJECT_NAME} ${SRC_ALL})
 target_link_libraries(${CMAKE_PROJECT_NAME}
 	${OPENGL_LIBRARIES}
 	${BULLET_LIBRARIES}
-	${OPENAL_LIBRARY}
-	${LUA_LIBRARIES}
-	${SQLITE_LIBRARIES}
 	${FREETYPE_LIBRARIES}
+	${OPENAL_LIBRARY}
 	${VORBIS_LIBRARIES}
 	${OGG_LIBRARIES}
+	${SQLITE_LIBRARIES}
+	${LUA_LIBRARIES}
+	${TINYXML2_LIBRARIES}
 	${ZLIB_LIBRARIES}
 	${PNG_LIBRARIES}
 	${JPEG_LIBRARIES}

@@ -15,8 +15,8 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <tinyxml/tinyxml2.h>
 #include <config.h>
+#include <tinyxml2.h>
 #include <globals.h>
 #include <save.h>
 #include <input.h>
@@ -199,7 +199,7 @@ int _Config::ReadConfig() {
 
 	// Open the XML file
 	XMLDocument Document;
-	if(Document.LoadFile(Save.ConfigFile.c_str()) != XML_NO_ERROR) {
+	if(Document.LoadFile(Save.ConfigFile.c_str()) != XML_SUCCESS) {
 		return 0;
 	}
 
@@ -436,7 +436,7 @@ int _Config::ReadJoystickConfig() {
 
 		// Open the XML file
 		XMLDocument Document;
-		if(Document.LoadFile(Path.c_str()) != XML_NO_ERROR)
+		if(Document.LoadFile(Path.c_str()) != XML_SUCCESS)
 			continue;
 
 		// Get input element
