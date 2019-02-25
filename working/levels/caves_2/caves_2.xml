@@ -38,12 +38,16 @@
 			<texture file="dirt0.jpg" />
 			<physics mass="10" sleep="1" />
 		</box>
+		<zone name="losezone">
+			<shape w="100" h="1" l="100" />
+		</zone>
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="0.000" y="9.287" z="6.768" />
-		<!--
-		-->
+			<position x="0.000" y="9.382" z="6.001" />
+		</object>
+		<object name="losezone" template="losezone">
+			<position x="0" y="-0.45" z="40" />
 		</object>
 		<object name="boulder" template="boulder_med">
 			<position x="0" y="2.5" z="15" />
