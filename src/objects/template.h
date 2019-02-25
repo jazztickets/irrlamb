@@ -49,7 +49,7 @@ struct _Template {
 
 	// Graphics
 	std::string Mesh;
-	float Scale;
+	float Scale[3];
 	std::string Textures[4];
 	float TextureScale[4];
 	bool Fog;

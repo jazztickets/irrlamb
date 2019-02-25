@@ -52,7 +52,8 @@ _Template::_Template() {
 		TextureScale[i] = 1.0f;
 
 	// Graphics
-	Scale = 1.0f;
+	for(int i = 0; i < 3; i++)
+		Scale[i] = 1.0f;
 	Mesh = "";
 	Fog = false;
 	Shadows = true;
