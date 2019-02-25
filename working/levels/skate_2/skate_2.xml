@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<level version="0" gameversion="0.3.0">
+	<info>
+		<name>Skate Park III</name>
+	</info>
+	<options>
+		<emitlight enabled="1" />
+	</options>
+	<resources>
+		<script file="skate_2.lua" />
+		<scene file="skate_2.irr" />
+		<collision file="skate_2.col" />
+	</resources>
+	<templates>
+		<player name="player" />
+		<orb name="orb" />
+	</templates>
+	<objects>
+		<object name="player" template="player">
+			<position x="0" y="0.5" z="0.0" />
+		</object>
+	</objects>
+</level>
