@@ -117,6 +117,9 @@ bool _ViewReplayState::HandleKeyPress(int Key) {
 			NullState.State = _Menu::STATE_REPLAYS;
 			Framework.ChangeState(&NullState);
 		break;
+		case KEY_F11:
+			ShowHUD = !ShowHUD;
+		break;
 		case KEY_F12:
 			Graphics.SaveScreenshot(Replay.GetLevelName());
 		break;
@@ -359,6 +362,9 @@ void _ViewReplayState::Draw() {
 	if(FreeCamera)
 		Camera->Update(PlayerPosition);
 
+	if(!ShowHUD)
+		return;
+
 	// Draw box
 	char Buffer[256];
 	int Left = 10 * Interface.GetUIScale();
@@ -392,6 +398,7 @@ void _ViewReplayState::Draw() {
 	if(Config.ShowFPS)
 		Interface.RenderFPS(10 * Interface.GetUIScale(), irrDriver->getScreenSize().Height - 50 * Interface.GetUIScale());
 
+	// Draw buttons
 	irrGUI->drawAll();
 }
 

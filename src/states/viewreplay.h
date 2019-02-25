@@ -41,6 +41,8 @@ class _ViewReplayState : public _State {
 			MAIN_EXIT,
 		};
 
+		_ViewReplayState() : ShowHUD(true) {}
+
 		int Init();
 		int Close();
 
@@ -67,6 +69,7 @@ class _ViewReplayState : public _State {
 		// States
 		std::string CurrentReplay;
 		float Timer;
+		bool ShowHUD;
 		bool FreeCamera;
 
 		// Objects

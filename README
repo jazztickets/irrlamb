@@ -39,6 +39,8 @@ Mouse Wheel*          Increase/decrease replay speed by 0.1x
 3                     Set replay speed to 2.0x
 4                     Set replay speed to 4.0x
 5                     Set replay speed to 8.0x
+F11                   Toggle HUD
+F12                   Screenshot
 
 *Holding Left Shift changes by 0.01x
 
