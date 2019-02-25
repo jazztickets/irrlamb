@@ -85,46 +85,56 @@ int _Save::InitStatsDatabase() {
 
 	// Open stats database and get file version
 	if(Database->OpenDatabase(StatsFile.c_str())) {
-		Database->RunDataQuery("SELECT Version from DatabaseInfo");
-		DatabaseVersion = Database->GetInt(0);
+		int Result = Database->RunDataQuery("SELECT Version from DatabaseInfo");
+		if(Result)
+			DatabaseVersion = Database->GetInt(0);
 		Database->CloseQuery();
 
 		// Upgrade old database versions
 		if(DatabaseVersion == 0) {
-
 		}
 	}
 
 	// Create new database if it doesn't exist
 	if(DatabaseVersion == -1) {
 
-		// Create a new database
+		// Create new database
 		Log.Write("_Save::InitStatsDatabase - Creating new stats database...\n");
 		if(!Database->OpenDatabaseCreate(StatsFile.c_str())) {
 			return 0;
 		}
 
-		// Populate data
+		// Setup database
 		Database->RunQuery("PRAGMA journal_mode = 'OFF'");
 		Database->RunQuery("BEGIN TRANSACTION");
+
+		// Create version table
 		Database->RunQuery("CREATE TABLE DatabaseInfo('Version' INTEGER)");
-		Database->RunQuery(	"CREATE TABLE Stats("
-						"'ID' INTEGER PRIMARY KEY"
-						", 'LevelFile' TEXT"
-						", 'Unlocked' INTEGER DEFAULT(0)"
-						", 'Difficulty' INTEGER DEFAULT(0)"
-						", 'Loads' INTEGER DEFAULT(0)"
-						", 'Wins' INTEGER DEFAULT(0)"
-						", 'Loses' INTEGER DEFAULT(0)"
-						", 'PlayTime' FLOAT DEFAULT(0)"
-						")");
-		Database->RunQuery(	"CREATE TABLE HighScores("
-						"'ID' INTEGER PRIMARY KEY"
-						", 'StatsID' INTEGER DEFAULT(0)"
-						", 'Time' FLOAT"
-						", 'Date' INTEGER"
-						")");
-		Database->RunQuery("CREATE INDEX StatsLevelFile on stats (LevelFile ASC)");
+
+		// Create stats table
+		Database->RunQuery(
+			"CREATE TABLE Stats(\n"
+			"ID INTEGER PRIMARY KEY,\n"
+			"LevelFile TEXT,\n"
+			"Unlocked INTEGER DEFAULT(0),\n"
+			"Difficulty INTEGER DEFAULT(0),\n"
+			"Loads INTEGER DEFAULT(0),\n"
+			"Wins INTEGER DEFAULT(0),\n"
+			"Loses INTEGER DEFAULT(0),\n"
+			"PlayTime FLOAT DEFAULT(0)\n"
+			")\n");
+
+		// Create highscores table
+		Database->RunQuery(
+			"CREATE TABLE HighScores(\n"
+			"ID INTEGER PRIMARY KEY,\n"
+			"StatsID INTEGER DEFAULT(0),\n"
+			"Time FLOAT,\n"
+			"Date INTEGER\n"
+			")");
+
+		// Create indexes
+		Database->RunQuery("CREATE INDEX StatsLevelFile on Stats (LevelFile ASC)");
 
 		// Add version number
 		char Buffer[256];
