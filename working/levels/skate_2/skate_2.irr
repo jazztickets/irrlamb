@@ -7,7 +7,7 @@
       <vector3d name="Position" value="0, 0, 0"/>
       <vector3d name="Rotation" value="0, 0, 0"/>
       <vector3d name="Scale" value="1, 1, 1"/>
-      <colorf name="AmbientLight" value="0.2, 0.2, 0.2, 1"/>
+      <colorf name="AmbientLight" value="0.827557, 0.827557, 0.827557, 1"/>
       <bool name="AutomaticCulling" value="true"/>
       <bool name="DebugDataVisible" value="false"/>
       <bool name="IsDebugObject" value="false"/>
@@ -61,5 +61,183 @@
          <attributes>
          </attributes>
       </userData>
+   </node>
+   <node type="skyBox">
+      <attributes>
+         <string name="Name" value="skybox"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="0, 0, 0"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="1, 1, 1"/>
+         <enum name="AutomaticCulling" value="false"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <materials>
+         <attributes>
+             <enum name="Type" value="solid"/>
+             <color name="Ambient" value="ffffffff"/>
+             <color name="Diffuse" value="ffcccccc"/>
+             <color name="Emissive" value="ff000000"/>
+             <color name="Specular" value="ffffffff"/>
+             <float name="Shininess" value="0"/>
+             <float name="Param1" value="0"/>
+             <float name="Param2" value="0"/>
+             <bool name="Wireframe" value="false"/>
+             <bool name="GouraudShading" value="true"/>
+             <bool name="Lighting" value="false"/>
+             <bool name="ZWriteEnable" value="true"/>
+             <int name="ZBuffer" value="1"/>
+             <bool name="BackfaceCulling" value="true"/>
+             <bool name="FogEnable" value="false"/>
+             <bool name="NormalizeNormals" value="false"/>
+             <int name="ColorMask" value="15"/>
+             <int name="AntiAliasing" value="1"/>
+             <bool name="UseMipMaps" value="false"/>
+             <texture name="Texture1" value="textures/sky1_front.jpg"/>
+             <enum name="TextureWrapU1" value="texture_clamp_clamp_to_edge"/>
+             <enum name="TextureWrapV1" value="texture_clamp_clamp_to_edge"/>
+             <bool name="BilinearFilter1" value="true"/>
+             <bool name="TrilinearFilter1" value="false"/>
+             <int name="AnisotropicFilter1" value="0"/>
+         </attributes>
+         <attributes>
+             <enum name="Type" value="solid"/>
+             <color name="Ambient" value="ffffffff"/>
+             <color name="Diffuse" value="ffcccccc"/>
+             <color name="Emissive" value="ff000000"/>
+             <color name="Specular" value="ffffffff"/>
+             <float name="Shininess" value="0"/>
+             <float name="Param1" value="0"/>
+             <float name="Param2" value="0"/>
+             <bool name="Wireframe" value="false"/>
+             <bool name="GouraudShading" value="true"/>
+             <bool name="Lighting" value="false"/>
+             <bool name="ZWriteEnable" value="true"/>
+             <int name="ZBuffer" value="1"/>
+             <bool name="BackfaceCulling" value="true"/>
+             <bool name="FogEnable" value="false"/>
+             <bool name="NormalizeNormals" value="false"/>
+             <int name="ColorMask" value="15"/>
+             <int name="AntiAliasing" value="1"/>
+             <bool name="UseMipMaps" value="false"/>
+             <texture name="Texture1" value="textures/sky1_right.jpg"/>
+             <enum name="TextureWrapU1" value="texture_clamp_clamp_to_edge"/>
+             <enum name="TextureWrapV1" value="texture_clamp_clamp_to_edge"/>
+             <bool name="BilinearFilter1" value="true"/>
+             <bool name="TrilinearFilter1" value="false"/>
+             <int name="AnisotropicFilter1" value="0"/>
+         </attributes>
+         <attributes>
+             <enum name="Type" value="solid"/>
+             <color name="Ambient" value="ffffffff"/>
+             <color name="Diffuse" value="ffcccccc"/>
+             <color name="Emissive" value="ff000000"/>
+             <color name="Specular" value="ffffffff"/>
+             <float name="Shininess" value="0"/>
+             <float name="Param1" value="0"/>
+             <float name="Param2" value="0"/>
+             <bool name="Wireframe" value="false"/>
+             <bool name="GouraudShading" value="true"/>
+             <bool name="Lighting" value="false"/>
+             <bool name="ZWriteEnable" value="true"/>
+             <int name="ZBuffer" value="1"/>
+             <bool name="BackfaceCulling" value="true"/>
+             <bool name="FogEnable" value="false"/>
+             <bool name="NormalizeNormals" value="false"/>
+             <int name="ColorMask" value="15"/>
+             <int name="AntiAliasing" value="1"/>
+             <bool name="UseMipMaps" value="false"/>
+             <texture name="Texture1" value="textures/sky1_back.jpg"/>
+             <enum name="TextureWrapU1" value="texture_clamp_clamp_to_edge"/>
+             <enum name="TextureWrapV1" value="texture_clamp_clamp_to_edge"/>
+             <bool name="BilinearFilter1" value="true"/>
+             <bool name="TrilinearFilter1" value="false"/>
+             <int name="AnisotropicFilter1" value="0"/>
+         </attributes>
+         <attributes>
+             <enum name="Type" value="solid"/>
+             <color name="Ambient" value="ffffffff"/>
+             <color name="Diffuse" value="ffcccccc"/>
+             <color name="Emissive" value="ff000000"/>
+             <color name="Specular" value="ffffffff"/>
+             <float name="Shininess" value="0"/>
+             <float name="Param1" value="0"/>
+             <float name="Param2" value="0"/>
+             <bool name="Wireframe" value="false"/>
+             <bool name="GouraudShading" value="true"/>
+             <bool name="Lighting" value="false"/>
+             <bool name="ZWriteEnable" value="true"/>
+             <int name="ZBuffer" value="1"/>
+             <bool name="BackfaceCulling" value="true"/>
+             <bool name="FogEnable" value="false"/>
+             <bool name="NormalizeNormals" value="false"/>
+             <int name="ColorMask" value="15"/>
+             <int name="AntiAliasing" value="1"/>
+             <bool name="UseMipMaps" value="false"/>
+             <texture name="Texture1" value="textures/sky1_left.jpg"/>
+             <enum name="TextureWrapU1" value="texture_clamp_clamp_to_edge"/>
+             <enum name="TextureWrapV1" value="texture_clamp_clamp_to_edge"/>
+             <bool name="BilinearFilter1" value="true"/>
+             <bool name="TrilinearFilter1" value="false"/>
+             <int name="AnisotropicFilter1" value="0"/>
+         </attributes>
+         <attributes>
+             <enum name="Type" value="solid"/>
+             <color name="Ambient" value="ffffffff"/>
+             <color name="Diffuse" value="ffcccccc"/>
+             <color name="Emissive" value="ff000000"/>
+             <color name="Specular" value="ffffffff"/>
+             <float name="Shininess" value="0"/>
+             <float name="Param1" value="0"/>
+             <float name="Param2" value="0"/>
+             <bool name="Wireframe" value="false"/>
+             <bool name="GouraudShading" value="true"/>
+             <bool name="Lighting" value="false"/>
+             <bool name="ZWriteEnable" value="true"/>
+             <int name="ZBuffer" value="1"/>
+             <bool name="BackfaceCulling" value="true"/>
+             <bool name="FogEnable" value="false"/>
+             <bool name="NormalizeNormals" value="false"/>
+             <int name="ColorMask" value="15"/>
+             <int name="AntiAliasing" value="1"/>
+             <bool name="UseMipMaps" value="false"/>
+             <texture name="Texture1" value="textures/sky1_top.jpg"/>
+             <enum name="TextureWrapU1" value="texture_clamp_clamp_to_edge"/>
+             <enum name="TextureWrapV1" value="texture_clamp_clamp_to_edge"/>
+             <bool name="BilinearFilter1" value="true"/>
+             <bool name="TrilinearFilter1" value="false"/>
+             <int name="AnisotropicFilter1" value="0"/>
+         </attributes>
+         <attributes>
+             <enum name="Type" value="solid"/>
+             <color name="Ambient" value="ffffffff"/>
+             <color name="Diffuse" value="ffcccccc"/>
+             <color name="Emissive" value="ff000000"/>
+             <color name="Specular" value="ffffffff"/>
+             <float name="Shininess" value="0"/>
+             <float name="Param1" value="0"/>
+             <float name="Param2" value="0"/>
+             <bool name="Wireframe" value="false"/>
+             <bool name="GouraudShading" value="true"/>
+             <bool name="Lighting" value="false"/>
+             <bool name="ZWriteEnable" value="true"/>
+             <int name="ZBuffer" value="1"/>
+             <bool name="BackfaceCulling" value="true"/>
+             <bool name="FogEnable" value="false"/>
+             <bool name="NormalizeNormals" value="false"/>
+             <int name="ColorMask" value="15"/>
+             <int name="AntiAliasing" value="1"/>
+             <bool name="UseMipMaps" value="false"/>
+             <texture name="Texture1" value="textures/sky1_bottom.jpg"/>
+             <enum name="TextureWrapU1" value="texture_clamp_clamp_to_edge"/>
+             <enum name="TextureWrapV1" value="texture_clamp_clamp_to_edge"/>
+             <bool name="BilinearFilter1" value="true"/>
+             <bool name="TrilinearFilter1" value="false"/>
+             <int name="AnisotropicFilter1" value="0"/>
+         </attributes>
+      </materials>
    </node>
 </irr_scene>
