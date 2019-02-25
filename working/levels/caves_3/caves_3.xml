@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<level version="0" gameversion="0.2.1">
+<level version="0" gameversion="0.3.0">
 	<info>
 		<name>Descent</name>
 	</info>
@@ -7,8 +7,8 @@
 		<emitlight enabled="1" />
 	</options>
 	<resources>
-		<script file="terrain.lua" />
-		<scene file="terrain.irr" />
+		<script file="caves_3.lua" />
+		<scene file="caves_3.irr" />
 	</resources>
 	<templates>
 		<player name="player" />
