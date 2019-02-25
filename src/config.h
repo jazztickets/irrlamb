@@ -44,6 +44,7 @@ class _Config {
 		bool Shadows;
 		bool TrilinearFiltering;
 		bool Shaders;
+		bool MultipleLights;
 		bool Vsync;
 		bool ShowFPS;
 		bool ShowTutorial;

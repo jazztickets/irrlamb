@@ -51,6 +51,7 @@ void _Config::Reset() {
 	ScreenHeight = 600;
 	Fullscreen = false;
 	Shadows = true;
+	MultipleLights = true;
 	Shaders = true;
 	TrilinearFiltering = true;
 	AnisotropicFiltering = 0;
@@ -243,6 +244,12 @@ int _Config::ReadConfig() {
 			Element->QueryBoolAttribute("enabled", &Shaders);
 		}
 
+		// Check for the shader tag
+		Element = VideoElement->FirstChildElement("multiplelights");
+		if(Element) {
+			Element->QueryBoolAttribute("enabled", &MultipleLights);
+		}
+
 		// Check for the vsync tag
 		Element = VideoElement->FirstChildElement("vsync");
 		if(Element) {
@@ -352,6 +359,11 @@ int _Config::WriteConfig() {
 	XMLElement *ShadersElement = Document.NewElement("shaders");
 	ShadersElement->SetAttribute("enabled", Shaders);
 	VideoElement->LinkEndChild(ShadersElement);
+
+	// Multiple Lights
+	XMLElement *MultipleLightsElement = Document.NewElement("multiplelights");
+	MultipleLightsElement->SetAttribute("enabled", MultipleLights);
+	VideoElement->LinkEndChild(MultipleLightsElement);
 
 	// Vsync
 	XMLElement *VsyncElement = Document.NewElement("vsync");

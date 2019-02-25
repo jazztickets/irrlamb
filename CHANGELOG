@@ -5,10 +5,11 @@ irrlamb 0.3.0 -
 - Added replay sorting
 - Added freecamera mode to replays
 - Added gameplay options
+- Added mouse sensitivity to options
+- Added option for disabling multiple lights
 - Updated some tutorial levels
 - Windows build now uses MinGW-w64
 - Added irrlicht source to project and fixed many irrlicht bugs
-- Added mouse sensitivity to options
 - Fixed replays on 32-bit version
 - Increased quality of in-game screenshots
 

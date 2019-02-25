@@ -22,6 +22,7 @@
 #include <scripting.h>
 #include <replay.h>
 #include <constants.h>
+#include <config.h>
 #include <audio.h>
 #include <objects/template.h>
 #include <BulletCollision/CollisionShapes/btSphereShape.h>
@@ -66,7 +67,7 @@ _Orb::_Orb(const _ObjectSpawn &Object)
 		InnerNode->setMaterialTexture(0, irrDriver->getTexture("textures/orb_glow0.png"));
 
 	// Emit Light
-	if(Object.Template->EmitLight) {
+	if(Config.MultipleLights && Object.Template->EmitLight) {
 		Light = irrScene->addLightSceneNode(0, core::vector3df(Object.Position[0], Object.Position[1], Object.Position[2]), video::SColorf(1.0f, 1.0f, 1.0f), 15.0f);
 
 		video::SLight LightData;
