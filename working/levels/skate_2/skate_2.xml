@@ -14,11 +14,33 @@
 	<templates>
 		<player name="player" />
 		<orb name="orb" />
+		<zone name="losezone">
+			<shape w="500" h="5" l="500" />
+		</zone>
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="-1.506" y="23.541" z="-70.328" />
-			<position x="0" y="0.5" z="0.0" />
+			<position x="-2.0" y="20.5" z="-96.414" />
+			<!--
+			<position x="69.360" y="17.068" z="-29.872" />
+			<position x="57.607" y="20.920" z="-7.244" />
+			<position x="-2.0" y="20.5" z="-96.414" />
+			-->
+		</object>
+		<object name="losezone" template="losezone">
+			<position x="0" y="-10" z="00" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="0.509" y="13.100" z="-59.869" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="47.820" y="25.341" z="-29.796" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="69.001" y="8.500" z="30.892" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="97.5" y="12.500" z="96.5" />
 		</object>
 	</objects>
 </level>
