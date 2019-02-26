@@ -34,11 +34,7 @@ int _Audio::Init(bool Enabled) {
 	Log.Write("Initializing audio");
 
 	// Create device
-	#ifdef _WIN32
-		ALCdevice *Device = alcOpenDevice(nullptr);
-	#else
-		ALCdevice *Device = alcOpenDevice(nullptr);
-	#endif
+	ALCdevice *Device = alcOpenDevice(nullptr);
 	if(Device == nullptr) {
 		Log.Write("Unable to create audio device");
 		Enabled = false;
