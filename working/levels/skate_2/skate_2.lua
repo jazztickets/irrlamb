@@ -19,7 +19,4 @@ function OnHitZone(HitType, Zone, HitObject)
 end
 
 -- Set up goal
-GoalCount = 5
-
--- Set up level
---Camera.SetYaw(0)
+GoalCount = 7

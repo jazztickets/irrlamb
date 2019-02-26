@@ -25,6 +25,8 @@
 			<position x="69.360" y="17.068" z="-29.872" />
 			<position x="57.607" y="20.920" z="-7.244" />
 			<position x="-2.0" y="20.5" z="-96.414" />
+			<position x="68.773" y="6.400" z="61.087" />
+			<position x="-64.0" y="0.500" z="-45.140" />
 			-->
 		</object>
 		<object name="losezone" template="losezone">
@@ -40,7 +42,16 @@
 			<position x="69.001" y="8.500" z="30.892" />
 		</object>
 		<object name="orb" template="orb">
-			<position x="97.5" y="12.500" z="96.5" />
+			<position x="40.0" y="29.304" z="42.882" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="95.264" y="37.084" z="-18.080" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="-64.0" y="6.500" z="0.0" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="-30" y="5.500" z="57.0" />
 		</object>
 	</objects>
 </level>
