@@ -53,7 +53,6 @@ _Orb::_Orb(const _ObjectSpawn &Object)
 	Node->getMaterial(0).MaterialTypeParam = pack_textureBlendFunc(video::EBF_ONE, video::EBF_ONE);
 
 	// Create glow
-	//GlowColor = video::SColor(255, 255, 240, 130);
 	GlowColor = video::SColor(255, 255, 255, 255);
 	InnerNode = irrScene->addBillboardSceneNode(Node, core::dimension2df(ORB_GLOWSIZE, ORB_GLOWSIZE));
 	InnerNode->setColor(GlowColor);

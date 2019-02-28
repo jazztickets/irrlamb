@@ -15,13 +15,11 @@
 		<player name="player" />
 		<orb name="orb" />
 		<sphere name="boulder_med">
-			<mesh file="sphere_hi.irrbmesh" scale="5" shadows="0" />
 			<shape r="2.5" />
 			<physics mass="3.0" />
 			<texture file="dirt0.jpg" />
 		</sphere>
 		<sphere name="boulder_high">
-			<mesh file="sphere_hi.irrbmesh" scale="7" shadows="0" />
 			<shape r="3.5" />
 			<physics mass="5.0" />
 			<texture file="dirt0.jpg" />

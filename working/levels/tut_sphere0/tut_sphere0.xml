@@ -12,11 +12,10 @@
 	<templates>
 		<player name="player" />
 		<orb name="orb" />
-		<sphere name="ball">
-			<mesh file="sphere_hi.irrbmesh" scale="10" />
+		<sphere name="ball" detail="32">
 			<shape r="5" />
 			<physics mass="1.5" />
-			<texture file="tiles0.jpg" />
+			<texture file="woodfloor0.jpg" />
 		</sphere>
 		<zone name="losezone">
 			<shape w="50" h="2" l="50" />

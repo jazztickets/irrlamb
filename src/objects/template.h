@@ -55,6 +55,7 @@ struct _Template {
 	bool Fog;
 	bool EmitLight;
 	bool Shadows;
+	int Detail;
 	int CustomMaterial;
 
 	// Zones

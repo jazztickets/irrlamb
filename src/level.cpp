@@ -371,6 +371,7 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 	// Get attributes
 	TemplateElement->QueryFloatAttribute("lifetime", &Object.Lifetime);
 	TemplateElement->QueryIntAttribute("smooth", &Object.Smooth);
+	TemplateElement->QueryIntAttribute("detail", &Object.Detail);
 
 	// Get scale
 	Element = TemplateElement->FirstChildElement("shape");

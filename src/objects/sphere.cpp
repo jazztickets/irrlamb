@@ -21,9 +21,8 @@
 #include <config.h>
 #include <objects/template.h>
 #include <BulletCollision/CollisionShapes/btSphereShape.h>
-#include <IAnimatedMesh.h>
-#include <IAnimatedMeshSceneNode.h>
 #include <ISceneManager.h>
+#include <IMeshSceneNode.h>
 
 using namespace irr;
 
@@ -32,27 +31,16 @@ _Sphere::_Sphere(const _ObjectSpawn &Object)
 :	_Object() {
 	_Template *Template = Object.Template;
 
-	// Check for mesh file
-	if(Template->Mesh != "") {
+	// Get file path
+	std::string MeshPath = std::string("meshes/") + Template->Mesh;
 
-		// Get file path
-		std::string MeshPath = std::string("meshes/") + Template->Mesh;
-
-		// Add mesh
-		scene::IAnimatedMesh *AnimatedMesh = irrScene->getMesh(MeshPath.c_str());
-		Node = irrScene->addAnimatedMeshSceneNode(AnimatedMesh);
-		if(Node) {
-			Node->setScale(core::vector3df(Template->Scale[0], Template->Scale[1], Template->Scale[2]));
-			if(Template->Textures[0] != "")
-				Node->setMaterialTexture(0, irrDriver->getTexture(Template->Textures[0].c_str()));
-			if(Template->CustomMaterial != -1)
-				Node->setMaterialType((video::E_MATERIAL_TYPE)Template->CustomMaterial);
-
-			// Add shadows
-			if(Config.Shadows && Template->Shadows) {
-				((scene::IAnimatedMeshSceneNode *)Node)->addShadowVolumeSceneNode();
-			}
-		}
+	// Add mesh
+	Node = irrScene->addSphereSceneNode(Template->Radius, Template->Detail);
+	if(Node) {
+		if(Template->Textures[0] != "")
+			Node->setMaterialTexture(0, irrDriver->getTexture(Template->Textures[0].c_str()));
+		if(Template->CustomMaterial != -1)
+			Node->setMaterialType((video::E_MATERIAL_TYPE)Template->CustomMaterial);
 	}
 
 	// Set up physics
