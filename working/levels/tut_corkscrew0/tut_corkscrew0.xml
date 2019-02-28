@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<level version="0" gameversion="0.3.0">
+	<info>
+		<name>Corkscrew</name>
+	</info>
+	<options>
+		<emitlight enabled="1" />
+	</options>
+	<resources>
+		<script file="tut_corkscrew0.lua" />
+		<scene file="tut_corkscrew0.irr" />
+		<collision file="tut_corkscrew0.col" />
+	</resources>
+	<templates>
+		<player name="player" />
+		<orb name="orb" />
+	</templates>
+	<objects>
+		<object name="player" template="player">
+			<position x="0" y="0.5" z="0" />
+		</object>
+		<object name="orb0" template="orb">
+			<position x="6.5" y="0.500" z="35.0" />
+		</object>
+	</objects>
+</level>
