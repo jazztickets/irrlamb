@@ -667,7 +667,14 @@ void _Menu::InitLevels() {
 
 		// Set unlocked status
 		if(Stats->Unlocked == 0) {
-			Unlocked = false;
+
+			// Unlock level if previous level has any highscores
+			if(i > 0 && Save.LevelStats[CampaignData.Levels[i-1].File].HighScores.size() > 0) {
+				Save.UnlockLevel(CampaignData.Levels[i].File);
+			}
+			else {
+				Unlocked = false;
+			}
 
 			// Unlock the level if it's always unlocked in the campaign
 			if((Input.GetKeyState(KEY_F1) && Input.GetKeyState(KEY_F10)) || CampaignData.Levels[i].Unlocked) {
