@@ -18,7 +18,6 @@
 #include <objects/sphere.h>
 #include <globals.h>
 #include <physics.h>
-#include <config.h>
 #include <objects/template.h>
 #include <BulletCollision/CollisionShapes/btSphereShape.h>
 #include <ISceneManager.h>
@@ -29,10 +28,9 @@ using namespace irr;
 // Constructor
 _Sphere::_Sphere(const _ObjectSpawn &Object)
 :	_Object() {
-	_Template *Template = Object.Template;
 
-	// Get file path
-	std::string MeshPath = std::string("meshes/") + Template->Mesh;
+	// Get template
+	_Template *Template = Object.Template;
 
 	// Add mesh
 	Node = irrScene->addSphereSceneNode(Template->Radius, Template->Detail);
