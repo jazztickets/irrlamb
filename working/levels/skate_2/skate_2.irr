@@ -7,7 +7,7 @@
       <vector3d name="Position" value="0, 0, 0"/>
       <vector3d name="Rotation" value="0, 0, 0"/>
       <vector3d name="Scale" value="1, 1, 1"/>
-      <colorf name="AmbientLight" value="0.827557, 0.827557, 0.827557, 1"/>
+      <colorf name="AmbientLight" value="0.50706, 0.50706, 0.50706, 1"/>
       <bool name="AutomaticCulling" value="true"/>
       <bool name="DebugDataVisible" value="false"/>
       <bool name="IsDebugObject" value="false"/>
@@ -1358,6 +1358,28 @@
          <string name="Mesh" value="meshes/skate_corner0.irrbmesh"/>
          <enum name="HardwareMappingHint" value="never"/>
          <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="light">
+      <attributes>
+         <string name="Name" value="Sun"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-102.756203, 42.207977, 101.706558"/>
+         <vector3d name="Rotation" value="-114.417594, -11.894338, -114.417594"/>
+         <enum name="LightType" value="Point"/>
+         <colorf name="AmbientColor" value="0, 0, 0, 1"/>
+         <colorf name="DiffuseColor" value="1, 1, 1, 1"/>
+         <colorf name="SpecularColor" value="1, 1, 1, 1"/>
+         <vector3d name="Attenuation" value="1, 0, 0"/>
+         <float name="Radius" value="100.00"/>
+         <float name="OuterCone" value="45.00"/>
+         <float name="InnerCone" value="0.00"/>
+         <bool name="CastShadows" value="true"/>
       </attributes>
       <userData>
          <attributes>
