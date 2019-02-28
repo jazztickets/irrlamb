@@ -7,7 +7,7 @@
       <vector3d name="Position" value="0, 0, 0"/>
       <vector3d name="Rotation" value="0, 0, 0"/>
       <vector3d name="Scale" value="1, 1, 1"/>
-      <colorf name="AmbientLight" value="0.5, 0.5, 0.5, 1"/>
+      <colorf name="AmbientLight" value="0.299993, 0.299993, 0.299993, 1"/>
       <bool name="AutomaticCulling" value="true"/>
       <bool name="DebugDataVisible" value="false"/>
       <bool name="IsDebugObject" value="false"/>
@@ -46,7 +46,7 @@
          <string name="Name" value="Lamp"/>
          <int name="Id" value="-1"/>
          <bool name="Visible" value="true"/>
-         <vector3d name="Position" value="0.076245, 8.840874, 11.005454"/>
+         <vector3d name="Position" value="0, 8.666666, 10.5"/>
          <vector3d name="Rotation" value="42.466462, -107.220767, 10.743632"/>
          <enum name="LightType" value="Point"/>
          <colorf name="AmbientColor" value="0, 0, 0, 1"/>
