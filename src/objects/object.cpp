@@ -193,7 +193,8 @@ void _Object::setWorldTransform(const btTransform &Transform) {
 		// Rotation
 		btVector3 EulerRotation;
 		btQuaternion RigidRotation = CenterOfMassTransform.getRotation();
-		_Physics::QuaternionToEuler(RigidRotation, EulerRotation);
+		RigidRotation.getEulerZYX(EulerRotation[2], EulerRotation[1], EulerRotation[0]);
+		EulerRotation *= core::RADTODEG;
 		Node->setRotation(core::vector3df(EulerRotation[0], EulerRotation[1], EulerRotation[2]));
 	}
 }

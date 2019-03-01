@@ -72,8 +72,6 @@ class _Physics {
 		void RemoveFilter(int &Value, int Filter);
 		void SetBodyType(int &Value, int Filter);
 
-		static void QuaternionToEuler(const btQuaternion &Quat, btVector3 &Euler);
-
 	private:
 
 		btDefaultCollisionConfiguration *CollisionConfiguration;

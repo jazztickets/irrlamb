@@ -107,23 +107,6 @@ bool _Physics::RaycastWorld(const btVector3 &Start, btVector3 &End, btVector3 &N
 	return false;
 }
 
-// Converts a quaternion to an euler angle
-void _Physics::QuaternionToEuler(const btQuaternion &Quat, btVector3 &Euler) {
-	btScalar W = Quat.getW();
-	btScalar X = Quat.getX();
-	btScalar Y = Quat.getY();
-	btScalar Z = Quat.getZ();
-	float WSquared = W * W;
-	float XSquared = X * X;
-	float YSquared = Y * Y;
-	float ZSquared = Z * Z;
-
-	Euler.setX(atan2f(2.0f * (Y * Z + X * W), -XSquared - YSquared + ZSquared + WSquared));
-	Euler.setY(asinf(-2.0f * (X * Z - Y * W)));
-	Euler.setZ(atan2f(2.0f * (X * Y + Z * W), XSquared - YSquared - ZSquared + WSquared));
-	Euler *= irr::core::RADTODEG;
-}
-
 // Removes a bit field from a value
 void _Physics::RemoveFilter(int &Value, int Filter) {
 
