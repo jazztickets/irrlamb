@@ -61,22 +61,16 @@ _Object::~_Object() {
 // Print object position and rotation
 void _Object::PrintOrientation() {
 
-	// Get rotation
+	// Get rigid body state
 	btQuaternion Quaternion = GetRotation();
-	btVector3 Rotation;
-	_Physics::QuaternionToEuler(Quaternion, Rotation);
-
-	// Get position
 	const btVector3 &Position = GetPosition();
-
-	// Get velocity
 	const btVector3 &LinearVelocity = GetLinearVelocity();
 	const btVector3 &AngularVelocity = GetAngularVelocity();
 
 	// Write information
 	Log.Write("<object name=\"%s\" template=\"%s\">", Name.c_str(), Template->Name.c_str());
 	Log.Write("\t<position x=\"%f\" y=\"%f\" z=\"%f\" />", Position[0], Position[1], Position[2]);
-	Log.Write("\t<rotation x=\"%f\" y=\"%f\" z=\"%f\" />", Rotation[0], Rotation[1], Rotation[2]);
+	Log.Write("\t<quaternion x=\"%f\" y=\"%f\" z=\"%f\" w=\"%f\" />", Quaternion[0], Quaternion[1], Quaternion[2], Quaternion[3]);
 	Log.Write("\t<linear_velocity x=\"%f\" y=\"%f\" z=\"%f\" />", LinearVelocity[0], LinearVelocity[1], LinearVelocity[2]);
 	Log.Write("\t<angular_velocity x=\"%f\" y=\"%f\" z=\"%f\" />", AngularVelocity[0], AngularVelocity[1], AngularVelocity[2]);
 	Log.Write("</object>");
@@ -87,7 +81,9 @@ void _Object::CreateRigidBody(const _ObjectSpawn &Object, btCollisionShape *Shap
 	_Template *Template = Object.Template;
 
 	// Rotation
-	btQuaternion QuaternionRotation(Object.Rotation[1] * core::DEGTORAD, Object.Rotation[0] * core::DEGTORAD, Object.Rotation[2] * core::DEGTORAD);
+	btQuaternion QuaternionRotation = Object.Quaternion;
+	if(!Object.HasQuaternion)
+		QuaternionRotation.setEuler(Object.Rotation[1] * core::DEGTORAD, Object.Rotation[0] * core::DEGTORAD, Object.Rotation[2] * core::DEGTORAD);
 
 	// Transform
 	CenterOfMassTransform.setIdentity();

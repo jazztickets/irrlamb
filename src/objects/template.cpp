@@ -72,8 +72,11 @@ _ObjectSpawn::_ObjectSpawn() {
 	Name = "";
 	Position.setValue(0.0f, 0.0f, 0.0f);
 	Rotation.setValue(0.0f, 0.0f, 0.0f);
+	Quaternion.setValue(0.0f, 0.0f, 0.0f, 1.0f);
 	LinearVelocity.setValue(0.0f, 0.0f, 0.0f);
+	AngularVelocity.setValue(0.0f, 0.0f, 0.0f);
 	Template = nullptr;
+	HasQuaternion = false;
 }
 
 _ConstraintSpawn::_ConstraintSpawn() {

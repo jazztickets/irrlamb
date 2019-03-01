@@ -36,6 +36,8 @@
 		</object>
 
 		<!--
+
+		Start:
 		<object name="player" template="player">
 			<position x="3.853479" y="-6.889010" z="21.523973" />
 			<linear_velocity x="0.234600" y="-1.562338" z="5.380947" />
@@ -45,6 +47,20 @@
 			<rotation x="16.180250" y="-1.617409" z="0.163344" />
 			<linear_velocity x="0.026573" y="-1.495249" z="5.136311" />
 		</object>
+
+		<object name="player" template="player">
+			<position x="309.503601" y="-424.220551" z="711.618835" />
+			<quaternion x="0.285015" y="-0.143175" z="0.902122" w="-0.290592" />
+			<linear_velocity x="-0.938031" y="-2.526122" z="10.292912" />
+			<angular_velocity x="0.022830" y="0.323196" z="0.470087" />
+		</object>
+		<object name="raft" template="raft">
+			<position x="310.032013" y="-425.007385" z="712.065979" />
+			<quaternion x="0.047716" y="0.857963" z="0.057126" w="0.508290" />
+			<linear_velocity x="-0.731837" y="-2.664481" z="10.211557" />
+			<angular_velocity x="0.305534" y="-0.030564" z="0.046139" />
+		</object>
+
 		-->
 		<!--
 		<object name="orb1" template="orb">

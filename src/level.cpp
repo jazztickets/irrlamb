@@ -563,6 +563,16 @@ int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, _ObjectSpawn &Ob
 		Element->QueryFloatAttribute("z", &ObjectSpawn.Rotation[2]);
 	}
 
+	// Get quaternion rotation
+	Element = ObjectElement->FirstChildElement("quaternion");
+	if(Element) {
+		Element->QueryFloatAttribute("x", &ObjectSpawn.Quaternion[0]);
+		Element->QueryFloatAttribute("y", &ObjectSpawn.Quaternion[1]);
+		Element->QueryFloatAttribute("z", &ObjectSpawn.Quaternion[2]);
+		Element->QueryFloatAttribute("w", &ObjectSpawn.Quaternion[3]);
+		ObjectSpawn.HasQuaternion = true;
+	}
+
 	// Get linear velocity
 	Element = ObjectElement->FirstChildElement("linear_velocity");
 	if(Element) {

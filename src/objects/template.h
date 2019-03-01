@@ -17,6 +17,7 @@
 *******************************************************************************/
 #pragma once
 #include <LinearMath/btVector3.h>
+#include <LinearMath/btQuaternion.h>
 #include <string>
 
 // Forward Declarations
@@ -71,9 +72,12 @@ struct _ObjectSpawn {
 	std::string Name;
 	btVector3 Position;
 	btVector3 Rotation;
+	btQuaternion Quaternion;
 	btVector3 LinearVelocity;
 	btVector3 AngularVelocity;
 	_Template *Template;
+
+	bool HasQuaternion;
 };
 
 struct _ConstraintSpawn {
