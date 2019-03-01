@@ -19,6 +19,7 @@
 
 // Libraries
 #include <objects/object.h>
+#include <BulletCollision/CollisionShapes/btTriangleInfoMap.h>
 
 // Forward Declarations
 class btTriangleMesh;
@@ -34,5 +35,6 @@ class _Terrain : public _Object {
 	private:
 
 		btTriangleMesh *CollisionMesh;
+		btTriangleInfoMap *TriangleInfoMap;
 
 };

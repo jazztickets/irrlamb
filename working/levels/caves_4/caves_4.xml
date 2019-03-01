@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<level version="0" gameversion="0.3.0">
+	<info>
+		<name>Chasm</name>
+	</info>
+	<options>
+		<emitlight enabled="0" />
+	</options>
+	<resources>
+		<script file="caves_4.lua" />
+		<scene file="caves_4.irr" />
+		<collision file="caves_4.col" friction="0.2" />
+	</resources>
+	<templates>
+		<player name="player" />
+		<orb name="orb" />
+		<!--<terrain name="terrain" smooth="5">
+			<mesh file="height1.png" />
+			<shape w="5" h="0.4" l="5" />
+			<texture index="0" file="grass0.jpg" scale="16.0" />
+			<physics friction="0.3" />
+		</terrain>-->
+		<cylinder name="raft">
+			<mesh file="cylinder.irrbmesh" w="4" h="0.2" l="4" />
+			<shape w="4" h="0.4" l="4" />
+			<texture file="woodfloor0.jpg" />
+			<physics mass="1" sleep="0"/>
+		</cylinder>
+		<zone name="losezone">
+			<shape w="500" h="10" l="500" />
+		</zone>
+	</templates>
+	<objects>
+		<object name="player" template="player">
+			<position x="0.0" y="1.0" z="0.0" />
+		</object>
+		<object name="raft" template="raft">
+			<position x="0.0" y="0.0" z="0.0" />
+		</object>
+		<!--
+		<object name="terrain" template="terrain">
+			<position x="0.0" y="0.0" z="0.0" />
+			<rotation x="-35.0" y="180.0" z="0.0" />
+		</object>
+		<object name="orb1" template="orb">
+			<position x="93.222" y="45.420" z="97.117" />
+		</object>
+		<object name="losezone" template="losezone">
+			<position x="0" y="-75" z="0" />
+		</object>
+		-->
+	</objects>
+</level>

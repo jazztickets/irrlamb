@@ -200,6 +200,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 					MeshNodes[i]->setMaterialType((video::E_MATERIAL_TYPE)Graphics.GetCustomMaterial(ShaderType));
 				}
 
+				//MeshNodes[i]->setMaterialFlag(video::EMF_WIREFRAME, true);
 				MeshNodes[i]->setMaterialFlag(video::EMF_TRILINEAR_FILTER, Config.TrilinearFiltering);
 				for(uint32_t j = 0; j < MeshNodes[i]->getMaterialCount(); j++) {
 					for(int k = 0; k < 4; k++) {
@@ -228,6 +229,9 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 			Template->Type = _Object::COLLISION;
 			Template->Mass = 0.0f;
 			Templates.push_back(Template);
+
+			// Get collision friction
+			CollisionElement->QueryFloatAttribute("friction", &Template->Friction);
 
 			// Create spawn
 			_ObjectSpawn *ObjectSpawn = new _ObjectSpawn;

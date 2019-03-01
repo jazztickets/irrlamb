@@ -351,6 +351,8 @@ void _Interface::RenderFPS(int PositionX, int PositionY) {
 	char Buffer[32];
 	sprintf(Buffer, "%d FPS", irrDriver->getFPS());
 	Interface.RenderText(Buffer, PositionX, PositionY, _Interface::ALIGN_LEFT, _Interface::FONT_SMALL);
+	//sprintf(Buffer, "%d", irrDriver->getPrimitiveCountDrawn());
+	//Interface.RenderText(Buffer, PositionX, PositionY + 25, _Interface::ALIGN_LEFT, _Interface::FONT_SMALL);
 }
 
 // Draws an interface image centered around a position

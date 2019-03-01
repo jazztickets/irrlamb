@@ -25,6 +25,7 @@
 #include <ISceneManager.h>
 #include <BulletCollision/CollisionShapes/btTriangleMesh.h>
 #include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
+#include <BulletCollision/CollisionDispatch/btInternalEdgeUtility.h>
 
 using namespace irr;
 
@@ -102,6 +103,8 @@ _Terrain::_Terrain(const _ObjectSpawn &Object)
 
 			// Create bvh mesh
 			btBvhTriangleMeshShape *Shape = new btBvhTriangleMeshShape(CollisionMesh, true);
+			TriangleInfoMap = new btTriangleInfoMap();
+			btGenerateInternalEdgeInfo(Shape, TriangleInfoMap);
 
 			// Create physics body
 			CreateRigidBody(Object, Shape, false);
@@ -116,5 +119,6 @@ _Terrain::_Terrain(const _ObjectSpawn &Object)
 
 // Destructor
 _Terrain::~_Terrain() {
+	delete TriangleInfoMap;
 	delete CollisionMesh;
 }
