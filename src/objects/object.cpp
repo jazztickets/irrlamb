@@ -20,16 +20,17 @@
 #include <config.h>
 #include <scripting.h>
 #include <physics.h>
+#include <log.h>
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
 
 using namespace irr;
 
 // Constructor
-_Object::_Object()
+_Object::_Object(const _Template *Template)
 :	Name(""),
+	Template(Template),
 	Type(NONE),
 	ID(-1),
-	TemplateID(-1),
 	Deleted(false),
 	Timer(0.0f),
 	Lifetime(0.0f),
@@ -40,20 +41,45 @@ _Object::_Object()
 	TouchingWall(false) {
 
 	LastOrientation.setIdentity();
-
 }
 
 // Destructor
 _Object::~_Object() {
 
+	// Remove graphics node
 	if(Node)
 		Node->remove();
 
+	// Delete rigid body
 	if(RigidBody) {
 		Physics.GetWorld()->removeRigidBody(RigidBody);
 		delete RigidBody->getCollisionShape();
 		delete RigidBody;
 	}
+}
+
+// Print object position and rotation
+void _Object::PrintOrientation() {
+
+	// Get rotation
+	btQuaternion Quaternion = GetRotation();
+	btVector3 Rotation;
+	_Physics::QuaternionToEuler(Quaternion, Rotation);
+
+	// Get position
+	const btVector3 &Position = GetPosition();
+
+	// Get velocity
+	const btVector3 &LinearVelocity = GetLinearVelocity();
+	const btVector3 &AngularVelocity = GetAngularVelocity();
+
+	// Write information
+	Log.Write("<object name=\"%s\" template=\"%s\">", Name.c_str(), Template->Name.c_str());
+	Log.Write("\t<position x=\"%f\" y=\"%f\" z=\"%f\" />", Position[0], Position[1], Position[2]);
+	Log.Write("\t<rotation x=\"%f\" y=\"%f\" z=\"%f\" />", Rotation[0], Rotation[1], Rotation[2]);
+	Log.Write("\t<linear_velocity x=\"%f\" y=\"%f\" z=\"%f\" />", LinearVelocity[0], LinearVelocity[1], LinearVelocity[2]);
+	Log.Write("\t<angular_velocity x=\"%f\" y=\"%f\" z=\"%f\" />", AngularVelocity[0], AngularVelocity[1], AngularVelocity[2]);
+	Log.Write("</object>");
 }
 
 // Creates a rigid body object and adds it to the world
@@ -82,6 +108,8 @@ void _Object::CreateRigidBody(const _ObjectSpawn &Object, btCollisionShape *Shap
 	RigidBody->setRestitution(Template->Restitution);
 	RigidBody->setDamping(Template->LinearDamping, Template->AngularDamping);
 	RigidBody->setSleepingThresholds(0.2f, 0.2f);
+	RigidBody->setLinearVelocity(Object.LinearVelocity);
+	RigidBody->setAngularVelocity(Object.AngularVelocity);
 	if(Template->Sleep)
 		RigidBody->setActivationState(ISLAND_SLEEPING);
 
@@ -100,13 +128,17 @@ void _Object::Update(float FrameTime) {
 
 // Updates while replaying
 void _Object::UpdateReplay(float FrameTime) {
-
 	Timer += FrameTime;
+}
+
+// Get template id
+const uint16_t _Object::GetTemplateID() const {
+	 return Template->TemplateID;
 }
 
 // Sets object properties
 void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
-	_Template *Template = Object.Template;
+	Template = Object.Template;
 
 	// Basic properties
 	Name = Object.Name;
@@ -165,14 +197,13 @@ void _Object::setWorldTransform(const btTransform &Transform) {
 		// Rotation
 		btVector3 EulerRotation;
 		btQuaternion RigidRotation = CenterOfMassTransform.getRotation();
-		Physics.QuaternionToEuler(RigidRotation, EulerRotation);
+		_Physics::QuaternionToEuler(RigidRotation, EulerRotation);
 		Node->setRotation(core::vector3df(EulerRotation[0], EulerRotation[1], EulerRotation[2]));
 	}
 }
 
 // Stops the body's movement
 void _Object::Stop() {
-
 	RigidBody->setLinearVelocity(btVector3(0.0f, 0.0f, 0.0f));
 	RigidBody->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
 }

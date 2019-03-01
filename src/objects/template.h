@@ -71,6 +71,8 @@ struct _ObjectSpawn {
 	std::string Name;
 	btVector3 Position;
 	btVector3 Rotation;
+	btVector3 LinearVelocity;
+	btVector3 AngularVelocity;
 	_Template *Template;
 };
 

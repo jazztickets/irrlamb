@@ -236,6 +236,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 			// Create spawn
 			_ObjectSpawn *ObjectSpawn = new _ObjectSpawn;
 			ObjectSpawn->Template = Template;
+			ObjectSpawn->Name = "collision";
 			ObjectSpawns.push_back(ObjectSpawn);
 		}
 
@@ -560,6 +561,22 @@ int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, _ObjectSpawn &Ob
 		Element->QueryFloatAttribute("x", &ObjectSpawn.Rotation[0]);
 		Element->QueryFloatAttribute("y", &ObjectSpawn.Rotation[1]);
 		Element->QueryFloatAttribute("z", &ObjectSpawn.Rotation[2]);
+	}
+
+	// Get linear velocity
+	Element = ObjectElement->FirstChildElement("linear_velocity");
+	if(Element) {
+		Element->QueryFloatAttribute("x", &ObjectSpawn.LinearVelocity[0]);
+		Element->QueryFloatAttribute("y", &ObjectSpawn.LinearVelocity[1]);
+		Element->QueryFloatAttribute("z", &ObjectSpawn.LinearVelocity[2]);
+	}
+
+	// Get angular velocity
+	Element = ObjectElement->FirstChildElement("angular_velocity");
+	if(Element) {
+		Element->QueryFloatAttribute("x", &ObjectSpawn.AngularVelocity[0]);
+		Element->QueryFloatAttribute("y", &ObjectSpawn.AngularVelocity[1]);
+		Element->QueryFloatAttribute("z", &ObjectSpawn.AngularVelocity[2]);
 	}
 
 	return 1;

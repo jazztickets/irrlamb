@@ -49,6 +49,7 @@ class _ObjectManager {
 		_Object *GetObjectByType(int Type);
 		_Object *GetObjectByID(int ID);
 
+		void PrintObjectOrientations();
 		void ClearObjects();
 		size_t GetObjectCount() const { return Objects.size(); }
 		const std::list<_Object *> &GetObjects() const { return Objects; }

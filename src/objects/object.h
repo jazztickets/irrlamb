@@ -27,6 +27,7 @@
 // Forward Declarations
 struct _ObjectSpawn;
 struct _ConstraintSpawn;
+struct _Template;
 class _AudioSource;
 
 // Classes
@@ -48,8 +49,10 @@ class _Object : public btMotionState {
 			ZONE,
 		};
 
-		_Object();
+		_Object(const _Template *Template);
 		virtual ~_Object();
+
+		void PrintOrientation();
 
 		// Updates
 		virtual void Update(float FrameTime);
@@ -63,7 +66,6 @@ class _Object : public btMotionState {
 
 		// Object properties
 		void SetID(int Value) { ID = Value; }
-		void SetTemplateID(int Value) { TemplateID = Value; }
 		void SetDeleted(bool Value) { Deleted = Value; }
 		void SetLifetime(float Value) { Lifetime = Timer + Value; }
 
@@ -72,7 +74,7 @@ class _Object : public btMotionState {
 		float GetLifetime() const { return Lifetime; }
 		int GetType() const { return Type; }
 		const uint16_t &GetID() const { return ID; }
-		const uint16_t &GetTemplateID() const { return TemplateID; }
+		const uint16_t GetTemplateID() const;
 
 		// Rigid body
 		void Stop();
@@ -110,8 +112,9 @@ class _Object : public btMotionState {
 
 		// Attributes
 		std::string Name;
+		const _Template *Template;
 		int Type;
-		uint16_t ID, TemplateID;
+		uint16_t ID;
 
 		// State
 		bool Deleted;

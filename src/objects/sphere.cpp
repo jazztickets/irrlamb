@@ -27,10 +27,7 @@ using namespace irr;
 
 // Constructor
 _Sphere::_Sphere(const _ObjectSpawn &Object)
-:	_Object() {
-
-	// Get template
-	_Template *Template = Object.Template;
+:	_Object(Object.Template) {
 
 	// Add mesh
 	Node = irrScene->addSphereSceneNode(Template->Radius, Template->Detail);

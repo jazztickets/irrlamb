@@ -14,12 +14,6 @@
 	<templates>
 		<player name="player" />
 		<orb name="orb" />
-		<!--<terrain name="terrain" smooth="5">
-			<mesh file="height1.png" />
-			<shape w="5" h="0.4" l="5" />
-			<texture index="0" file="grass0.jpg" scale="16.0" />
-			<physics friction="0.3" />
-		</terrain>-->
 		<cylinder name="raft">
 			<mesh file="cylinder.irrbmesh" w="4" h="0.2" l="4" />
 			<shape w="4" h="0.4" l="4" />
@@ -32,16 +26,27 @@
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="0.0" y="1.0" z="0.0" />
+			<position x="3.853479" y="-6.889010" z="21.523973" />
+			<linear_velocity x="0.234600" y="-1.562338" z="5.380947" />
 		</object>
 		<object name="raft" template="raft">
-			<position x="0.0" y="0.0" z="0.0" />
+			<position x="3.820369" y="-7.726758" z="21.898024" />
+			<rotation x="16.180250" y="-1.617409" z="0.163344" />
+			<linear_velocity x="0.026573" y="-1.495249" z="5.136311" />
 		</object>
+
 		<!--
-		<object name="terrain" template="terrain">
-			<position x="0.0" y="0.0" z="0.0" />
-			<rotation x="-35.0" y="180.0" z="0.0" />
+		<object name="player" template="player">
+			<position x="3.853479" y="-6.889010" z="21.523973" />
+			<linear_velocity x="0.234600" y="-1.562338" z="5.380947" />
 		</object>
+		<object name="raft" template="raft">
+			<position x="3.820369" y="-7.726758" z="21.898024" />
+			<rotation x="16.180250" y="-1.617409" z="0.163344" />
+			<linear_velocity x="0.026573" y="-1.495249" z="5.136311" />
+		</object>
+		-->
+		<!--
 		<object name="orb1" template="orb">
 			<position x="93.222" y="45.420" z="97.117" />
 		</object>

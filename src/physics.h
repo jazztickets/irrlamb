@@ -64,7 +64,6 @@ class _Physics {
 		void Reset();
 
 		bool RaycastWorld(const btVector3 &Start, btVector3 &End, btVector3 &ormal);
-		void QuaternionToEuler(const btQuaternion &Quat, btVector3 &Euler);
 
 		btFixedWorld *GetWorld() { return World; }
 
@@ -72,6 +71,8 @@ class _Physics {
 		bool IsEnabled() const { return Enabled; }
 		void RemoveFilter(int &Value, int Filter);
 		void SetBodyType(int &Value, int Filter);
+
+		static void QuaternionToEuler(const btQuaternion &Quat, btVector3 &Euler);
 
 	private:
 

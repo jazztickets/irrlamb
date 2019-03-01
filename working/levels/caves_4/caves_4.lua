@@ -18,8 +18,20 @@ function OnHitZone(HitType, Zone, HitObject)
 	return 0
 end
 
+-- Display lose message
+function OnHitPlayer(PlayerObject, OtherObject)
+
+	if OtherObject == Collision then
+		Level.Lose("You fell off the raft!")
+	end
+end
+
 -- Set up goal
 GoalCount = 5
 
--- set up camera
+-- Get static collision object
+Collision = Object.GetPointer("collision")
+
+-- Set up camera
 Camera.SetYaw(0)
+--Camera.SetPitch(0)

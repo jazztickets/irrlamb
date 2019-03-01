@@ -239,7 +239,10 @@ bool _PlayState::HandleKeyPress(int Key) {
 				Config.InvertMouse = !Config.InvertMouse;
 			break;
 			case KEY_F3:
-				Log.Write("<position x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" />", Player->GetPosition()[0], Player->GetPosition()[1], Player->GetPosition()[2]);
+				if(Input.GetKeyState(KEY_RSHIFT))
+					ObjectManager.PrintObjectOrientations();
+				else
+					Player->PrintOrientation();
 			break;
 			case KEY_F5:
 				Framework.ChangeState(&PlayState);

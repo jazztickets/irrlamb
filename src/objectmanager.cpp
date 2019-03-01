@@ -252,6 +252,13 @@ _Object *_ObjectManager::GetObjectByID(int ID) {
 	return nullptr;
 }
 
+// Print all object orientations
+void _ObjectManager::PrintObjectOrientations() {
+	for(auto &Iterator : Objects) {
+		Iterator->PrintOrientation();
+	}
+}
+
 // Deletes an object by its ID
 void _ObjectManager::DeleteObjectByID(int ID) {
 

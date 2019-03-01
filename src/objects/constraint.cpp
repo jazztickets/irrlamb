@@ -23,10 +23,8 @@
 
 // Constructor
 _Constraint::_Constraint(const _ConstraintSpawn &Object)
-:	_Object(),
+:	_Object(Object.Template),
 	Constraint(nullptr) {
-
-	_Template *Template = Object.Template;
 
 	// Attributes
 	if(Physics.IsEnabled()) {

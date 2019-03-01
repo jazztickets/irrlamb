@@ -24,9 +24,8 @@
 
 // Constructor
 _Zone::_Zone(const _ObjectSpawn &Object)
-:	_Object() {
+:	_Object(Object.Template) {
 
-	_Template *Template = Object.Template;
 	Active = Template->Active;
 
 	// Set up physics

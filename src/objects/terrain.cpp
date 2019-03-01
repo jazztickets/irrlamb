@@ -31,9 +31,8 @@ using namespace irr;
 
 // Constructor
 _Terrain::_Terrain(const _ObjectSpawn &Object)
-:	_Object(),
+:	_Object(Object.Template),
 	CollisionMesh(nullptr) {
-	_Template *Template = Object.Template;
 
 	// Check for mesh file
 	if(Template->Mesh != "") {

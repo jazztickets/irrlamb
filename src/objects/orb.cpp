@@ -33,15 +33,13 @@ using namespace irr;
 
 // Constructor
 _Orb::_Orb(const _ObjectSpawn &Object)
-:	_Object(),
+:	_Object(Object.Template),
 	Light(nullptr),
 	Sound(nullptr),
 	DeactivationCallback(""),
 	State(ORBSTATE_NORMAL),
 	OrbTime(0.0f),
 	DeactivateLength(ORB_DEACTIVATETIME) {
-
-	_Template *Template = Object.Template;
 
 	// Graphics
 	Node = irrScene->addSphereSceneNode(Template->Radius, 24);
