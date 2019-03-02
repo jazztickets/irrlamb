@@ -21,7 +21,7 @@ end
 -- Display lose message
 function OnHitPlayer(PlayerObject, OtherObject)
 
-	if OtherObject == Collision then
+	if OtherObject == oIce then
 		Level.Lose("You fell off the raft!")
 	else
 		Template = Object.GetTemplate(OtherObject)
@@ -35,7 +35,7 @@ end
 GoalCount = 5
 
 -- Get static collision object
-Collision = Object.GetPointer("collision")
+oIce = Object.GetPointer("ice")
 tOrb = Level.GetTemplate("orb")
 tRaft = Level.GetTemplate("raft")
 

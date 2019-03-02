@@ -9,7 +9,7 @@
 	<resources>
 		<script file="caves_4.lua" />
 		<scene file="caves_4.irr" />
-		<collision file="caves_4.col" friction="0.2" />
+		<collision name="ice" file="caves_4.col" friction="0.2" />
 	</resources>
 	<templates>
 		<player name="player" />

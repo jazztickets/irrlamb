@@ -236,7 +236,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 			// Create spawn
 			_ObjectSpawn *ObjectSpawn = new _ObjectSpawn;
 			ObjectSpawn->Template = Template;
-			ObjectSpawn->Name = "collision";
+			ObjectSpawn->Name = CollisionElement->Attribute("name");
 			ObjectSpawns.push_back(ObjectSpawn);
 		}
 
