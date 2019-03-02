@@ -74,13 +74,26 @@
 			<linear_velocity x="0.167845" y="-1.961859" z="6.731812" />
 			<angular_velocity x="0.009240" y="0.029188" z="0.018947" />
 		</object>
+
+		log:
+		<object name="player" template="player">
+			<position x="277.983673" y="-734.683899" z="1175.330200" />
+			<quaternion x="-0.437767" y="-0.034354" z="0.414609" w="0.797044" />
+			<linear_velocity x="-1.802730" y="-13.767056" z="22.902260" />
+			<angular_velocity x="0.809462" y="-2.266806" z="-2.428598" />
+		</object>
+		<object name="raft" template="raft">
+			<position x="278.360840" y="-735.384033" z="1175.145508" />
+			<quaternion x="0.275661" y="0.005141" z="0.013495" w="0.961147" />
+			<linear_velocity x="-2.168783" y="-13.515585" z="22.435511" />
+			<angular_velocity x="0.367961" y="0.107902" z="0.237926" />
+		</object>
 		-->
 		<!--
 		<object name="losezone" template="losezone">
 			<position x="0" y="-75" z="0" />
 		</object>
 		-->
-
 		<object name="orb" template="orb">
 			<position x="-9.120635" y="-88.693810" z="232.507996" />
 		</object>
@@ -88,7 +101,6 @@
 			<position x="-9.126837" y="-89.560921" z="232.446121" />
 			<quaternion x="0.118258" y="-0.059232" z="-0.104576" w="0.985683" />
 		</object>
-
 		<object name="orb" template="orb">
 			<position x="225.306641" y="-210.513977" z="288.093719" />
 		</object>
@@ -103,6 +115,5 @@
 			<position x="310.254333" y="-449.933838" z="797.297974" />
 			<quaternion x="-0.001773" y="0.987626" z="0.155514" w="-0.020181" />
 		</object>
-
 	</objects>
 </level>

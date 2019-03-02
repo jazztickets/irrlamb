@@ -33,9 +33,9 @@
          <string name="Name" value="caves_4"/>
          <int name="Id" value="-1"/>
          <bool name="Visible" value="true"/>
-         <vector3d name="Position" value="4.5, 9.03956, 11.018066"/>
-         <vector3d name="Rotation" value="0, 0, 0"/>
-         <vector3d name="Scale" value="1, 1, 1"/>
+         <vector3d name="Position" value="270.967316, -919.387146, 1492.781738"/>
+         <vector3d name="Rotation" value="27.710842, -0.955653, 0"/>
+         <vector3d name="Scale" value="1.543378, 1, 1"/>
          <enum name="AutomaticCulling" value="frustum_box"/>
          <bool name="DebugDataVisible" value="false"/>
          <bool name="IsDebugObject" value="false"/>

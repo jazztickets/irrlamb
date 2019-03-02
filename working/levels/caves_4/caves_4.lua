@@ -25,7 +25,7 @@ function OnHitPlayer(PlayerObject, OtherObject)
 		Level.Lose("You fell off the raft!")
 	else
 		Template = Object.GetTemplate(OtherObject)
-		if Template == tOrb then
+		if Template == tOrb or Template == tRaft then
 			Object.SetLifetime(OtherObject, 5)
 		end
 	end
@@ -37,6 +37,7 @@ GoalCount = 5
 -- Get static collision object
 Collision = Object.GetPointer("collision")
 tOrb = Level.GetTemplate("orb")
+tRaft = Level.GetTemplate("raft")
 
 -- Set up camera
 Camera.SetYaw(0)
