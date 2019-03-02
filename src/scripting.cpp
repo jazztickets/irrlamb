@@ -46,6 +46,7 @@ luaL_Reg _Scripting::CameraFunctions[] = {
 luaL_Reg _Scripting::ObjectFunctions[] = {
 	{"GetPointer", &_Scripting::ObjectGetPointer},
 	{"GetName", &_Scripting::ObjectGetName},
+	{"GetTemplate", &_Scripting::ObjectGetTemplate},
 	{"SetPosition", &_Scripting::ObjectSetPosition},
 	{"GetPosition", &_Scripting::ObjectGetPosition},
 	{"Stop", &_Scripting::ObjectStop},
@@ -385,6 +386,21 @@ int _Scripting::ObjectGetName(lua_State *LuaObject) {
 
 	if(Object != nullptr)
 		lua_pushstring(LuaObject, Object->GetName().c_str());
+
+	return 1;
+}
+
+// Get object template
+int _Scripting::ObjectGetTemplate(lua_State *LuaObject) {
+
+	// Validate arguments
+	if(!CheckArguments(LuaObject, 1))
+		return 0;
+
+	// Get object
+	_Object *Object = (_Object *)(lua_touserdata(LuaObject, 1));
+	if(Object != nullptr)
+		lua_pushlightuserdata(LuaObject, (void *)Object->GetTemplate());
 
 	return 1;
 }

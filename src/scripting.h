@@ -66,6 +66,7 @@ class _Scripting {
 
 		static int ObjectGetPointer(lua_State *LuaObject);
 		static int ObjectGetName(lua_State *LuaObject);
+		static int ObjectGetTemplate(lua_State *LuaObject);
 		static int ObjectSetPosition(lua_State *LuaObject);
 		static int ObjectGetPosition(lua_State *LuaObject);
 		static int ObjectStop(lua_State *LuaObject);

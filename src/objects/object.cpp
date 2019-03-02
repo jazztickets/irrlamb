@@ -127,11 +127,6 @@ void _Object::UpdateReplay(float FrameTime) {
 	Timer += FrameTime;
 }
 
-// Get template id
-const uint16_t _Object::GetTemplateID() const {
-	 return Template->TemplateID;
-}
-
 // Sets object properties
 void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 	Template = Object.Template;

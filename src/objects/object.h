@@ -74,7 +74,7 @@ class _Object : public btMotionState {
 		float GetLifetime() const { return Lifetime; }
 		int GetType() const { return Type; }
 		const uint16_t &GetID() const { return ID; }
-		const uint16_t GetTemplateID() const;
+		const _Template *GetTemplate() const { return Template; }
 
 		// Rigid body
 		void Stop();
