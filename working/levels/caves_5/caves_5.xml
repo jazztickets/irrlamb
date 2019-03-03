@@ -30,5 +30,11 @@
 		<object name="orb" template="orb">
 			<position x="93.950768" y="37.340786" z="232.574051" />
 		</object>
+		<object name="orb" template="orb">
+			<position x="78.603371" y="36.468369" z="-63.882648" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="4.979305" y="59.619873" z="-195.098709" />
+		</object>
 	</objects>
 </level>
