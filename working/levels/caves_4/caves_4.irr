@@ -30,17 +30,59 @@
    </userData>
    <node type="mesh">
       <attributes>
-         <string name="Name" value="caves_4"/>
+         <string name="Name" value="caves_4b"/>
          <int name="Id" value="-1"/>
          <bool name="Visible" value="true"/>
-         <vector3d name="Position" value="270.967316, -919.387146, 1492.781738"/>
+         <vector3d name="Position" value="270.967316, -1035.64624, 1628.065063"/>
          <vector3d name="Rotation" value="27.710842, -0.955653, 0"/>
          <vector3d name="Scale" value="1.543378, 1, 1"/>
          <enum name="AutomaticCulling" value="frustum_box"/>
          <bool name="DebugDataVisible" value="false"/>
          <bool name="IsDebugObject" value="false"/>
          <bool name="ReadOnlyMaterials" value="false"/>
-         <string name="Mesh" value="meshes/caves_4.irrbmesh"/>
+         <string name="Mesh" value="meshes/caves_4b.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="caves_4a"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="4.5, 9.03956, 11.018066"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="1, 1, 1"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/caves_4a.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="caves_4static"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="272.490875, -930.628174, 1407.559326"/>
+         <vector3d name="Rotation" value="-64.500004, 0, 0"/>
+         <vector3d name="Scale" value="15.984001, 15.984002, 15.984002"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/cylinder.irrbmesh"/>
          <enum name="HardwareMappingHint" value="never"/>
          <enum name="HardwareMappingBufferType" value="vertexindex"/>
       </attributes>

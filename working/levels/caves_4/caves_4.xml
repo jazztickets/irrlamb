@@ -9,7 +9,9 @@
 	<resources>
 		<script file="caves_4.lua" />
 		<scene file="caves_4.irr" />
-		<collision name="ice" file="caves_4.col" friction="0.2" />
+		<collision name="static" file="caves_4static.col" />
+		<collision name="ice0" file="caves_4a.col" friction="0.2" />
+		<collision name="ice1" file="caves_4b.col" friction="0.2" />
 	</resources>
 	<templates>
 		<player name="player" />
@@ -21,7 +23,7 @@
 			<physics mass="1" sleep="1"/>
 		</cylinder>
 		<zone name="losezone">
-			<shape w="500" h="10" l="500" />
+			<shape w="100" h="10" l="100" />
 		</zone>
 	</templates>
 	<objects>
@@ -63,6 +65,20 @@
 
 		raft_orb1:
 		<object name="player" template="player">
+			<position x="164.458618" y="-184.710617" z="282.195435" />
+			<quaternion x="0.798366" y="-0.228615" z="0.370452" w="-0.416068" />
+			<linear_velocity x="17.010380" y="-7.839493" z="-2.656329" />
+			<angular_velocity x="-0.067483" y="0.870831" z="-0.508522" />
+		</object>
+		<object name="raft" template="raft">
+			<position x="164.783264" y="-185.635773" z="282.115082" />
+			<quaternion x="-0.094289" y="-0.687860" z="-0.213665" w="0.687244" />
+			<linear_velocity x="16.771330" y="-7.665020" z="-2.479847" />
+			<angular_velocity x="0.072636" y="0.006535" z="0.131493" />
+		</object>
+
+		raft_orb2:
+		<object name="player" template="player">
 			<position x="309.652069" y="-432.360016" z="745.422852" />
 			<quaternion x="-0.654184" y="0.367041" z="0.658094" w="0.065085" />
 			<linear_velocity x="0.367129" y="-2.221835" z="7.395575" />
@@ -88,11 +104,14 @@
 			<linear_velocity x="-2.168783" y="-13.515585" z="22.435511" />
 			<angular_velocity x="0.367961" y="0.107902" z="0.237926" />
 		</object>
+
+		onlog:
+		<object name="player" template="player">
+			<position x="272.293610" y="-942.433228" z="1451.995117" />
+		</object>
 		-->
 		<!--
-		<object name="losezone" template="losezone">
-			<position x="0" y="-75" z="0" />
-		</object>
+
 		-->
 		<object name="orb" template="orb">
 			<position x="-9.120635" y="-88.693810" z="232.507996" />
@@ -114,6 +133,13 @@
 		<object name="raft_orb2" template="raft">
 			<position x="310.254333" y="-449.933838" z="797.297974" />
 			<quaternion x="-0.001773" y="0.987626" z="0.155514" w="-0.020181" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="271.7" y="-954.126648" z="1461" />
+		</object>
+		<object name="raft_orb3" template="raft">
+			<position x="271.552917" y="-955.206543" z="1460.687012" />
+			<quaternion x="0.261793" y="0.004499" z="-0.001223" w="0.965113" />
 		</object>
 	</objects>
 </level>

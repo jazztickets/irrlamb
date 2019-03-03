@@ -139,8 +139,19 @@ void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 	// Graphics
 	if(Node) {
 		if(SetTransform) {
+
+			// Use quaternion if available
+			btVector3 Rotation;
+			if(Object.HasQuaternion) {
+				Object.Quaternion.getEulerZYX(Rotation[2], Rotation[1], Rotation[0]);
+				Rotation *= core::RADTODEG;
+			}
+			else {
+				Rotation = Object.Rotation;
+			}
+
 			Node->setPosition(core::vector3df(Object.Position[0], Object.Position[1], Object.Position[2]));
-			Node->setRotation(core::vector3df(Object.Rotation[0], Object.Rotation[1], Object.Rotation[2]));
+			Node->setRotation(core::vector3df(Rotation[0], Rotation[1], Rotation[2]));
 		}
 		//Node->setVisible(Template->Visible);
 		Node->setMaterialFlag(video::EMF_FOG_ENABLE, Template->Fog);
