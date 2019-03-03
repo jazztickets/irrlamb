@@ -155,5 +155,8 @@
 		<object name="orb" template="orb">
 			<position x="263.447906" y="-1071.493286" z="1764.184814" />
 		</object>
+		<object name="losezone" template="losezone">
+			<position x="260" y="-1120" z="1845" />
+		</object>
 	</objects>
 </level>
