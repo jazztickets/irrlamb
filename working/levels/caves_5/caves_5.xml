@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<level version="0" gameversion="0.3.0">
+	<info>
+		<name>The Mountain</name>
+	</info>
+	<options>
+		<emitlight enabled="1" />
+	</options>
+	<resources>
+		<script file="caves_5.lua" />
+		<scene file="caves_5.irr" />
+		<collision name="lava" file="caves_5.col" />
+	</resources>
+	<templates>
+		<player name="player" />
+		<orb name="orb" />
+		<terrain name="terrain" smooth="5">
+			<mesh file="height1.png" />
+			<shape w="5" h="0.9" l="5" />
+			<texture index="0" file="dark0.jpg" scale="128.0" />
+		</terrain>
+	</templates>
+	<objects>
+		<object name="player" template="player">
+			<position x="-57.427811" y="11.100547" z="-2.980839" />
+		</object>
+		<object name="terrain" template="terrain">
+			<position x="-320.0" y="-100.0" z="-320.0" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="93.950768" y="37.340786" z="232.574051" />
+		</object>
+	</objects>
+</level>
