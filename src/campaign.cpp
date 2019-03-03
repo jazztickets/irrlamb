@@ -97,12 +97,7 @@ bool _Campaign::GetNextLevel(uint32_t &Campaign, uint32_t &Level, bool Update) {
 	   return false;
 
 	if(NewLevel+1 >= Campaigns[NewCampaign].Levels.size()) {
-		if(NewCampaign+1 >= Campaigns.size())
-			return false;
-		else {
-			NewCampaign++;
-			NewLevel = 0;
-		}
+		return false;
 	}
 	else {
 		NewLevel++;
