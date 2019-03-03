@@ -69,6 +69,8 @@ struct _Template {
 struct _ObjectSpawn {
 	_ObjectSpawn();
 
+	void CalculateRotation();
+
 	std::string Name;
 	btVector3 Position;
 	btVector3 Rotation;

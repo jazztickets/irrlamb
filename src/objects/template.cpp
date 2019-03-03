@@ -79,6 +79,14 @@ _ObjectSpawn::_ObjectSpawn() {
 	HasQuaternion = false;
 }
 
+// Get rotation from Quaternion if it exists
+void _ObjectSpawn::CalculateRotation() {
+	if(HasQuaternion) {
+		Quaternion.getEulerZYX(Rotation[2], Rotation[1], Rotation[0]);
+		Rotation *= irr::core::RADTODEG;
+	}
+}
+
 _ConstraintSpawn::_ConstraintSpawn() {
 	Name = "";
 	BodyA = nullptr;
