@@ -39,7 +39,3 @@ oIce0 = Object.GetPointer("ice0")
 oIce1 = Object.GetPointer("ice1")
 tOrb = Level.GetTemplate("orb")
 tRaft = Level.GetTemplate("raft")
-
--- Set up camera
-Camera.SetYaw(0)
---Camera.SetPitch(0)

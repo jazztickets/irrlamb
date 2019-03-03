@@ -22,6 +22,7 @@
 		<level>caves_1</level>
 		<level>caves_2</level>
 		<level>caves_3</level>
+		<level>caves_4</level>
 	</campaign>
 	<campaign name="Skate Park">
 		<level unlocked="1">skate_0</level>

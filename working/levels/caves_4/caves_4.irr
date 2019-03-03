@@ -82,7 +82,7 @@
          <bool name="DebugDataVisible" value="false"/>
          <bool name="IsDebugObject" value="false"/>
          <bool name="ReadOnlyMaterials" value="false"/>
-         <string name="Mesh" value="meshes/cylinder.irrbmesh"/>
+         <string name="Mesh" value="meshes/caves_4static.irrbmesh"/>
          <enum name="HardwareMappingHint" value="never"/>
          <enum name="HardwareMappingBufferType" value="vertexindex"/>
       </attributes>

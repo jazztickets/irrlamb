@@ -109,9 +109,20 @@
 		<object name="player" template="player">
 			<position x="272.293610" y="-942.433228" z="1451.995117" />
 		</object>
-		-->
-		<!--
 
+		bottom:
+		<object name="player" template="player">
+			<position x="264.719849" y="-1061.240356" z="1686.091553" />
+			<quaternion x="-0.390119" y="0.608057" z="-0.033574" w="0.690613" />
+			<linear_velocity x="-0.552573" y="-5.636790" z="14.133866" />
+			<angular_velocity x="0.808349" y="0.266233" z="-0.606206" />
+		</object>
+		<object name="raft_orb3" template="raft">
+			<position x="264.700531" y="-1062.278564" z="1686.804443" />
+			<quaternion x="0.067931" y="0.913494" z="0.176102" w="0.360420" />
+			<linear_velocity x="-0.596288" y="-5.488487" z="13.770165" />
+			<angular_velocity x="-0.042164" y="0.252492" z="0.096220" />
+		</object>
 		-->
 		<object name="orb" template="orb">
 			<position x="-9.120635" y="-88.693810" z="232.507996" />
@@ -140,6 +151,9 @@
 		<object name="raft_orb3" template="raft">
 			<position x="271.552917" y="-955.206543" z="1460.687012" />
 			<quaternion x="0.261793" y="0.004499" z="-0.001223" w="0.965113" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="263.447906" y="-1071.493286" z="1764.184814" />
 		</object>
 	</objects>
 </level>
