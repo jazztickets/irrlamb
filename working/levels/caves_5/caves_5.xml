@@ -36,5 +36,26 @@
 		<object name="orb" template="orb">
 			<position x="4.979305" y="59.619873" z="-195.098709" />
 		</object>
+		<object name="orb" template="orb">
+			<position x="-240.047272" y="23.702288" z="26.622009" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="-239.260437" y="42.883289" z="779.107971" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="57.697224" y="27.362919" z="858.038818" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="663.071594" y="48.801891" z="858.924561" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="848.589111" y="50.380138" z="629.417725" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="755.952576" y="68.570511" z="407.078888" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="810.088501" y="65.983429" z="-115.039429" />
+		</object>
 	</objects>
 </level>
