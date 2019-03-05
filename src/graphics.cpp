@@ -146,6 +146,12 @@ int _Graphics::Close() {
 // Load all shaders
 void _Graphics::LoadShaders() {
 
+	// Fragment shaders
+	const char *FragmentShaders[] = {
+		"shaders/lighting.frag",
+		"shaders/single_light.frag",
+	};
+
 	// Create shader materials
 	if(ShadersSupported) {
 
@@ -153,13 +159,13 @@ void _Graphics::LoadShaders() {
 		if(CustomMaterial[0] == -1) {
 			CustomMaterial[0] = irrDriver->getGPUProgrammingServices()->addHighLevelShaderMaterialFromFiles(
 				"shaders/lighting.vert", "main", video::EVST_VS_1_1,
-				"shaders/lighting.frag", "main", video::EPST_PS_1_1,
+				FragmentShaders[!Config.MultipleLights], "main", video::EPST_PS_1_1,
 				Shader,	video::EMT_SOLID);
 		}
 		if(CustomMaterial[1] == -1) {
 			CustomMaterial[1] = irrDriver->getGPUProgrammingServices()->addHighLevelShaderMaterialFromFiles(
 				"shaders/lighting.vert", "main", video::EVST_VS_1_1,
-				"shaders/lighting.frag", "main", video::EPST_PS_1_1,
+				FragmentShaders[!Config.MultipleLights], "main", video::EPST_PS_1_1,
 				Shader,	video::EMT_TRANSPARENT_ALPHA_CHANNEL);
 		}
 		Shader->drop();
@@ -238,5 +244,6 @@ void _Graphics::SetLightCount() {
 
 // Shader callback
 void ShaderCallback::OnSetConstants(irr::video::IMaterialRendererServices *Services, irr::s32 UserData) {
-	Services->setPixelShaderConstant("light_count", &Graphics.LightCount, 1);
+	if(Config.MultipleLights)
+		Services->setPixelShaderConstant("light_count", &Graphics.LightCount, 1);
 }
