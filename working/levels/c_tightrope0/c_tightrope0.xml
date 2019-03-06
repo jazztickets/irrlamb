@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<level version="0" gameversion="0.3.0">
+	<info>
+		<name>Tightrope</name>
+	</info>
+	<options>
+		<emitlight enabled="0" />
+	</options>
+	<resources>
+		<script file="c_tightrope0.lua" />
+		<scene file="c_tightrope0.irr" />
+	</resources>
+	<templates>
+		<player name="player" />
+		<orb name="orb" />
+		<box name="rail_big">
+			<mesh file="cube.irrbmesh" w="5" h="0.2" l="0.2" shadows="false" />
+			<shape w="5" h="0.2" l="0.2" />
+			<texture file="dark0.jpg" />
+			<physics mass="0" />
+		</box>
+		<box name="rail_small">
+			<mesh file="cube.irrbmesh" w="5" h="0.1" l="0.1" shadows="false" />
+			<shape w="5" h="0.1" l="0.1" />
+			<texture file="dark0.jpg" />
+			<physics mass="0" />
+		</box>
+		<zone name="losezone">
+			<shape w="500" h="10" l="500" />
+		</zone>
+	</templates>
+	<objects>
+		<object name="player" template="player">
+			<position x="0" y="0.60" z="0" />
+		</object>
+		<object name="losezone" template="losezone">
+			<position x="0" y="-50" z="0" />
+		</object>
+	</objects>
+</level>
