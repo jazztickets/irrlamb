@@ -560,7 +560,10 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 				break;
 				case LOSE_MAINMENU:
 				case WIN_MAINMENU:
-					NullState.State = STATE_LEVELS;
+					if(PlayState.InputReplay)
+						NullState.State = STATE_REPLAYS;
+					else
+						NullState.State = STATE_LEVELS;
 					Framework.ChangeState(&NullState);
 				break;
 			}
