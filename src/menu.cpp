@@ -141,7 +141,10 @@ bool _Menu::HandleAction(int InputType, int Action, float Value) {
 					break;
 					case STATE_LOSE:
 					case STATE_WIN:
-						NullState.State = STATE_LEVELS;
+						if(PlayState.InputReplay)
+							NullState.State = STATE_REPLAYS;
+						else
+							NullState.State = STATE_LEVELS;
 						Framework.ChangeState(&NullState);
 					break;
 					case STATE_SAVEREPLAY:
