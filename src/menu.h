@@ -116,6 +116,7 @@ class _Menu {
 
 		void CancelKeyBind();
 		void LaunchReplay();
+		void ValidateReplay();
 		void LaunchLevel();
 		void ReplayScrollUp();
 		void ReplayScrollDown();

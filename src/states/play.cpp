@@ -37,6 +37,7 @@
 #include <objects/player.h>
 #include <menu.h>
 #include <states/viewreplay.h>
+#include <states/null.h>
 #include <ISceneManager.h>
 #include <IFileSystem.h>
 
@@ -208,7 +209,11 @@ bool _PlayState::HandleAction(int InputType, int Action, float Value) {
 				if(!Value)
 					return false;
 
-				if(TestLevel != "")
+				if(ReplayInputs) {
+					NullState.State = _Menu::STATE_REPLAYS;
+					Framework.ChangeState(&NullState);
+				}
+				else if(TestLevel != "")
 					Framework.SetDone(true);
 				else
 					Menu.InitPause();

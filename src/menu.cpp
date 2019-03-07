@@ -78,7 +78,7 @@ enum GUIElements {
 	CAMPAIGNS_BACK,
 	LEVELS_GO, LEVELS_BUY, LEVELS_HIGHSCORES, LEVELS_BACK, LEVELS_SELECTEDLEVEL,
 	LEVELINFO_DESCRIPTION, LEVELINFO_ATTEMPTS, LEVELINFO_WINS, LEVELINFO_LOSSES, LEVELINFO_PLAYTIME, LEVELINFO_BESTTIME,
-	REPLAYS_SORT, REPLAYS_DELETE, REPLAYS_BACK, REPLAYS_UP, REPLAYS_DOWN,
+	REPLAYS_SORT, REPLAYS_DELETE, REPLAYS_VIEW, REPLAYS_VALIDATE, REPLAYS_BACK, REPLAYS_UP, REPLAYS_DOWN,
 	OPTIONS_GAMEPLAY, OPTIONS_VIDEO, OPTIONS_AUDIO, OPTIONS_CONTROLS, OPTIONS_BACK,
 	GAMEPLAY_SHOWFPS, GAMEPLAY_SHOWTUTORIAL, GAMEPLAY_SAVE, GAMEPLAY_CANCEL,
 	VIDEO_SAVE, VIDEO_CANCEL, VIDEO_VIDEOMODES, VIDEO_FULLSCREEN, VIDEO_SHADOWS, VIDEO_SHADERS, VIDEO_MULTIPLELIGHTS, VIDEO_VSYNC, VIDEO_ANISOTROPY, VIDEO_ANTIALIASING,
@@ -132,7 +132,12 @@ bool _Menu::HandleAction(int InputType, int Action, float Value) {
 						InitOptions();
 					break;
 					case STATE_PAUSED:
-						InitPlay();
+						if(PlayState.ReplayInputs && PlayState.InputReplay->ReplayStopped()) {
+							NullState.State = STATE_REPLAYS;
+							Framework.ChangeState(&NullState);
+						}
+						else
+							InitPlay();
 					break;
 					case STATE_LOSE:
 					case STATE_WIN:
@@ -213,6 +218,11 @@ bool _Menu::HandleKeyPress(int Key) {
 				default:
 					Processed = false;
 				break;
+			}
+		break;
+		case STATE_REPLAYS:
+			if(Key == KEY_KEY_V) {
+				ValidateReplay();
 			}
 		break;
 		case STATE_OPTIONS_CONTROLS:
@@ -316,6 +326,12 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 						InitReplays(true);
 					}
 				}
+				break;
+				case REPLAYS_VIEW:
+					LaunchReplay();
+				break;
+				case REPLAYS_VALIDATE:
+					ValidateReplay();
 				break;
 				case REPLAYS_BACK:
 					InitMain();
@@ -727,6 +743,7 @@ void _Menu::InitLevels() {
 void _Menu::InitReplays(bool LoadReplays) {
 	Interface.ChangeSkin(_Interface::SKIN_MENU);
 	ClearCurrentLayout();
+	Input.SetMouseLocked(false);
 
 	SelectedLevel = -1;
 	HighlightedLevel = -1;
@@ -844,8 +861,9 @@ void _Menu::InitReplays(bool LoadReplays) {
 	AddMenuButton(Interface.GetCenteredRectPercent(EndX, 0.3, BUTTON_ICON_SIZE, BUTTON_ICON_SIZE), REPLAYS_SORT, L"", _Interface::IMAGE_BUTTON_SORT);
 	AddMenuButton(Interface.GetCenteredRectPercent(EndX, 0.7, BUTTON_ICON_SIZE, BUTTON_ICON_SIZE), REPLAYS_DELETE, L"", _Interface::IMAGE_BUTTON_DELETE);
 
-	// Back button
-	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.9, BUTTON_SMALL_SIZE_X, BUTTON_SMALL_SIZE_Y), REPLAYS_BACK, L"Back", _Interface::IMAGE_BUTTON_SMALL);
+	// View and back buttons
+	AddMenuButton(Interface.GetRightRectPercent(0.5 - 0.01, 0.9, BUTTON_SMALL_SIZE_X, BUTTON_SMALL_SIZE_Y), REPLAYS_VIEW, L"View", _Interface::IMAGE_BUTTON_SMALL);
+	AddMenuButton(Interface.GetRectPercent(0.5 + 0.01, 0.9, BUTTON_SMALL_SIZE_X, BUTTON_SMALL_SIZE_Y), REPLAYS_BACK, L"Back", _Interface::IMAGE_BUTTON_SMALL);
 
 	// Play sound
 	if(!FirstStateLoad && LoadReplays)
@@ -1103,14 +1121,18 @@ void _Menu::InitPlay() {
 void _Menu::InitPause() {
 	ClearCurrentLayout();
 
-	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.3, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_RESUME, L"Resume");
+	gui::IGUIButton *ButtonResume = AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.3, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_RESUME, L"Resume");
 	gui::IGUIButton *ButtonSaveReplay = AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.4, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_SAVEREPLAY, L"Save Replay");
 	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.5, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_RESTART, L"Restart Level");
 	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.6, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_OPTIONS, L"Options");
 	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.7, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_QUITLEVEL, L"Quit Level");
 
-	if(PlayState.ReplayInputs)
+	// Disable buttons for replay validation
+	if(PlayState.ReplayInputs) {
 		ButtonSaveReplay->setEnabled(false);
+		if(PlayState.InputReplay->ReplayStopped())
+			ButtonResume->setEnabled(false);
+	}
 
 	Input.SetMouseLocked(false);
 
@@ -1148,8 +1170,12 @@ void _Menu::InitLose() {
 	// Add buttons
 	float Spacing = (BUTTON_MEDIUM_SIZE_X + 20) * Interface.GetUIScale() / irrDriver->getScreenSize().Width;
 	gui::IGUIButton *Button = AddMenuButton(Interface.GetCenteredRectPercent(0.5 - Spacing, 0.7, BUTTON_MEDIUM_SIZE_X, BUTTON_MEDIUM_SIZE_Y), LOSE_RESTARTLEVEL, L"Retry Level", _Interface::IMAGE_BUTTON_MEDIUM);
-	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.7, BUTTON_MEDIUM_SIZE_X, BUTTON_MEDIUM_SIZE_Y), LOSE_SAVEREPLAY, L"Save Replay", _Interface::IMAGE_BUTTON_MEDIUM);
+	gui::IGUIButton *ButtonSaveReplay = AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.7, BUTTON_MEDIUM_SIZE_X, BUTTON_MEDIUM_SIZE_Y), LOSE_SAVEREPLAY, L"Save Replay", _Interface::IMAGE_BUTTON_MEDIUM);
 	AddMenuButton(Interface.GetCenteredRectPercent(0.5 + Spacing, 0.7, BUTTON_MEDIUM_SIZE_X, BUTTON_MEDIUM_SIZE_Y), LOSE_MAINMENU, L"Main Menu", _Interface::IMAGE_BUTTON_MEDIUM);
+
+	// Disable save replay if playing from replay
+	if(PlayState.ReplayInputs)
+		ButtonSaveReplay->setEnabled(false);
 
 	// Set cursor position to retry level
 	Input.SetMouseLocked(false);
@@ -1537,6 +1563,18 @@ void _Menu::LaunchReplay() {
 		// Load replay
 		ViewReplayState.SetCurrentReplay(ReplayFiles[SelectedLevel].Filename);
 		Framework.ChangeState(&ViewReplayState);
+	}
+}
+
+// Launch replay in play mode
+void _Menu::ValidateReplay() {
+
+	// Get replay file
+	if(SelectedLevel >= 0) {
+
+		// Load replay
+		PlayState.SetValidateReplay(ReplayFiles[SelectedLevel].Filename);
+		Framework.ChangeState(&PlayState);
 	}
 }
 
