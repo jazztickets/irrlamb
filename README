@@ -84,6 +84,7 @@ https://www.openal.org/downloads/oalinst.zip
 ----- COMMAND-LINE ARGUMENTS -----
 -level [.xml file]        Test a level
 -replay [.replay file]    View a replay
+-validate [.replay file]  Test a level with replay inputs
 -noaudio                  Disable audio
 
 Save data is in ~/.local/share/irrlamb for linux and %APPDATA%/irrlamb for windows.

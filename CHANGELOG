@@ -7,6 +7,7 @@ irrlamb 0.3.0 -
 - Added gameplay options
 - Added mouse sensitivity to options
 - Added option for disabling multiple lights
+- Added replay validation
 - Updated some tutorial levels
 - Windows build now uses MinGW-w64
 - Added irrlicht source to project and fixed many irrlicht bugs
