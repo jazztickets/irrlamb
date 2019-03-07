@@ -32,6 +32,8 @@ class _Player : public _Object {
 
 		void Update(float FrameTime);
 		void HandleInput();
+		void HandlePush(irr::core::vector3df &Push);
+		void GetPushDirection(irr::core::vector3df &Push);
 
 		void Jump();
 		void SetCamera(_Camera *Camera) { this->Camera = Camera; }
@@ -50,6 +52,7 @@ class _Player : public _Object {
 
 		// Jumping
 		float JumpTimer;
+		float JumpCooldown;
 		float TorqueFactor;
 
 };

@@ -19,6 +19,7 @@
 
 // Libraries
 #include <state.h>
+#include <replay.h>
 #include <string>
 
 // Forward Declarations
@@ -31,6 +32,8 @@ class _PlayState : public _State {
 	friend class _Menu;
 
 	public:
+
+		_PlayState() : CurrentCampaign(0), CampaignLevel(0), ReplayInputs(false) { }
 
 		int Init();
 		int Close();
@@ -53,6 +56,7 @@ class _PlayState : public _State {
 		void LoseLevel();
 
 		void SetTestLevel(const std::string &Level) { TestLevel = Level; }
+		void SetValidateReplay(const std::string &Replay) { InputReplayFilename = Replay; ReplayInputs = Replay != ""; }
 		void SetCampaign(int Value) { CurrentCampaign = Value; }
 		void SetCampaignLevel(int Value) { CampaignLevel = Value; }
 
@@ -61,12 +65,17 @@ class _PlayState : public _State {
 
 	private:
 
+		// Replays
+		void RecordInput();
+		void GetInputFromReplay();
+
 		// States
 		std::string TestLevel;
 		float Timer;
 		int HighScoreIndex;
 		bool FirstLoad;
 		bool Resetting;
+		bool Jumped;
 
 		// Campaign
 		uint32_t CurrentCampaign, CampaignLevel;
@@ -74,6 +83,12 @@ class _PlayState : public _State {
 		// Objects
 		_Player *Player;
 		_Camera *Camera;
+
+		// Replays
+		std::string InputReplayFilename;
+		bool ReplayInputs;
+		_Replay *InputReplay;
+		_ReplayEvent NextEvent;
 };
 
 extern _PlayState PlayState;

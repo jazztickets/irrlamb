@@ -43,6 +43,7 @@ _Player::_Player(const _ObjectSpawn &Object)
 	Light(nullptr),
 	Sound(nullptr),
 	JumpTimer(0.0f),
+	JumpCooldown(0.0f),
 	TorqueFactor(4.0f) {
 
 	// Graphics
@@ -121,33 +122,39 @@ void _Player::Update(float FrameTime) {
 	Pitch += 1.5f;
 	Sound->SetPitch(Pitch);
 
+	// Update jump cooldown
+	if(JumpCooldown > 0.0f) {
+		JumpCooldown -= FrameTime;
+	}
+
 	// Update jump timer
 	if(JumpTimer > 0.0f) {
 		JumpTimer -= FrameTime;
 		if(JumpTimer < 0.0f)
 			JumpTimer = 0.0f;
 
-		if(TouchingGround) {
+		if(TouchingGround && JumpCooldown <= 0.0f) {
 			RigidBody->activate();
 			RigidBody->applyCentralImpulse(btVector3(0.0f, JUMP_POWER, 0.0f));
 			JumpTimer = 0.0f;
+			JumpCooldown = 0.1f;
 		}
 	}
 }
 
 // Processes input from the keyboard
 void _Player::HandleInput() {
+
+	// Get push direction
 	core::vector3df Push(0.0f, 0.0f, 0.0f);
+	GetPushDirection(Push);
 
-	// Get input direction
-	Push.X += -Actions.GetState(_Actions::MOVE_LEFT);
-	Push.X += Actions.GetState(_Actions::MOVE_RIGHT);
-	Push.Z += Actions.GetState(_Actions::MOVE_FORWARD);
-	Push.Z += -Actions.GetState(_Actions::MOVE_BACK);
+	// Push player
+	HandlePush(Push);
+}
 
-	if(Push.getLength() > 1.0f) {
-		Push.normalize();
-	}
+// Handle push vector
+void _Player::HandlePush(core::vector3df &Push) {
 
 	// Push the player
 	if(!Push.equals(core::vector3df())) {
@@ -163,6 +170,20 @@ void _Player::HandleInput() {
 		RigidBody->activate();
 		RigidBody->applyTorque(btVector3(RotationAxis.X, RotationAxis.Y, RotationAxis.Z));
 	}
+}
+
+// Get push direction from inputs
+void _Player::GetPushDirection(irr::core::vector3df &Push) {
+
+	// Get input direction
+	Push.X += -Actions.GetState(_Actions::MOVE_LEFT);
+	Push.X += Actions.GetState(_Actions::MOVE_RIGHT);
+	Push.Z += Actions.GetState(_Actions::MOVE_FORWARD);
+	Push.Z += -Actions.GetState(_Actions::MOVE_BACK);
+
+	// Normalize
+	if(Push.getLength() > 1.0f)
+		Push.normalize();
 }
 
 // Request a jump

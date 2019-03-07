@@ -1104,10 +1104,13 @@ void _Menu::InitPause() {
 	ClearCurrentLayout();
 
 	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.3, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_RESUME, L"Resume");
-	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.4, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_SAVEREPLAY, L"Save Replay");
+	gui::IGUIButton *ButtonSaveReplay = AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.4, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_SAVEREPLAY, L"Save Replay");
 	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.5, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_RESTART, L"Restart Level");
 	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.6, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_OPTIONS, L"Options");
 	AddMenuButton(Interface.GetCenteredRectPercent(0.5, 0.7, BUTTON_SIZE_X, BUTTON_SIZE_Y), PAUSE_QUITLEVEL, L"Quit Level");
+
+	if(PlayState.ReplayInputs)
+		ButtonSaveReplay->setEnabled(false);
 
 	Input.SetMouseLocked(false);
 
@@ -1176,12 +1179,16 @@ void _Menu::InitWin() {
 	// Add buttons
 	AddMenuButton(Interface.GetRightRectPercent(X - Padding - Spacing, Y, BUTTON_MEDIUM_SIZE_X, BUTTON_MEDIUM_SIZE_Y), WIN_RESTARTLEVEL, L"Retry Level", _Interface::IMAGE_BUTTON_MEDIUM);
 	gui::IGUIButton *ButtonNextLevel = AddMenuButton(Interface.GetRightRectPercent(X - Padding, Y, BUTTON_MEDIUM_SIZE_X, BUTTON_MEDIUM_SIZE_Y), WIN_NEXTLEVEL, L"Next Level", _Interface::IMAGE_BUTTON_MEDIUM);
-	AddMenuButton(Interface.GetRectPercent(X + Padding, Y, BUTTON_MEDIUM_SIZE_X, BUTTON_MEDIUM_SIZE_Y), WIN_SAVEREPLAY, L"Save Replay", _Interface::IMAGE_BUTTON_MEDIUM);
+	gui::IGUIButton *ButtonSaveReplay = AddMenuButton(Interface.GetRectPercent(X + Padding, Y, BUTTON_MEDIUM_SIZE_X, BUTTON_MEDIUM_SIZE_Y), WIN_SAVEREPLAY, L"Save Replay", _Interface::IMAGE_BUTTON_MEDIUM);
 	AddMenuButton(Interface.GetRectPercent(X + Padding + Spacing, Y, BUTTON_MEDIUM_SIZE_X, BUTTON_MEDIUM_SIZE_Y), WIN_MAINMENU, L"Main Menu", _Interface::IMAGE_BUTTON_MEDIUM);
 
 	// Set state of next level button
 	if(!Campaign.GetNextLevel(PlayState.CurrentCampaign, PlayState.CampaignLevel, false))
 		ButtonNextLevel->setEnabled(false);
+
+	// Disable save replay if playing from replay
+	if(PlayState.ReplayInputs)
+		ButtonSaveReplay->setEnabled(false);
 
 	// Set cursor on next level button
 	Input.SetMouseLocked(false);
@@ -1499,6 +1506,7 @@ void _Menu::LaunchLevel() {
 		return;
 
 	PlayState.SetTestLevel("");
+	PlayState.SetValidateReplay("");
 	PlayState.SetCampaign(CampaignIndex);
 	PlayState.SetCampaignLevel(SelectedLevel);
 	Framework.ChangeState(&PlayState);

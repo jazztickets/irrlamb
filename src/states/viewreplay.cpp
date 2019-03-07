@@ -346,6 +346,23 @@ void _ViewReplayState::Update(float FrameTime) {
 				Graphics.SetLightCount();
 			}
 			break;
+			case _Replay::PACKET_INPUT: {
+				core::vector3df Push(0.0f, 0.0f, 0.0f);
+				bool Jumping;
+				float Yaw;
+				float Pitch;
+
+				// Read replay
+				std::fstream &ReplayFile = Replay.GetFile();
+				ReplayFile.read((char *)&Push.X, sizeof(Push.X));
+				ReplayFile.read((char *)&Push.Z, sizeof(Push.Z));
+				ReplayFile.read((char *)&Yaw, sizeof(Yaw));
+				ReplayFile.read((char *)&Pitch, sizeof(Pitch));
+				ReplayFile.read((char *)&Jumping, sizeof(Jumping));
+
+				//printf("x=%f z=%f yaw=%f pitch=%f jumping=%d\n", Push.X, Push.Z, Yaw, Pitch, Jumping);
+			}
+			break;
 			default:
 			break;
 		}

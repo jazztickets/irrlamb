@@ -47,9 +47,11 @@ _Camera::~_Camera() {
 // Updates the camera based on the mouse
 void _Camera::HandleMouseMotion(float UpdateX, float UpdateY) {
 
+	// Update yaw and pitch
 	Yaw += UpdateX;
 	Pitch += UpdateY;
 
+	// Check limits
 	if(Pitch > 89.0f)
 		Pitch = 89.0f;
 	else if(Pitch <= -89.0f)

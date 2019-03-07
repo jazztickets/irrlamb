@@ -26,7 +26,6 @@
 #include <physics.h>
 #include <scripting.h>
 #include <objectmanager.h>
-#include <replay.h>
 #include <interface.h>
 #include <camera.h>
 #include <framework.h>
@@ -49,16 +48,30 @@ _PlayState PlayState;
 int _PlayState::Init() {
 	HighScoreIndex = -1;
 	Timer = 0.0f;
+	InputReplay = nullptr;
 	Physics.SetEnabled(true);
 	Interface.ChangeSkin(_Interface::SKIN_GAME);
 
 	// Add camera
 	Camera = new _Camera();
 
-	// Load the level
-	std::string LevelFile;
+	// Setup input replay
+	InputReplay = new _Replay();
+	if(ReplayInputs) {
 
-	// Select a level to load
+		// Open replay
+		if(!InputReplay->LoadReplay(InputReplayFilename, true)) {
+			Log.Write("Cannot load replay: %s", InputReplayFilename.c_str());
+			Framework.SetDone(true);
+			return 0;
+		}
+
+		// Get level name
+		TestLevel = InputReplay->GetLevelName();
+	}
+
+	// Get level name
+	std::string LevelFile;
 	if(TestLevel != "")
 		LevelFile = TestLevel;
 	else
@@ -67,6 +80,13 @@ int _PlayState::Init() {
 	// Load level
 	if(!Level.Init(LevelFile))
 		return 0;
+
+	// Check version
+	if(ReplayInputs && Level.LevelVersion != InputReplay->GetLevelVersion()) {
+		Log.Write("Level version mismatch: %d vs %d", Level.LevelVersion, InputReplay->GetLevelVersion());
+		Framework.SetDone(true);
+		return 0;
+	}
 
 	// Reset level
 	ResetLevel();
@@ -82,6 +102,7 @@ int _PlayState::Close() {
 	Replay.StopRecording();
 
 	// Close the system down
+	delete InputReplay;
 	delete Camera;
 	Level.Close();
 	ObjectManager.ClearObjects();
@@ -102,12 +123,20 @@ int _PlayState::Close() {
 void _PlayState::ResetLevel() {
 	HighScoreIndex = -1;
 	FirstLoad = false;
+	Jumped = false;
 
 	// Handle saves
 	if(TestLevel == "") {
 		Save.LevelStats[Level.LevelName].LoadCount++;
 		Save.LevelStats[Level.LevelName].PlayTime += Timer;
 		Save.SaveLevelStats(Level.LevelName);
+	}
+
+	// Get first event for input replay
+	if(ReplayInputs) {
+		InputReplay->StopReplay();
+		InputReplay->LoadReplay(InputReplayFilename);
+		InputReplay->ReadEvent(NextEvent);
 	}
 
 	// Stop sounds
@@ -166,8 +195,10 @@ bool _PlayState::HandleAction(int InputType, int Action, float Value) {
 	if(!IsPaused()) {
 		switch(Action) {
 			case _Actions::JUMP:
-				if(Value)
+				if(Value && !ReplayInputs) {
 					Player->Jump();
+					Jumped = true;
+				}
 			break;
 			case _Actions::RESET:
 				if(Value)
@@ -185,28 +216,28 @@ bool _PlayState::HandleAction(int InputType, int Action, float Value) {
 				return true;
 			break;
 			case _Actions::CAMERA_LEFT:
-				if(Camera) {
+				if(Camera && !ReplayInputs) {
 					if(InputType == _Input::JOYSTICK_AXIS)
 						Value *= Framework.GetLastFrameTime();
 					Camera->HandleMouseMotion(-Value, 0);
 				}
 			break;
 			case _Actions::CAMERA_RIGHT:
-				if(Camera) {
+				if(Camera && !ReplayInputs) {
 					if(InputType == _Input::JOYSTICK_AXIS)
 						Value *= Framework.GetLastFrameTime();
 					Camera->HandleMouseMotion(Value, 0);
 				}
 			break;
 			case _Actions::CAMERA_UP:
-				if(Camera) {
+				if(Camera && !ReplayInputs) {
 					if(InputType == _Input::JOYSTICK_AXIS)
 						Value *= Framework.GetLastFrameTime();
 					Camera->HandleMouseMotion(0, -Value);
 				}
 			break;
 			case _Actions::CAMERA_DOWN:
-				if(Camera) {
+				if(Camera && !ReplayInputs) {
 					if(InputType == _Input::JOYSTICK_AXIS)
 						Value *= Framework.GetLastFrameTime();
 					Camera->HandleMouseMotion(0, Value);
@@ -318,7 +349,13 @@ void _PlayState::Update(float FrameTime) {
 		// Update game logic
 		ObjectManager.BeginFrame();
 
-		Player->HandleInput();
+		// Handle movement
+		if(ReplayInputs)
+			GetInputFromReplay();
+		else
+			Player->HandleInput();
+
+		// Update physics
 		Physics.Update(FrameTime);
 		ObjectManager.Update(FrameTime);
 		Interface.Update(FrameTime);
@@ -334,7 +371,12 @@ void _PlayState::Update(float FrameTime) {
 		Camera->Update(core::vector3df(Position[0], Position[1], Position[2]));
 		Camera->RecordReplay();
 
+		// Record input for replay
+		RecordInput();
 		Replay.ResetNextPacketTimer();
+
+		// Reset jump state
+		Jumped = false;
 	}
 }
 
@@ -433,4 +475,90 @@ void _PlayState::LoseLevel() {
 
 	// Show lose screen
 	Menu.InitLose();
+}
+
+// Record input
+void _PlayState::RecordInput() {
+	if(ReplayInputs)
+		return;
+
+	// Get input direction
+	core::vector3df Push(0.0f, 0.0f, 0.0f);
+	Player->GetPushDirection(Push);
+
+	// Get camera
+	float Yaw = Camera->GetYaw();
+	float Pitch = Camera->GetPitch();
+
+	// Write replay event
+	std::fstream &ReplayFile = Replay.GetFile();
+	Replay.WriteEvent(_Replay::PACKET_INPUT);
+	ReplayFile.write((char *)&Push.X, sizeof(Push.X));
+	ReplayFile.write((char *)&Push.Z, sizeof(Push.Z));
+	ReplayFile.write((char *)&Yaw, sizeof(Yaw));
+	ReplayFile.write((char *)&Pitch, sizeof(Pitch));
+	ReplayFile.write((char *)&Jumped, sizeof(Jumped));
+}
+
+// Control game from replay inputs
+void _PlayState::GetInputFromReplay() {
+	if(!ReplayInputs)
+		return;
+
+	char Buffer[1024];
+	std::fstream &ReplayFile = InputReplay->GetFile();
+	while(!InputReplay->ReplayStopped() && Timer >= NextEvent.Timestamp) {
+		//printf("Processing header packet: type=%d time=%f\n", NextEvent.Type, NextEvent.Timestamp);
+
+		switch(NextEvent.Type) {
+			case _Replay::PACKET_MOVEMENT: {
+				int16_t ObjectCount;
+				ReplayFile.read((char *)&ObjectCount, sizeof(ObjectCount));
+				for(int i = 0; i < ObjectCount; i++)
+					ReplayFile.read(Buffer, 2 + 4 * 3 + 4 * 3);
+			} break;
+			case _Replay::PACKET_CREATE:
+				ReplayFile.read(Buffer, 2 + 2 + 4 * 3 + 4 * 3);
+			break;
+			case _Replay::PACKET_DELETE:
+				ReplayFile.read(Buffer, 2);
+			break;
+			case _Replay::PACKET_CAMERA:
+				ReplayFile.read(Buffer, 4 * 3 + 4 * 3);
+			break;
+			case _Replay::PACKET_ORBDEACTIVATE:
+				ReplayFile.read(Buffer, 2 + 4);
+			break;
+			case _Replay::PACKET_INPUT: {
+
+				// Read replay
+				core::vector3df Push(0.0f, 0.0f, 0.0f);
+				bool Jumping;
+				float Yaw;
+				float Pitch;
+				ReplayFile.read((char *)&Push.X, sizeof(Push.X));
+				ReplayFile.read((char *)&Push.Z, sizeof(Push.Z));
+				ReplayFile.read((char *)&Yaw, sizeof(Yaw));
+				ReplayFile.read((char *)&Pitch, sizeof(Pitch));
+				ReplayFile.read((char *)&Jumping, sizeof(Jumping));
+
+				// Inject input
+				Camera->SetYaw(Yaw);
+				Camera->SetPitch(Pitch);
+				Player->HandlePush(Push);
+				if(Jumping)
+					Player->Jump();
+
+				//printf("t=%f x=%f z=%f yaw=%f pitch=%f jumping=%d\n", NextEvent.Timestamp, Push.X, Push.Z, Yaw, Pitch, Jumping);
+			}
+			break;
+			default:
+			break;
+		}
+
+		InputReplay->ReadEvent(NextEvent);
+	}
+
+	if(InputReplay->ReplayStopped())
+		Menu.InitPause();
 }

@@ -75,6 +75,10 @@ int _Framework::Init(int Count, char **Arguments) {
 		else if(Token == "-noaudio") {
 			AudioEnabled = false;
 		}
+		else if(Token == "-validate" && TokensRemaining > 0) {
+			PlayState.SetValidateReplay(Arguments[++i]);
+			FirstState = &PlayState;
+		}
 	}
 
 	// Set up the save system
