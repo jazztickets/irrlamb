@@ -51,7 +51,6 @@ endif()
 
 # find libraries
 find_package(OpenGL REQUIRED)
-find_package(Bullet REQUIRED)
 find_package(Freetype REQUIRED)
 find_package(OpenAL REQUIRED)
 find_package(Vorbis REQUIRED)
@@ -66,7 +65,7 @@ find_package(JPEG REQUIRED)
 # include paths
 include_directories("src")
 include_directories("src/irrlicht/include")
-include_directories(${BULLET_INCLUDE_DIRS})
+include_directories("src/bullet")
 include_directories(${FREETYPE_INCLUDE_DIRS})
 include_directories(${OPENAL_INCLUDE_DIR})
 include_directories(${VORBIS_INCLUDE_DIR})
@@ -85,6 +84,7 @@ file(GLOB SRC_OBJECTS src/objects/*.cpp src/objects/*.h)
 file(GLOB SRC_IRRB src/irrb/*.cpp src/irrb/*.h)
 file(GLOB SRC_FONT src/font/*.cpp src/font/*.h)
 file(GLOB SRC_IRRLICHT src/irrlicht/*.cpp src/irrlicht/*.h src/irrlicht/include/*.h)
+file(GLOB_RECURSE SRC_BULLET src/bullet/*.cpp src/bullet/*.h)
 
 file(GLOB SRC_ALL
 	${SRC_MAIN}
@@ -93,15 +93,9 @@ file(GLOB SRC_ALL
 	${SRC_IRRB}
 	${SRC_FONT}
 	${SRC_IRRLICHT}
+	${SRC_BULLET}
 	src/resource.rc
 )
-
-# add virtual folders
-source_group(main FILES ${SRC_MAIN})
-source_group(states FILES ${SRC_STATES})
-source_group(objects FILES ${SRC_OBJECTS})
-source_group(irrb FILES ${SRC_IRRB})
-source_group(font FILES ${SRC_FONT})
 
 # create executable
 add_executable(${CMAKE_PROJECT_NAME} ${SRC_ALL})
@@ -109,7 +103,6 @@ add_executable(${CMAKE_PROJECT_NAME} ${SRC_ALL})
 # link libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
 	${OPENGL_LIBRARIES}
-	${BULLET_LIBRARIES}
 	${FREETYPE_LIBRARIES}
 	${OPENAL_LIBRARY}
 	${VORBIS_LIBRARIES}
