@@ -59,6 +59,7 @@ void _Config::Reset() {
 	Vsync = false;
 	MaxFPS = MAXFPS;
 	ShowFPS = false;
+	Caching = false;
 	ShowTutorial = true;
 
 	// Audio
@@ -268,6 +269,7 @@ int _Config::ReadConfig() {
 	if(GameplayElement) {
 		GameplayElement->QueryBoolAttribute("showfps", &ShowFPS);
 		GameplayElement->QueryBoolAttribute("showtutorial", &ShowTutorial);
+		GameplayElement->QueryBoolAttribute("caching", &Caching);
 	}
 
 	// Check for the audio tag
@@ -379,6 +381,7 @@ int _Config::WriteConfig() {
 	XMLElement *GameplayElement = Document.NewElement("gameplay");
 	GameplayElement->SetAttribute("showfps", ShowFPS);
 	GameplayElement->SetAttribute("showtutorial", ShowTutorial);
+	GameplayElement->SetAttribute("caching", Caching);
 	ConfigElement->LinkEndChild(GameplayElement);
 
 	// Create audio element

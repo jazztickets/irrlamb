@@ -78,17 +78,21 @@ _Terrain::_Terrain(const _ObjectSpawn &Object) :
 
 			// Load terrain file
 			btBvhTriangleMeshShape *Shape = nullptr;
-			Importer = new btBulletWorldImporter(0);
-			if(Importer->loadFile(GetCachePath(Object.Name).c_str())) {
-				int ShapeCount = Importer->getNumCollisionShapes();
-				if(ShapeCount) {
-					Shape = (btBvhTriangleMeshShape *)Importer->getCollisionShapeByIndex(0);
-					TriangleInfoMap = Shape->getTriangleInfoMap();
+
+			// Load from cache
+			if(Config.Caching) {
+				Importer = new btBulletWorldImporter(0);
+				if(Importer->loadFile(GetCachePath(Object.Name).c_str())) {
+					int ShapeCount = Importer->getNumCollisionShapes();
+					if(ShapeCount) {
+						Shape = (btBvhTriangleMeshShape *)Importer->getCollisionShapeByIndex(0);
+						TriangleInfoMap = Shape->getTriangleInfoMap();
+					}
 				}
-			}
-			else {
-				delete Importer;
-				Importer = nullptr;
+				else {
+					delete Importer;
+					Importer = nullptr;
+				}
 			}
 
 			// Create terrain mesh

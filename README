@@ -48,7 +48,6 @@ F12                   Screenshot
 
 -- Dependencies --
 cmake 2.8+
-bullet 2.83
 freetype2
 sqlite3
 lua 5.2+
