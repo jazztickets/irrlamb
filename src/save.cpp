@@ -59,6 +59,7 @@ int _Save::Init() {
 		CreateDirectory(ReplayPath.c_str(), nullptr);
 		CreateDirectory(ScreenshotsPath.c_str(), nullptr);
 		CreateDirectory(CustomLevelsPath.c_str(), nullptr);
+		CreateDirectory(CachePath.c_str(), nullptr);
 	#else
 		mkdir(SavePath.c_str(), S_IRWXU | S_IXGRP | S_IRGRP | S_IXOTH | S_IROTH);
 		mkdir(ReplayPath.c_str(), S_IRWXU | S_IXGRP | S_IRGRP | S_IXOTH | S_IROTH);
