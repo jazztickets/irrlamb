@@ -21,6 +21,7 @@
 #include <scripting.h>
 #include <physics.h>
 #include <log.h>
+#include <BulletWorldImporter/btBulletWorldImporter.h>
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
 
 using namespace irr;
@@ -38,7 +39,8 @@ _Object::_Object(const _Template *Template)
 	RigidBody(nullptr),
 	NeedsReplayPacket(false),
 	TouchingGround(false),
-	TouchingWall(false) {
+	TouchingWall(false),
+	Importer(nullptr) {
 
 	LastOrientation.setIdentity();
 }
@@ -53,7 +55,13 @@ _Object::~_Object() {
 	// Delete rigid body
 	if(RigidBody) {
 		Physics.GetWorld()->removeRigidBody(RigidBody);
-		delete RigidBody->getCollisionShape();
+		if(Importer) {
+			Importer->deleteAllData();
+			delete Importer;
+		}
+		else
+			delete RigidBody->getCollisionShape();
+
 		delete RigidBody;
 	}
 }

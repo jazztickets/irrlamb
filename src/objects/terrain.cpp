@@ -19,6 +19,8 @@
 #include <globals.h>
 #include <physics.h>
 #include <config.h>
+#include <level.h>
+#include <save.h>
 #include <objects/template.h>
 #include <ITerrainSceneNode.h>
 #include <CDynamicMeshBuffer.h>
@@ -26,12 +28,14 @@
 #include <BulletCollision/CollisionShapes/btTriangleMesh.h>
 #include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
 #include <BulletCollision/CollisionDispatch/btInternalEdgeUtility.h>
+#include <BulletWorldImporter/btBulletWorldImporter.h>
+#include <fstream>
 
 using namespace irr;
 
 // Constructor
-_Terrain::_Terrain(const _ObjectSpawn &Object)
-:	_Object(Object.Template),
+_Terrain::_Terrain(const _ObjectSpawn &Object) :
+	_Object(Object.Template),
 	CollisionMesh(nullptr),
 	TriangleInfoMap(nullptr) {
 
@@ -48,7 +52,8 @@ _Terrain::_Terrain(const _ObjectSpawn &Object)
 			video::SColor(255, 255, 255, 255),
 			5,
 			scene::ETPS_17,
-			Template->Smooth);
+			Template->Smooth
+		);
 
 		Node = Terrain;
 
@@ -71,40 +76,75 @@ _Terrain::_Terrain(const _ObjectSpawn &Object)
 
 		if(Physics.IsEnabled()) {
 
-			// Get vertex data
-			scene::CDynamicMeshBuffer MeshBuffer(video::EVT_STANDARD, video::EIT_32BIT);
-			Terrain->getMeshBufferForLOD(MeshBuffer, 0);
-			uint16_t *Indices = MeshBuffer.getIndices();
-
-			// Transform vertices
-			core::matrix4 RotationTransform;
-			RotationTransform.setRotationDegrees(Terrain->getRotation());
-			video::S3DVertex *Vertices = (video::S3DVertex *)MeshBuffer.getVertices();
-
-			// Create bullet mesh
-			btVector3 TriangleVertices[3];
-			CollisionMesh = new btTriangleMesh();
-			for(uint32_t i = 0; i < MeshBuffer.getIndexCount(); i += 3) {
-				for(int j = 0; j < 3; j++) {
-
-					// Apply terrain transform
-					core::vector3df Vertex = Vertices[Indices[i+j]].Pos * Terrain->getScale() + Terrain->getPosition();
-					Vertex -= OriginalRotationPivot;
-					RotationTransform.inverseRotateVect(Vertex);
-					Vertex += OriginalRotationPivot;
-
-					// Set triangle
-					TriangleVertices[j] = btVector3(Vertex.X, Vertex.Y, Vertex.Z);
+			// Load terrain file
+			btBvhTriangleMeshShape *Shape = nullptr;
+			Importer = new btBulletWorldImporter(0);
+			if(Importer->loadFile(GetCachePath(Object.Name).c_str())) {
+				int ShapeCount = Importer->getNumCollisionShapes();
+				if(ShapeCount) {
+					Shape = (btBvhTriangleMeshShape *)Importer->getCollisionShapeByIndex(0);
+					TriangleInfoMap = Shape->getTriangleInfoMap();
 				}
-
-				// Add triangle
-				CollisionMesh->addTriangle(TriangleVertices[0], TriangleVertices[1], TriangleVertices[2]);
+			}
+			else {
+				delete Importer;
+				Importer = nullptr;
 			}
 
-			// Create bvh mesh
-			btBvhTriangleMeshShape *Shape = new btBvhTriangleMeshShape(CollisionMesh, true);
-			TriangleInfoMap = new btTriangleInfoMap();
-			btGenerateInternalEdgeInfo(Shape, TriangleInfoMap);
+			// Create terrain mesh
+			if(!Shape) {
+
+				// Get vertex data
+				scene::CDynamicMeshBuffer MeshBuffer(video::EVT_STANDARD, video::EIT_32BIT);
+				Terrain->getMeshBufferForLOD(MeshBuffer, 0);
+				uint16_t *Indices = MeshBuffer.getIndices();
+
+				// Transform vertices
+				core::matrix4 RotationTransform;
+				RotationTransform.setRotationDegrees(Terrain->getRotation());
+				video::S3DVertex *Vertices = (video::S3DVertex *)MeshBuffer.getVertices();
+
+				// Create bullet mesh
+				btVector3 TriangleVertices[3];
+				CollisionMesh = new btTriangleMesh();
+				for(uint32_t i = 0; i < MeshBuffer.getIndexCount(); i += 3) {
+					for(int j = 0; j < 3; j++) {
+
+						// Apply terrain transform
+						core::vector3df Vertex = Vertices[Indices[i+j]].Pos * Terrain->getScale() + Terrain->getPosition();
+						Vertex -= OriginalRotationPivot;
+						RotationTransform.inverseRotateVect(Vertex);
+						Vertex += OriginalRotationPivot;
+
+						// Set triangle
+						TriangleVertices[j] = btVector3(Vertex.X, Vertex.Y, Vertex.Z);
+					}
+
+					// Add triangle
+					CollisionMesh->addTriangle(TriangleVertices[0], TriangleVertices[1], TriangleVertices[2]);
+				}
+
+				// Create shape
+				Shape = new btBvhTriangleMeshShape(CollisionMesh, true);
+				TriangleInfoMap = new btTriangleInfoMap();
+				btGenerateInternalEdgeInfo(Shape, TriangleInfoMap);
+
+				// Serialize
+				int MaxBufferSize = 50 * 1024 * 1024;
+				btDefaultSerializer *Serializer = new btDefaultSerializer(MaxBufferSize);
+				Serializer->startSerialization();
+				Shape->serializeSingleShape(Serializer);
+				Serializer->finishSerialization();
+
+				// Write data
+				std::fstream File;
+				File.open(GetCachePath(Object.Name).c_str(), std::ios::out | std::ios::binary);
+				File.write((const char *)Serializer->getBufferPointer(), Serializer->getCurrentBufferSize());
+				File.close();
+
+				// Free memory
+				delete Serializer;
+			}
 
 			// Create physics body
 			CreateRigidBody(Object, Shape, false);
@@ -119,6 +159,13 @@ _Terrain::_Terrain(const _ObjectSpawn &Object)
 
 // Destructor
 _Terrain::~_Terrain() {
-	delete TriangleInfoMap;
-	delete CollisionMesh;
+	if(!Importer) {
+		delete TriangleInfoMap;
+		delete CollisionMesh;
+	}
+}
+
+// Get path to terrain cache file
+std::string _Terrain::GetCachePath(const std::string &ObjectName) {
+	return Save.CachePath + Level.LevelName + "_" + std::to_string(Level.LevelVersion) + "_" + ObjectName + ".bullet";
 }

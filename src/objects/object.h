@@ -29,6 +29,7 @@ struct _ObjectSpawn;
 struct _ConstraintSpawn;
 struct _Template;
 class _AudioSource;
+class btBulletWorldImporter;
 
 // Classes
 class _Object : public btMotionState {
@@ -134,4 +135,8 @@ class _Object : public btMotionState {
 		// Collision
 		std::string CollisionCallback;
 		bool TouchingGround, TouchingWall;
+
+		// Importer
+		btBulletWorldImporter *Importer;
+
 };

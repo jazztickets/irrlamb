@@ -34,6 +34,8 @@ class _Terrain : public _Object {
 
 	private:
 
+		std::string GetCachePath(const std::string &ObjectName);
+
 		btTriangleMesh *CollisionMesh;
 		btTriangleInfoMap *TriangleInfoMap;
 

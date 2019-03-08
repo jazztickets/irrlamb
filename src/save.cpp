@@ -47,6 +47,7 @@ int _Save::Init() {
 	ReplayPath = SavePath + std::string("replays/");
 	ScreenshotsPath = SavePath + std::string("screenshots/");
 	CustomLevelsPath = SavePath + std::string("customlevels/");
+	CachePath = SavePath + std::string("cache/");
 
 	// Get files
 	ConfigFile = SavePath + std::string("config.xml");
@@ -63,6 +64,7 @@ int _Save::Init() {
 		mkdir(ReplayPath.c_str(), S_IRWXU | S_IXGRP | S_IRGRP | S_IXOTH | S_IROTH);
 		mkdir(ScreenshotsPath.c_str(), S_IRWXU | S_IXGRP | S_IRGRP | S_IXOTH | S_IROTH);
 		mkdir(CustomLevelsPath.c_str(), S_IRWXU | S_IXGRP | S_IRGRP | S_IXOTH | S_IROTH);
+		mkdir(CachePath.c_str(), S_IRWXU | S_IXGRP | S_IRGRP | S_IXOTH | S_IROTH);
 	#endif
 
 	// Create database instance

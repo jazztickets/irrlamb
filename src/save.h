@@ -71,6 +71,7 @@ class _Save {
 		std::string ReplayPath;
 		std::string ScreenshotsPath;
 		std::string CustomLevelsPath;
+		std::string CachePath;
 		std::string ConfigFile;
 		std::string StatsFile;
 
