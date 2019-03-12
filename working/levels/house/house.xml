@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<level version="0" gameversion="0.3.0">
+	<info>
+		<name>Test</name>
+	</info>
+	<options>
+		<emitlight enabled="0" />
+	</options>
+	<resources>
+		<script file="house.lua" />
+		<scene file="house.irr" />
+		<collision file="house.col" />
+	</resources>
+	<templates>
+		<player name="player" />
+		<orb name="orb" />
+	</templates>
+	<objects>
+		<object name="player" template="player">
+			<position x="51.015842" y="53.700005" z="-16.378342" />
+			<position x="-12.621442" y="68.415615" z="30.497549" />
+			<position x="0" y="85" z="0" />
+			<position x="0" y="5" z="0" />
+		</object>
+		<!--<object name="a" template="box">
+			<position x="0" y="4.5" z="0" />
+		</object>-->
+	</objects>
+</level>
