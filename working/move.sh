@@ -24,5 +24,5 @@ rm -f irrb.log
 
 # test level
 if [ -n "$1" ]; then
-	../bin/Debug/irrlamb -level "$1"
+	../bin/Release/irrlamb -level "$1"
 fi

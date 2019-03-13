@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <level version="0" gameversion="0.3.0">
 	<info>
-		<name>Test</name>
+		<name>House</name>
 	</info>
 	<options>
 		<emitlight enabled="0" />
@@ -17,11 +17,15 @@
 	</templates>
 	<objects>
 		<object name="player" template="player">
+			<position x="25.102833" y="73.162651" z="44.395565" />
+
+			<position x="78.886055" y="73.699997" z="37.568867" />
 			<position x="-60.708763" y="20.500000" z="-6.727145" />
 			<position x="51.015842" y="53.700005" z="-16.378342" />
 			<position x="-12.621442" y="68.415615" z="30.497549" />
 			<position x="0" y="85" z="0" />
 			<position x="0" y="5" z="0" />
+			<position x="25.102833" y="73.162651" z="44.395565" />
 		</object>
 		<!--<object name="a" template="box">
 			<position x="0" y="4.5" z="0" />
