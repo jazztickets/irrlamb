@@ -276,8 +276,8 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 
 	// Load templates
 	XMLElement *TemplatesElement = LevelElement->FirstChildElement("templates");
+	int TemplateID = 0;
 	if(TemplatesElement) {
-		int TemplateID = 0;
 		for(XMLElement *TemplateElement = TemplatesElement->FirstChildElement(); TemplateElement != 0; TemplateElement = TemplateElement->NextSiblingElement()) {
 
 			// Create a template
@@ -305,6 +305,34 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 			// Store for later
 			Templates.push_back(Template);
 		}
+	}
+
+	// Create zones from 'empty' node types
+	core::array<irr::scene::ISceneNode *> MeshNodes;
+	irrScene->getSceneNodesFromType(scene::ESNT_EMPTY, MeshNodes);
+	for(uint32_t i = 0; i < MeshNodes.size(); i++) {
+
+		// Create zone template
+		_Template *Template = new _Template;
+		Template->Name = MeshNodes[i]->getName();
+		Template->TemplateID = TemplateID++;
+		Template->Type = _Object::ZONE;
+		Template->Mass = 0.0f;
+		Template->CollisionGroup = _Physics::FILTER_ZONE;
+		Template->CollisionMask = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_KINEMATIC;
+		Template->Shape[0] = MeshNodes[i]->getScale().X;
+		Template->Shape[1] = MeshNodes[i]->getScale().Y;
+		Template->Shape[2] = MeshNodes[i]->getScale().Z;
+		Templates.push_back(Template);
+
+		// Create object spawn
+		_ObjectSpawn *ObjectSpawn = new _ObjectSpawn;
+		ObjectSpawn->Name = MeshNodes[i]->getName();
+		ObjectSpawn->Position[0] = MeshNodes[i]->getPosition().X;
+		ObjectSpawn->Position[1] = MeshNodes[i]->getPosition().Y;
+		ObjectSpawn->Position[2] = MeshNodes[i]->getPosition().Z;
+		ObjectSpawn->Template = Template;
+		ObjectSpawns.push_back(ObjectSpawn);
 	}
 
 	// Load object spawns
