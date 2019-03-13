@@ -17,6 +17,7 @@
 	</templates>
 	<objects>
 		<object name="player" template="player">
+			<position x="-60.708763" y="20.500000" z="-6.727145" />
 			<position x="51.015842" y="53.700005" z="-16.378342" />
 			<position x="-12.621442" y="68.415615" z="30.497549" />
 			<position x="0" y="85" z="0" />
