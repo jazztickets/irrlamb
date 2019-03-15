@@ -320,9 +320,9 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 		Template->Mass = 0.0f;
 		Template->CollisionGroup = _Physics::FILTER_ZONE;
 		Template->CollisionMask = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_KINEMATIC;
-		Template->Shape[0] = MeshNodes[i]->getScale().X;
-		Template->Shape[1] = MeshNodes[i]->getScale().Y;
-		Template->Shape[2] = MeshNodes[i]->getScale().Z;
+		Template->Shape[0] = MeshNodes[i]->getScale().X * 2;
+		Template->Shape[1] = MeshNodes[i]->getScale().Y * 2;
+		Template->Shape[2] = MeshNodes[i]->getScale().Z * 2;
 		Templates.push_back(Template);
 
 		// Create object spawn

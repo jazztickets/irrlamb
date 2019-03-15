@@ -90,6 +90,7 @@ luaL_Reg _Scripting::GUIFunctions[] = {
 // Functions for audio
 luaL_Reg _Scripting::AudioFunctions[] = {
 	{"Play", &_Scripting::AudioPlay},
+	{"Stop", &_Scripting::AudioStop},
 	{nullptr, nullptr}
 };
 
@@ -689,7 +690,7 @@ int _Scripting::AudioPlay(lua_State *LuaObject) {
 
 	// Validate arguments
 	int ArgumentCount = lua_gettop(LuaObject);
-	if(ArgumentCount < 4 || ArgumentCount > 7)
+	if(ArgumentCount < 4 || ArgumentCount > 9)
 		return 0;
 
 	// Get parameters
@@ -710,14 +711,38 @@ int _Scripting::AudioPlay(lua_State *LuaObject) {
 	if(ArgumentCount > 6)
 		MaxGain = (float)lua_tonumber(LuaObject, 7);
 
+	float ReferenceDistance = 1.0f;
+	if(ArgumentCount > 7)
+		ReferenceDistance = (float)lua_tonumber(LuaObject, 8);
+
+	float RollOff = 1.0f;
+	if(ArgumentCount > 8)
+		RollOff = (float)lua_tonumber(LuaObject, 9);
+
 	// Play sound
-	_AudioSource *Source = new _AudioSource(Audio.GetBuffer(File), Looping, MinGain, MaxGain);
+	_AudioSource *Source = new _AudioSource(Audio.GetBuffer(File), Looping, MinGain, MaxGain, ReferenceDistance, RollOff);
 	Audio.Play(Source, PositionX, PositionY, PositionZ);
 
 	// Return audio source
 	lua_pushlightuserdata(LuaObject, static_cast<void *>(Source));
 
 	return 1;
+}
+
+// Stop a sound from playing
+int _Scripting::AudioStop(lua_State *LuaObject) {
+
+	// Validate arguments
+	int ArgumentCount = lua_gettop(LuaObject);
+	if(ArgumentCount != 1)
+		return 0;
+
+	// Get parameters
+	_AudioSource *Source = (_AudioSource *)lua_touserdata(LuaObject, 1);
+	if(Source)
+		Source->Stop();
+
+	return 0;
 }
 
 // Sets the random seed

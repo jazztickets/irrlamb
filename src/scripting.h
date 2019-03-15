@@ -89,6 +89,7 @@ class _Scripting {
 		static int GUITutorialText(lua_State *LuaObject);
 
 		static int AudioPlay(lua_State *LuaObject);
+		static int AudioStop(lua_State *LuaObject);
 
 		static int RandomSeed(lua_State *LuaObject);
 		static int RandomGetFloat(lua_State *LuaObject);
