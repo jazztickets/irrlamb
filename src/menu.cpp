@@ -141,7 +141,7 @@ bool _Menu::HandleAction(int InputType, int Action, float Value) {
 					break;
 					case STATE_LOSE:
 					case STATE_WIN:
-						if(PlayState.InputReplay)
+						if(PlayState.ReplayInputs)
 							NullState.State = STATE_REPLAYS;
 						else
 							NullState.State = STATE_LEVELS;
@@ -563,7 +563,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 				break;
 				case LOSE_MAINMENU:
 				case WIN_MAINMENU:
-					if(PlayState.InputReplay)
+					if(PlayState.ReplayInputs)
 						NullState.State = STATE_REPLAYS;
 					else
 						NullState.State = STATE_LEVELS;
