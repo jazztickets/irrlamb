@@ -19,21 +19,21 @@
 	</templates>
 	<objects>
 		<object name="player" template="player">
+			<!--<position name="oven" x="-32.483738" y="18.673315" z="25.286690" />-->
 			<position name="start" x="25.102833" y="73.162651" z="44.395565" />
-
-			<position x="-47.747578" y="70.887070" z="33.561878" />
-			<position x="-83.456184" y="77.700050" z="9.525872" />
-			<position x="62.237442" y="8.096352" z="9.721158" />
-			<position x="78.886055" y="73.699997" z="37.568867" />
-			<position x="-60.708763" y="20.500000" z="-6.727145" />
-			<position x="51.015842" y="53.700005" z="-16.378342" />
 
 			<position name="bath_sink" x="3.848003" y="18.673296" z="-39.377319" />
-			<position name="closet" x="83.570305" y="53.699997" z="-60.103184" />
-			<position name="start" x="25.102833" y="73.162651" z="44.395565" />
-			<position name="master_toilet" x="-12.621442" y="68.415615" z="30.497549" />
-			<position name="tub" x="-15.483100" y="64.535622" z="39.887352" />
+			<position name="bed" x="-47.747578" y="70.887070" z="33.561878" />
 			<position name="books" x="4.638345" y="57.657017" z="30.640322" />
+			<position name="closet" x="83.570305" y="53.699997" z="-60.103184" />
+			<position name="coffee_table" x="62.237442" y="8.096352" z="9.721158" />
+			<position name="kitchen_counters" x="-60.708763" y="20.500000" z="-6.727145" />
+			<position name="master_computer" x="78.886055" y="73.699997" z="37.568867" />
+			<position name="master_toilet" x="-12.621442" y="68.415615" z="30.497549" />
+			<position name="stairs_top" x="-3.029367" y="53.699997" z="-51.385429" />
+			<position name="tub" x="-15.483100" y="64.535622" z="39.887352" />
+			<position name="window_bedroom" x="-83.456184" y="77.700050" z="9.525872" />
+
 			<position name="start" x="25.102833" y="73.162651" z="44.395565" />
 		</object>
 		<object name="orb" template="orb">

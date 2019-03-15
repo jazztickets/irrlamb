@@ -15,9 +15,8 @@ function UpdateState()
 		Level.CreateObject("orb", tOrb, -12.53, 65.70, 8.46, 0, 0, 0);
 	elseif State == 2 then
 		GUI.TutorialText("Oops, toilet needs to be flushed. Gross.", 15)
-		--Level.CreateObject("orb", tOrb, -12.535572, 65.699379, 8.469651, 0, 0, 0);
 	elseif State == 3 then
-		GUI.TutorialText("Downstairs", 15)
+		GUI.TutorialText("Breakfast time!", 7)
 		--Level.CreateObject("orb", tOrb, -12.535572, 65.699379, 8.469651, 0, 0, 0);
 	end
 
@@ -32,11 +31,16 @@ function OnHitZone(HitType, Zone, HitObject)
 		return 0
 	end
 
-	if ZoneName == "toilet_handle" then
+	if ZoneName == "zone_toilet_handle" then
 		Audio.Play("flush.ogg", -8.84, 55.95, 31.62, 0, 0.0, 1.0, 10)
 		if State == 3 then
-			print(ZoneName)
 			UpdateState()
+		end
+	elseif ZoneName == "zone_stairs" then
+		if State < 4 then
+			Object.Stop(Player)
+			Object.SetPosition(Player, -9.255825, 60, -51.385429)
+			GUI.TutorialText("You're not ready to go downstairs yet, doog!", 5)
 		end
 	end
 
@@ -45,6 +49,7 @@ end
 
 -- Objects
 tOrb = Level.GetTemplate("orb")
+ShowerSound = nil
 
 -- Show text
 GUI.TutorialText("Wakey wakey! Time to get dressed for work!", 10)
