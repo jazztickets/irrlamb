@@ -17,7 +17,7 @@ function UpdateState()
 		GUI.TutorialText("Oops, toilet needs to be flushed. Gross.", 15)
 	elseif State == 3 then
 		GUI.TutorialText("Breakfast time!", 7)
-		--Level.CreateObject("orb", tOrb, -12.535572, 65.699379, 8.469651, 0, 0, 0);
+		Level.CreateObject("orb", tOrb, -27.988945, 25.961304, 33.431503, 0, 0, 0);
 	end
 
 	State = State + 1
@@ -25,22 +25,35 @@ end
 
 -- Zone handler
 function OnHitZone(HitType, Zone, HitObject)
-	ZoneName = Object.GetName(Zone)
-	X, Y, Z = Object.GetPosition(Zone)
-	if HitType ~= 0 or HitObject ~= Player then
+
+	-- Dismiss if exiting zone
+	if HitType ~= 0 then
 		return 0
 	end
 
-	if ZoneName == "zone_toilet_handle" then
-		Audio.Play("flush.ogg", -8.84, 55.95, 31.62, 0, 0.0, 1.0, 10)
-		if State == 3 then
-			UpdateState()
+	-- Get object attributes
+	ZoneName = Object.GetName(Zone)
+	HitName = Object.GetName(HitObject)
+	X, Y, Z = Object.GetPosition(Zone)
+
+	-- Handle collision
+	if HitObject == Player then
+		if ZoneName == "zone_toilet_handle" then
+			Audio.Play("flush.ogg", -8.84, 55.95, 31.62, 0, 0.0, 1.0, 10)
+			if State == 3 then
+				UpdateState()
+			end
+		elseif ZoneName == "zone_stairs" then
+			if State < 4 then
+				Object.Stop(Player)
+				Object.SetPosition(Player, -9.255825, 60, -51.385429)
+				GUI.TutorialText("You're not ready to go downstairs yet, doog!", 5)
+			end
 		end
-	elseif ZoneName == "zone_stairs" then
-		if State < 4 then
-			Object.Stop(Player)
-			Object.SetPosition(Player, -9.255825, 60, -51.385429)
-			GUI.TutorialText("You're not ready to go downstairs yet, doog!", 5)
+	elseif HitName == "salt" then
+		if Spilt == 0 then
+			GUI.TutorialText("Oh god you spilled the salt...", 5)
+			Spilt = 1
 		end
 	end
 
@@ -50,6 +63,7 @@ end
 -- Objects
 tOrb = Level.GetTemplate("orb")
 ShowerSound = nil
+Spilt = 0
 
 -- Show text
 GUI.TutorialText("Wakey wakey! Time to get dressed for work!", 10)
