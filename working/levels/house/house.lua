@@ -25,6 +25,12 @@ function UpdateState()
 		if Y > 3 then
 			Object.SetLinearVelocity(oSoccer, 20, 0, 0);
 		end
+	elseif State == 5 then
+		GUI.TutorialText("Ok, enough of that.", 5)
+		Level.CreateObject("orb", tOrb, 47.623516, 8.510316, 6.891754, 0, 0, 0);
+	elseif State == 6 then
+		GUI.TutorialText("It's getting cold in here. Let's check on that furnace.", 10)
+		--Level.CreateObject("orb", tOrb, 47.623516, 8.510316, 6.891754, 0, 0, 0);
 	end
 
 	State = State + 1

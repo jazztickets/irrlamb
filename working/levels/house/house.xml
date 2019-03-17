@@ -34,26 +34,26 @@
 			<physics mass="3.0" />
 			<texture file="soccer0.png" />
 		</sphere>
-		<sphere name="soccer_small">
+		<sphere name="ball">
 			<mesh file="soccer.irrbmesh" scale="1" shadows="0" />
 			<shape r="1" />
 			<physics mass="1.5" />
-			<texture file="soccer0.png" />
+			<texture file="fabric0.jpg" />
 		</sphere>
 	</templates>
 	<objects>
 		<object name="player" template="player">
 			<position name="start" x="25.102833" y="73.162651" z="44.395565" />
-			<position name="couch_lip" x="84.950371" y="5.525726" z="0.879445" />
-			<position name="cereal" x="-28.759949" y="25.961304" z="31.795652" />
 
 			<position name="bath_sink" x="3.848003" y="18.673296" z="-39.377319" />
 			<position name="bed" x="-47.747578" y="70.887070" z="33.561878" />
-			<position name="cereal" x="-28.759949" y="25.961304" z="31.795652" />
 			<position name="books" x="4.638345" y="57.657017" z="30.640322" />
 			<position name="broom" x="-52.468765" y="0.500000" z="29.626791" />
+			<position name="cereal" x="-28.759949" y="25.961304" z="31.795652" />
 			<position name="closet" x="83.570305" y="53.699997" z="-60.103184" />
 			<position name="coffee_table" x="62.237442" y="8.096352" z="9.721158" />
+			<position name="couch_arm" x="36.004242" y="10.621920" z="44.842339" />
+			<position name="couch_lip" x="84.950371" y="5.525726" z="0.879445" />
 			<position name="kitchen_counters" x="-60.708763" y="20.500000" z="-6.727145" />
 			<position name="master_computer" x="78.886055" y="73.699997" z="37.568867" />
 			<position name="master_toilet" x="-12.621442" y="68.415615" z="30.497549" />
@@ -77,9 +77,8 @@
 		<object name="soccer" template="soccer">
 			<position x="3.968141" y="51.899986" z="-58.486183" />
 		</object>
-		<object name="soccer_small" template="soccer_small">
+		<object name="ball" template="ball">
 			<position x="0.437369" y="1.00000" z="26.617235" />
 		</object>
-
 	</objects>
 </level>
