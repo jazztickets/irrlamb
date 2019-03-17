@@ -18,9 +18,35 @@ function UpdateState()
 	elseif State == 3 then
 		GUI.TutorialText("Breakfast time!", 7)
 		Level.CreateObject("orb", tOrb, -27.988945, 25.961304, 33.431503, 0, 0, 0);
+	elseif State == 4 then
+		GUI.TutorialText("Let's watch some sweet videos while we eat.", 15)
+		Level.CreateObject("orb", tOrb, 49.655903, 7.574116, 40.508533, 0, 0, 0);
+		X, Y, Z = Object.GetPosition(oSoccer);
+		if Y > 3 then
+			Object.SetLinearVelocity(oSoccer, 20, 0, 0);
+		end
 	end
 
 	State = State + 1
+end
+
+-- Player collision handler
+function OnHitPlayer(PlayerObject, OtherObject)
+
+	-- Handle soccer ball riding
+	if SoccerRode == 0 then
+		if OtherObject == oSoccer then
+			if SoccerStartTimer == 0 then
+				SoccerStartTimer = Timer.Stamp()
+			end
+		elseif OtherObject == oHouse and SoccerStartTimer > 0 then
+			SoccerRideTime = Timer.Stamp() - SoccerStartTimer
+			SoccerRode = 1
+			if SoccerRideTime > 2.0 and State >= 3 then
+				GUI.TutorialText("You rode the ball for " .. string.format("%.3f", SoccerRideTime) .. " seconds. Nice!", 7)
+			end
+		end
+	end
 end
 
 -- Zone handler
@@ -62,8 +88,12 @@ end
 
 -- Objects
 tOrb = Level.GetTemplate("orb")
+oSoccer = Object.GetPointer("soccer")
+oHouse = Object.GetPointer("house")
 ShowerSound = nil
 Spilt = 0
+SoccerStartTimer = 0
+SoccerRode = 0
 
 -- Show text
 GUI.TutorialText("Wakey wakey! Time to get dressed for work!", 10)

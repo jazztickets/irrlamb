@@ -9,7 +9,7 @@
 	<resources>
 		<script file="house.lua" />
 		<scene file="house.irr" />
-		<collision file="house.col" />
+		<collision file="house.col" name="house" />
 		<sound file="flush.ogg" />
 		<sound file="shower.ogg" />
 	</resources>
@@ -28,10 +28,24 @@
 			<physics mass="0.5" />
 			<texture file="pepper0.png" />
 		</cylinder>
+		<sphere name="soccer">
+			<mesh file="soccer.irrbmesh" scale="2" shadows="0" />
+			<shape r="2" />
+			<physics mass="3.0" />
+			<texture file="soccer0.png" />
+		</sphere>
+		<sphere name="soccer_small">
+			<mesh file="soccer.irrbmesh" scale="1" shadows="0" />
+			<shape r="1" />
+			<physics mass="1.5" />
+			<texture file="soccer0.png" />
+		</sphere>
 	</templates>
 	<objects>
 		<object name="player" template="player">
 			<position name="start" x="25.102833" y="73.162651" z="44.395565" />
+			<position name="couch_lip" x="84.950371" y="5.525726" z="0.879445" />
+			<position name="cereal" x="-28.759949" y="25.961304" z="31.795652" />
 
 			<position name="bath_sink" x="3.848003" y="18.673296" z="-39.377319" />
 			<position name="bed" x="-47.747578" y="70.887070" z="33.561878" />
@@ -60,5 +74,12 @@
 		<object name="orb" template="orb">
 			<position x="83.460938" y="53.699997" z="-57.735756" />
 		</object>
+		<object name="soccer" template="soccer">
+			<position x="3.968141" y="51.899986" z="-58.486183" />
+		</object>
+		<object name="soccer_small" template="soccer_small">
+			<position x="0.437369" y="1.00000" z="26.617235" />
+		</object>
+
 	</objects>
 </level>

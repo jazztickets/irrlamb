@@ -20,6 +20,8 @@
 #include <physics.h>
 #include <objects/template.h>
 #include <BulletCollision/CollisionShapes/btSphereShape.h>
+#include <IAnimatedMesh.h>
+#include <IAnimatedMeshSceneNode.h>
 #include <ISceneManager.h>
 #include <IMeshSceneNode.h>
 
@@ -29,8 +31,20 @@ using namespace irr;
 _Sphere::_Sphere(const _ObjectSpawn &Object)
 :	_Object(Object.Template) {
 
-	// Add mesh
-	Node = irrScene->addSphereSceneNode(Template->Radius, Template->Detail);
+	// Check for mesh file
+	if(Template->Mesh != "") {
+
+		// Get file path
+		std::string MeshPath = std::string("meshes/") + Template->Mesh;
+
+		// Load mesh
+		scene::IAnimatedMesh *AnimatedMesh = irrScene->getMesh(MeshPath.c_str());
+		Node = irrScene->addAnimatedMeshSceneNode(AnimatedMesh);
+		Node->setScale(core::vector3df(Template->Scale[0], Template->Scale[1], Template->Scale[2]));
+	}
+	else
+		Node = irrScene->addSphereSceneNode(Template->Radius, Template->Detail);
+
 	if(Node) {
 		if(Template->Textures[0] != "")
 			Node->setMaterialTexture(0, irrDriver->getTexture(Template->Textures[0].c_str()));

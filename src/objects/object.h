@@ -89,10 +89,10 @@ class _Object : public btMotionState {
 		void SetRotation(const btQuaternion &Rotation) { RigidBody->getWorldTransform().setRotation(Rotation); }
 		btQuaternion GetRotation() { return RigidBody->getWorldTransform().getRotation(); }
 
-		void SetLinearVelocity(const btVector3 &Velocity) { RigidBody->setLinearVelocity(Velocity); }
+		void SetLinearVelocity(const btVector3 &Velocity) { RigidBody->activate(); RigidBody->setLinearVelocity(Velocity); }
 		const btVector3 &GetLinearVelocity() { return RigidBody->getLinearVelocity(); }
 
-		void SetAngularVelocity(const btVector3 &Velocity) { RigidBody->setAngularVelocity(Velocity); }
+		void SetAngularVelocity(const btVector3 &Velocity) { RigidBody->activate(); RigidBody->setAngularVelocity(Velocity); }
 		const btVector3 &GetAngularVelocity() { return RigidBody->getAngularVelocity(); }
 
 		btRigidBody *GetBody() { return RigidBody; }

@@ -50,6 +50,7 @@ luaL_Reg _Scripting::ObjectFunctions[] = {
 	{"SetPosition", &_Scripting::ObjectSetPosition},
 	{"GetPosition", &_Scripting::ObjectGetPosition},
 	{"Stop", &_Scripting::ObjectStop},
+	{"SetLinearVelocity", &_Scripting::ObjectSetLinearVelocity},
 	{"SetAngularVelocity", &_Scripting::ObjectSetAngularVelocity},
 	{"SetLifetime", &_Scripting::ObjectSetLifetime},
 	{"Delete", &_Scripting::ObjectDelete},
@@ -188,8 +189,10 @@ void _Scripting::Reset() {
 
 	// Initialize Lua object
 	LuaObject = luaL_newstate();
-	luaopen_base(LuaObject);
-	luaopen_math(LuaObject);
+	luaL_requiref(LuaObject, "_G", luaopen_base, 1);
+	luaL_requiref(LuaObject, "math", luaopen_math, 1);
+	luaL_requiref(LuaObject, "string", luaopen_string, 1);
+	lua_pop(LuaObject, 3);
 
 	// Register C++ functions used by Lua
 	luaL_requiref(LuaObject, "Camera", luaopen_Camera, 1);
@@ -477,6 +480,26 @@ int _Scripting::ObjectStop(lua_State *LuaObject) {
 		Object->Stop();
 
 	return 0;
+}
+
+// Sets an object's linear velocity
+int _Scripting::ObjectSetLinearVelocity(lua_State *LuaObject) {
+
+	// Validate arguments
+	if(!CheckArguments(LuaObject, 4))
+		return 0;
+
+	// Get parameters
+	_Object *Object = (_Object *)(lua_touserdata(LuaObject, 1));
+	float X = (float)lua_tonumber(LuaObject, 2);
+	float Y = (float)lua_tonumber(LuaObject, 3);
+	float Z = (float)lua_tonumber(LuaObject, 4);
+
+	if(Object != nullptr)
+		Object->SetLinearVelocity(btVector3(X, Y, Z));
+
+	return 0;
+
 }
 
 // Sets an object's angular velocity
