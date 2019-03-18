@@ -112,14 +112,12 @@ void _Player::Update(float FrameTime) {
 	}
 
 	// Get pitch for player idle sound
-	float Pitch = GetAngularVelocity().length();
-	if(Pitch < 3.0f)
-		Pitch = 3.0f;
-	else if(Pitch > 22.0f)
-		Pitch = 22.0f;
-	Pitch -= 3.0f;
-	Pitch /= 30.0f;
-	Pitch += 1.5f;
+	float MinSpeed = 3.0f;
+	float MaxSpeed = 120.0f;
+	float Pitch = std::max(MinSpeed, std::min(GetAngularVelocity().length() + GetLinearVelocity().length(), MaxSpeed));
+	Pitch -= MinSpeed;
+	Pitch /= MaxSpeed / 2;
+	Pitch += 0.9f;
 	Sound->SetPitch(Pitch);
 
 	// Update jump cooldown
