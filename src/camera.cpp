@@ -73,7 +73,7 @@ void _Camera::Update(const core::vector3df &Target) {
 	Transform.transformVect(Offset);
 
 	// Set listener direction
-	Audio.SetDirection(Offset.X, Offset.Y, Offset.Z);
+	Audio.SetDirection(Offset.X, 0, Offset.Z);
 
 	// Position the camera
 	Offset *= -Distance;

@@ -30,7 +30,11 @@ function UpdateState()
 		Level.CreateObject("orb", tOrb, 47.623516, 8.510316, 6.891754, 0, 0, 0);
 	elseif State == 6 then
 		GUI.TutorialText("It's getting cold in here. Let's check on that furnace.", 10)
-		--Level.CreateObject("orb", tOrb, 47.623516, 8.510316, 6.891754, 0, 0, 0);
+		Level.CreateObject("orb", tOrb, -30.021095, 22.8, -57.108673, 0, 0, 0);
+	elseif State == 7 then
+		GUI.TutorialText("You got sucked into the HVAC system. You almost died!", 12)
+		Level.CreateObject("orb", tOrb, 97.503487, 77.7, -15.73, 0, 0, 0);
+		FurnaceTeleport()
 	end
 
 	State = State + 1
@@ -81,6 +85,10 @@ function OnHitZone(HitType, Zone, HitObject)
 				Object.SetPosition(Player, -9.255825, 60, -51.385429)
 				GUI.TutorialText("You're not ready to go downstairs yet, doog!", 5)
 			end
+		elseif ZoneName == "zone_furnace" then
+			if State >= 8 then
+				FurnaceTeleport()
+			end
 		end
 	elseif HitName == "salt" then
 		if Spilt == 0 then
@@ -92,6 +100,12 @@ function OnHitZone(HitType, Zone, HitObject)
 	return 0
 end
 
+-- Teleport player to master bedroom
+function FurnaceTeleport()
+	Object.Stop(Player)
+	Object.SetPosition(Player, 86.805458, 100, 36.694283)
+end
+
 -- Objects
 tOrb = Level.GetTemplate("orb")
 oSoccer = Object.GetPointer("soccer")
@@ -100,6 +114,9 @@ ShowerSound = nil
 Spilt = 0
 SoccerStartTimer = 0
 SoccerRode = 0
+
+-- Sounds
+Audio.Play("jazztown.ogg", 86, 72, 36, 1, 0.0, 1.0, 20.0, 20.0)
 
 -- Show text
 GUI.TutorialText("Wakey wakey! Time to get dressed for work!", 10)

@@ -12,6 +12,7 @@
 		<collision file="house.col" name="house" />
 		<sound file="flush.ogg" />
 		<sound file="shower.ogg" />
+		<sound file="jazztown.ogg" />
 	</resources>
 	<templates>
 		<player name="player" />
@@ -54,9 +55,12 @@
 			<position name="coffee_table" x="62.237442" y="8.096352" z="9.721158" />
 			<position name="couch_arm" x="36.004242" y="10.621920" z="44.842339" />
 			<position name="couch_lip" x="84.950371" y="5.525726" z="0.879445" />
+			<position name="dryer" x="-58.527866" y="18.456984" z="-53.716587" />
+			<position name="furnace" x="-35.155663" y="24.184231" z="-61.465420" />
 			<position name="kitchen_counters" x="-60.708763" y="20.500000" z="-6.727145" />
 			<position name="master_computer" x="78.886055" y="73.699997" z="37.568867" />
 			<position name="master_toilet" x="-12.621442" y="68.415615" z="30.497549" />
+			<position name="master_window" x="97.883827" y="82.244644" z="26.721333" />
 			<position name="oven" x="-32.483738" y="18.673315" z="25.286690" />
 			<position name="shakers" x="-23.186735" y="22.646900" z="7.270120" />
 			<position name="stairs_top" x="-3.029367" y="53.699997" z="-51.385429" />
