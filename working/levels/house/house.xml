@@ -12,6 +12,7 @@
 		<collision file="house.col" name="house" />
 		<sound file="flush.ogg" />
 		<sound file="shower.ogg" />
+		<sound file="furnace.ogg" />
 		<sound file="jazztown.ogg" />
 	</resources>
 	<templates>

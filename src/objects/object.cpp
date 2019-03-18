@@ -77,6 +77,7 @@ void _Object::PrintOrientation() {
 
 	// Write information
 	Log.Write("<object name=\"%s\" template=\"%s\">", Name.c_str(), Template->Name.c_str());
+	Log.Write("\t<!-- %f, %f, %f -->", Position[0], Position[1], Position[2]);
 	Log.Write("\t<position x=\"%f\" y=\"%f\" z=\"%f\" />", Position[0], Position[1], Position[2]);
 	Log.Write("\t<quaternion x=\"%f\" y=\"%f\" z=\"%f\" w=\"%f\" />", Quaternion[0], Quaternion[1], Quaternion[2], Quaternion[3]);
 	Log.Write("\t<linear_velocity x=\"%f\" y=\"%f\" z=\"%f\" />", LinearVelocity[0], LinearVelocity[1], LinearVelocity[2]);

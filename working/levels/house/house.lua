@@ -117,6 +117,7 @@ SoccerRode = 0
 
 -- Sounds
 Audio.Play("jazztown.ogg", 86, 72, 36, 1, 0.0, 1.0, 20.0, 20.0)
+Audio.Play("furnace.ogg", -30, 11, -56, 1, 0.0, 1.0, 20.0, 10.0)
 
 -- Show text
 GUI.TutorialText("Wakey wakey! Time to get dressed for work!", 10)
