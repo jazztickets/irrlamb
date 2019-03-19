@@ -89,6 +89,19 @@ function OnHitZone(HitType, Zone, HitObject)
 			if State >= 8 then
 				FurnaceTeleport()
 			end
+		elseif ZoneName == "zone_poo" then
+			Secrets = Secrets + 1
+			GUI.TutorialText("You touched the secret poo! " .. SecretText(), 10)
+			return 1
+		elseif ZoneName == "zone_tv" then
+			GUI.TutorialText("Hey, how'd you make it up here?", 7)
+			return 1
+		elseif ZoneName == "zone_smells" then
+			GUI.TutorialText("Smells funky in here...", 7)
+			return 1
+		elseif ZoneName == "zone_lint" then
+			GUI.TutorialText("Lots of lint back here.", 7)
+			return 1
 		end
 	elseif HitName == "salt" then
 		if Spilt == 0 then
@@ -98,6 +111,11 @@ function OnHitZone(HitType, Zone, HitObject)
 	end
 
 	return 0
+end
+
+-- Get text when secrets are found
+function SecretText()
+	return Secrets .. " out of " .. TotalSecrets .. " secrets found."
 end
 
 -- Teleport player to master bedroom
@@ -123,5 +141,7 @@ Audio.Play("furnace.ogg", -37, 11, -56, 1, 0.0, 1.0, 20.0, 10.0)
 GUI.TutorialText("Wakey wakey! Time to get dressed for work!", 10)
 
 -- Set up goal
+TotalSecrets = 3
+Secrets = 0
 State = 0
 --UpdateState()

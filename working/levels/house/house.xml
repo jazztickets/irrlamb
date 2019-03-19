@@ -58,6 +58,7 @@
 			<position name="dryer" x="-65.527866" y="18.456984" z="-53.716587" />
 			<position name="furnace" x="-42.155663" y="24.184231" z="-61.465420" />
 			<position name="kitchen_counters" x="-67.708763" y="20.500000" z="-6.727145" />
+			<position name="main_toilet" x="2.987322" y="7.185053" z="-58.448116" />
 			<position name="master_computer" x="78.886055" y="73.699997" z="37.568867" />
 			<position name="master_toilet" x="-12.621442" y="68.415615" z="30.497549" />
 			<position name="master_window" x="97.883827" y="82.244644" z="26.721333" />
