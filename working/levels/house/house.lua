@@ -102,9 +102,14 @@ function OnHitZone(HitType, Zone, HitObject)
 		elseif ZoneName == "zone_lint" then
 			GUI.TutorialText("Lots of lint back here.", 7)
 			return 1
+		elseif ZoneName == "zone_pizza" then
+			Secrets = Secrets + 1
+			GUI.TutorialText("You licked the secret pizza! " .. SecretText(), 10)
+			return 1
 		end
 	elseif HitName == "salt" then
 		if Spilt == 0 then
+			Goofs = Goofs + 1
 			GUI.TutorialText("Oh god you spilled the salt...", 5)
 			Spilt = 1
 		end
@@ -143,5 +148,6 @@ GUI.TutorialText("Wakey wakey! Time to get dressed for work!", 10)
 -- Set up goal
 TotalSecrets = 3
 Secrets = 0
+Goofs = 0
 State = 0
 --UpdateState()
