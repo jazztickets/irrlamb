@@ -34,7 +34,9 @@ function UpdateState()
 	elseif State == 7 then
 		GUI.TutorialText("You got sucked into the HVAC system. You almost died!", 12)
 		Level.CreateObject("orb", tOrb, 97.503487, 77.7, -15.73, 0, 0, 0);
-		FurnaceTeleport()
+		if DownstairsAttempt < DownstairsAttemptMax then
+			FurnaceTeleport()
+		end
 	end
 
 	State = State + 1
@@ -79,14 +81,28 @@ function OnHitZone(HitType, Zone, HitObject)
 			if State == 3 then
 				UpdateState()
 			end
+		elseif ZoneName == "zone_toilet" then
+			Goofs = Goofs + 1
+			GUI.TutorialText("Oh man you fell into the toilet!", 6)
+			return 1
 		elseif ZoneName == "zone_stairs" then
 			if State < 4 then
-				Object.Stop(Player)
-				Object.SetPosition(Player, -9.255825, 60, -51.385429)
-				GUI.TutorialText("You're not ready to go downstairs yet, doog!", 5)
+				if DownstairsAttempt >= DownstairsAttemptMax then
+					GUI.TutorialText("Fine, go downstairs. Good luck getting back up!", 10)
+					return 1
+				else
+					Object.Stop(Player)
+					Object.SetPosition(Player, -9.255825, 60, -51.385429)
+					GUI.TutorialText("You're not ready to go downstairs yet, doog!", 5)
+					if DownstairsAttempt == 0 then
+						Goofs = Goofs + 1
+					end
+
+					DownstairsAttempt = DownstairsAttempt + 1
+				end
 			end
 		elseif ZoneName == "zone_furnace" then
-			if State >= 8 then
+			if State >= 8 or DownstairsAttempt >= DownstairsAttemptMax then
 				FurnaceTeleport()
 			end
 		elseif ZoneName == "zone_poo" then
@@ -101,6 +117,14 @@ function OnHitZone(HitType, Zone, HitObject)
 			return 1
 		elseif ZoneName == "zone_lint" then
 			GUI.TutorialText("Lots of lint back here.", 7)
+			return 1
+		elseif ZoneName == "zone_choria" then
+			GamesPlayed = GamesPlayed + 1
+			GUI.TutorialText("Hey this game looks neat. I love chores.", 8)
+			return 1
+		elseif ZoneName == "zone_emptyclip" then
+			GamesPlayed = GamesPlayed + 1
+			GUI.TutorialText("Games are so violent these days...", 8)
 			return 1
 		elseif ZoneName == "zone_pizza" then
 			Secrets = Secrets + 1
@@ -123,6 +147,13 @@ function SecretText()
 	return Secrets .. " out of " .. TotalSecrets .. " secrets found."
 end
 
+-- Check games played count
+function CheckGames()
+	if GamesPlayed >= 2 then
+
+	end
+end
+
 -- Teleport player to master bedroom
 function FurnaceTeleport()
 	Object.Stop(Player)
@@ -137,6 +168,9 @@ ShowerSound = nil
 Spilt = 0
 SoccerStartTimer = 0
 SoccerRode = 0
+GamesPlayed = 0
+DownstairsAttempt = 0
+DownstairsAttemptMax = 20
 
 -- Sounds
 Audio.Play("jazztown.ogg", 86, 72, 36, 1, 0.0, 1.0, 20.0, 20.0)
@@ -149,5 +183,5 @@ GUI.TutorialText("Wakey wakey! Time to get dressed for work!", 10)
 TotalSecrets = 3
 Secrets = 0
 Goofs = 0
-State = 0
---UpdateState()
+State = -1
+UpdateState()
