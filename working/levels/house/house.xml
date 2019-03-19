@@ -47,33 +47,32 @@
 		<object name="player" template="player">
 			<position name="start" x="25.102833" y="73.162651" z="44.395565" />
 
-			<position name="bath_sink" x="3.848003" y="18.673296" z="-39.377319" />
+			<position name="bath_sink" x="-6.087580" y="18.673300" z="-36.673260" />
 			<position name="bed" x="-47.747578" y="70.887070" z="33.561878" />
 			<position name="books" x="4.638345" y="57.657017" z="30.640322" />
-			<position name="broom" x="-52.468765" y="0.500000" z="29.626791" />
-			<position name="cereal" x="-28.759949" y="25.961304" z="31.795652" />
+			<position name="broom" x="-60.409260" y="0.500000" z="29.197340" />
+			<position name="cereal" x="-36.381367" y="25.961304" z="29.815416" />
 			<position name="closet" x="83.570305" y="53.699997" z="-60.103184" />
-			<position name="coffee_table" x="62.237442" y="8.096352" z="9.721158" />
-			<position name="couch_arm" x="36.004242" y="10.621920" z="44.842339" />
-			<position name="couch_lip" x="84.950371" y="5.525726" z="0.879445" />
-			<position name="dryer" x="-58.527866" y="18.456984" z="-53.716587" />
-			<position name="furnace" x="-35.155663" y="24.184231" z="-61.465420" />
-			<position name="kitchen_counters" x="-60.708763" y="20.500000" z="-6.727145" />
+			<position name="coffee_table" x="47.990120" y="8.096352" z="10.142302" />
+			<position name="couch_arm" x="27.953573" y="10.631498" z="45.473797" />
+			<position name="dryer" x="-65.527866" y="18.456984" z="-53.716587" />
+			<position name="furnace" x="-42.155663" y="24.184231" z="-61.465420" />
+			<position name="kitchen_counters" x="-67.708763" y="20.500000" z="-6.727145" />
 			<position name="master_computer" x="78.886055" y="73.699997" z="37.568867" />
 			<position name="master_toilet" x="-12.621442" y="68.415615" z="30.497549" />
 			<position name="master_window" x="97.883827" y="82.244644" z="26.721333" />
-			<position name="oven" x="-32.483738" y="18.673315" z="25.286690" />
-			<position name="shakers" x="-23.186735" y="22.646900" z="7.270120" />
+			<position name="oven" x="-42.483738" y="18.673315" z="25.286690" />
+			<position name="shakers" x="-30.939104" y="22.646900" z="7.236990" />
 			<position name="stairs_top" x="-3.029367" y="53.699997" z="-51.385429" />
 			<position name="tub" x="-15.483100" y="64.535622" z="39.887352" />
 			<position name="window_bedroom" x="-83.456184" y="77.700050" z="9.525872" />
 		</object>
 		<object name="salt" template="salt">
-			<position x="-23.18" y="23.146900" z="15" />
+			<position x="-30.9444" y="23.146900" z="15" />
 			<rotation y="90" />
 		</object>
 		<object name="pepper" template="pepper">
-			<position x="-23.18" y="23.146900" z="12" />
+			<position x="-30.9444" y="23.146900" z="12" />
 			<rotation y="90" />
 		</object>
 		<object name="orb" template="orb">
@@ -83,7 +82,7 @@
 			<position x="3.968141" y="51.899986" z="-58.486183" />
 		</object>
 		<object name="ball" template="ball">
-			<position x="0.437369" y="1.00000" z="26.617235" />
+			<position x="-7.3271" y="1.00000" z="26.617235" />
 		</object>
 	</objects>
 </level>

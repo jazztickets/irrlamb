@@ -17,20 +17,20 @@ function UpdateState()
 		GUI.TutorialText("Oops, toilet needs to be flushed. Gross.", 15)
 	elseif State == 3 then
 		GUI.TutorialText("Breakfast time!", 7)
-		Level.CreateObject("orb", tOrb, -27.988945, 25.961304, 33.431503, 0, 0, 0);
+		Level.CreateObject("orb", tOrb, -35.75, 25.961304, 33.431503, 0, 0, 0);
 	elseif State == 4 then
 		GUI.TutorialText("Let's watch some sweet videos while we eat.", 15)
-		Level.CreateObject("orb", tOrb, 49.655903, 7.574116, 40.508533, 0, 0, 0);
+		Level.CreateObject("orb", tOrb, 41.8906, 7.574116, 40.508533, 0, 0, 0);
 		X, Y, Z = Object.GetPosition(oSoccer);
 		if Y > 3 then
 			Object.SetLinearVelocity(oSoccer, 20, 0, 0);
 		end
 	elseif State == 5 then
 		GUI.TutorialText("Ok, enough of that.", 5)
-		Level.CreateObject("orb", tOrb, 47.623516, 8.510316, 6.891754, 0, 0, 0);
+		Level.CreateObject("orb", tOrb, 39.859116, 8.510316, 6.891754, 0, 0, 0);
 	elseif State == 6 then
 		GUI.TutorialText("It's getting cold in here. Let's check on that furnace.", 10)
-		Level.CreateObject("orb", tOrb, -30.021095, 22.8, -57.108673, 0, 0, 0);
+		Level.CreateObject("orb", tOrb, -37.7854, 22.8, -57.108673, 0, 0, 0);
 	elseif State == 7 then
 		GUI.TutorialText("You got sucked into the HVAC system. You almost died!", 12)
 		Level.CreateObject("orb", tOrb, 97.503487, 77.7, -15.73, 0, 0, 0);
@@ -117,7 +117,7 @@ SoccerRode = 0
 
 -- Sounds
 Audio.Play("jazztown.ogg", 86, 72, 36, 1, 0.0, 1.0, 20.0, 20.0)
-Audio.Play("furnace.ogg", -30, 11, -56, 1, 0.0, 1.0, 20.0, 10.0)
+Audio.Play("furnace.ogg", -37, 11, -56, 1, 0.0, 1.0, 20.0, 10.0)
 
 -- Show text
 GUI.TutorialText("Wakey wakey! Time to get dressed for work!", 10)
