@@ -135,7 +135,7 @@ int _Framework::Init(int Count, char **Arguments) {
 		return 0;
 
 	// Set up audio
-	if(AudioEnabled && Config.AudioEnabled)
+	if(AudioEnabled)
 		EnableAudio();
 
 	// Set up the scripting system
@@ -268,13 +268,13 @@ void _Framework::Close() {
 	State->Close();
 
 	// Shut down the system
+	DisableAudio();
 	Campaign.Close();
 	Fader.Close();
 	Physics.Close();
 	ObjectManager.Close();
 	Scripting.Close();
 	Interface.Close();
-	Audio.Close();
 	Graphics.Close();
 	Config.Close();
 	Save.Close();

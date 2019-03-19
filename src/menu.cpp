@@ -27,6 +27,7 @@
 #include <campaign.h>
 #include <level.h>
 #include <save.h>
+#include <audio.h>
 #include <states/viewreplay.h>
 #include <states/play.h>
 #include <states/null.h>
@@ -437,24 +438,15 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 					InitOptions();
 				break;
 				case AUDIO_SAVE: {
-					bool OldAudioEnabled = Config.AudioEnabled;
 
 					// Get settings
 					gui::IGUICheckBox *AudioEnabled = static_cast<gui::IGUICheckBox *>(CurrentLayout->getElementFromId(AUDIO_ENABLED));
 					bool Enabled = AudioEnabled->isChecked();
 
 					// Save
-					Config.AudioEnabled = Enabled;
+					Config.SoundVolume = Enabled ? 1.0 : 0.0;
 					Config.WriteConfig();
-
-					// Init or disable audio system
-					if(OldAudioEnabled != Enabled) {
-						if(Enabled) {
-							Framework.EnableAudio();
-						}
-						else
-							Framework.DisableAudio();
-					}
+					Audio.SetGain(Config.SoundVolume);
 
 					InitOptions();
 				}
@@ -1038,7 +1030,7 @@ void _Menu::InitAudioOptions() {
 
 	// Enabled
 	AddMenuText(Interface.GetPositionPercent(X - SidePadding, Y), L"Audio Enabled", _Interface::FONT_SMALL, -1, gui::EGUIA_LOWERRIGHT);
-	irrGUI->addCheckBox(Config.AudioEnabled, Interface.GetRectPercent(X + SidePadding, Y, 32, 32), CurrentLayout, AUDIO_ENABLED);
+	irrGUI->addCheckBox(Config.SoundVolume == 1.0f, Interface.GetRectPercent(X + SidePadding, Y, 32, 32), CurrentLayout, AUDIO_ENABLED);
 
 	// Save and cancel buttons
 	AddMenuButton(Interface.GetRightRectPercent(0.5 - SidePadding, 0.9, BUTTON_SMALL_SIZE_X, BUTTON_SMALL_SIZE_Y), AUDIO_SAVE, L"Save", _Interface::IMAGE_BUTTON_SMALL);

@@ -63,9 +63,7 @@ void _Config::Reset() {
 	ShowTutorial = true;
 
 	// Audio
-	AudioEnabled = 1;
 	SoundVolume = 1.0;
-	MusicVolume = 1.0;
 
 	// Input
 	JoystickEnabled = true;
@@ -275,25 +273,7 @@ int _Config::ReadConfig() {
 	// Check for the audio tag
 	XMLElement *AudioElement = ConfigElement->FirstChildElement("audio");
 	if(AudioElement) {
-		AudioElement->QueryBoolAttribute("enabled", &AudioEnabled);
-
-		/*
-		// Get sound element
-		XMLElement *SoundElement = AudioElement->FirstChildElement("sound");
-		if(!SoundElement) {
-
-			// Get sound attributes
-			SoundElement->QueryFloatAttribute("volume", &SoundVolume);
-		}
-
-		// Get music element
-		XMLElement *MusicElement = AudioElement->FirstChildElement("music");
-		if(!MusicElement) {
-
-			// Get music attributes
-			MusicElement->QueryFloatAttribute("volume", &MusicVolume);
-		}
-		*/
+		AudioElement->QueryFloatAttribute("sound_volume", &SoundVolume);
 	}
 
 	// Check for the replay tag
@@ -386,18 +366,8 @@ int _Config::WriteConfig() {
 
 	// Create audio element
 	XMLElement *AudioElement = Document.NewElement("audio");
-	AudioElement->SetAttribute("enabled", AudioEnabled);
+	AudioElement->SetAttribute("sound_volume", SoundVolume);
 	ConfigElement->LinkEndChild(AudioElement);
-
-	// Sound
-	//XMLElement *SoundElement = Document.NewElement("sound");
-	//SoundElement->SetDoubleAttribute("volume", SoundVolume);
-	//AudioElement->LinkEndChild(SoundElement);
-
-	// Music
-	//XMLElement *MusicElement = Document.NewElement("music");
-	//MusicElement->SetDoubleAttribute("volume", MusicVolume);
-	//AudioElement->LinkEndChild(MusicElement);
 
 	// Create replay element
 	XMLElement *ReplayElement = Document.NewElement("replay");

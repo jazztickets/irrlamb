@@ -52,8 +52,7 @@ class _Config {
 		int AntiAliasing;
 
 		// Audio
-		bool AudioEnabled;
-		float SoundVolume, MusicVolume;
+		float SoundVolume;
 
 		// Input
 		float MouseSensitivity, MouseScaleX, MouseScaleY;

@@ -269,7 +269,7 @@ void _Audio::SetGain(float Value) {
 	if(!Enabled)
 		return;
 
-	alListenerf(AL_GAIN, Value);
+	alListenerf(AL_GAIN, Value * Config.SoundVolume);
 }
 
 // Create an audio source
