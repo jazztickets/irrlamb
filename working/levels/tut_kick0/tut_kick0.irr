@@ -20,6 +20,24 @@
          <colorf name="BackgroundColor" value="0, 0, 0, 1"/>
       </attributes>
    </userData>
+   <node type="empty">
+      <attributes>
+         <string name="Name" value="zone_secret"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="2.999715, -1.711104, 0"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="0.452735, 0.452735, 0.452735"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
    <node type="mesh">
       <attributes>
          <string name="Name" value="tut_kick0"/>

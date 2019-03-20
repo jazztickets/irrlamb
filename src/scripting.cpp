@@ -22,6 +22,7 @@
 #include <level.h>
 #include <campaign.h>
 #include <audio.h>
+#include <framework.h>
 #include <objects/template.h>
 #include <objects/player.h>
 #include <objects/orb.h>
@@ -75,6 +76,7 @@ luaL_Reg _Scripting::TimerFunctions[] = {
 luaL_Reg _Scripting::LevelFunctions[] = {
 	{"Lose", &_Scripting::LevelLose},
 	{"Win", &_Scripting::LevelWin},
+	{"Change", &_Scripting::LevelChange},
 	{"GetTemplate", &_Scripting::LevelGetTemplate},
 	{"CreateObject", &_Scripting::LevelCreateObject},
 	{"CreateConstraint", &_Scripting::LevelCreateConstraint},
@@ -599,6 +601,27 @@ int _Scripting::LevelLose(lua_State *LuaObject) {
 int _Scripting::LevelWin(lua_State *LuaObject) {
 
 	PlayState.WinLevel();
+
+	return 0;
+}
+
+// Change level
+int _Scripting::LevelChange(lua_State *LuaObject) {
+
+	// Validate arguments
+	if(!CheckArguments(LuaObject, 2))
+		return 0;
+
+	// Get level
+	int Campaign = (int)lua_tonumber(LuaObject, 1);
+	int CampaignLevel = (int)lua_tonumber(LuaObject, 2);
+
+	// Launch level
+	PlayState.SetTestLevel("");
+	PlayState.SetValidateReplay("");
+	PlayState.SetCampaign(Campaign);
+	PlayState.SetCampaignLevel(CampaignLevel);
+	Framework.ChangeState(&PlayState);
 
 	return 0;
 }

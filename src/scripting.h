@@ -82,6 +82,7 @@ class _Scripting {
 
 		static int LevelLose(lua_State *LuaObject);
 		static int LevelWin(lua_State *LuaObject);
+		static int LevelChange(lua_State *LuaObject);
 		static int LevelGetTemplate(lua_State *LuaObject);
 		static int LevelCreateObject(lua_State *LuaObject);
 		static int LevelCreateConstraint(lua_State *LuaObject);

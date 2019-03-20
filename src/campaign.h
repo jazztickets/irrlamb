@@ -29,6 +29,7 @@ struct _LevelInfo {
 
 struct _CampaignInfo {
 	std::string Name;
+	bool Show;
 	int Column;
 	int Row;
 	std::vector<_LevelInfo> Levels;

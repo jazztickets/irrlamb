@@ -17,6 +17,9 @@
 		<level>tut_jump4</level>
 		<level>tut_kick0</level>
 	</campaign>
+	<campaign name="Secrets" show="false">
+		<level>house</level>
+	</campaign>
 	<campaign name="Caves">
 		<level unlocked="1">caves_0</level>
 		<level>caves_1</level>

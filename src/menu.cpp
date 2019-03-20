@@ -631,16 +631,20 @@ void _Menu::InitCampaigns() {
 	AddMenuText(Interface.GetPositionPercent(0.5, 0.1), L"Categories");
 
 	// Campaigns
-	//const float CAMPAIGN_SPACING_X = 0.25;
+	float X = 0.5;
+	float Y = 0.3;
 	const float CAMPAIGN_SPACING_Y = (BUTTON_SIZE_Y * Interface.GetUIScale() / irrDriver->getScreenSize().Height) + 0.01f;
 	const std::vector<_CampaignInfo> &Campaigns = Campaign.GetCampaigns();
 	for(uint32_t i = 0; i < Campaigns.size(); i++) {
-		irr::core::stringw Name(Campaigns[i].Name.c_str());
+		if(!Campaigns[i].Show)
+			continue;
 
-		//float X = (Campaigns[i].Column - 1) * CAMPAIGN_SPACING_X + 0.5;
-		float X = 0.5;
-		float Y = CAMPAIGN_SPACING_Y * i + 0.3;
+		// Add campaign button
+		irr::core::stringw Name(Campaigns[i].Name.c_str());
 		AddMenuButton(Interface.GetCenteredRectPercent(X, Y, BUTTON_SIZE_X, BUTTON_SIZE_Y), PLAY_CAMPAIGNID + i, Name.c_str());
+
+		// Update position
+		Y += CAMPAIGN_SPACING_Y;
 	}
 
 	// Back button
