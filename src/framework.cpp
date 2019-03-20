@@ -135,8 +135,10 @@ int _Framework::Init(int Count, char **Arguments) {
 		return 0;
 
 	// Set up audio
-	if(AudioEnabled)
+	if(AudioEnabled) {
 		EnableAudio();
+		Audio.SetGain(1.0f);
+	}
 
 	// Set up the scripting system
 	if(!Scripting.Init())

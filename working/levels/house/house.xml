@@ -65,7 +65,7 @@
 			<position name="oven" x="-42.483738" y="18.673315" z="25.286690" />
 			<position name="shakers" x="-30.939104" y="22.646900" z="7.236990" />
 			<position name="stairs_top" x="-3.029367" y="53.699997" z="-51.385429" />
-			<position name="tub" x="-15.483100" y="64.535622" z="39.887352" />
+			<position name="tub" x="-15.655509" y="64.557701" z="50.869083" />
 			<position name="window_bedroom" x="-83.456184" y="77.700050" z="9.525872" />
 		</object>
 		<object name="salt" template="salt">
@@ -75,9 +75,6 @@
 		<object name="pepper" template="pepper">
 			<position x="-30.9444" y="23.146900" z="12" />
 			<rotation y="90" />
-		</object>
-		<object name="orb" template="orb">
-			<position x="83.460938" y="53.699997" z="-57.735756" />
 		</object>
 		<object name="soccer" template="soccer">
 			<position x="3.968141" y="51.899986" z="-58.486183" />
