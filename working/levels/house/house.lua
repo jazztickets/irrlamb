@@ -63,6 +63,16 @@ end
 -- Player collision handler
 function OnHitPlayer(PlayerObject, OtherObject)
 
+	-- Handle Alan touching
+	if OtherObject == oAlan then
+		if AlanTouched == 0 then
+			Secrets = Secrets + 1
+			Audio.Play("emptyclip.ogg", -36.756924, 1.500000, -35.409771, 0, 0.5, 0.5)
+			GUI.TutorialText("Secret Alan watches you play irrlamb... even when you don't want him to. " .. SecretText(), 13)
+			AlanTouched = 1
+		end
+	end
+
 	-- Handle soccer ball riding
 	if SoccerRode == 0 then
 		if OtherObject == oSoccer then
@@ -136,11 +146,13 @@ function OnHitZone(HitType, Zone, HitObject)
 			return 1
 		elseif ZoneName == "zone_choria" then
 			GamesPlayed = GamesPlayed + 1
-			GUI.TutorialText("Hey this game looks neat. I love chores.", 8)
+			GUI.TutorialText("Hey this game looks neat. I love chores.", 7)
+			Timer.DelayedFunction("CheckGames", 8)
 			return 1
 		elseif ZoneName == "zone_emptyclip" then
 			GamesPlayed = GamesPlayed + 1
-			GUI.TutorialText("Games are so violent these days...", 8)
+			GUI.TutorialText("That game was okay back in 2006...", 7)
+			Timer.DelayedFunction("CheckGames", 8)
 			return 1
 		elseif ZoneName == "zone_pizza" then
 			Secrets = Secrets + 1
@@ -171,7 +183,9 @@ end
 -- Check games played count
 function CheckGames()
 	if GamesPlayed >= 2 then
-
+		GUI.TutorialText("What was that noise?", 5)
+		Audio.Play("emptyclip.ogg", -36.756924, 1.5, -35.409771, 0, 0.2, 0.2)
+		oAlan = Level.CreateObject("alan", tAlan, -36.756924, 1.5, -35.409771, 180, 180, 0);
 	end
 end
 
@@ -189,8 +203,10 @@ end
 
 -- Objects
 tOrb = Level.GetTemplate("orb")
+tAlan = Level.GetTemplate("alan")
 oSoccer = Object.GetPointer("soccer")
 oHouse = Object.GetPointer("house")
+oAlan = nil
 ShowerSound = nil
 Spilt = 0
 SoccerStartTimer = 0
@@ -198,6 +214,7 @@ SoccerRode = 0
 GamesPlayed = 0
 DownstairsAttempt = 0
 DownstairsAttemptMax = 20
+AlanTouched = 0
 
 -- Sounds
 Audio.Play("jazztown.ogg", 86, 72, 36, 1, 0.0, 1.0, 20.0, 20.0)

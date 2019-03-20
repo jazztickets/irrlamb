@@ -1,0 +1,1080 @@
+<?xml version="1.0"?>
+<!-- Created by irrb v0.6 - "Irrlicht/Blender Exporter" -->
+<irr_scene>
+   <attributes>
+      <string name="Name" value="root"/>
+      <int name="Id" value="-1"/>
+      <vector3d name="Position" value="0, 0, 0"/>
+      <vector3d name="Rotation" value="0, 0, 0"/>
+      <vector3d name="Scale" value="1, 1, 1"/>
+      <colorf name="AmbientLight" value="0.05, 0.05, 0.05, 1"/>
+      <bool name="AutomaticCulling" value="true"/>
+      <bool name="DebugDataVisible" value="false"/>
+      <bool name="IsDebugObject" value="false"/>
+      <bool name="Visible" value="true"/>
+   </attributes>
+   <userData>
+      <attributes>
+         <bool name="Physics.Enabled" value="false"/>
+         <float name="Gravity" value="-9.81"/>
+         <colorf name="BackgroundColor" value="0.050876, 0.050876, 0.050876, 1"/>
+      </attributes>
+   </userData>
+   <node type="empty">
+      <attributes>
+         <string name="Name" value="zone_toilet"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-8.078261, 58.728374, 31.619799"/>
+         <vector3d name="Rotation" value="179.999991, 0, 0"/>
+         <vector3d name="Scale" value="3.626808, -0.235212, 1.673943"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="empty">
+      <attributes>
+         <string name="Name" value="zone_emptyclip"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="81.870201, 72.61731, -14.623596"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="3.917187, 0.666111, 5.185573"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="empty">
+      <attributes>
+         <string name="Name" value="zone_choria"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="81.870201, 72.61731, 36.766525"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="3.917187, 0.666111, 5.185573"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="empty">
+      <attributes>
+         <string name="Name" value="zone_pizza"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="97.228905, 19.892569, -18.403969"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="0.651986, 0.335456, 1.256191"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="empty">
+      <attributes>
+         <string name="Name" value="zone_lint"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-78.694832, 0.809898, -55.935524"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="0.672121, 0.888841, 5.049525"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="empty">
+      <attributes>
+         <string name="Name" value="zone_smells"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="1.244984, 6.534184, -47.106365"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="9.256557, 6.562358, 6.389452"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="empty">
+      <attributes>
+         <string name="Name" value="zone_tv"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="46.299915, 9.788977, -37.415375"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="9.219766, 0.383112, 3.742279"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="empty">
+      <attributes>
+         <string name="Name" value="zone_poo"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="1.448893, 3.240786, -56.473083"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="0.72952, 0.383275, 1.357565"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="empty">
+      <attributes>
+         <string name="Name" value="zone_furnace"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-37.87635, 21.181, -56.478668"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="4.694092, 0.276964, 4.671397"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="empty">
+      <attributes>
+         <string name="Name" value="zone_oven"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-38.492352, 18.172876, 12.767377"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="8.21465, 1, 8.077901"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="empty">
+      <attributes>
+         <string name="Name" value="zone_stairs"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="1.4139, 68.482262, -54.776566"/>
+         <vector3d name="Rotation" value="179.999991, 0, 0"/>
+         <vector3d name="Scale" value="1.450194, -18.678633, -10.439007"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="empty">
+      <attributes>
+         <string name="Name" value="zone_toilet_handle"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-11.82869, 66.090698, 29.11281"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="0.366491, 0.28188, 0.647352"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_bedroom_screen"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="86.599167, 77.965599, -14.623657"/>
+         <vector3d name="Rotation" value="0, 179.999978, 0"/>
+         <vector3d name="Scale" value="1, 1, 1"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_bedroom_screen.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="light">
+      <attributes>
+         <string name="Name" value="light_screen2"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="false"/>
+         <vector3d name="Position" value="86.574196, 77.994858, -14.651826"/>
+         <vector3d name="Rotation" value="90.000009, -0.000004, -89.999989"/>
+         <enum name="LightType" value="Point"/>
+         <colorf name="AmbientColor" value="0, 0, 0, 1"/>
+         <colorf name="DiffuseColor" value="0.079978, 0, 0, 1"/>
+         <colorf name="SpecularColor" value="1, 1, 1, 1"/>
+         <vector3d name="Attenuation" value="1, 0, 0"/>
+         <float name="Radius" value="100.00"/>
+         <float name="OuterCone" value="45.00"/>
+         <float name="InnerCone" value="0.00"/>
+         <bool name="CastShadows" value="true"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="light">
+      <attributes>
+         <string name="Name" value="light_kitchen_window"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="false"/>
+         <vector3d name="Position" value="-82.103928, 30.512226, 10.823926"/>
+         <vector3d name="Rotation" value="-89.999975, -0.000004, -89.999989"/>
+         <enum name="LightType" value="Point"/>
+         <colorf name="AmbientColor" value="0, 0, 0, 1"/>
+         <colorf name="DiffuseColor" value="0.007222, 0.008853, 0.010011, 1"/>
+         <colorf name="SpecularColor" value="1, 1, 1, 1"/>
+         <vector3d name="Attenuation" value="1, 0, 0"/>
+         <float name="Radius" value="100.00"/>
+         <float name="OuterCone" value="45.00"/>
+         <float name="InnerCone" value="0.00"/>
+         <bool name="CastShadows" value="true"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_kitchen_window"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-83.135582, 0, -11.382189"/>
+         <vector3d name="Rotation" value="0, -89.999996, 0"/>
+         <vector3d name="Scale" value="14.452672, 20.503016, 20.000038"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_kitchen_window.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="light">
+      <attributes>
+         <string name="Name" value="light_main_window"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="false"/>
+         <vector3d name="Position" value="99.084946, 28.276556, 2.7897"/>
+         <vector3d name="Rotation" value="90.000009, -0.000004, -89.999989"/>
+         <enum name="LightType" value="Point"/>
+         <colorf name="AmbientColor" value="0, 0, 0, 1"/>
+         <colorf name="DiffuseColor" value="0.222292, 0.300507, 0.358778, 1"/>
+         <colorf name="SpecularColor" value="1, 1, 1, 1"/>
+         <vector3d name="Attenuation" value="1, 0, 0"/>
+         <float name="Radius" value="100.00"/>
+         <float name="OuterCone" value="45.00"/>
+         <float name="InnerCone" value="0.00"/>
+         <bool name="CastShadows" value="true"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_main_window"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-25.488834, 0, -27.796402"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="20.000042, 20.000042, 20.000042"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_main_window.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="light">
+      <attributes>
+         <string name="Name" value="light_bedroom"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="false"/>
+         <vector3d name="Position" value="-84.587273, 86.324982, 5.068522"/>
+         <vector3d name="Rotation" value="-89.999975, -0.000004, -89.999989"/>
+         <enum name="LightType" value="Point"/>
+         <colorf name="AmbientColor" value="0, 0, 0, 1"/>
+         <colorf name="DiffuseColor" value="0.007222, 0.008853, 0.010011, 1"/>
+         <colorf name="SpecularColor" value="1, 1, 1, 1"/>
+         <vector3d name="Attenuation" value="1, 0, 0"/>
+         <float name="Radius" value="100.00"/>
+         <float name="OuterCone" value="45.00"/>
+         <float name="InnerCone" value="0.00"/>
+         <bool name="CastShadows" value="true"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_bedroom_window"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="16.498543, 53.200005, -43.196411"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="20.000042, 20.000042, 20.000042"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_bedroom_window.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_master_window"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="16.498543, 53.200005, -43.196411"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="20.000042, 20.000042, 20.000042"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_master_window.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_main_screen"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-25.465858, 0, -27.796402"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="20.000042, 20.000042, 20.000042"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_main_screen.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="light">
+      <attributes>
+         <string name="Name" value="light_screen0"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="false"/>
+         <vector3d name="Position" value="86.496887, 77.96563, 36.61412"/>
+         <vector3d name="Rotation" value="90.000009, -0.000004, -89.999989"/>
+         <enum name="LightType" value="Point"/>
+         <colorf name="AmbientColor" value="0, 0, 0, 1"/>
+         <colorf name="DiffuseColor" value="0, 0.015986, 0.000635, 1"/>
+         <colorf name="SpecularColor" value="1, 1, 1, 1"/>
+         <vector3d name="Attenuation" value="1, 0, 0"/>
+         <float name="Radius" value="100.00"/>
+         <float name="OuterCone" value="45.00"/>
+         <float name="InnerCone" value="0.00"/>
+         <bool name="CastShadows" value="true"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_master_screen"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="86.606033, 77.96563, 36.61412"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="20.000042, 20.000042, 20.000042"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_master_screen.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_laundry"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-25.488834, 0, -27.796402"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="20.000042, 20.000042, 20.000042"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_laundry.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="light">
+      <attributes>
+         <string name="Name" value="light_bathroom"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="1.230379, 33.98674, -32.413822"/>
+         <vector3d name="Rotation" value="89.999996, 0, 0"/>
+         <enum name="LightType" value="Point"/>
+         <colorf name="AmbientColor" value="0.147323, 0.147323, 0.147323, 1"/>
+         <colorf name="DiffuseColor" value="1, 0.976702, 0.836049, 1"/>
+         <colorf name="SpecularColor" value="1, 1, 1, 1"/>
+         <vector3d name="Attenuation" value="1, 0, 0"/>
+         <float name="Radius" value="100.00"/>
+         <float name="OuterCone" value="45.00"/>
+         <float name="InnerCone" value="0.00"/>
+         <bool name="CastShadows" value="true"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="light">
+      <attributes>
+         <string name="Name" value="light_furnace"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="false"/>
+         <vector3d name="Position" value="-54.312233, 44.102154, -47.659523"/>
+         <vector3d name="Rotation" value="89.999996, 0, 0"/>
+         <enum name="LightType" value="Point"/>
+         <colorf name="AmbientColor" value="0, 0, 0, 1"/>
+         <colorf name="DiffuseColor" value="1, 0.976702, 0.836049, 1"/>
+         <colorf name="SpecularColor" value="1, 1, 1, 1"/>
+         <vector3d name="Attenuation" value="1, 0, 0"/>
+         <float name="Radius" value="100.00"/>
+         <float name="OuterCone" value="45.00"/>
+         <float name="InnerCone" value="0.00"/>
+         <bool name="CastShadows" value="true"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="light">
+      <attributes>
+         <string name="Name" value="light_kitchen"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="false"/>
+         <vector3d name="Position" value="-55.138386, 44.102154, 18.845884"/>
+         <vector3d name="Rotation" value="89.999996, 0, 0"/>
+         <enum name="LightType" value="Point"/>
+         <colorf name="AmbientColor" value="0, 0, 0, 1"/>
+         <colorf name="DiffuseColor" value="1, 1, 1, 1"/>
+         <colorf name="SpecularColor" value="1, 1, 1, 1"/>
+         <vector3d name="Attenuation" value="1, 0, 0"/>
+         <float name="Radius" value="100.00"/>
+         <float name="OuterCone" value="45.00"/>
+         <float name="InnerCone" value="0.00"/>
+         <bool name="CastShadows" value="true"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="light">
+      <attributes>
+         <string name="Name" value="light_dining"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="false"/>
+         <vector3d name="Position" value="-6.911638, 44.102154, 18.742615"/>
+         <vector3d name="Rotation" value="89.999996, 0, 0"/>
+         <enum name="LightType" value="Point"/>
+         <colorf name="AmbientColor" value="0, 0, 0, 1"/>
+         <colorf name="DiffuseColor" value="1, 1, 1, 1"/>
+         <colorf name="SpecularColor" value="1, 1, 1, 1"/>
+         <vector3d name="Attenuation" value="1, 0, 0"/>
+         <float name="Radius" value="100.00"/>
+         <float name="OuterCone" value="45.00"/>
+         <float name="InnerCone" value="0.00"/>
+         <bool name="CastShadows" value="true"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="light">
+      <attributes>
+         <string name="Name" value="light_hallway"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="false"/>
+         <vector3d name="Position" value="-8.581417, 101.7202, -54.847298"/>
+         <vector3d name="Rotation" value="89.999996, 0, 0"/>
+         <enum name="LightType" value="Point"/>
+         <colorf name="AmbientColor" value="0.147323, 0.147323, 0.147323, 1"/>
+         <colorf name="DiffuseColor" value="1, 0.976709, 0.835853, 1"/>
+         <colorf name="SpecularColor" value="1, 1, 1, 1"/>
+         <vector3d name="Attenuation" value="1, 0, 0"/>
+         <float name="Radius" value="100.00"/>
+         <float name="OuterCone" value="45.00"/>
+         <float name="InnerCone" value="0.00"/>
+         <bool name="CastShadows" value="true"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="light">
+      <attributes>
+         <string name="Name" value="light_master_window"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="false"/>
+         <vector3d name="Position" value="98.363213, 86.324982, 7.144126"/>
+         <vector3d name="Rotation" value="90.000009, -0.000004, -89.999989"/>
+         <enum name="LightType" value="Point"/>
+         <colorf name="AmbientColor" value="0, 0, 0, 1"/>
+         <colorf name="DiffuseColor" value="0.222292, 0.300507, 0.358778, 1"/>
+         <colorf name="SpecularColor" value="1, 1, 1, 1"/>
+         <vector3d name="Attenuation" value="1, 0, 0"/>
+         <float name="Radius" value="100.00"/>
+         <float name="OuterCone" value="45.00"/>
+         <float name="InnerCone" value="0.00"/>
+         <bool name="CastShadows" value="true"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="light">
+      <attributes>
+         <string name="Name" value="light_masterbath"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="0.53691, 94.573082, 14.598114"/>
+         <vector3d name="Rotation" value="89.999996, 0, 0"/>
+         <enum name="LightType" value="Point"/>
+         <colorf name="AmbientColor" value="0.25296, 0.25296, 0.25296, 1"/>
+         <colorf name="DiffuseColor" value="0.496904, 0.496904, 0.496904, 1"/>
+         <colorf name="SpecularColor" value="1, 1, 1, 1"/>
+         <vector3d name="Attenuation" value="1, 0, 0"/>
+         <float name="Radius" value="100.00"/>
+         <float name="OuterCone" value="45.00"/>
+         <float name="InnerCone" value="0.00"/>
+         <bool name="CastShadows" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_kitchen"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-83.135582, 0, -11.382189"/>
+         <vector3d name="Rotation" value="0, -89.999996, 0"/>
+         <vector3d name="Scale" value="14.452672, 20.503016, 20.000038"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_kitchen.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="toilet_downstairs"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="1.453004, -0.000219, -56.442795"/>
+         <vector3d name="Rotation" value="0, 89.999996, 0"/>
+         <vector3d name="Scale" value="8.000013, 8.000013, 8.000013"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/toilet.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="bathtub"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-1.264685, 53.201454, 45.329742"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="15.591092, 15.591092, 15.591092"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/bathtub.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_bedroom"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="16.498543, 53.200005, -43.196411"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="20.000042, 20.000042, 20.000042"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_bedroom.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_hallway"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="16.498543, 53.200005, -43.196411"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="20.000042, 20.000042, 20.000042"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_hallway.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_master"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="16.498543, 53.200005, -43.196411"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="20.000042, 20.000042, 20.000042"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_master.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_masterbath"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="16.498543, 53.200005, -43.196411"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="1, 1, 1"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_masterbath.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_mainbath"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-25.488834, 0, -27.796402"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="20.000042, 20.000042, 20.000042"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_mainbath.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_stairs"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-0.501461, 53.200005, -45.59639"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="19.301876, 20.000042, 20.000042"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_stairs.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="house_main"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-25.488834, 0, -27.796402"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="20.000042, 20.000042, 20.000042"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/house_main.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="toilet"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-8.788948, 53.201302, 31.628952"/>
+         <vector3d name="Rotation" value="0, -179.999991, 0"/>
+         <vector3d name="Scale" value="8.000013, 8.000013, 8.000013"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/toilet.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="skyBox">
+      <attributes>
+         <string name="Name" value="skybox"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="0, 0, 0"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="1, 1, 1"/>
+         <enum name="AutomaticCulling" value="false"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <materials>
+         <attributes>
+             <enum name="Type" value="solid"/>
+             <color name="Ambient" value="ffffffff"/>
+             <color name="Diffuse" value="ffcccccc"/>
+             <color name="Emissive" value="ff000000"/>
+             <color name="Specular" value="ffffffff"/>
+             <float name="Shininess" value="0"/>
+             <float name="Param1" value="0"/>
+             <float name="Param2" value="0"/>
+             <bool name="Wireframe" value="false"/>
+             <bool name="GouraudShading" value="true"/>
+             <bool name="Lighting" value="false"/>
+             <bool name="ZWriteEnable" value="true"/>
+             <int name="ZBuffer" value="1"/>
+             <bool name="BackfaceCulling" value="true"/>
+             <bool name="FogEnable" value="false"/>
+             <bool name="NormalizeNormals" value="false"/>
+             <int name="ColorMask" value="15"/>
+             <int name="AntiAliasing" value="1"/>
+             <bool name="UseMipMaps" value="false"/>
+             <texture name="Texture1" value="textures/sky1_front.jpg"/>
+             <enum name="TextureWrapU1" value="texture_clamp_clamp_to_edge"/>
+             <enum name="TextureWrapV1" value="texture_clamp_clamp_to_edge"/>
+             <bool name="BilinearFilter1" value="true"/>
+             <bool name="TrilinearFilter1" value="false"/>
+             <int name="AnisotropicFilter1" value="0"/>
+         </attributes>
+         <attributes>
+             <enum name="Type" value="solid"/>
+             <color name="Ambient" value="ffffffff"/>
+             <color name="Diffuse" value="ffcccccc"/>
+             <color name="Emissive" value="ff000000"/>
+             <color name="Specular" value="ffffffff"/>
+             <float name="Shininess" value="0"/>
+             <float name="Param1" value="0"/>
+             <float name="Param2" value="0"/>
+             <bool name="Wireframe" value="false"/>
+             <bool name="GouraudShading" value="true"/>
+             <bool name="Lighting" value="false"/>
+             <bool name="ZWriteEnable" value="true"/>
+             <int name="ZBuffer" value="1"/>
+             <bool name="BackfaceCulling" value="true"/>
+             <bool name="FogEnable" value="false"/>
+             <bool name="NormalizeNormals" value="false"/>
+             <int name="ColorMask" value="15"/>
+             <int name="AntiAliasing" value="1"/>
+             <bool name="UseMipMaps" value="false"/>
+             <texture name="Texture1" value="textures/sky1_right.jpg"/>
+             <enum name="TextureWrapU1" value="texture_clamp_clamp_to_edge"/>
+             <enum name="TextureWrapV1" value="texture_clamp_clamp_to_edge"/>
+             <bool name="BilinearFilter1" value="true"/>
+             <bool name="TrilinearFilter1" value="false"/>
+             <int name="AnisotropicFilter1" value="0"/>
+         </attributes>
+         <attributes>
+             <enum name="Type" value="solid"/>
+             <color name="Ambient" value="ffffffff"/>
+             <color name="Diffuse" value="ffcccccc"/>
+             <color name="Emissive" value="ff000000"/>
+             <color name="Specular" value="ffffffff"/>
+             <float name="Shininess" value="0"/>
+             <float name="Param1" value="0"/>
+             <float name="Param2" value="0"/>
+             <bool name="Wireframe" value="false"/>
+             <bool name="GouraudShading" value="true"/>
+             <bool name="Lighting" value="false"/>
+             <bool name="ZWriteEnable" value="true"/>
+             <int name="ZBuffer" value="1"/>
+             <bool name="BackfaceCulling" value="true"/>
+             <bool name="FogEnable" value="false"/>
+             <bool name="NormalizeNormals" value="false"/>
+             <int name="ColorMask" value="15"/>
+             <int name="AntiAliasing" value="1"/>
+             <bool name="UseMipMaps" value="false"/>
+             <texture name="Texture1" value="textures/sky1_back.jpg"/>
+             <enum name="TextureWrapU1" value="texture_clamp_clamp_to_edge"/>
+             <enum name="TextureWrapV1" value="texture_clamp_clamp_to_edge"/>
+             <bool name="BilinearFilter1" value="true"/>
+             <bool name="TrilinearFilter1" value="false"/>
+             <int name="AnisotropicFilter1" value="0"/>
+         </attributes>
+         <attributes>
+             <enum name="Type" value="solid"/>
+             <color name="Ambient" value="ffffffff"/>
+             <color name="Diffuse" value="ffcccccc"/>
+             <color name="Emissive" value="ff000000"/>
+             <color name="Specular" value="ffffffff"/>
+             <float name="Shininess" value="0"/>
+             <float name="Param1" value="0"/>
+             <float name="Param2" value="0"/>
+             <bool name="Wireframe" value="false"/>
+             <bool name="GouraudShading" value="true"/>
+             <bool name="Lighting" value="false"/>
+             <bool name="ZWriteEnable" value="true"/>
+             <int name="ZBuffer" value="1"/>
+             <bool name="BackfaceCulling" value="true"/>
+             <bool name="FogEnable" value="false"/>
+             <bool name="NormalizeNormals" value="false"/>
+             <int name="ColorMask" value="15"/>
+             <int name="AntiAliasing" value="1"/>
+             <bool name="UseMipMaps" value="false"/>
+             <texture name="Texture1" value="textures/sky1_left.jpg"/>
+             <enum name="TextureWrapU1" value="texture_clamp_clamp_to_edge"/>
+             <enum name="TextureWrapV1" value="texture_clamp_clamp_to_edge"/>
+             <bool name="BilinearFilter1" value="true"/>
+             <bool name="TrilinearFilter1" value="false"/>
+             <int name="AnisotropicFilter1" value="0"/>
+         </attributes>
+         <attributes>
+             <enum name="Type" value="solid"/>
+             <color name="Ambient" value="ffffffff"/>
+             <color name="Diffuse" value="ffcccccc"/>
+             <color name="Emissive" value="ff000000"/>
+             <color name="Specular" value="ffffffff"/>
+             <float name="Shininess" value="0"/>
+             <float name="Param1" value="0"/>
+             <float name="Param2" value="0"/>
+             <bool name="Wireframe" value="false"/>
+             <bool name="GouraudShading" value="true"/>
+             <bool name="Lighting" value="false"/>
+             <bool name="ZWriteEnable" value="true"/>
+             <int name="ZBuffer" value="1"/>
+             <bool name="BackfaceCulling" value="true"/>
+             <bool name="FogEnable" value="false"/>
+             <bool name="NormalizeNormals" value="false"/>
+             <int name="ColorMask" value="15"/>
+             <int name="AntiAliasing" value="1"/>
+             <bool name="UseMipMaps" value="false"/>
+             <texture name="Texture1" value="textures/sky1_top.jpg"/>
+             <enum name="TextureWrapU1" value="texture_clamp_clamp_to_edge"/>
+             <enum name="TextureWrapV1" value="texture_clamp_clamp_to_edge"/>
+             <bool name="BilinearFilter1" value="true"/>
+             <bool name="TrilinearFilter1" value="false"/>
+             <int name="AnisotropicFilter1" value="0"/>
+         </attributes>
+         <attributes>
+             <enum name="Type" value="solid"/>
+             <color name="Ambient" value="ffffffff"/>
+             <color name="Diffuse" value="ffcccccc"/>
+             <color name="Emissive" value="ff000000"/>
+             <color name="Specular" value="ffffffff"/>
+             <float name="Shininess" value="0"/>
+             <float name="Param1" value="0"/>
+             <float name="Param2" value="0"/>
+             <bool name="Wireframe" value="false"/>
+             <bool name="GouraudShading" value="true"/>
+             <bool name="Lighting" value="false"/>
+             <bool name="ZWriteEnable" value="true"/>
+             <int name="ZBuffer" value="1"/>
+             <bool name="BackfaceCulling" value="true"/>
+             <bool name="FogEnable" value="false"/>
+             <bool name="NormalizeNormals" value="false"/>
+             <int name="ColorMask" value="15"/>
+             <int name="AntiAliasing" value="1"/>
+             <bool name="UseMipMaps" value="false"/>
+             <texture name="Texture1" value="textures/sky1_bottom.jpg"/>
+             <enum name="TextureWrapU1" value="texture_clamp_clamp_to_edge"/>
+             <enum name="TextureWrapV1" value="texture_clamp_clamp_to_edge"/>
+             <bool name="BilinearFilter1" value="true"/>
+             <bool name="TrilinearFilter1" value="false"/>
+             <int name="AnisotropicFilter1" value="0"/>
+         </attributes>
+      </materials>
+   </node>
+</irr_scene>

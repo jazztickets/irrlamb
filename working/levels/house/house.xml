@@ -14,6 +14,7 @@
 		<sound file="shower.ogg" />
 		<sound file="furnace.ogg" />
 		<sound file="jazztown.ogg" />
+		<sound file="emptyclip.ogg" />
 	</resources>
 	<templates>
 		<player name="player" />
@@ -42,11 +43,17 @@
 			<physics mass="1.5" />
 			<texture file="fabric0.jpg" />
 		</sphere>
+		<sphere name="alan">
+			<mesh file="alan.irrbmesh" scale="2" shadows="0" />
+			<shape r="0.75" />
+			<physics mass="10.0" />
+			<texture file="alan0.jpg" />
+		</sphere>
 	</templates>
 	<objects>
 		<object name="player" template="player">
 			<position name="start" x="25.102833" y="73.162651" z="44.395565" />
-
+		<!--
 			<position name="bath_sink" x="-6.087580" y="18.673300" z="-36.673260" />
 			<position name="bed" x="-47.747578" y="70.887070" z="33.561878" />
 			<position name="books" x="4.638345" y="57.657017" z="30.640322" />
@@ -67,6 +74,7 @@
 			<position name="stairs_top" x="-3.029367" y="53.699997" z="-51.385429" />
 			<position name="tub" x="-15.655509" y="64.557701" z="50.869083" />
 			<position name="window_bedroom" x="-83.456184" y="77.700050" z="9.525872" />
+		-->
 		</object>
 		<object name="salt" template="salt">
 			<position x="-30.9444" y="23.146900" z="15" />
