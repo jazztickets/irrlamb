@@ -418,7 +418,7 @@ void _PlayState::Draw() {
 	Menu.Draw();
 }
 
-// Returns true if the game is and paused
+// Returns true if the game is paused
 bool _PlayState::IsPaused() {
 
 	return Menu.State != _Menu::STATE_NONE;

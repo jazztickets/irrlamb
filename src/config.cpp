@@ -64,6 +64,7 @@ void _Config::Reset() {
 
 	// Audio
 	SoundVolume = 1.0;
+	PlayerSounds = true;
 
 	// Input
 	JoystickEnabled = true;
@@ -274,6 +275,7 @@ int _Config::ReadConfig() {
 	XMLElement *AudioElement = ConfigElement->FirstChildElement("audio");
 	if(AudioElement) {
 		AudioElement->QueryFloatAttribute("sound_volume", &SoundVolume);
+		AudioElement->QueryBoolAttribute("player_sounds", &PlayerSounds);
 	}
 
 	// Check for the replay tag
@@ -367,6 +369,7 @@ int _Config::WriteConfig() {
 	// Create audio element
 	XMLElement *AudioElement = Document.NewElement("audio");
 	AudioElement->SetAttribute("sound_volume", SoundVolume);
+	AudioElement->SetAttribute("player_sounds", PlayerSounds);
 	ConfigElement->LinkEndChild(AudioElement);
 
 	// Create replay element

@@ -53,6 +53,7 @@ class _Config {
 
 		// Audio
 		float SoundVolume;
+		bool PlayerSounds;
 
 		// Input
 		float MouseSensitivity, MouseScaleX, MouseScaleY;

@@ -83,7 +83,7 @@ enum GUIElements {
 	OPTIONS_GAMEPLAY, OPTIONS_VIDEO, OPTIONS_AUDIO, OPTIONS_CONTROLS, OPTIONS_BACK,
 	GAMEPLAY_SHOWFPS, GAMEPLAY_SHOWTUTORIAL, GAMEPLAY_SAVE, GAMEPLAY_CANCEL,
 	VIDEO_SAVE, VIDEO_CANCEL, VIDEO_VIDEOMODES, VIDEO_FULLSCREEN, VIDEO_SHADOWS, VIDEO_SHADERS, VIDEO_MULTIPLELIGHTS, VIDEO_VSYNC, VIDEO_ANISOTROPY, VIDEO_ANTIALIASING,
-	AUDIO_ENABLED, AUDIO_SAVE, AUDIO_CANCEL,
+	AUDIO_ENABLED, AUDIO_PLAYERSOUNDS, AUDIO_SAVE, AUDIO_CANCEL,
 	CONTROLS_SAVE, CONTROLS_CANCEL, CONTROLS_DEADZONE, CONTROLS_SENSITIVITY, CONTROLS_INVERTMOUSE, CONTROLS_INVERTGAMEPADY, CONTROLS_KEYMAP,
 	PAUSE_RESUME=(CONTROLS_KEYMAP + _Actions::COUNT), PAUSE_SAVEREPLAY, PAUSE_RESTART, PAUSE_OPTIONS, PAUSE_QUITLEVEL,
 	SAVEREPLAY_NAME, SAVEREPLAY_SAVE, SAVEREPLAY_CANCEL,
@@ -441,10 +441,11 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 
 					// Get settings
 					gui::IGUICheckBox *AudioEnabled = static_cast<gui::IGUICheckBox *>(CurrentLayout->getElementFromId(AUDIO_ENABLED));
-					bool Enabled = AudioEnabled->isChecked();
+					gui::IGUICheckBox *PlayerSounds = static_cast<gui::IGUICheckBox *>(CurrentLayout->getElementFromId(AUDIO_PLAYERSOUNDS));
 
 					// Save
-					Config.SoundVolume = Enabled ? 1.0 : 0.0;
+					Config.SoundVolume = AudioEnabled->isChecked() ? 1.0 : 0.0;
+					Config.PlayerSounds = PlayerSounds->isChecked();
 					Config.WriteConfig();
 					Audio.SetGain(Config.SoundVolume);
 
@@ -1022,8 +1023,9 @@ void _Menu::InitVideoOptions() {
 void _Menu::InitAudioOptions() {
 	ClearCurrentLayout();
 	float X = 0.5;
-	float Y = 0.5;
+	float Y = 0.45;
 	float SidePadding = 0.01;
+	float SpacingY = 0.05;
 
 	// Title
 	AddMenuText(Interface.GetPositionPercent(0.5, 0.1), L"Audio");
@@ -1031,6 +1033,11 @@ void _Menu::InitAudioOptions() {
 	// Enabled
 	AddMenuText(Interface.GetPositionPercent(X - SidePadding, Y), L"Audio Enabled", _Interface::FONT_SMALL, -1, gui::EGUIA_LOWERRIGHT);
 	irrGUI->addCheckBox(Config.SoundVolume == 1.0f, Interface.GetRectPercent(X + SidePadding, Y, 32, 32), CurrentLayout, AUDIO_ENABLED);
+	Y += SpacingY;
+
+	// Player sounds
+	AddMenuText(Interface.GetPositionPercent(X - SidePadding, Y), L"Player Sounds", _Interface::FONT_SMALL, -1, gui::EGUIA_LOWERRIGHT);
+	irrGUI->addCheckBox(Config.PlayerSounds, Interface.GetRectPercent(X + SidePadding, Y, 32, 32), CurrentLayout, AUDIO_PLAYERSOUNDS);
 
 	// Save and cancel buttons
 	AddMenuButton(Interface.GetRightRectPercent(0.5 - SidePadding, 0.9, BUTTON_SMALL_SIZE_X, BUTTON_SMALL_SIZE_Y), AUDIO_SAVE, L"Save", _Interface::IMAGE_BUTTON_SMALL);

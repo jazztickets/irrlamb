@@ -23,6 +23,7 @@
 #include <audio.h>
 #include <actions.h>
 #include <graphics.h>
+#include <config.h>
 #include <objects/sphere.h>
 #include <objects/constraint.h>
 #include <objects/template.h>
@@ -105,6 +106,7 @@ void _Player::Update(float FrameTime) {
 	// Update audio
 	const btVector3 &Position = GetPosition();
 	Sound->SetPosition(Position[0], Position[1], Position[2]);
+	Sound->SetGain(Config.PlayerSounds);
 
 	// Update light
 	if(Light) {
