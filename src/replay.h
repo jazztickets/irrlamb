@@ -43,6 +43,7 @@ class _Replay {
 			PACKET_TIMESTEP,
 			PACKET_AUTOSAVE,
 			PACKET_WON,
+			PACKET_PLATFORM,
 
 			// Object updates
 			PACKET_OBJECTDATA = 127,
@@ -89,6 +90,7 @@ class _Replay {
 		float GetTimeStep() { return TimeStep; }
 		float GetFinishTime() { return FinishTime; }
 		time_t &GetTimestamp() { return Timestamp; }
+		char GetPlatform() { return Platform; }
 		bool GetAutosave() { return Autosave; }
 		bool GetWon() { return Won; }
 
@@ -105,6 +107,7 @@ class _Replay {
 		time_t Timestamp;
 		float FinishTime;
 		float TimeStep;
+		char Platform;
 		bool Autosave;
 		bool Won;
 

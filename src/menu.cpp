@@ -789,6 +789,7 @@ void _Menu::InitReplays(bool LoadReplays) {
 					ReplayInfo.Autosave = Replay.GetAutosave();
 					ReplayInfo.Won = Replay.GetWon();
 					ReplayInfo.Timestamp = Replay.GetTimestamp();
+					ReplayInfo.Platform = Replay.GetPlatform();
 
 					// Date
 					strftime(Buffer, 32, "%Y-%m-%d %H:%M:%S", localtime(&Replay.GetTimestamp()));
@@ -1579,7 +1580,7 @@ void _Menu::LaunchReplay() {
 void _Menu::ValidateReplay() {
 
 	// Get replay file
-	if(SelectedLevel >= 0) {
+	if(SelectedLevel >= 0 && ReplayFiles[SelectedLevel].Platform == PLATFORM) {
 
 		// Load replay
 		PlayState.SetValidateReplay(ReplayFiles[SelectedLevel].Filename);

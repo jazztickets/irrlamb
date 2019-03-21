@@ -36,6 +36,7 @@ struct _ReplayInfo {
 	std::string FinishTime;
 	std::string Date;
 	int Timestamp;
+	char Platform;
 	bool Autosave;
 	bool Won;
 };

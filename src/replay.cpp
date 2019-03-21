@@ -78,6 +78,10 @@ bool _Replay::SaveReplay(const std::string &PlayerDescription, bool Autosave, bo
 		return false;
 	}
 
+	// Write platform
+	char Platform = PLATFORM;
+	WriteChunk(NewFile, PACKET_PLATFORM, (char *)&Platform, sizeof(Platform));
+
 	// Write replay version
 	WriteChunk(NewFile, PACKET_REPLAYVERSION, (char *)&ReplayVersion, sizeof(ReplayVersion));
 
@@ -207,6 +211,9 @@ void _Replay::LoadHeader() {
 				if(Debug)
 					Log.Write("Won=%d, PacketSize=%d", Won, PacketSize);
 			break;
+			case PACKET_PLATFORM:
+				Platform = File.get();
+			break;
 			case PACKET_OBJECTDATA:
 				Done = true;
 			break;
@@ -250,6 +257,7 @@ bool _Replay::LoadReplay(const std::string &ReplayFile, bool HeaderOnly) {
 	ReplayVersion = 0;
 	Autosave = false;
 	Won = false;
+	Platform = 0;
 
 	// Get file name
 	std::string FilePath = Save.ReplayPath + ReplayFile;
