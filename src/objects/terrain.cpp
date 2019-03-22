@@ -25,10 +25,6 @@
 #include <ITerrainSceneNode.h>
 #include <CDynamicMeshBuffer.h>
 #include <ISceneManager.h>
-#include <BulletCollision/CollisionShapes/btTriangleMesh.h>
-#include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
-#include <BulletCollision/CollisionDispatch/btInternalEdgeUtility.h>
-#include <BulletWorldImporter/btBulletWorldImporter.h>
 #include <fstream>
 
 using namespace irr;
@@ -36,8 +32,9 @@ using namespace irr;
 // Constructor
 _Terrain::_Terrain(const _ObjectSpawn &Object) :
 	_Object(Object.Template),
-	CollisionMesh(nullptr),
-	TriangleInfoMap(nullptr) {
+	TriMeshData(nullptr),
+	VertexList(nullptr),
+	FaceList(nullptr) {
 
 	// Check for mesh file
 	if(Template->Mesh != "") {
@@ -56,6 +53,7 @@ _Terrain::_Terrain(const _ObjectSpawn &Object) :
 		);
 
 		Node = Terrain;
+		//Node->setMaterialFlag(video::EMF_WIREFRAME, true);
 
 		// Get original rotation pivot used to transform terrain
 		core::vector3df OriginalRotationPivot = Terrain->getTerrainCenter();
@@ -75,6 +73,49 @@ _Terrain::_Terrain(const _ObjectSpawn &Object) :
 			Terrain->setMaterialType((video::E_MATERIAL_TYPE)Template->CustomMaterial);
 
 		if(Physics.IsEnabled()) {
+
+			// Get vertex data
+			scene::CDynamicMeshBuffer MeshBuffer(video::EVT_STANDARD, video::EIT_32BIT);
+			Terrain->getMeshBufferForLOD(MeshBuffer, 0);
+			uint16_t *Indices = MeshBuffer.getIndices();
+
+			// Allocate memory for lists
+			int VertexCount = MeshBuffer.getIndexCount() * 3;
+			int IndexCount = MeshBuffer.getIndexCount();
+			VertexList = new float[VertexCount];
+			FaceList = new dTriIndex[IndexCount];
+
+			// Transform vertices
+			core::matrix4 RotationTransform;
+			RotationTransform.setRotationDegrees(Terrain->getRotation());
+			video::S3DVertex *Vertices = (video::S3DVertex *)MeshBuffer.getVertices();
+
+			// Get face and vertex list
+			int VertexIndex = 0;
+			for(int i = 0; i < IndexCount; i += 3) {
+				FaceList[i+0] = i+0;
+				FaceList[i+1] = i+1;
+				FaceList[i+2] = i+2;
+				for(int j = 0; j < 3; j++) {
+
+					// Apply terrain transform
+					core::vector3df Vertex = Vertices[Indices[i+j]].Pos * Terrain->getScale() + Terrain->getPosition();
+					Vertex -= OriginalRotationPivot;
+					RotationTransform.inverseRotateVect(Vertex);
+					Vertex += OriginalRotationPivot;
+
+					// Set triangle
+					VertexList[VertexIndex++] = Vertex.X;
+					VertexList[VertexIndex++] = Vertex.Y;
+					VertexList[VertexIndex++] = Vertex.Z;
+				}
+			}
+
+			// Create trimesh
+			TriMeshData = dGeomTriMeshDataCreate();
+			dGeomTriMeshDataBuildSingle1(TriMeshData, VertexList, 3 * sizeof(float), VertexCount / 3, FaceList, IndexCount, 3 * sizeof(dTriIndex), nullptr);
+			Geometry = dCreateTriMesh(Physics.GetSpace(), TriMeshData, 0, 0, 0);
+
 /*
 			// Load terrain file
 			btBvhTriangleMeshShape *Shape = nullptr;
@@ -164,9 +205,13 @@ _Terrain::_Terrain(const _ObjectSpawn &Object) :
 
 // Destructor
 _Terrain::~_Terrain() {
+	dGeomTriMeshDataDestroy(TriMeshData);
+	delete[] VertexList;
+	delete[] FaceList;
+
 	if(!Importer) {
-		delete TriangleInfoMap;
-		delete CollisionMesh;
+		//delete TriangleInfoMap;
+		//delete CollisionMesh;
 	}
 }
 

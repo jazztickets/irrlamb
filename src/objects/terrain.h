@@ -19,10 +19,7 @@
 
 // Libraries
 #include <objects/object.h>
-#include <BulletCollision/CollisionShapes/btTriangleInfoMap.h>
-
-// Forward Declarations
-class btTriangleMesh;
+#include <ode/collision_trimesh.h>
 
 // Classes
 class _Terrain : public _Object {
@@ -36,7 +33,7 @@ class _Terrain : public _Object {
 
 		std::string GetCachePath(const std::string &ObjectName);
 
-		btTriangleMesh *CollisionMesh;
-		btTriangleInfoMap *TriangleInfoMap;
-
+		dTriMeshDataID TriMeshData;
+		float *VertexList;
+		dTriIndex *FaceList;
 };

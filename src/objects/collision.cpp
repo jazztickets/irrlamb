@@ -25,32 +25,12 @@
 #include <fstream>
 #include <ode/collision.h>
 
-static bool CustomMaterialCallback(btManifoldPoint &ManifoldPoint, const btCollisionObjectWrapper *Object0, int PartID0, int Index0, const btCollisionObjectWrapper *Object1, int PartID1, int Index1) {
-
-	//if(Object0->getCollisionShape()->getShapeType()TRIANGLE_SHAPE_PROXYTYPE
-	//printf("before %f\n", ManifoldPoint.m_normalWorldOnB[1]);
-	//float Before = ManifoldPoint.m_normalWorldOnB[1];
-	if(1) {
-		//printf("%d %d %d %d %d %d\n", Object0->getCollisionShape()->getShapeType(), Object1->getCollisionShape()->getShapeType(), PartID0, PartID1, Index0, Index1);
-		btAdjustInternalEdgeContacts(ManifoldPoint, Object1, Object0, PartID1, Index1);
-	}
-	//float After = ManifoldPoint.m_normalWorldOnB[1];
-	//if(Before != After) printf("before %f after %f\n", Before, After);
-
-	return false;
-}
-
-
 // Constructor
 _Collision::_Collision(const _ObjectSpawn &Object) :
 	_Object(Object.Template),
 	TriMeshData(nullptr),
-	TriangleIndexVertexArray(nullptr),
-	TriangleInfoMap(nullptr),
 	VertexList(nullptr),
 	FaceList(nullptr) {
-
-	gContactAddedCallback = CustomMaterialCallback;
 
 	// Load collision mesh file
 	std::ifstream MeshFile(Object.Template->CollisionFile.c_str(), std::ios::binary);
@@ -96,27 +76,13 @@ _Collision::_Collision(const _ObjectSpawn &Object) :
 			FaceIndex += 3;
 		}
 
+		// Close file
+		MeshFile.close();
+
+		// Create trimesh
 		TriMeshData = dGeomTriMeshDataCreate();
 		dGeomTriMeshDataBuildSingle1(TriMeshData, VertexList, 3 * sizeof(float), VertexCount, FaceList, FaceIndex, 3 * sizeof(dTriIndex), nullptr);
 		Geometry = dCreateTriMesh(Physics.GetSpace(), TriMeshData, 0, 0, 0);
-		dGeomSetPosition(Geometry, 0, 0, 0);
-
-		/*
-		// Create triangle array
-		TriangleIndexVertexArray = new btTriangleIndexVertexArray(FaceCount, FaceList, 3 * sizeof(int), VertCount * 3, VertexList, 3 * sizeof(float));
-
-		// Create bvh shape
-		btBvhTriangleMeshShape *Shape = new btBvhTriangleMeshShape(TriangleIndexVertexArray, true);
-		TriangleInfoMap = new btTriangleInfoMap();
-		btGenerateInternalEdgeInfo(Shape, TriangleInfoMap);
-
-		// Create physics body
-		CreateRigidBody(Object, Shape);
-		SetProperties(Object);
-
-		RigidBody->setCollisionFlags(RigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
-*/
-		MeshFile.close();
 	}
 }
 
@@ -124,8 +90,6 @@ _Collision::_Collision(const _ObjectSpawn &Object) :
 _Collision::~_Collision() {
 
 	dGeomTriMeshDataDestroy(TriMeshData);
-	delete TriangleInfoMap;
-	delete TriangleIndexVertexArray;
 	delete[] VertexList;
 	delete[] FaceList;
 }

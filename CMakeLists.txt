@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 2.8)
 
+# set default build type
+if(NOT CMAKE_BUILD_TYPE)
+	set(CMAKE_BUILD_TYPE Release)
+endif()
+
 # define constants
 add_definitions(-DGAME_VERSION="0.3.0")
 add_definitions(-D_IRR_STATIC_LIB_)
@@ -8,6 +13,7 @@ add_definitions(-DdTRIMESH_ENABLED)
 add_definitions(-DdTRIMESH_OPCODE)
 add_definitions(-DdLIBCCD_ENABLED)
 add_definitions(-DdLIBCCD_CYL_CYL)
+#add_definitions(-DdNODEBUG)
 
 # projects
 project(irrlamb)
@@ -24,11 +30,6 @@ endif()
 # mingw
 if(WIN32)
 	set(EXTRA_LIBS ${EXTRA_LIBS} winmm ws2_32)
-endif()
-
-# set default build type
-if(NOT CMAKE_BUILD_TYPE)
-	set(CMAKE_BUILD_TYPE Release)
 endif()
 
 # compiler flags

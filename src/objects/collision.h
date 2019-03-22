@@ -36,8 +36,6 @@ class _Collision : public _Object {
 	protected:
 
 		dTriMeshDataID TriMeshData;
-		btTriangleIndexVertexArray *TriangleIndexVertexArray;
-		btTriangleInfoMap *TriangleInfoMap;
 		float *VertexList;
 		dTriIndex *FaceList;
 
