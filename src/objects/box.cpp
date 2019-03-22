@@ -60,7 +60,7 @@ _Box::_Box(const _ObjectSpawn &Object)
 	if(Physics.IsEnabled()) {
 
 		// Create object
-		dGeomID Geometry = dCreateBox(Physics.GetSpace(), Template->Shape[0], Template->Shape[1], Template->Shape[2]);
+		Geometry = dCreateBox(Physics.GetSpace(), Template->Shape[0], Template->Shape[1], Template->Shape[2]);
 		CreateRigidBody(Object, Geometry);
 
 		// Set mass

@@ -40,6 +40,7 @@ _Object::_Object(const _Template *Template)
 	Node(nullptr),
 	RigidBody(nullptr),
 	Body(nullptr),
+	Geometry(nullptr),
 	NeedsReplayPacket(false),
 	TouchingGround(false),
 	TouchingWall(false),
@@ -57,6 +58,9 @@ _Object::~_Object() {
 
 	// Delete rigid body
 	if(RigidBody) {
+		dBodyDestroy(Body);
+		dGeomDestroy(Geometry);
+		//Physics.GetWorld();
 		/*
 		Physics.GetWorld()->removeRigidBody(RigidBody);
 		if(Importer) {
@@ -92,7 +96,7 @@ void _Object::PrintOrientation() {
 
 // Creates a rigid body object and adds it to the world
 void _Object::CreateRigidBody(const _ObjectSpawn &Object, dGeomID Geometry, bool SetTransform) {
-	_Template *Template = Object.Template;
+	//_Template *Template = Object.Template;
 
 	// Create body
 	Body = dBodyCreate(Physics.GetWorld());

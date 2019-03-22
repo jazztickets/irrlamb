@@ -79,7 +79,7 @@ _Orb::_Orb(const _ObjectSpawn &Object)
 	if(Physics.IsEnabled()) {
 
 		// Create object
-		dGeomID Geometry = dCreateSphere(Physics.GetSpace(), Object.Template->Radius);
+		Geometry = dCreateSphere(Physics.GetSpace(), Object.Template->Radius);
 		CreateRigidBody(Object, Geometry);
 
 		// Set mass

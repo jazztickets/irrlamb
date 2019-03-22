@@ -24,6 +24,7 @@
 #include <ode/odeinit.h>
 #include <ode/objects.h>
 #include <ode/collision.h>
+#include <ode/misc.h>
 
 const int MAX_CONTACTS = 32;
 
@@ -65,6 +66,7 @@ int _Physics::Init() {
 
 	// Initialize
 	dInitODE();
+	dRandSetSeed(0);
 
 	// Create world
 	World = dWorldCreate();
@@ -121,6 +123,9 @@ void _Physics::Update(float FrameTime) {
 
 // Resets the physics world
 void _Physics::Reset() {
+	Physics.Close();
+	Physics.Init();
+	Physics.SetEnabled(true);
 	//BroadPhase->resetPool(Dispatcher);
 	//Solver->reset();
 }

@@ -60,7 +60,7 @@ _Cylinder::_Cylinder(const _ObjectSpawn &Object)
 	if(Physics.IsEnabled()) {
 
 		// Create object
-		dGeomID Geometry = dCreateCylinder(Physics.GetSpace(), Template->Shape[0] / 2, Template->Shape[1]);
+		Geometry = dCreateCylinder(Physics.GetSpace(), Template->Shape[0] / 2, Template->Shape[1]);
 		CreateRigidBody(Object, Geometry);
 
 		// Set mass

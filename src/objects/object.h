@@ -130,6 +130,7 @@ class _Object : public btMotionState {
 		irr::scene::ISceneNode *Node;
 		btRigidBody *RigidBody;
 		dBodyID Body;
+		dGeomID Geometry;
 		btTransform LastOrientation;
 		btTransform CenterOfMassTransform;
 
