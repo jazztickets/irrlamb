@@ -20,6 +20,7 @@
 // Libraries
 #include <objects/object.h>
 #include <BulletCollision/CollisionShapes/btTriangleInfoMap.h>
+#include <ode/collision_trimesh.h>
 
 // Forward Declarations
 class btTriangleIndexVertexArray;
@@ -34,6 +35,7 @@ class _Collision : public _Object {
 
 	protected:
 
+		dTriMeshDataID TriMeshData;
 		btTriangleIndexVertexArray *TriangleIndexVertexArray;
 		btTriangleInfoMap *TriangleInfoMap;
 		float *VertexList;

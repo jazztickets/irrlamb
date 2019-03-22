@@ -41,8 +41,9 @@ static bool CustomMaterialCallback(btManifoldPoint &ManifoldPoint, const btColli
 
 
 // Constructor
-_Collision::_Collision(const _ObjectSpawn &Object)
-:	_Object(Object.Template),
+_Collision::_Collision(const _ObjectSpawn &Object) :
+	_Object(Object.Template),
+	TriMeshData(nullptr),
 	TriangleIndexVertexArray(nullptr),
 	TriangleInfoMap(nullptr),
 	VertexList(nullptr),
@@ -53,7 +54,7 @@ _Collision::_Collision(const _ObjectSpawn &Object)
 	// Load collision mesh file
 	std::ifstream MeshFile(Object.Template->CollisionFile.c_str(), std::ios::binary);
 	if(MeshFile) {
-/*
+
 		// Read header
 		int VertCount, FaceCount;
 		MeshFile.read((char *)&VertCount, sizeof(VertCount));
@@ -94,6 +95,9 @@ _Collision::_Collision(const _ObjectSpawn &Object)
 			FaceIndex += 3;
 		}
 
+		TriMeshData = dGeomTriMeshDataCreate();
+
+		/*
 		// Create triangle array
 		TriangleIndexVertexArray = new btTriangleIndexVertexArray(FaceCount, FaceList, 3 * sizeof(int), VertCount * 3, VertexList, 3 * sizeof(float));
 
@@ -107,15 +111,15 @@ _Collision::_Collision(const _ObjectSpawn &Object)
 		SetProperties(Object);
 
 		RigidBody->setCollisionFlags(RigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
-
+*/
 		MeshFile.close();
-		*/
 	}
 }
 
 // Destructor
 _Collision::~_Collision() {
 
+	dGeomTriMeshDataDestroy(TriMeshData);
 	delete TriangleInfoMap;
 	delete TriangleIndexVertexArray;
 	delete[] VertexList;
