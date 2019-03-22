@@ -19,6 +19,8 @@
 #include <LinearMath/btMotionState.h>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <BulletCollision/NarrowPhaseCollision/btPersistentManifold.h>
+#include <ode/common.h>
+#include <ode/objects.h>
 #include <irrTypes.h>
 #include <vector3d.h>
 #include <ISceneNode.h>
@@ -80,14 +82,15 @@ class _Object : public btMotionState {
 		// Rigid body
 		void Stop();
 
-		void CalculateInterpolatedPosition(float BlendFactor);
 		void SetPosition(const btVector3 &Position);
 		virtual void SetPositionFromReplay(const irr::core::vector3df &Position);
 		const btVector3 &GetPosition() const { return RigidBody->getWorldTransform().getOrigin(); }
+		const dReal *GetODEPosition() const { return dBodyGetPosition(Body); }
 		const btVector3 &GetGraphicsPosition() const { return CenterOfMassTransform.getOrigin(); }
 
 		void SetRotation(const btQuaternion &Rotation) { RigidBody->getWorldTransform().setRotation(Rotation); }
 		btQuaternion GetRotation() { return RigidBody->getWorldTransform().getRotation(); }
+		const dReal *GetODERotation() const { return dBodyGetQuaternion(Body); }
 
 		void SetLinearVelocity(const btVector3 &Velocity) { RigidBody->activate(); RigidBody->setLinearVelocity(Velocity); }
 		const btVector3 &GetLinearVelocity() { return RigidBody->getLinearVelocity(); }
@@ -98,7 +101,7 @@ class _Object : public btMotionState {
 		btRigidBody *GetBody() { return RigidBody; }
 		irr::scene::ISceneNode *GetNode() { return Node; }
 
-		virtual void HandleCollision(_Object *OtherObject, const btPersistentManifold *ContactManifold, float NormalScale);
+		virtual void HandleCollision(_Object *OtherObject, const dReal *Normal, float NormalScale);
 		bool IsTouchingGround() const { return TouchingGround; }
 
 		void getWorldTransform(btTransform &Transform) const;
@@ -107,7 +110,7 @@ class _Object : public btMotionState {
 	protected:
 
 		// Physics
-		void CreateRigidBody(const _ObjectSpawn &Object, btCollisionShape *Shape, bool SetTransform=true);
+		void CreateRigidBody(const _ObjectSpawn &Object, dGeomID Geometry, bool SetTransform=true);
 		void SetProperties(const _ObjectSpawn &Object, bool SetTransform=true);
 		void SetProperties(const _ConstraintSpawn &Object);
 
@@ -126,6 +129,7 @@ class _Object : public btMotionState {
 		// Physics and graphics
 		irr::scene::ISceneNode *Node;
 		btRigidBody *RigidBody;
+		dBodyID Body;
 		btTransform LastOrientation;
 		btTransform CenterOfMassTransform;
 

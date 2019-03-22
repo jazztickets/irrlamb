@@ -19,6 +19,7 @@
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
 #include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
+#include <ode/common.h>
 
 // Custom world that overrides stepSimulation for applications that implement their own fixed time step calculations
 class btFixedWorld : public btDiscreteDynamicsWorld {
@@ -65,20 +66,28 @@ class _Physics {
 
 		bool RaycastWorld(const btVector3 &Start, btVector3 &End, btVector3 &ormal);
 
-		btFixedWorld *GetWorld() { return World; }
+		dWorldID GetWorld() { return World; }
+		dJointGroupID GetContactGroup() { return ContactGroup; }
+		dSpaceID GetSpace() { return Space; }
 
 		void SetEnabled(bool Value) { Enabled = Value; }
 		bool IsEnabled() const { return Enabled; }
 		void RemoveFilter(int &Value, int Filter);
 		void SetBodyType(int &Value, int Filter);
 
+		void QuaternionToEuler(const float *Quat, float *Euler);
+
 	private:
 
-		btDefaultCollisionConfiguration *CollisionConfiguration;
-		btCollisionDispatcher *Dispatcher;
-		btBroadphaseInterface *BroadPhase;
-		btSequentialImpulseConstraintSolver *Solver;
-		btFixedWorld *World;
+		//btDefaultCollisionConfiguration *CollisionConfiguration;
+		//btCollisionDispatcher *Dispatcher;
+		//btBroadphaseInterface *BroadPhase;
+		//btSequentialImpulseConstraintSolver *Solver;
+		//btFixedWorld *World;
+
+		dWorldID World;
+		dJointGroupID ContactGroup;
+		dSpaceID Space;
 
 		bool Enabled;
 };

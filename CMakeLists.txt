@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
 
 # define constants
-add_definitions(-DGAME_VERSION="0.3.0" -D_IRR_STATIC_LIB_)
+add_definitions(-DGAME_VERSION="0.3.0")
+add_definitions(-D_IRR_STATIC_LIB_)
+add_definitions(-DdIDESINGLE)
 
 # projects
 project(irrlamb)
@@ -61,11 +63,15 @@ find_package(TinyXML2 REQUIRED)
 find_package(ZLIB REQUIRED)
 find_package(PNG REQUIRED)
 find_package(JPEG REQUIRED)
+find_package(Threads REQUIRED)
 
 # include paths
 include_directories("src")
 include_directories("src/irrlicht/include")
 include_directories("src/bullet")
+#include_directories("src/ode/src")
+include_directories("src/libccd")
+include_directories("src/libccd/custom")
 include_directories(${FREETYPE_INCLUDE_DIRS})
 include_directories(${OPENAL_INCLUDE_DIR})
 include_directories(${VORBIS_INCLUDE_DIR})
@@ -78,22 +84,10 @@ include_directories(${PNG_INCLUDE_DIRS})
 include_directories(${JPEG_INCLUDE_DIRS})
 
 # add source code
-file(GLOB SRC_MAIN src/*.cpp src/*.h)
-file(GLOB SRC_STATES src/states/*.cpp src/states/*.h)
-file(GLOB SRC_OBJECTS src/objects/*.cpp src/objects/*.h)
-file(GLOB SRC_IRRB src/irrb/*.cpp src/irrb/*.h)
-file(GLOB SRC_FONT src/font/*.cpp src/font/*.h)
-file(GLOB SRC_IRRLICHT src/irrlicht/*.cpp src/irrlicht/*.h src/irrlicht/include/*.h)
-file(GLOB_RECURSE SRC_BULLET src/bullet/*.cpp src/bullet/*.h)
+file(GLOB_RECURSE SRC_MAIN src/*.c src/*.cpp src/*.h)
 
 file(GLOB SRC_ALL
 	${SRC_MAIN}
-	${SRC_STATES}
-	${SRC_OBJECTS}
-	${SRC_IRRB}
-	${SRC_FONT}
-	${SRC_IRRLICHT}
-	${SRC_BULLET}
 	src/resource.rc
 )
 
@@ -113,6 +107,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 	${ZLIB_LIBRARIES}
 	${PNG_LIBRARIES}
 	${JPEG_LIBRARIES}
+	${CMAKE_THREAD_LIBS_INIT}
 	${EXTRA_LIBS}
 )
 

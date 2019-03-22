@@ -176,7 +176,7 @@ void _PlayState::ResetLevel() {
 	Player->SetCamera(Camera);
 
 	// Record camera in replay
-	btVector3 Position = Player->GetPosition();
+	const dReal *Position = Player->GetODEPosition();
 	Camera->Update(core::vector3df(Position[0], Position[1], Position[2]));
 	Camera->RecordReplay();
 
@@ -369,7 +369,7 @@ void _PlayState::Update(float FrameTime) {
 		ObjectManager.EndFrame();
 
 		// Update audio
-		const btVector3 &Position = Player->GetPosition();
+		const dReal *Position = Player->GetODEPosition();
 		Audio.SetPosition(Position[0], Position[1], Position[2]);
 
 		// Update camera for replay
@@ -391,12 +391,14 @@ void _PlayState::UpdateRender(float TimeStepRemainder) {
 		return;
 
 	if(!IsPaused()) {
+		/*
 		Physics.GetWorld()->setTimeStepRemainder(TimeStepRemainder);
 		Physics.GetWorld()->synchronizeMotionStates();
 
 		// Set camera position
 		btVector3 Position = Player->GetGraphicsPosition();
 		Camera->Update(core::vector3df(Position[0], Position[1], Position[2]));
+		*/
 	}
 }
 

@@ -57,12 +57,14 @@ _Cylinder::_Cylinder(const _ObjectSpawn &Object)
 	// Set up physics
 	if(Physics.IsEnabled()) {
 
+		/*
 		// Create shape
 		btVector3 HalfExtents = Template->Shape * 0.5f;
 		btCylinderShape *Shape = new btCylinderShape(HalfExtents);
 
 		// Set up physics
 		CreateRigidBody(Object, Shape);
+		*/
 	}
 
 	// Set common properties

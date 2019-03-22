@@ -75,7 +75,7 @@ _Terrain::_Terrain(const _ObjectSpawn &Object) :
 			Terrain->setMaterialType((video::E_MATERIAL_TYPE)Template->CustomMaterial);
 
 		if(Physics.IsEnabled()) {
-
+/*
 			// Load terrain file
 			btBvhTriangleMeshShape *Shape = nullptr;
 
@@ -155,6 +155,7 @@ _Terrain::_Terrain(const _ObjectSpawn &Object) :
 
 			// Set flags
 			RigidBody->setCollisionFlags(RigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
+			*/
 		}
 
 		SetProperties(Object, false);

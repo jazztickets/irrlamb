@@ -28,7 +28,7 @@ _Constraint::_Constraint(const _ConstraintSpawn &Object)
 
 	// Attributes
 	if(Physics.IsEnabled()) {
-
+/*
 		switch(Template->Type) {
 			case CONSTRAINT_HINGE: {
 				if(Object.BodyA) {
@@ -37,7 +37,7 @@ _Constraint::_Constraint(const _ConstraintSpawn &Object)
 				}
 			} break;
 		}
-
+*/
 		if(Object.BodyA) {
 /*
 			if(Object.BodyB) {
@@ -73,7 +73,7 @@ _Constraint::_Constraint(const _ConstraintSpawn &Object)
 _Constraint::~_Constraint() {
 
 	if(Constraint) {
-		Physics.GetWorld()->removeConstraint(Constraint);
+		//Physics.GetWorld()->removeConstraint(Constraint);
 
 		delete Constraint;
 	}

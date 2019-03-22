@@ -76,6 +76,7 @@ _Orb::_Orb(const _ObjectSpawn &Object)
 	// Set up physics
 	if(Physics.IsEnabled()) {
 
+		/*
 		// Create shape
 		btSphereShape *Shape = new btSphereShape(Template->Radius);
 
@@ -87,6 +88,7 @@ _Orb::_Orb(const _ObjectSpawn &Object)
 		Sound->SetPitch(ORB_PITCH);
 		Sound->SetPosition(Object.Position[0], Object.Position[1], Object.Position[2]);
 		Sound->Play();
+		*/
 	}
 
 	SetProperties(Object);

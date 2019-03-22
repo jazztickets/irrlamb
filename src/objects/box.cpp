@@ -56,13 +56,14 @@ _Box::_Box(const _ObjectSpawn &Object)
 
 	// Set up physics
 	if(Physics.IsEnabled()) {
-
+/*
 		// Create shape
 		btVector3 HalfExtents = Template->Shape * 0.5f;
 		btBoxShape *Shape = new btBoxShape(HalfExtents);
 
 		// Set up physics
 		CreateRigidBody(Object, Shape);
+		*/
 	}
 
 	// Set common properties

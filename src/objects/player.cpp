@@ -27,6 +27,8 @@
 #include <objects/sphere.h>
 #include <objects/constraint.h>
 #include <objects/template.h>
+#include <ode/objects.h>
+#include <ode/collision.h>
 #include <BulletCollision/CollisionShapes/btSphereShape.h>
 #include <IAnimatedMesh.h>
 #include <IAnimatedMeshSceneNode.h>
@@ -72,12 +74,14 @@ _Player::_Player(const _ObjectSpawn &Object)
 
 	if(Physics.IsEnabled()) {
 
-		// Create shape
-		btSphereShape *Shape = new btSphereShape(Object.Template->Radius);
+		// Create object
+		dGeomID Geometry = dCreateSphere(Physics.GetSpace(), Object.Template->Radius);
+		CreateRigidBody(Object, Geometry);
 
-		// Set up physics
-		CreateRigidBody(Object, Shape);
-		RigidBody->setSleepingThresholds(0.1f, 0.1f);
+		// Set mass
+		dMass Mass;
+		dMassSetSphereTotal(&Mass, Template->Mass, Template->Radius);
+		dBodySetMass(Body, &Mass);
 
 		// Audio
 		Sound = new _AudioSource(Audio.GetBuffer("player.ogg"), true, 0.0, 0.50f);
@@ -104,7 +108,7 @@ void _Player::Update(float FrameTime) {
 	_Object::Update(FrameTime);
 
 	// Update audio
-	const btVector3 &Position = GetPosition();
+	const dReal *Position = GetODEPosition();
 	Sound->SetPosition(Position[0], Position[1], Position[2]);
 	Sound->SetGain(Config.PlayerSounds);
 
@@ -113,6 +117,7 @@ void _Player::Update(float FrameTime) {
 		Light->setPosition(core::vector3df(Position[0], Position[1], Position[2]));
 	}
 
+	/*
 	// Get pitch for player idle sound
 	float MinSpeed = 3.0f;
 	float MaxSpeed = 120.0f;
@@ -121,7 +126,7 @@ void _Player::Update(float FrameTime) {
 	Pitch /= MaxSpeed / 2;
 	Pitch += 0.9f;
 	Sound->SetPitch(Pitch);
-
+*/
 	// Update jump cooldown
 	if(JumpCooldown > 0.0f) {
 		JumpCooldown -= FrameTime;
@@ -134,8 +139,14 @@ void _Player::Update(float FrameTime) {
 			JumpTimer = 0.0f;
 
 		if(TouchingGround && JumpCooldown <= 0.0f) {
-			RigidBody->activate();
-			RigidBody->applyCentralImpulse(btVector3(0.0f, JUMP_POWER, 0.0f));
+			if(RigidBody) {
+				RigidBody->activate();
+				RigidBody->applyCentralImpulse(btVector3(0.0f, JUMP_POWER, 0.0f));
+			}
+			if(Body) {
+				//Body->activate();
+				dBodyAddForce(Body, 0, JUMP_POWER * (1.0f / FrameTime), 0);
+			}
 			JumpTimer = 0.0f;
 			JumpCooldown = 0.1f;
 		}
@@ -167,8 +178,13 @@ void _Player::HandlePush(core::vector3df &Push) {
 
 		// Apply torque
 		core::vector3df RotationAxis = Push.crossProduct(core::vector3df(0.0f, -1.0f, 0.0f)) * TorqueFactor;
-		RigidBody->activate();
-		RigidBody->applyTorque(btVector3(RotationAxis.X, RotationAxis.Y, RotationAxis.Z));
+		if(RigidBody) {
+			RigidBody->activate();
+			RigidBody->applyTorque(btVector3(RotationAxis.X, RotationAxis.Y, RotationAxis.Z));
+		}
+		if(Body) {
+			dBodyAddTorque(Body, RotationAxis.X, RotationAxis.Y, RotationAxis.Z);
+		}
 	}
 }
 

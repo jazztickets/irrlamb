@@ -53,7 +53,7 @@ _Collision::_Collision(const _ObjectSpawn &Object)
 	// Load collision mesh file
 	std::ifstream MeshFile(Object.Template->CollisionFile.c_str(), std::ios::binary);
 	if(MeshFile) {
-
+/*
 		// Read header
 		int VertCount, FaceCount;
 		MeshFile.read((char *)&VertCount, sizeof(VertCount));
@@ -109,6 +109,7 @@ _Collision::_Collision(const _ObjectSpawn &Object)
 		RigidBody->setCollisionFlags(RigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
 
 		MeshFile.close();
+		*/
 	}
 }
 

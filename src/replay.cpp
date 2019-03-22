@@ -240,7 +240,8 @@ void _Replay::Update(float FrameTime) {
 // Determines if a packet is required
 bool _Replay::NeedsPacket() {
 
-	return State == STATE_RECORDING;
+	return false;
+	//return State == STATE_RECORDING;
 }
 
 // Resets the next packet timer

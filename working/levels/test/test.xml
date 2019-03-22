@@ -9,7 +9,7 @@
 	<resources>
 		<script file="test.lua" />
 		<scene file="test.irr" />
-		<collision file="test.col" />
+		<!--<collision file="test.col" />-->
 	</resources>
 	<templates>
 		<player name="player" />

@@ -30,7 +30,7 @@ _Zone::_Zone(const _ObjectSpawn &Object)
 
 	// Set up physics
 	if(Physics.IsEnabled()) {
-
+/*
 		// Create shape
 		btVector3 HalfExtents = Template->Shape * 0.5f;
 		btBoxShape *Shape = new btBoxShape(HalfExtents);
@@ -40,6 +40,7 @@ _Zone::_Zone(const _ObjectSpawn &Object)
 
 		// Set collision flags
 		RigidBody->setCollisionFlags(btCollisionObject::CF_NO_CONTACT_RESPONSE);
+		*/
 	}
 
 	// Set common properties
@@ -49,7 +50,7 @@ _Zone::_Zone(const _ObjectSpawn &Object)
 }
 
 // Collision callback
-void _Zone::HandleCollision(_Object *OtherObject, const btPersistentManifold *ContactManifold, float NormalScale) {
+void _Zone::HandleCollision(_Object *OtherObject, const dReal *Normal, float NormalScale) {
 
 	if(Active) {
 

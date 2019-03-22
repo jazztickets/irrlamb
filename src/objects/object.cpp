@@ -21,6 +21,8 @@
 #include <scripting.h>
 #include <physics.h>
 #include <log.h>
+#include <ode/collision.h>
+#include <ode/objects.h>
 #include <BulletWorldImporter/btBulletWorldImporter.h>
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
 
@@ -37,6 +39,7 @@ _Object::_Object(const _Template *Template)
 	Lifetime(0.0f),
 	Node(nullptr),
 	RigidBody(nullptr),
+	Body(nullptr),
 	NeedsReplayPacket(false),
 	TouchingGround(false),
 	TouchingWall(false),
@@ -54,6 +57,7 @@ _Object::~_Object() {
 
 	// Delete rigid body
 	if(RigidBody) {
+		/*
 		Physics.GetWorld()->removeRigidBody(RigidBody);
 		if(Importer) {
 			Importer->deleteAllData();
@@ -63,6 +67,7 @@ _Object::~_Object() {
 			delete RigidBody->getCollisionShape();
 
 		delete RigidBody;
+		*/
 	}
 }
 
@@ -86,9 +91,17 @@ void _Object::PrintOrientation() {
 }
 
 // Creates a rigid body object and adds it to the world
-void _Object::CreateRigidBody(const _ObjectSpawn &Object, btCollisionShape *Shape, bool SetTransform) {
+void _Object::CreateRigidBody(const _ObjectSpawn &Object, dGeomID Geometry, bool SetTransform) {
 	_Template *Template = Object.Template;
 
+	// Create body
+	Body = dBodyCreate(Physics.GetWorld());
+	dGeomSetBody(Geometry, Body);
+
+	// Set initial position
+	dBodySetPosition(Body, Object.Position[0], Object.Position[1], Object.Position[2]);
+
+	/*
 	// Rotation
 	btQuaternion QuaternionRotation = Object.Quaternion;
 	if(!Object.HasQuaternion)
@@ -120,6 +133,7 @@ void _Object::CreateRigidBody(const _ObjectSpawn &Object, btCollisionShape *Shap
 
 	// Add body
 	Physics.GetWorld()->addRigidBody(RigidBody, Template->CollisionGroup, Template->CollisionMask);
+	*/
 }
 
 // Updates the object
@@ -129,6 +143,20 @@ void _Object::Update(float FrameTime) {
 	// Check for expiration
 	if(Lifetime > 0.0f && Timer > Lifetime)
 		Deleted = true;
+
+	// Update transform
+	if(Node && Body) {
+
+		// Set position
+		const dReal *Position = GetODEPosition();
+		Node->setPosition(core::vector3df(Position[0], Position[1], Position[2]));
+
+		// Rotation
+		const dReal *Quaternion = GetODERotation();
+		dReal EulerRotation[3];
+		Physics.QuaternionToEuler(Quaternion, EulerRotation);
+		Node->setRotation(core::vector3df(EulerRotation[0], EulerRotation[1], EulerRotation[2]));
+	}
 }
 
 // Updates while replaying
@@ -176,6 +204,10 @@ void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 		LastOrientation.setOrigin(GetPosition());
 	}
 
+	if(Body) {
+		dBodySetData(Body, this);
+	}
+
 	// Collision
 	CollisionCallback = Template->CollisionCallback;
 }
@@ -192,12 +224,12 @@ void _Object::SetProperties(const _ConstraintSpawn &Object) {
 
 // Get the center of mass transform for the object
 void _Object::getWorldTransform(btTransform &Transform) const {
-	Transform = CenterOfMassTransform;
+	//Transform = CenterOfMassTransform;
 }
 
 // Set the center of mass transform for the object
 void _Object::setWorldTransform(const btTransform &Transform) {
-	CenterOfMassTransform = Transform;
+	/*CenterOfMassTransform = Transform;
 
 	if(Node) {
 
@@ -211,37 +243,37 @@ void _Object::setWorldTransform(const btTransform &Transform) {
 		RigidRotation.getEulerZYX(EulerRotation[2], EulerRotation[1], EulerRotation[0]);
 		EulerRotation *= core::RADTODEG;
 		Node->setRotation(core::vector3df(EulerRotation[0], EulerRotation[1], EulerRotation[2]));
-	}
+	}*/
 }
 
 // Stops the body's movement
 void _Object::Stop() {
-	RigidBody->setLinearVelocity(btVector3(0.0f, 0.0f, 0.0f));
-	RigidBody->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
+	//RigidBody->setLinearVelocity(btVector3(0.0f, 0.0f, 0.0f));
+	//RigidBody->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
 }
 
 // Sets the position of the body
 void _Object::SetPosition(const btVector3 &Position) {
-	LastOrientation.setOrigin(Position);
-	RigidBody->getWorldTransform().setOrigin(Position);
+	//LastOrientation.setOrigin(Position);
+	//RigidBody->getWorldTransform().setOrigin(Position);
 }
 
 // Collision callback
-void _Object::HandleCollision(_Object *OtherObject, const btPersistentManifold *ContactManifold, float NormalScale) {
+void _Object::HandleCollision(_Object *OtherObject, const dReal *Normal, float NormalScale) {
+	//if(!OtherObject)
+	//	return;
 
 	// Get touching states
-	if(OtherObject->GetType() != ZONE) {
-		for(int i = 0; i < ContactManifold->getNumContacts(); i++) {
-			float NormalY = ContactManifold->getContactPoint(i).m_normalWorldOnB[1] * NormalScale;
-			if(NormalY > 0.6f)
-				TouchingGround = true;
-			if(NormalY < 0.7f && NormalY > -0.7f)
-				TouchingWall = true;
-		}
-	}
+	//if(OtherObject->GetType() != ZONE) {
+		float NormalY = Normal[1] * NormalScale;
+		if(NormalY > 0.6f)
+			TouchingGround = true;
+		if(NormalY < 0.7f && NormalY > -0.7f)
+			TouchingWall = true;
+	//}
 
-	if(CollisionCallback.size())
-		Scripting.CallCollisionHandler(CollisionCallback, this, OtherObject);
+	//if(CollisionCallback.size())
+	//	Scripting.CallCollisionHandler(CollisionCallback, this, OtherObject);
 }
 
 // Resets the object state before the frame begins

@@ -21,15 +21,58 @@
 #include <constants.h>
 #include <objects/object.h>
 #include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
+#include <ode/odeinit.h>
+#include <ode/objects.h>
+#include <ode/collision.h>
 
 _Physics Physics;
 
-// Initializes the physics system
+static void ODECallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
+	dBodyID Body1 = dGeomGetBody(Geometry1);
+	dBodyID Body2 = dGeomGetBody(Geometry2);
+
+	dContact Contact;
+	Contact.surface.mode = dContactBounce | dContactSoftCFM;
+	Contact.surface.mu = dInfinity;
+	Contact.surface.bounce = 0.9;
+	Contact.surface.bounce_vel = 0.1;
+	Contact.surface.soft_cfm = 0.001;
+	if(int Count = dCollide(Geometry1, Geometry2, 1, &Contact.geom, sizeof(dContact))) {
+		dJointID Joint = dJointCreateContact(Physics.GetWorld(), Physics.GetContactGroup(), &Contact);
+		dJointAttach(Joint, Body1, Body2);
+
+		_Object *ObjectA = nullptr;
+		_Object *ObjectB = nullptr;
+		if(Body1)
+			ObjectA = static_cast<_Object *>(dBodyGetData(Body1));
+		if(Body2)
+			ObjectB = static_cast<_Object *>(dBodyGetData(Body2));
+
+		if(ObjectA)
+			ObjectA->HandleCollision(ObjectB, Contact.geom.normal, 1);
+
+		if(ObjectB)
+			ObjectB->HandleCollision(ObjectA, Contact.geom.normal, -1);
+	}
+}
+
+// Initialize the physics system
 int _Physics::Init() {
 
+	// Initialize
+	dInitODE();
+
+	// Create world
+	World = dWorldCreate();
+	Space = dHashSpaceCreate(0);
+	dWorldSetGravity(World, 0, -9.81, 0);
+	dWorldSetCFM(World, 1e-5);
+	dCreatePlane(Space, 0, 1, 0, 0);
+	ContactGroup = dJointGroupCreate(0);
+
 	// Set up physics modules
+	/*
 	CollisionConfiguration = new btDefaultCollisionConfiguration();
-	//BroadPhase = new btAxisSweep3(btVector3(-1000, -1000, -1000), btVector3(1000, 1000, 1000));
 	BroadPhase = new btDbvtBroadphase();
 	Dispatcher = new btCollisionDispatcher(CollisionConfiguration);
 	Solver = new btSequentialImpulseConstraintSolver();
@@ -37,20 +80,27 @@ int _Physics::Init() {
 	World->setGravity(btVector3(0.0f, -9.81f, 0.0f));
 	btContactSolverInfo &SolverInfo = World->getSolverInfo();
 	SolverInfo.m_timeStep = PHYSICS_TIMESTEP;
-
+	*/
 	Enabled = false;
 
 	return 1;
 }
 
-// Closes the physics system
+// Close the physics system
 int _Physics::Close() {
 
+	/*
 	delete World;
 	delete Solver;
 	delete Dispatcher;
 	delete BroadPhase;
 	delete CollisionConfiguration;
+	*/
+
+	dJointGroupDestroy(ContactGroup);
+	dSpaceDestroy(Space);
+	dWorldDestroy(World);
+	dCloseODE();
 
 	return 1;
 }
@@ -59,37 +109,21 @@ int _Physics::Close() {
 void _Physics::Update(float FrameTime) {
 
 	if(Enabled) {
-
-		// Run simulation
-		World->stepSimulation(FrameTime);
-
-		// Handle collision callbacks
-		int ManifoldCount = World->getDispatcher()->getNumManifolds();
-		for(int i = 0; i < ManifoldCount; i++) {
-			btPersistentManifold *ContactManifold = World->getDispatcher()->getManifoldByIndexInternal(i);
-			if(ContactManifold->getNumContacts() > 0) {
-				const btCollisionObject *CollisionObject0 = static_cast<const btCollisionObject *>(ContactManifold->getBody0());
-				const btCollisionObject *CollisionObject1 = static_cast<const btCollisionObject *>(ContactManifold->getBody1());
-
-				_Object *Object0 = static_cast<_Object *>(CollisionObject0->getUserPointer());
-				_Object *Object1 = static_cast<_Object *>(CollisionObject1->getUserPointer());
-
-				Object0->HandleCollision(Object1, ContactManifold, 1);
-				Object1->HandleCollision(Object0, ContactManifold, -1);
-			}
-		}
+		dSpaceCollide(Space, 0, &ODECallback);
+		dWorldQuickStep(World, FrameTime);
+		dJointGroupEmpty(ContactGroup);
 	}
 }
 
 // Resets the physics world
 void _Physics::Reset() {
-	BroadPhase->resetPool(Dispatcher);
-	Solver->reset();
+	//BroadPhase->resetPool(Dispatcher);
+	//Solver->reset();
 }
 
 // Performs raycasting on the world and returns the point of collision
 bool _Physics::RaycastWorld(const btVector3 &Start, btVector3 &End, btVector3 &Normal) {
-
+/*
 	if(Enabled) {
 		btCollisionWorld::ClosestRayResultCallback RayCallback(Start, End);
 		RayCallback.m_collisionFilterMask = FILTER_CAMERA;
@@ -103,7 +137,7 @@ bool _Physics::RaycastWorld(const btVector3 &Start, btVector3 &End, btVector3 &N
 			return true;
 		}
 	}
-
+*/
 	return false;
 }
 
@@ -118,4 +152,20 @@ void _Physics::SetBodyType(int &Value, int Filter) {
 
 	Value &= (~FILTER_BASICBODIES);
 	Value |= Filter;
+}
+
+// Converts a quaternion to an euler angle
+void _Physics::QuaternionToEuler(const float *Quat, float *Euler) {
+	float W = Quat[0];
+	float X = Quat[1];
+	float Y = Quat[2];
+	float Z = Quat[3];
+	float WSquared = W * W;
+	float XSquared = X * X;
+	float YSquared = Y * Y;
+	float ZSquared = Z * Z;
+
+	Euler[0] = irr::core::RADTODEG * (atan2f(2.0f * (Y * Z + X * W), -XSquared - YSquared + ZSquared + WSquared));
+	Euler[1] = irr::core::RADTODEG * (asinf(-2.0f * (X * Z - Y * W)));
+	Euler[2] = irr::core::RADTODEG * (atan2f(2.0f * (X * Y + Z * W), XSquared - YSquared - ZSquared + WSquared));
 }

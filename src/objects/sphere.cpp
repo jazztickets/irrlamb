@@ -55,11 +55,13 @@ _Sphere::_Sphere(const _ObjectSpawn &Object)
 	// Set up physics
 	if(Physics.IsEnabled()) {
 
+		/*
 		// Create shape
 		btSphereShape *Shape = new btSphereShape(Template->Radius);
 
 		// Set up physics
 		CreateRigidBody(Object, Shape);
+		*/
 	}
 
 	// Set common properties
