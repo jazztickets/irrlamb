@@ -24,6 +24,8 @@
 #include <IAnimatedMesh.h>
 #include <IAnimatedMeshSceneNode.h>
 #include <ISceneManager.h>
+#include <ode/objects.h>
+#include <ode/collision.h>
 
 using namespace irr;
 
@@ -57,14 +59,14 @@ _Cylinder::_Cylinder(const _ObjectSpawn &Object)
 	// Set up physics
 	if(Physics.IsEnabled()) {
 
-		/*
-		// Create shape
-		btVector3 HalfExtents = Template->Shape * 0.5f;
-		btCylinderShape *Shape = new btCylinderShape(HalfExtents);
+		// Create object
+		dGeomID Geometry = dCreateCylinder(Physics.GetSpace(), Template->Shape[0] / 2, Template->Shape[1]);
+		CreateRigidBody(Object, Geometry);
 
-		// Set up physics
-		CreateRigidBody(Object, Shape);
-		*/
+		// Set mass
+		dMass Mass;
+		dMassSetCylinderTotal(&Mass, Template->Mass, 3, Template->Shape[0] / 2, Template->Shape[1]);
+		dBodySetMass(Body, &Mass);
 	}
 
 	// Set common properties

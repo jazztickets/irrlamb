@@ -25,20 +25,24 @@
 #include <ode/objects.h>
 #include <ode/collision.h>
 
+const int MAX_CONTACTS = 32;
+
 _Physics Physics;
 
 static void ODECallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 	dBodyID Body1 = dGeomGetBody(Geometry1);
 	dBodyID Body2 = dGeomGetBody(Geometry2);
 
-	dContact Contact;
-	Contact.surface.mode = dContactBounce | dContactSoftCFM;
-	Contact.surface.mu = dInfinity;
-	Contact.surface.bounce = 0.9;
-	Contact.surface.bounce_vel = 0.1;
-	Contact.surface.soft_cfm = 0.001;
-	if(int Count = dCollide(Geometry1, Geometry2, 1, &Contact.geom, sizeof(dContact))) {
-		dJointID Joint = dJointCreateContact(Physics.GetWorld(), Physics.GetContactGroup(), &Contact);
+	dContact Contacts[MAX_CONTACTS];
+	int Count = dCollide(Geometry1, Geometry2, MAX_CONTACTS, &Contacts[0].geom, sizeof(dContact));
+	for(int i = 0; i < Count; i++) {
+		Contacts[i].surface.mode = dContactBounce | dContactSoftCFM;
+		Contacts[i].surface.mu = dInfinity;
+		Contacts[i].surface.bounce = 0.9;
+		Contacts[i].surface.bounce_vel = 0.1;
+		Contacts[i].surface.soft_cfm = 0.001;
+
+		dJointID Joint = dJointCreateContact(Physics.GetWorld(), Physics.GetContactGroup(), &Contacts[i]);
 		dJointAttach(Joint, Body1, Body2);
 
 		_Object *ObjectA = nullptr;
@@ -49,10 +53,10 @@ static void ODECallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 			ObjectB = static_cast<_Object *>(dBodyGetData(Body2));
 
 		if(ObjectA)
-			ObjectA->HandleCollision(ObjectB, Contact.geom.normal, 1);
+			ObjectA->HandleCollision(ObjectB, Contacts[i].geom.normal, 1);
 
 		if(ObjectB)
-			ObjectB->HandleCollision(ObjectA, Contact.geom.normal, -1);
+			ObjectB->HandleCollision(ObjectA, Contacts[i].geom.normal, -1);
 	}
 }
 

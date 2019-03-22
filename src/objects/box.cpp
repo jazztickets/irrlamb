@@ -24,6 +24,8 @@
 #include <IAnimatedMeshSceneNode.h>
 #include <ISceneManager.h>
 #include <BulletCollision/CollisionShapes/btBoxShape.h>
+#include <ode/objects.h>
+#include <ode/collision.h>
 
 using namespace irr;
 
@@ -56,14 +58,15 @@ _Box::_Box(const _ObjectSpawn &Object)
 
 	// Set up physics
 	if(Physics.IsEnabled()) {
-/*
-		// Create shape
-		btVector3 HalfExtents = Template->Shape * 0.5f;
-		btBoxShape *Shape = new btBoxShape(HalfExtents);
 
-		// Set up physics
-		CreateRigidBody(Object, Shape);
-		*/
+		// Create object
+		dGeomID Geometry = dCreateBox(Physics.GetSpace(), Template->Shape[0], Template->Shape[1], Template->Shape[2]);
+		CreateRigidBody(Object, Geometry);
+
+		// Set mass
+		dMass Mass;
+		dMassSetBoxTotal(&Mass, Template->Mass, Template->Shape[0], Template->Shape[1], Template->Shape[2]);
+		dBodySetMass(Body, &Mass);
 	}
 
 	// Set common properties

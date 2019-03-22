@@ -28,6 +28,8 @@
 #include <BulletCollision/CollisionShapes/btSphereShape.h>
 #include <ISceneManager.h>
 #include <IMeshSceneNode.h>
+#include <ode/objects.h>
+#include <ode/collision.h>
 
 using namespace irr;
 
@@ -76,19 +78,20 @@ _Orb::_Orb(const _ObjectSpawn &Object)
 	// Set up physics
 	if(Physics.IsEnabled()) {
 
-		/*
-		// Create shape
-		btSphereShape *Shape = new btSphereShape(Template->Radius);
+		// Create object
+		dGeomID Geometry = dCreateSphere(Physics.GetSpace(), Object.Template->Radius);
+		CreateRigidBody(Object, Geometry);
 
-		// Set up physics
-		CreateRigidBody(Object, Shape);
+		// Set mass
+		dMass Mass;
+		dMassSetSphereTotal(&Mass, Template->Mass, Template->Radius);
+		dBodySetMass(Body, &Mass);
 
 		// Audio
 		Sound = new _AudioSource(Audio.GetBuffer("orb.ogg"), true, 0.0f, 0.40f, 8.0f, 16.0f);
 		Sound->SetPitch(ORB_PITCH);
 		Sound->SetPosition(Object.Position[0], Object.Position[1], Object.Position[2]);
 		Sound->Play();
-		*/
 	}
 
 	SetProperties(Object);
@@ -131,7 +134,7 @@ void _Orb::Update(float FrameTime) {
 	_Object::Update(FrameTime);
 
 	// Get object position
-	const btVector3 &Position = GetPosition();
+	const dReal *Position = GetODEPosition();
 
 	// Update light
 	if(Light) {

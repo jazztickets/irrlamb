@@ -20,13 +20,25 @@
 			<texture file="crate0.jpg" />
 			<physics mass="0.5" />
 		</box>
+		<cylinder name="log">
+			<mesh file="cylinder.irrbmesh" scale="1" />
+			<shape w="1" h="2" />
+			<physics mass="0.25" />
+			<texture file="woodfloor0.jpg" />
+		</cylinder>
 	</templates>
 	<objects>
 		<object name="player" template="player">
 			<position x="0.8" y="2.5" z="0.71" />
 		</object>
-		<!--<object name="a" template="box">
-			<position x="0" y="4.5" z="0" />
-		</object>-->
+		<object name="orb" template="orb">
+			<position x="2" y="4.5" z="0" />
+		</object>
+		<object name="box" template="box">
+			<position x="-1" y="2.5" z="0" />
+		</object>
+		<object name="cylinder" template="log">
+			<position x="-1" y="2.5" z="2" />
+		</object>
 	</objects>
 </level>
