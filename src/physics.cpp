@@ -37,8 +37,8 @@ static void ODECallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 	dContact Contacts[MAX_CONTACTS];
 	int Count = dCollide(Geometry1, Geometry2, MAX_CONTACTS, &Contacts[0].geom, sizeof(dContact));
 	for(int i = 0; i < Count; i++) {
-		Contacts[i].surface.mode = dContactBounce | dContactSoftCFM;
-		Contacts[i].surface.mu = dInfinity;
+		Contacts[i].surface.mode = dContactBounce | dContactApprox1 | dContactSoftCFM;
+		Contacts[i].surface.mu = 1;
 		Contacts[i].surface.bounce = 0.9;
 		Contacts[i].surface.bounce_vel = 0.1;
 		Contacts[i].surface.soft_cfm = 0.001;
@@ -73,7 +73,6 @@ int _Physics::Init() {
 	Space = dHashSpaceCreate(0);
 	dWorldSetGravity(World, 0, -9.81, 0);
 	dWorldSetCFM(World, 1e-5);
-	dCreatePlane(Space, 0, 1, 0, 0);
 	ContactGroup = dJointGroupCreate(0);
 
 	// Set up physics modules

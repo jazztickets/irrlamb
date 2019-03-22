@@ -95,8 +95,8 @@ class _Object : public btMotionState {
 		void SetLinearVelocity(const btVector3 &Velocity) { RigidBody->activate(); RigidBody->setLinearVelocity(Velocity); }
 		const btVector3 &GetLinearVelocity() { return RigidBody->getLinearVelocity(); }
 
-		void SetAngularVelocity(const btVector3 &Velocity) { RigidBody->setAngularVelocity(Velocity); }
-		const btVector3 &GetAngularVelocity() { return RigidBody->getAngularVelocity(); }
+		void SetAngularVelocity(const btVector3 &Velocity) { /* RigidBody->setAngularVelocity(Velocity);*/ }
+		const btVector3 &GetAngularVelocity() { /*return RigidBody->getAngularVelocity();*/ static btVector3 Empty(0, 0, 0); return Empty; }
 
 		btRigidBody *GetBody() { return RigidBody; }
 		irr::scene::ISceneNode *GetNode() { return Node; }

@@ -23,6 +23,7 @@
 #include <BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h>
 #include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
 #include <fstream>
+#include <ode/collision.h>
 
 static bool CustomMaterialCallback(btManifoldPoint &ManifoldPoint, const btCollisionObjectWrapper *Object0, int PartID0, int Index0, const btCollisionObjectWrapper *Object1, int PartID1, int Index1) {
 
@@ -56,17 +57,17 @@ _Collision::_Collision(const _ObjectSpawn &Object) :
 	if(MeshFile) {
 
 		// Read header
-		int VertCount, FaceCount;
-		MeshFile.read((char *)&VertCount, sizeof(VertCount));
+		int VertexCount, FaceCount;
+		MeshFile.read((char *)&VertexCount, sizeof(VertexCount));
 		MeshFile.read((char *)&FaceCount, sizeof(FaceCount));
 
 		// Allocate memory for lists
-		VertexList = new float[VertCount * 3];
-		FaceList = new int[FaceCount * 3];
+		VertexList = new float[VertexCount * 3];
+		FaceList = new dTriIndex[FaceCount * 3];
 
 		// Read vertices
 		int VertexIndex = 0;
-		for(int i = 0; i < VertCount; i++) {
+		for(int i = 0; i < VertexCount; i++) {
 			float Value;
 			MeshFile.read((char *)&Value, sizeof(Value));
 			VertexList[VertexIndex++] = Value;
@@ -96,6 +97,9 @@ _Collision::_Collision(const _ObjectSpawn &Object) :
 		}
 
 		TriMeshData = dGeomTriMeshDataCreate();
+		dGeomTriMeshDataBuildSingle1(TriMeshData, VertexList, 3 * sizeof(float), VertexCount, FaceList, FaceIndex, 3 * sizeof(dTriIndex), nullptr);
+		Geometry = dCreateTriMesh(Physics.GetSpace(), TriMeshData, 0, 0, 0);
+		dGeomSetPosition(Geometry, 0, 0, 0);
 
 		/*
 		// Create triangle array

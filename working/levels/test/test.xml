@@ -40,5 +40,8 @@
 		<object name="cylinder" template="log">
 			<position x="-1" y="2.5" z="2" />
 		</object>
+		<object name="cylinder" template="log">
+			<position x="0.5" y="2.5" z="3" />
+		</object>
 	</objects>
 </level>

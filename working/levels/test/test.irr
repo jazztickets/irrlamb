@@ -20,45 +20,6 @@
          <colorf name="BackgroundColor" value="0.050876, 0.050876, 0.050876, 1"/>
       </attributes>
    </userData>
-   <node type="empty">
-      <attributes>
-         <string name="Name" value="zone"/>
-         <int name="Id" value="-1"/>
-         <bool name="Visible" value="true"/>
-         <vector3d name="Position" value="0, 0, 0"/>
-         <vector3d name="Rotation" value="0, 0, 0"/>
-         <vector3d name="Scale" value="1, 1, 2"/>
-         <enum name="AutomaticCulling" value="frustum_box"/>
-         <bool name="DebugDataVisible" value="false"/>
-         <bool name="IsDebugObject" value="false"/>
-         <bool name="ReadOnlyMaterials" value="false"/>
-      </attributes>
-      <userData>
-         <attributes>
-         </attributes>
-      </userData>
-   </node>
-   <node type="mesh">
-      <attributes>
-         <string name="Name" value="watertest"/>
-         <int name="Id" value="-1"/>
-         <bool name="Visible" value="true"/>
-         <vector3d name="Position" value="2.164403, 1.772538, -0.001883"/>
-         <vector3d name="Rotation" value="0.000014, 0, 89.999996"/>
-         <vector3d name="Scale" value="1, 1, 1"/>
-         <enum name="AutomaticCulling" value="frustum_box"/>
-         <bool name="DebugDataVisible" value="false"/>
-         <bool name="IsDebugObject" value="false"/>
-         <bool name="ReadOnlyMaterials" value="false"/>
-         <string name="Mesh" value="meshes/watertest.irrbmesh"/>
-         <enum name="HardwareMappingHint" value="never"/>
-         <enum name="HardwareMappingBufferType" value="vertexindex"/>
-      </attributes>
-      <userData>
-         <attributes>
-         </attributes>
-      </userData>
-   </node>
    <node type="mesh">
       <attributes>
          <string name="Name" value="test"/>
@@ -66,7 +27,7 @@
          <bool name="Visible" value="true"/>
          <vector3d name="Position" value="0, 0, 0"/>
          <vector3d name="Rotation" value="0, 0, 0"/>
-         <vector3d name="Scale" value="1, 1, 1"/>
+         <vector3d name="Scale" value="4, 4, 4"/>
          <enum name="AutomaticCulling" value="frustum_box"/>
          <bool name="DebugDataVisible" value="false"/>
          <bool name="IsDebugObject" value="false"/>

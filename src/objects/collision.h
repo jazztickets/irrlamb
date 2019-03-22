@@ -39,6 +39,6 @@ class _Collision : public _Object {
 		btTriangleIndexVertexArray *TriangleIndexVertexArray;
 		btTriangleInfoMap *TriangleInfoMap;
 		float *VertexList;
-		int *FaceList;
+		dTriIndex *FaceList;
 
 };

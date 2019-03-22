@@ -22,10 +22,6 @@
 			<damping angular="0.4" linear="0.2" />
 			<texture file="bark0.jpg" />
 		</cylinder>
-		<box name="floor">
-			<shape w="100" h="10" l="100" />
-			<physics mass="0" />
-		</box>
 		<zone name="losezone">
 			<shape w="100" h="2" l="100" />
 		</zone>
@@ -36,9 +32,6 @@
 		</object>
 		<object name="losezone" template="losezone">
 			<position x="0" y="0" z="0" />
-		</object>
-		<object name="floor" template="floor">
-			<position x="0" y="-5" z="0" />
 		</object>
 	</objects>
 </level>

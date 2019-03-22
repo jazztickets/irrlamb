@@ -6,6 +6,8 @@ add_definitions(-D_IRR_STATIC_LIB_)
 add_definitions(-DdIDESINGLE)
 add_definitions(-DdTRIMESH_ENABLED)
 add_definitions(-DdTRIMESH_OPCODE)
+add_definitions(-DdLIBCCD_ENABLED)
+add_definitions(-DdLIBCCD_CYL_CYL)
 
 # projects
 project(irrlamb)

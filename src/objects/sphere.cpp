@@ -19,11 +19,12 @@
 #include <globals.h>
 #include <physics.h>
 #include <objects/template.h>
-#include <BulletCollision/CollisionShapes/btSphereShape.h>
 #include <IAnimatedMesh.h>
 #include <IAnimatedMeshSceneNode.h>
 #include <ISceneManager.h>
 #include <IMeshSceneNode.h>
+#include <ode/objects.h>
+#include <ode/collision.h>
 
 using namespace irr;
 
@@ -55,13 +56,14 @@ _Sphere::_Sphere(const _ObjectSpawn &Object)
 	// Set up physics
 	if(Physics.IsEnabled()) {
 
-		/*
-		// Create shape
-		btSphereShape *Shape = new btSphereShape(Template->Radius);
+		// Create object
+		Geometry = dCreateSphere(Physics.GetSpace(), Object.Template->Radius);
+		CreateRigidBody(Object, Geometry);
 
-		// Set up physics
-		CreateRigidBody(Object, Shape);
-		*/
+		// Set mass
+		dMass Mass;
+		dMassSetSphereTotal(&Mass, Template->Mass, Template->Radius);
+		dBodySetMass(Body, &Mass);
 	}
 
 	// Set common properties
