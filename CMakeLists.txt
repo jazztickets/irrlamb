@@ -73,7 +73,6 @@ find_package(Threads REQUIRED)
 # include paths
 include_directories("src")
 include_directories("src/irrlicht/include")
-include_directories("src/bullet")
 include_directories("src/OPCODE")
 include_directories("src/libccd")
 include_directories("src/libccd/custom")

@@ -25,7 +25,6 @@
 #include <config.h>
 #include <audio.h>
 #include <objects/template.h>
-#include <BulletCollision/CollisionShapes/btSphereShape.h>
 #include <ISceneManager.h>
 #include <IMeshSceneNode.h>
 #include <ode/objects.h>

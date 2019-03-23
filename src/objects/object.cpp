@@ -23,8 +23,6 @@
 #include <log.h>
 #include <ode/collision.h>
 #include <ode/objects.h>
-#include <BulletWorldImporter/btBulletWorldImporter.h>
-#include <BulletCollision/CollisionShapes/btCollisionShape.h>
 
 using namespace irr;
 

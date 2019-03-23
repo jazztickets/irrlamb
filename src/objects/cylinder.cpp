@@ -20,7 +20,6 @@
 #include <physics.h>
 #include <config.h>
 #include <objects/template.h>
-#include <BulletCollision/CollisionShapes/btCylinderShape.h>
 #include <IAnimatedMesh.h>
 #include <IAnimatedMeshSceneNode.h>
 #include <ISceneManager.h>

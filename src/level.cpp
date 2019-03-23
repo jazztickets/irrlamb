@@ -38,7 +38,6 @@
 #include <objects/zone.h>
 #include <objects/collision.h>
 #include <objects/constraint.h>
-#include <objects/springjoint.h>
 #include <tinyxml2.h>
 #include <ISceneManager.h>
 #include <IFileSystem.h>
@@ -672,8 +671,8 @@ _Object *_Level::CreateObject(const _ObjectSpawn &Object) {
 		Replay.WriteEvent(_Replay::PACKET_CREATE);
 		ReplayFile.write((char *)&Object.Template->TemplateID, sizeof(Object.Template->TemplateID));
 		ReplayFile.write((char *)&NewObject->GetID(), sizeof(NewObject->GetID()));
-		ReplayFile.write((char *)&Object.Position, sizeof(btScalar) * 3);
-		ReplayFile.write((char *)&Object.Rotation, sizeof(btScalar) * 3);
+		ReplayFile.write((char *)&Object.Position, sizeof(float) * 3);
+		ReplayFile.write((char *)&Object.Rotation, sizeof(float) * 3);
 	}
 
 	return NewObject;

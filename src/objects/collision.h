@@ -19,7 +19,6 @@
 
 // Libraries
 #include <objects/object.h>
-#include <BulletCollision/CollisionShapes/btTriangleInfoMap.h>
 #include <ode/collision_trimesh.h>
 
 // Forward Declarations

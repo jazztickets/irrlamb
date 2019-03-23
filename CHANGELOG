@@ -1,6 +1,7 @@
 irrlamb 0.3.0 -
 - UI now scales with resolution
 - Reworked UI theme
+- Replaced Bullet physics with ODE
 - Physics now runs at 1000hz
 - Added replay sorting
 - Added freecamera mode to replays

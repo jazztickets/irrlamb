@@ -20,7 +20,6 @@
 #include <physics.h>
 #include <scripting.h>
 #include <objects/template.h>
-#include <BulletCollision/CollisionShapes/btBoxShape.h>
 
 // Constructor
 _Zone::_Zone(const _ObjectSpawn &Object)

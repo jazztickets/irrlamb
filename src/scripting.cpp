@@ -28,7 +28,6 @@
 #include <objects/orb.h>
 #include <objects/zone.h>
 #include <objects/constraint.h>
-#include <objects/springjoint.h>
 #include <states/play.h>
 #include <menu.h>
 #include <random>

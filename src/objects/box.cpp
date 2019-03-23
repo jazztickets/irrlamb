@@ -23,7 +23,6 @@
 #include <IAnimatedMesh.h>
 #include <IAnimatedMeshSceneNode.h>
 #include <ISceneManager.h>
-#include <BulletCollision/CollisionShapes/btBoxShape.h>
 #include <ode/objects.h>
 #include <ode/collision.h>
 

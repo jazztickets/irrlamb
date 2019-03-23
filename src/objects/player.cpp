@@ -29,7 +29,6 @@
 #include <objects/template.h>
 #include <ode/objects.h>
 #include <ode/collision.h>
-#include <BulletCollision/CollisionShapes/btSphereShape.h>
 #include <IAnimatedMesh.h>
 #include <IAnimatedMeshSceneNode.h>
 #include <ISceneManager.h>

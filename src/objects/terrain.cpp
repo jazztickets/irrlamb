@@ -130,5 +130,5 @@ _Terrain::~_Terrain() {
 
 // Get path to terrain cache file
 std::string _Terrain::GetCachePath(const std::string &ObjectName) {
-	return Save.CachePath + Level.LevelName + "_" + std::to_string(Level.LevelVersion) + "_" + ObjectName + ".bullet";
+	return Save.CachePath + Level.LevelName + "_" + std::to_string(Level.LevelVersion) + "_" + ObjectName + ".cache";
 }

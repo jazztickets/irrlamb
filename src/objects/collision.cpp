@@ -19,9 +19,6 @@
 #include <physics.h>
 #include <globals.h>
 #include <objects/template.h>
-#include <BulletCollision/CollisionDispatch/btInternalEdgeUtility.h>
-#include <BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h>
-#include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
 #include <fstream>
 #include <ode/collision.h>
 

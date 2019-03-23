@@ -19,7 +19,6 @@
 #include <globals.h>
 #include <physics.h>
 #include <objects/template.h>
-#include <BulletDynamics/ConstraintSolver/btHingeConstraint.h>
 
 // Constructor
 _Constraint::_Constraint(const _ConstraintSpawn &Object)
