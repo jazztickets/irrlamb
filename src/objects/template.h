@@ -16,9 +16,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #pragma once
-#include <LinearMath/btVector3.h>
-#include <LinearMath/btQuaternion.h>
 #include <glm/vec3.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <string>
 
 // Forward Declarations
@@ -40,14 +39,14 @@ struct _Template {
 
 	// Physical properties
 	std::string CollisionFile;
-	btVector3 Shape;
+	glm::vec3 Shape;
 	int Sleep;
 	float Radius;
 	float Mass, Friction, Restitution;
 	float LinearDamping, AngularDamping;
 
 	// Constraints
-	btVector3 ConstraintData[4];
+	glm::vec3 ConstraintData[4];
 
 	// Graphics
 	std::string Mesh;
@@ -75,7 +74,7 @@ struct _ObjectSpawn {
 	std::string Name;
 	glm::vec3 Position;
 	glm::vec3 Rotation;
-	btQuaternion Quaternion;
+	glm::quat Quaternion;
 	glm::vec3 LinearVelocity;
 	glm::vec3 AngularVelocity;
 	_Template *Template;

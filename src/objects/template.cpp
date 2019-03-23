@@ -35,7 +35,7 @@ _Template::_Template() {
 	// Physical properties
 	Sleep = 0;
 	CollisionFile = "";
-	Shape.setValue(1.0f, 1.0f, 1.0f);
+	Shape = glm::vec3(1.0f, 1.0f, 1.0f);
 	Radius = 0.5f;
 	Mass = 1.0f;
 	Friction = 1.0f;
@@ -45,7 +45,7 @@ _Template::_Template() {
 
 	// Constraints
 	for(int i = 0; i < 4; i++)
-		ConstraintData[i].setValue(0.0f, 0.0f, 0.0f);
+		ConstraintData[i] = glm::vec3(0.0f, 0.0f, 0.0f);
 
 	// Textures
 	for(int i = 0; i < 4; i++)
@@ -72,7 +72,7 @@ _ObjectSpawn::_ObjectSpawn() {
 	Name = "";
 	Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	Rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-	Quaternion.setValue(0.0f, 0.0f, 0.0f, 1.0f);
+	Quaternion = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 	LinearVelocity = glm::vec3(0.0f, 0.0f, 0.0f);
 	AngularVelocity = glm::vec3(0.0f, 0.0f, 0.0f);
 	Template = nullptr;
@@ -82,8 +82,7 @@ _ObjectSpawn::_ObjectSpawn() {
 // Get rotation from Quaternion if it exists
 void _ObjectSpawn::CalculateRotation() {
 	if(HasQuaternion) {
-		Quaternion.getEulerZYX(Rotation[2], Rotation[1], Rotation[0]);
-		Rotation *= irr::core::RADTODEG;
+		Physics.QuaternionToEuler(&Quaternion[0], &Rotation[0]);
 	}
 }
 

@@ -16,13 +16,13 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #pragma once
-#include <LinearMath/btMotionState.h>
 #include <ode/common.h>
 #include <ode/objects.h>
 #include <irrTypes.h>
 #include <vector3d.h>
 #include <ISceneNode.h>
 #include <string>
+#include <glm/vec3.hpp>
 
 // Forward Declarations
 struct _ObjectSpawn;
@@ -79,18 +79,19 @@ class _Object {
 		// Rigid body
 		void Stop();
 
-		void SetPosition(const btVector3 &Position);
+		void SetPosition(const glm::vec3 &Position);
 		virtual void SetPositionFromReplay(const irr::core::vector3df &Position);
 		const dReal *GetPosition() const { return dBodyGetPosition(Body); }
-		const btVector3 &GetGraphicsPosition() const { return CenterOfMassTransform.getOrigin(); }
+		const dReal *GetGraphicsPosition() const { return dBodyGetPosition(Body); }
 
 		void SetRotation(const dMatrix3 Rotation) { dBodySetRotation(Body, Rotation); }
+		void SetQuaternion(const dQuaternion Quaternion);
 		const dReal *GetRotation() const { return dBodyGetQuaternion(Body); }
 
-		void SetLinearVelocity(const btVector3 &Velocity) { dBodySetLinearVel(Body, Velocity[0], Velocity[1], Velocity[2]); }
+		void SetLinearVelocity(const glm::vec3 &Velocity) { dBodySetLinearVel(Body, Velocity[0], Velocity[1], Velocity[2]); }
 		const dReal *GetLinearVelocity() { return dBodyGetLinearVel(Body); }
 
-		void SetAngularVelocity(const dReal *Velocity) { dBodySetAngularVel(Body, Velocity[0], Velocity[1], Velocity[2]); }
+		void SetAngularVelocity(const glm::vec3 &Velocity) { dBodySetAngularVel(Body, Velocity[0], Velocity[1], Velocity[2]); }
 		const dReal *GetAngularVelocity() { return dBodyGetAngularVel(Body); }
 
 		irr::scene::ISceneNode *GetNode() { return Node; }
@@ -121,8 +122,7 @@ class _Object {
 		irr::scene::ISceneNode *Node;
 		dBodyID Body;
 		dGeomID Geometry;
-		btTransform LastOrientation;
-		btTransform CenterOfMassTransform;
+		//btTransform LastOrientation;
 
 		// Replays
 		bool NeedsReplayPacket;

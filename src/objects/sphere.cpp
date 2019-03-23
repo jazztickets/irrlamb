@@ -56,14 +56,18 @@ _Sphere::_Sphere(const _ObjectSpawn &Object)
 	// Set up physics
 	if(Physics.IsEnabled()) {
 
-		// Create object
+		// Create geometry
 		Geometry = dCreateSphere(Physics.GetSpace(), Object.Template->Radius);
-		CreateRigidBody(Object, Geometry);
 
-		// Set mass
-		dMass Mass;
-		dMassSetSphereTotal(&Mass, Template->Mass, Template->Radius);
-		dBodySetMass(Body, &Mass);
+		// Create body
+		if(Template->Mass > 0) {
+			CreateRigidBody(Object, Geometry);
+
+			// Set mass
+			dMass Mass;
+			dMassSetSphereTotal(&Mass, Template->Mass, Template->Radius);
+			dBodySetMass(Body, &Mass);
+		}
 	}
 
 	// Set common properties

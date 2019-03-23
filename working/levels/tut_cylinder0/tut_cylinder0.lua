@@ -18,7 +18,7 @@ GoalCount = 1
 tConstraint = Level.GetTemplate("constraint_z")
 tLog = Level.GetTemplate("log")
 
-oLog = Level.CreateObject("log0", tLog, 0, -2.5, 8.1, 90, 0, 0)
+oLog = Level.CreateObject("log0", tLog, 0, -2.5, 8.1, 0, 0, 0)
 Level.CreateConstraint("constraint0", tConstraint, oLog, 0)
 Object.SetAngularVelocity(oLog, 0, 0, 2)
 

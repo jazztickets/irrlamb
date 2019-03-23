@@ -396,7 +396,7 @@ void _PlayState::UpdateRender(float TimeStepRemainder) {
 		Physics.GetWorld()->synchronizeMotionStates();
 
 		// Set camera position
-		btVector3 Position = Player->GetGraphicsPosition();
+		glm::vec3 Position = Player->GetGraphicsPosition();
 		Camera->Update(core::vector3df(Position[0], Position[1], Position[2]));
 		*/
 	}

@@ -28,7 +28,7 @@
 		<cylinder name="pepper">
 			<mesh file="shaker.irrbmesh" scale="1" />
 			<shape w="1" h="2" />
-			<physics mass="0.5" />
+			<physics mass="0.5" sleep="1" />
 			<texture file="pepper0.png" />
 		</cylinder>
 		<sphere name="soccer">
@@ -78,11 +78,11 @@
 		</object>
 		<object name="salt" template="salt">
 			<position x="-30.9444" y="23.146900" z="15" />
-			<rotation y="90" />
+			<rotation x="90" y="-90" />
 		</object>
 		<object name="pepper" template="pepper">
 			<position x="-30.9444" y="23.146900" z="12" />
-			<rotation y="90" />
+			<rotation x="90" y="-90" />
 		</object>
 		<object name="soccer" template="soccer">
 			<position x="3.968141" y="51.899986" z="-58.486183" />

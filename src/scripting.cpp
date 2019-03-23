@@ -426,7 +426,7 @@ int _Scripting::ObjectSetPosition(lua_State *LuaObject) {
 
 	// Set position
 	if(Object != nullptr)
-		Object->SetPosition(btVector3(PositionX, PositionY, PositionZ));
+		Object->SetPosition(glm::vec3(PositionX, PositionY, PositionZ));
 
 	return 0;
 }
@@ -498,7 +498,7 @@ int _Scripting::ObjectSetLinearVelocity(lua_State *LuaObject) {
 	float Z = (float)lua_tonumber(LuaObject, 4);
 
 	if(Object != nullptr)
-		Object->SetLinearVelocity(btVector3(X, Y, Z));
+		Object->SetLinearVelocity(glm::vec3(X, Y, Z));
 
 	return 0;
 
@@ -518,7 +518,7 @@ int _Scripting::ObjectSetAngularVelocity(lua_State *LuaObject) {
 	float Z = (float)lua_tonumber(LuaObject, 4);
 
 	if(Object != nullptr)
-		Object->SetAngularVelocity(btVector3(X, Y, Z));
+		Object->SetAngularVelocity(glm::vec3(X, Y, Z));
 
 	return 0;
 }

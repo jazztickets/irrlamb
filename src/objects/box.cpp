@@ -59,7 +59,7 @@ _Box::_Box(const _ObjectSpawn &Object)
 	// Set up physics
 	if(Physics.IsEnabled()) {
 
-		// Create Geometry
+		// Create geometry
 		Geometry = dCreateBox(Physics.GetSpace(), Template->Shape[0], Template->Shape[1], Template->Shape[2]);
 
 		// Create body
@@ -70,9 +70,6 @@ _Box::_Box(const _ObjectSpawn &Object)
 			dMass Mass;
 			dMassSetBoxTotal(&Mass, Template->Mass, Template->Shape[0], Template->Shape[1], Template->Shape[2]);
 			dBodySetMass(Body, &Mass);
-		}
-		else {
-			dGeomSetPosition(Geometry, Object.Position[0], Object.Position[1], Object.Position[2]);
 		}
 	}
 

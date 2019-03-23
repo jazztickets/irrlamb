@@ -280,8 +280,8 @@ void _ViewReplayState::Update(float FrameTime) {
 				int16_t ObjectID;
 				ReplayFile.read((char *)&TemplateID, sizeof(TemplateID));
 				ReplayFile.read((char *)&ObjectID, sizeof(ObjectID));
-				ReplayFile.read((char *)&Spawn.Position, sizeof(btScalar) * 3);
-				ReplayFile.read((char *)&Spawn.Rotation, sizeof(btScalar) * 3);
+				ReplayFile.read((char *)&Spawn.Position, sizeof(float) * 3);
+				ReplayFile.read((char *)&Spawn.Rotation, sizeof(float) * 3);
 
 				// Create spawn object
 				Spawn.Template = Level.GetTemplateFromID(TemplateID);

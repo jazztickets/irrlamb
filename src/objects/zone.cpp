@@ -32,7 +32,7 @@ _Zone::_Zone(const _ObjectSpawn &Object)
 	if(Physics.IsEnabled()) {
 /*
 		// Create shape
-		btVector3 HalfExtents = Template->Shape * 0.5f;
+		glm::vec3 HalfExtents = Template->Shape * 0.5f;
 		btBoxShape *Shape = new btBoxShape(HalfExtents);
 
 		// Set up physics

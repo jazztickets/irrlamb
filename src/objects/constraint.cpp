@@ -37,31 +37,6 @@ _Constraint::_Constraint(const _ConstraintSpawn &Object)
 			} break;
 		}
 */
-		if(Object.BodyA) {
-/*
-			if(Object.BodyB) {
-
-				// Get local frames
-				btTransform TransformA, TransformB;
-				TransformA = (Object.BodyA->GetBody()->getWorldTransform().inverse() * Object.BodyB->GetBody()->getWorldTransform());
-				TransformB = btTransform::getIdentity();
-
-				// Create joint
-				btGeneric6DofConstraint *NewConstraint = new btGeneric6DofConstraint(*Object.BodyA->GetBody(), *Object.BodyB->GetBody(), TransformA, TransformB, true);
-
-				// Set limits
-				NewConstraint->setLinearLowerLimit(Template->LinearLimit[0]);
-				NewConstraint->setLinearUpperLimit(Template->LinearLimit[1]);
-				NewConstraint->setAngularLowerLimit(Template->AngularLimit[0]);
-				NewConstraint->setAngularUpperLimit(Template->AngularLimit[1]);
-				Constraint = NewConstraint;
-			}
-			else {
-				btPoint2PointConstraint *NewConstraint = new btPoint2PointConstraint(*Object.BodyA->GetBody(), btVector3(0.0f, 0.0f, 0.0f));
-				Constraint = NewConstraint;
-			}
-*/
-		}
 
 	}
 

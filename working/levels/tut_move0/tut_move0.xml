@@ -29,6 +29,7 @@
 		</object>
 		<object name="tube" template="log">
 			<position x="0" y="1" z="22" />
+			<rotation x="90" />
 		</object>
 		<object name="orb0" template="orb">
 			<position x="0" y="2.5" z="22" />

@@ -43,8 +43,6 @@ _Object::_Object(const _Template *Template)
 	NeedsReplayPacket(false),
 	TouchingGround(false),
 	TouchingWall(false) {
-
-	LastOrientation.setIdentity();
 }
 
 // Destructor
@@ -78,6 +76,8 @@ _Object::~_Object() {
 
 // Print object position and rotation
 void _Object::PrintOrientation() {
+	if(!Body)
+		return;
 
 	// Get rigid body state
 	const dReal *Quaternion = GetRotation();
@@ -89,7 +89,7 @@ void _Object::PrintOrientation() {
 	Log.Write("<object name=\"%s\" template=\"%s\">", Name.c_str(), Template->Name.c_str());
 	Log.Write("\t<!-- %f, %f, %f -->", Position[0], Position[1], Position[2]);
 	Log.Write("\t<position x=\"%f\" y=\"%f\" z=\"%f\" />", Position[0], Position[1], Position[2]);
-	Log.Write("\t<quaternion x=\"%f\" y=\"%f\" z=\"%f\" w=\"%f\" />", Quaternion[1], Quaternion[2], Quaternion[3], Quaternion[0]);
+	Log.Write("\t<quaternion w=\"%f\" x=\"%f\" y=\"%f\" z=\"%f\" />", Quaternion[0], Quaternion[1], Quaternion[2], Quaternion[3]);
 	Log.Write("\t<linear_velocity x=\"%f\" y=\"%f\" z=\"%f\" />", LinearVelocity[0], LinearVelocity[1], LinearVelocity[2]);
 	Log.Write("\t<angular_velocity x=\"%f\" y=\"%f\" z=\"%f\" />", AngularVelocity[0], AngularVelocity[1], AngularVelocity[2]);
 	Log.Write("</object>");
@@ -97,47 +97,28 @@ void _Object::PrintOrientation() {
 
 // Creates a rigid body object and adds it to the world
 void _Object::CreateRigidBody(const _ObjectSpawn &Object, dGeomID Geometry, bool SetTransform) {
-	//_Template *Template = Object.Template;
+	_Template *Template = Object.Template;
 
 	// Create body
 	Body = dBodyCreate(Physics.GetWorld());
 	dGeomSetBody(Geometry, Body);
 
-	// Set initial position
-	dBodySetPosition(Body, Object.Position[0], Object.Position[1], Object.Position[2]);
+	// Set initial velocities
+	SetLinearVelocity(Object.LinearVelocity);
+	SetAngularVelocity(Object.AngularVelocity);
+
+	// Disable body
+	if(Template->Sleep)
+		dBodyDisable(Body);
 
 	/*
-	// Rotation
-	btQuaternion QuaternionRotation = Object.Quaternion;
-	if(!Object.HasQuaternion)
-		QuaternionRotation.setEuler(Object.Rotation[1] * core::DEGTORAD, Object.Rotation[0] * core::DEGTORAD, Object.Rotation[2] * core::DEGTORAD);
-
-	// Transform
-	CenterOfMassTransform.setIdentity();
-	if(SetTransform) {
-		CenterOfMassTransform.setOrigin(btVector3(Object.Position[0], Object.Position[1], Object.Position[2]));
-		CenterOfMassTransform.setRotation(QuaternionRotation);
-	}
-
-	// Local inertia
-	btVector3 LocalInertia(0.0f, 0.0f, 0.0f);
-	if(Template->Mass != 0.0f)
-		Shape->calculateLocalInertia(Template->Mass, LocalInertia);
 
 	// Create body
 	RigidBody = new btRigidBody(Template->Mass, this, Shape, LocalInertia);
-	RigidBody->setUserPointer((void *)this);
 	RigidBody->setFriction(Template->Friction);
 	RigidBody->setRestitution(Template->Restitution);
 	RigidBody->setDamping(Template->LinearDamping, Template->AngularDamping);
 	RigidBody->setSleepingThresholds(0.2f, 0.2f);
-	RigidBody->setLinearVelocity(Object.LinearVelocity);
-	RigidBody->setAngularVelocity(Object.AngularVelocity);
-	if(Template->Sleep)
-		RigidBody->setActivationState(ISLAND_SLEEPING);
-
-	// Add body
-	Physics.GetWorld()->addRigidBody(RigidBody, Template->CollisionGroup, Template->CollisionMask);
 	*/
 }
 
@@ -178,23 +159,32 @@ void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 	Type = Template->Type;
 	Lifetime = Template->Lifetime;
 
+	// Set transform
+	if(SetTransform) {
+
+		// Get rotation
+		glm::quat QuaternionRotation = Object.Quaternion;
+		if(!Object.HasQuaternion)
+			QuaternionRotation = glm::quat(glm::vec3(Object.Rotation[2], Object.Rotation[1], Object.Rotation[0]) * core::DEGTORAD);
+		SetQuaternion(&QuaternionRotation[0]);
+		SetPosition(Object.Position);
+	}
+
 	// Graphics
 	if(Node) {
 		if(SetTransform) {
 
 			// Use quaternion if available
 			glm::vec3 Rotation;
-			if(Object.HasQuaternion) {
-				Object.Quaternion.getEulerZYX(Rotation[2], Rotation[1], Rotation[0]);
-				Rotation *= core::RADTODEG;
-			}
-			else {
+			if(Object.HasQuaternion)
+				Physics.QuaternionToEuler(&Object.Quaternion[0], &Rotation[0]);
+			else
 				Rotation = Object.Rotation;
-			}
 
 			Node->setPosition(core::vector3df(Object.Position[0], Object.Position[1], Object.Position[2]));
 			Node->setRotation(core::vector3df(Rotation[0], Rotation[1], Rotation[2]));
 		}
+
 		//Node->setVisible(Template->Visible);
 		Node->setMaterialFlag(video::EMF_FOG_ENABLE, Template->Fog);
 		Node->setMaterialFlag(video::EMF_NORMALIZE_NORMALS, true);
@@ -232,13 +222,21 @@ void _Object::Stop() {
 }
 
 // Sets the position of the object
-void _Object::SetPosition(const btVector3 &Position) {
+void _Object::SetPosition(const glm::vec3 &Position) {
 	if(Body)
 		dBodySetPosition(Body, Position[0], Position[1], Position[2]);
 	else if(Geometry)
 		dGeomSetPosition(Geometry, Position[0], Position[1], Position[2]);
 
 	//LastOrientation.setOrigin(Position);
+}
+
+// Set rotation from quaternion
+void _Object::SetQuaternion(const dQuaternion Quaternion) {
+	if(Body)
+		dBodySetQuaternion(Body, Quaternion);
+	else if(Geometry)
+		dGeomSetQuaternion(Geometry, Quaternion);
 }
 
 // Collision callback

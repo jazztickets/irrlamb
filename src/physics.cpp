@@ -146,16 +146,16 @@ bool _Physics::RaycastWorld(const glm::vec3 &Start, glm::vec3 &End) {
 
 	if(Enabled) {
 
-		// Get length and direction
+		// Get ray length and direction
 		float Length = glm::length(End - Start);
 		glm::vec3 Direction = (End - Start) / Length;
-		dReal HitPosition[4] = { 0, 0, 0, dInfinity };
 
 		// Create ray
 		dGeomID Ray = dCreateRay(Space, Length);
 		dGeomRaySet(Ray, Start[0], Start[1], Start[2], Direction[0], Direction[1], Direction[2]);
 
 		// Check collisions
+		dReal HitPosition[4] = { 0, 0, 0, dInfinity };
 		dSpaceCollide2(Ray, (dGeomID)Space, HitPosition, &RayCallback);
 
 		// Cleanup

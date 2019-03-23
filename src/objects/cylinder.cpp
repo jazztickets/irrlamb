@@ -59,14 +59,18 @@ _Cylinder::_Cylinder(const _ObjectSpawn &Object)
 	// Set up physics
 	if(Physics.IsEnabled()) {
 
-		// Create object
+		// Create geometry
 		Geometry = dCreateCylinder(Physics.GetSpace(), Template->Shape[0] / 2, Template->Shape[1]);
-		CreateRigidBody(Object, Geometry);
 
-		// Set mass
-		dMass Mass;
-		dMassSetCylinderTotal(&Mass, Template->Mass, 3, Template->Shape[0] / 2, Template->Shape[1]);
-		dBodySetMass(Body, &Mass);
+		// Create body
+		if(Template->Mass > 0) {
+			CreateRigidBody(Object, Geometry);
+
+			// Set mass
+			dMass Mass;
+			dMassSetCylinderTotal(&Mass, Template->Mass, 3, Template->Shape[0] / 2, Template->Shape[1]);
+			dBodySetMass(Body, &Mass);
+		}
 	}
 
 	// Set common properties
