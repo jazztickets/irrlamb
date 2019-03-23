@@ -134,7 +134,7 @@ void _Orb::Update(float FrameTime) {
 	_Object::Update(FrameTime);
 
 	// Get object position
-	const dReal *Position = GetODEPosition();
+	const dReal *Position = GetPosition();
 
 	// Update light
 	if(Light) {

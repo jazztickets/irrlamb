@@ -153,14 +153,13 @@ void _ObjectManager::EndFrame() {
 
 			// Save the replay
 			if(Iterator->ReadyForReplayUpdate()) {
-				btVector3 EulerRotation;
-				Iterator->GetRotation().getEulerZYX(EulerRotation[2], EulerRotation[1], EulerRotation[0]);
-				EulerRotation *= core::RADTODEG;
+				dReal EulerRotation[3];
+				Physics.QuaternionToEuler(Iterator->GetRotation(), EulerRotation);
 
 				// Write object update
 				ReplayFile.write((char *)&Iterator->GetID(), sizeof(Iterator->GetID()));
-				ReplayFile.write((char *)&Iterator->GetPosition(), sizeof(btScalar) * 3);
-				ReplayFile.write((char *)&EulerRotation[0], sizeof(btScalar) * 3);
+				ReplayFile.write((char *)Iterator->GetPosition(), sizeof(dReal) * 3);
+				ReplayFile.write((char *)&EulerRotation[0], sizeof(dReal) * 3);
 				Iterator->WroteReplayPacket();
 			}
 		}

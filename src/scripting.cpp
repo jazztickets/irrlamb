@@ -673,8 +673,8 @@ int _Scripting::LevelCreateObject(lua_State *LuaObject) {
 	_ObjectSpawn Spawn;
 	Spawn.Name = ObjectName;
 	Spawn.Template = Template;
-	Spawn.Position.setValue(PositionX, PositionY, PositionZ);
-	Spawn.Rotation.setValue(RotationX, RotationY, RotationZ);
+	Spawn.Position = glm::vec3(PositionX, PositionY, PositionZ);
+	Spawn.Rotation = glm::vec3(RotationX, RotationY, RotationZ);
 
 	// Create object
 	_Object *Object = Level.CreateObject(Spawn);

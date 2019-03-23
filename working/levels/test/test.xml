@@ -18,7 +18,7 @@
 			<mesh file="cube.irrbmesh" scale="1" />
 			<shape w="1" h="1" l="1" />
 			<texture file="crate0.jpg" />
-			<physics mass="1.0" />
+			<physics mass="0.0" />
 		</box>
 		<cylinder name="log">
 			<mesh file="cylinder.irrbmesh" scale="1" />
@@ -29,7 +29,7 @@
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="1.8" y="1.5" z="1.71" />
+			<position x="2" y="1.5" z="0" />
 		</object>
 		<object name="orb" template="orb">
 			<position x="2" y="4.5" z="0" />

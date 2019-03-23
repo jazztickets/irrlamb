@@ -23,8 +23,7 @@
 
 // Constructor
 _Constraint::_Constraint(const _ConstraintSpawn &Object)
-:	_Object(Object.Template),
-	Constraint(nullptr) {
+:	_Object(Object.Template) {
 
 	// Attributes
 	if(Physics.IsEnabled()) {
@@ -72,9 +71,9 @@ _Constraint::_Constraint(const _ConstraintSpawn &Object)
 // Destructor
 _Constraint::~_Constraint() {
 
-	if(Constraint) {
+	//if(Constraint) {
 		//Physics.GetWorld()->removeConstraint(Constraint);
 
-		delete Constraint;
-	}
+	//	delete Constraint;
+	//}
 }

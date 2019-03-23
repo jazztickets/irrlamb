@@ -208,11 +208,6 @@ _Terrain::~_Terrain() {
 	dGeomTriMeshDataDestroy(TriMeshData);
 	delete[] VertexList;
 	delete[] FaceList;
-
-	if(!Importer) {
-		//delete TriangleInfoMap;
-		//delete CollisionMesh;
-	}
 }
 
 // Get path to terrain cache file

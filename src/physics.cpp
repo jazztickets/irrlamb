@@ -20,16 +20,49 @@
 #include <framework.h>
 #include <constants.h>
 #include <objects/object.h>
+#include <objects/template.h>
 #include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
 #include <ode/odeinit.h>
 #include <ode/objects.h>
 #include <ode/collision.h>
 #include <ode/misc.h>
+#include <glm/geometric.hpp>
 
 const int MAX_CONTACTS = 32;
 
 _Physics Physics;
 
+// Check ray collision against a space
+static void RayCallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
+	dReal *HitPosition = (dReal *)Data;
+
+	// Check collisions
+	dContact Contacts[MAX_CONTACTS];
+	int Count = dCollide(Geometry1, Geometry2, MAX_CONTACTS, &Contacts[0].geom, sizeof(dContact));
+	if(Count) {
+
+		// Get hit object
+		_Object *Object = nullptr;
+		if(dGeomGetClass(Geometry1) != dRayClass)
+			Object = (_Object *)dGeomGetData(Geometry1);
+		else if(dGeomGetClass(Geometry2) != dRayClass)
+			Object = (_Object *)dGeomGetData(Geometry2);
+
+		// Check collision group
+		if(Object && Object->GetTemplate() && !(Object->GetTemplate()->CollisionGroup & _Physics::FILTER_CAMERA))
+			return;
+
+		// Check depth against current closest hit
+		if(Contacts[0].geom.depth < HitPosition[3]) {
+			HitPosition[0] = Contacts[0].geom.pos[0];
+			HitPosition[1] = Contacts[0].geom.pos[1];
+			HitPosition[2] = Contacts[0].geom.pos[2];
+			HitPosition[3] = Contacts[0].geom.depth;
+		}
+	}
+}
+
+// Near collision callback
 static void ODECallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 	dBodyID Body1 = dGeomGetBody(Geometry1);
 	dBodyID Body2 = dGeomGetBody(Geometry2);
@@ -75,17 +108,6 @@ int _Physics::Init() {
 	dWorldSetCFM(World, 1e-5);
 	ContactGroup = dJointGroupCreate(0);
 
-	// Set up physics modules
-	/*
-	CollisionConfiguration = new btDefaultCollisionConfiguration();
-	BroadPhase = new btDbvtBroadphase();
-	Dispatcher = new btCollisionDispatcher(CollisionConfiguration);
-	Solver = new btSequentialImpulseConstraintSolver();
-	World = new btFixedWorld(Dispatcher, BroadPhase, Solver, CollisionConfiguration);
-	World->setGravity(btVector3(0.0f, -9.81f, 0.0f));
-	btContactSolverInfo &SolverInfo = World->getSolverInfo();
-	SolverInfo.m_timeStep = PHYSICS_TIMESTEP;
-	*/
 	Enabled = false;
 
 	return 1;
@@ -93,14 +115,6 @@ int _Physics::Init() {
 
 // Close the physics system
 int _Physics::Close() {
-
-	/*
-	delete World;
-	delete Solver;
-	delete Dispatcher;
-	delete BroadPhase;
-	delete CollisionConfiguration;
-	*/
 
 	dJointGroupDestroy(ContactGroup);
 	dSpaceDestroy(Space);
@@ -125,41 +139,44 @@ void _Physics::Reset() {
 	Physics.Close();
 	Physics.Init();
 	Physics.SetEnabled(true);
-	//BroadPhase->resetPool(Dispatcher);
-	//Solver->reset();
 }
 
 // Performs raycasting on the world and returns the point of collision
-bool _Physics::RaycastWorld(const btVector3 &Start, btVector3 &End, btVector3 &Normal) {
-/*
+bool _Physics::RaycastWorld(const glm::vec3 &Start, glm::vec3 &End) {
+
 	if(Enabled) {
-		btCollisionWorld::ClosestRayResultCallback RayCallback(Start, End);
-		RayCallback.m_collisionFilterMask = FILTER_CAMERA;
 
-		// Perform raycast
-		World->rayTest(Start, End, RayCallback);
-		if(RayCallback.hasHit()) {
+		// Get length and direction
+		float Length = glm::length(End - Start);
+		glm::vec3 Direction = (End - Start) / Length;
+		dReal HitPosition[4] = { 0, 0, 0, dInfinity };
 
-			End = RayCallback.m_hitPointWorld;
-			Normal = RayCallback.m_hitNormalWorld;
+		// Create ray
+		dGeomID Ray = dCreateRay(Space, Length);
+		dGeomRaySet(Ray, Start[0], Start[1], Start[2], Direction[0], Direction[1], Direction[2]);
+
+		// Check collisions
+		dSpaceCollide2(Ray, (dGeomID)Space, HitPosition, &RayCallback);
+
+		// Cleanup
+		dGeomDestroy(Ray);
+
+		// Check for hit
+		if(HitPosition[3] != dInfinity) {
+			End[0] = HitPosition[0];
+			End[1] = HitPosition[1];
+			End[2] = HitPosition[2];
+
 			return true;
 		}
 	}
-*/
+
 	return false;
 }
 
 // Removes a bit field from a value
 void _Physics::RemoveFilter(int &Value, int Filter) {
-
 	Value &= (~Filter);
-}
-
-// Sets default, static, or kinematic on a rigid body
-void _Physics::SetBodyType(int &Value, int Filter) {
-
-	Value &= (~FILTER_BASICBODIES);
-	Value |= Filter;
 }
 
 // Converts a quaternion to an euler angle

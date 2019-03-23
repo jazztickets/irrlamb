@@ -18,6 +18,7 @@
 #pragma once
 #include <LinearMath/btVector3.h>
 #include <LinearMath/btQuaternion.h>
+#include <glm/vec3.hpp>
 #include <string>
 
 // Forward Declarations
@@ -72,11 +73,11 @@ struct _ObjectSpawn {
 	void CalculateRotation();
 
 	std::string Name;
-	btVector3 Position;
-	btVector3 Rotation;
+	glm::vec3 Position;
+	glm::vec3 Rotation;
 	btQuaternion Quaternion;
-	btVector3 LinearVelocity;
-	btVector3 AngularVelocity;
+	glm::vec3 LinearVelocity;
+	glm::vec3 AngularVelocity;
 	_Template *Template;
 
 	bool HasQuaternion;

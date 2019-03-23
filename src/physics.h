@@ -16,32 +16,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #pragma once
-#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
-#include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
-#include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
 #include <ode/common.h>
-
-// Custom world that overrides stepSimulation for applications that implement their own fixed time step calculations
-class btFixedWorld : public btDiscreteDynamicsWorld {
-
-public:
-
-	btFixedWorld(btDispatcher *dispatcher, btBroadphaseInterface *pairCache, btConstraintSolver *constraintSolver, btCollisionConfiguration *collisionConfiguration)
-		: btDiscreteDynamicsWorld(dispatcher, pairCache, constraintSolver, collisionConfiguration) { }
-	~btFixedWorld() { }
-
-	void setTimeStepRemainder(btScalar time) { m_localTime = time; }
-	int stepSimulation(btScalar timeStep, int maxSubSteps=0, btScalar fixedTimeStep=0) {
-
-		saveKinematicState(timeStep);
-		applyGravity();
-		internalSingleStepSimulation(timeStep);
-		clearForces();
-
-		return 1;
-	}
-
-};
+#include <glm/vec3.hpp>
 
 // Classes
 class _Physics {
@@ -55,7 +31,6 @@ class _Physics {
 			FILTER_KINEMATIC	= 0x4,
 			FILTER_CAMERA		= 0x8,
 			FILTER_ZONE			= 0x10,
-			FILTER_BASICBODIES	= FILTER_RIGIDBODY | FILTER_STATIC | FILTER_KINEMATIC,
 		};
 
 		int Init();
@@ -64,7 +39,7 @@ class _Physics {
 		void Update(float FrameTime);
 		void Reset();
 
-		bool RaycastWorld(const btVector3 &Start, btVector3 &End, btVector3 &ormal);
+		bool RaycastWorld(const glm::vec3 &Start, glm::vec3 &End);
 
 		dWorldID GetWorld() { return World; }
 		dJointGroupID GetContactGroup() { return ContactGroup; }
@@ -73,17 +48,10 @@ class _Physics {
 		void SetEnabled(bool Value) { Enabled = Value; }
 		bool IsEnabled() const { return Enabled; }
 		void RemoveFilter(int &Value, int Filter);
-		void SetBodyType(int &Value, int Filter);
 
 		void QuaternionToEuler(const float *Quat, float *Euler);
 
 	private:
-
-		//btDefaultCollisionConfiguration *CollisionConfiguration;
-		//btCollisionDispatcher *Dispatcher;
-		//btBroadphaseInterface *BroadPhase;
-		//btSequentialImpulseConstraintSolver *Solver;
-		//btFixedWorld *World;
 
 		dWorldID World;
 		dJointGroupID ContactGroup;

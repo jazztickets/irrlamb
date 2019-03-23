@@ -30,7 +30,7 @@ _Template::_Template() {
 	// Collisions
 	CollisionCallback = "";
 	CollisionGroup = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_CAMERA;
-	CollisionMask = _Physics::FILTER_BASICBODIES | _Physics::FILTER_ZONE;
+	CollisionMask = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_STATIC | _Physics::FILTER_KINEMATIC | _Physics::FILTER_ZONE;
 
 	// Physical properties
 	Sleep = 0;
@@ -70,11 +70,11 @@ _Template::_Template() {
 
 _ObjectSpawn::_ObjectSpawn() {
 	Name = "";
-	Position.setValue(0.0f, 0.0f, 0.0f);
-	Rotation.setValue(0.0f, 0.0f, 0.0f);
+	Position = glm::vec3(0.0f, 0.0f, 0.0f);
+	Rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	Quaternion.setValue(0.0f, 0.0f, 0.0f, 1.0f);
-	LinearVelocity.setValue(0.0f, 0.0f, 0.0f);
-	AngularVelocity.setValue(0.0f, 0.0f, 0.0f);
+	LinearVelocity = glm::vec3(0.0f, 0.0f, 0.0f);
+	AngularVelocity = glm::vec3(0.0f, 0.0f, 0.0f);
 	Template = nullptr;
 	HasQuaternion = false;
 }

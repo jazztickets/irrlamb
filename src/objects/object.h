@@ -17,8 +17,6 @@
 *******************************************************************************/
 #pragma once
 #include <LinearMath/btMotionState.h>
-#include <BulletDynamics/Dynamics/btRigidBody.h>
-#include <BulletCollision/NarrowPhaseCollision/btPersistentManifold.h>
 #include <ode/common.h>
 #include <ode/objects.h>
 #include <irrTypes.h>
@@ -31,10 +29,9 @@ struct _ObjectSpawn;
 struct _ConstraintSpawn;
 struct _Template;
 class _AudioSource;
-class btBulletWorldImporter;
 
 // Classes
-class _Object : public btMotionState {
+class _Object {
 
 	public:
 
@@ -84,28 +81,22 @@ class _Object : public btMotionState {
 
 		void SetPosition(const btVector3 &Position);
 		virtual void SetPositionFromReplay(const irr::core::vector3df &Position);
-		const btVector3 &GetPosition() const { return RigidBody->getWorldTransform().getOrigin(); }
-		const dReal *GetODEPosition() const { return dBodyGetPosition(Body); }
+		const dReal *GetPosition() const { return dBodyGetPosition(Body); }
 		const btVector3 &GetGraphicsPosition() const { return CenterOfMassTransform.getOrigin(); }
 
-		void SetRotation(const btQuaternion &Rotation) { RigidBody->getWorldTransform().setRotation(Rotation); }
-		btQuaternion GetRotation() { return RigidBody->getWorldTransform().getRotation(); }
-		const dReal *GetODERotation() const { return dBodyGetQuaternion(Body); }
+		void SetRotation(const dMatrix3 Rotation) { dBodySetRotation(Body, Rotation); }
+		const dReal *GetRotation() const { return dBodyGetQuaternion(Body); }
 
-		void SetLinearVelocity(const btVector3 &Velocity) { RigidBody->activate(); RigidBody->setLinearVelocity(Velocity); }
-		const btVector3 &GetLinearVelocity() { return RigidBody->getLinearVelocity(); }
+		void SetLinearVelocity(const btVector3 &Velocity) { dBodySetLinearVel(Body, Velocity[0], Velocity[1], Velocity[2]); }
+		const dReal *GetLinearVelocity() { return dBodyGetLinearVel(Body); }
 
-		void SetAngularVelocity(const btVector3 &Velocity) { /* RigidBody->setAngularVelocity(Velocity);*/ }
-		const btVector3 &GetAngularVelocity() { /*return RigidBody->getAngularVelocity();*/ static btVector3 Empty(0, 0, 0); return Empty; }
+		void SetAngularVelocity(const dReal *Velocity) { dBodySetAngularVel(Body, Velocity[0], Velocity[1], Velocity[2]); }
+		const dReal *GetAngularVelocity() { return dBodyGetAngularVel(Body); }
 
-		btRigidBody *GetBody() { return RigidBody; }
 		irr::scene::ISceneNode *GetNode() { return Node; }
 
 		virtual void HandleCollision(_Object *OtherObject, const dReal *Normal, float NormalScale);
 		bool IsTouchingGround() const { return TouchingGround; }
-
-		void getWorldTransform(btTransform &Transform) const;
-		void setWorldTransform(const btTransform &Transform);
 
 	protected:
 
@@ -128,7 +119,6 @@ class _Object : public btMotionState {
 
 		// Physics and graphics
 		irr::scene::ISceneNode *Node;
-		btRigidBody *RigidBody;
 		dBodyID Body;
 		dGeomID Geometry;
 		btTransform LastOrientation;
@@ -140,8 +130,5 @@ class _Object : public btMotionState {
 		// Collision
 		std::string CollisionCallback;
 		bool TouchingGround, TouchingWall;
-
-		// Importer
-		btBulletWorldImporter *Importer;
 
 };

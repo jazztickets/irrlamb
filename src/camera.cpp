@@ -82,21 +82,17 @@ void _Camera::Update(const core::vector3df &Target) {
 	Node->setTarget(Target);
 
 	// Get ray intervals
-	btVector3 RayStart(Target.X, Target.Y, Target.Z), RayEnd(RayStart);
+	glm::vec3 RayStart(Target.X, Target.Y, Target.Z), RayEnd(RayStart);
 	RayEnd[0] += Offset.X;
 	RayEnd[1] += Offset.Y;
 	RayEnd[2] += Offset.Z;
 
 	// Get point on wall where ray collides
-	btVector3 HitNormal;
-	Physics.RaycastWorld(RayStart, RayEnd, HitNormal);
+	Physics.RaycastWorld(RayStart, RayEnd);
 
 	// Shorten the offset a little bit
-	btVector3 NewOffset = RayEnd - RayStart;
+	glm::vec3 NewOffset = RayEnd - RayStart;
 	NewOffset *= 0.9f;
-
-	//printf("%f %f %f\n", NewOffset[0], NewOffset[1], NewOffset[2]);
-	//printf("%f %f %f\n", RayEnd[0], RayEnd[1], RayEnd[2]);
 
 	// Set the new position
 	RayEnd = RayStart + NewOffset;

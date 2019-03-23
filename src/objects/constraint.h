@@ -34,6 +34,6 @@ class _Constraint : public _Object {
 	private:
 
 		// Attributes
-		btTypedConstraint *Constraint;
+		//btTypedConstraint *Constraint;
 
 };

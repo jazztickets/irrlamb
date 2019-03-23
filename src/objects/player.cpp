@@ -108,7 +108,7 @@ void _Player::Update(float FrameTime) {
 	_Object::Update(FrameTime);
 
 	// Update audio
-	const dReal *Position = GetODEPosition();
+	const dReal *Position = GetPosition();
 	Sound->SetPosition(Position[0], Position[1], Position[2]);
 	Sound->SetGain(Config.PlayerSounds);
 
@@ -139,10 +139,6 @@ void _Player::Update(float FrameTime) {
 			JumpTimer = 0.0f;
 
 		if(TouchingGround && JumpCooldown <= 0.0f) {
-			if(RigidBody) {
-				RigidBody->activate();
-				RigidBody->applyCentralImpulse(btVector3(0.0f, JUMP_POWER, 0.0f));
-			}
 			if(Body) {
 				//Body->activate();
 				dBodyAddForce(Body, 0, JUMP_POWER * (1.0f / FrameTime), 0);
@@ -178,10 +174,6 @@ void _Player::HandlePush(core::vector3df &Push) {
 
 		// Apply torque
 		core::vector3df RotationAxis = Push.crossProduct(core::vector3df(0.0f, -1.0f, 0.0f)) * TorqueFactor;
-		if(RigidBody) {
-			RigidBody->activate();
-			RigidBody->applyTorque(btVector3(RotationAxis.X, RotationAxis.Y, RotationAxis.Z));
-		}
 		if(Body) {
 			dBodyAddTorque(Body, RotationAxis.X, RotationAxis.Y, RotationAxis.Z);
 		}
