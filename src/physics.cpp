@@ -38,21 +38,14 @@ static void RayCallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 	// Check collisions
 	dContact Contacts[MAX_CONTACTS];
 	int Count = dCollide(Geometry1, Geometry2, MAX_CONTACTS, &Contacts[0].geom, sizeof(dContact));
-	if(Count) {
-
-		// Get hit object
-		_Object *Object = nullptr;
-		if(dGeomGetClass(Geometry1) != dRayClass)
-			Object = (_Object *)dGeomGetData(Geometry1);
-		else if(dGeomGetClass(Geometry2) != dRayClass)
-			Object = (_Object *)dGeomGetData(Geometry2);
+	for(int i = 0; i < Count; i++) {
 
 		// Check depth against current closest hit
-		if(Contacts[0].geom.depth < HitPosition[3]) {
-			HitPosition[0] = Contacts[0].geom.pos[0];
-			HitPosition[1] = Contacts[0].geom.pos[1];
-			HitPosition[2] = Contacts[0].geom.pos[2];
-			HitPosition[3] = Contacts[0].geom.depth;
+		if(Contacts[i].geom.depth < HitPosition[3]) {
+			HitPosition[0] = Contacts[i].geom.pos[0];
+			HitPosition[1] = Contacts[i].geom.pos[1];
+			HitPosition[2] = Contacts[i].geom.pos[2];
+			HitPosition[3] = Contacts[i].geom.depth;
 		}
 	}
 }
@@ -79,14 +72,12 @@ static void ODECallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 		else if(Geometry2)
 			Object2 = (_Object *)dGeomGetData(Geometry2);
 
-		// Check collision groups
-		//if(!(Object1->GetTemplate()->CollisionGroup & Object2->GetTemplate()->CollisionMask))
-		//	continue;
-
+		// Test for zones
 		bool Response = true;
 		if(Object1->GetTemplate()->CollisionGroup & _Physics::FILTER_ZONE || Object2->GetTemplate()->CollisionGroup & _Physics::FILTER_ZONE)
 			Response = false;
 
+		// Create contact joins
 		if(Response) {
 			Contacts[i].surface.mode = 0;//dContactBounce | dContactApprox1 | dContactSoftCFM;
 			Contacts[i].surface.mu = dInfinity;
@@ -98,6 +89,7 @@ static void ODECallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 			dJointAttach(Joint, Body1, Body2);
 		}
 
+		// Handle object collision callbacks
 		if(Object1)
 			Object1->HandleCollision(Object2, Contacts[i].geom.normal, 1);
 
