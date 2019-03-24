@@ -107,7 +107,7 @@ void _Player::Update(float FrameTime) {
 	_Object::Update(FrameTime);
 
 	// Update audio
-	const dReal *Position = GetPosition();
+	glm::vec3 Position = GetPosition();
 	Sound->SetPosition(Position[0], Position[1], Position[2]);
 	Sound->SetGain(Config.PlayerSounds);
 
@@ -116,16 +116,17 @@ void _Player::Update(float FrameTime) {
 		Light->setPosition(core::vector3df(Position[0], Position[1], Position[2]));
 	}
 
-	/*
 	// Get pitch for player idle sound
+	float LinearSpeed = glm::length(GetLinearVelocity());
+	float AngularSpeed = glm::length(GetAngularVelocity());
 	float MinSpeed = 3.0f;
 	float MaxSpeed = 120.0f;
-	float Pitch = std::max(MinSpeed, std::min(GetAngularVelocity().length() + GetLinearVelocity().length(), MaxSpeed));
+	float Pitch = std::max(MinSpeed, std::min(LinearSpeed + AngularSpeed, MaxSpeed));
 	Pitch -= MinSpeed;
 	Pitch /= MaxSpeed / 2;
 	Pitch += 0.9f;
 	Sound->SetPitch(Pitch);
-*/
+
 	// Update jump cooldown
 	if(JumpCooldown > 0.0f) {
 		JumpCooldown -= FrameTime;

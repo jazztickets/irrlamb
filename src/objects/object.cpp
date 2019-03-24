@@ -69,9 +69,9 @@ void _Object::PrintOrientation() {
 
 	// Get rigid body state
 	glm::quat Quaternion = GetQuaternion();
-	const dReal *Position = GetPosition();
-	const dReal *LinearVelocity = GetLinearVelocity();
-	const dReal *AngularVelocity = GetAngularVelocity();
+	glm::vec3 Position = GetPosition();
+	glm::vec3 LinearVelocity = GetLinearVelocity();
+	glm::vec3 AngularVelocity = GetAngularVelocity();
 
 	// Write information
 	Log.Write("<object name=\"%s\" template=\"%s\">", Name.c_str(), Template->Name.c_str());
@@ -186,14 +186,8 @@ void _Object::InterpolateOrientation(float BlendFactor) {
 	if(!Node)
 		return;
 
-	// Get current position
-	const dReal *Position = GetPosition();
-	if(!Position)
-		return;
-
-	glm::vec3 CurrentPosition(Position[0], Position[1], Position[2]);
-
-	// Get current rotation
+	// Get current orientation
+	glm::vec3 CurrentPosition = GetPosition();
 	glm::quat CurrentRotation = GetQuaternion();
 
 	// Set node position
@@ -216,13 +210,17 @@ void _Object::Stop() {
 }
 
 // Get object position
-const dReal *_Object::GetPosition() const {
+glm::vec3 _Object::GetPosition() const {
+	const dReal *Position = nullptr;
 	if(Body)
-		return dBodyGetPosition(Body);
+		Position = dBodyGetPosition(Body);
 	else if(Geometry)
-		return dGeomGetPosition(Geometry);
+		Position = dGeomGetPosition(Geometry);
 
-	return nullptr;
+	if(!Position)
+		return glm::vec3(0, 0, 0);
+
+	return glm::vec3(Position[0], Position[1], Position[2]);
 }
 
 // Sets the position of the object
@@ -262,6 +260,20 @@ glm::quat _Object::GetQuaternion() {
 	return Quaternion;
 }
 
+// Get linear velocity
+glm::vec3 _Object::GetLinearVelocity() const {
+	const dReal *Velocity = dBodyGetLinearVel(Body);
+
+	return glm::vec3(Velocity[0], Velocity[1], Velocity[2]);
+}
+
+// Get angular velocity
+glm::vec3 _Object::GetAngularVelocity() const {
+	const dReal *Velocity = dBodyGetAngularVel(Body);
+
+	return glm::vec3(Velocity[0], Velocity[1], Velocity[2]);
+}
+
 // Collision callback
 void _Object::HandleCollision(_Object *OtherObject, const dReal *Normal, float NormalScale) {
 	if(!OtherObject)
@@ -285,11 +297,7 @@ void _Object::HandleCollision(_Object *OtherObject, const dReal *Normal, float N
 void _Object::BeginFrame() {
 	TouchingGround = TouchingWall = false;
 	if(Body || Geometry) {
-		const dReal *Position = GetPosition();
-		LastPosition[0] = Position[0];
-		LastPosition[1] = Position[1];
-		LastPosition[2] = Position[2];
-
+		LastPosition = GetPosition();
 		LastRotation = GetQuaternion();
 	}
 }

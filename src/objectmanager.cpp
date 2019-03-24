@@ -155,10 +155,11 @@ void _ObjectManager::EndFrame() {
 			if(Iterator->ReadyForReplayUpdate()) {
 				dReal EulerRotation[3];
 				Physics.QuaternionToEuler(Iterator->GetQuaternion(), EulerRotation);
+				glm::vec3 Position = Iterator->GetPosition();
 
 				// Write object update
 				ReplayFile.write((char *)&Iterator->GetID(), sizeof(Iterator->GetID()));
-				ReplayFile.write((char *)Iterator->GetPosition(), sizeof(dReal) * 3);
+				ReplayFile.write((char *)&Position[0], sizeof(dReal) * 3);
 				ReplayFile.write((char *)&EulerRotation[0], sizeof(dReal) * 3);
 				Iterator->WroteReplayPacket();
 			}

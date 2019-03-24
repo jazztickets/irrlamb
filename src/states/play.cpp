@@ -176,7 +176,7 @@ void _PlayState::ResetLevel() {
 	Player->SetCamera(Camera);
 
 	// Record camera in replay
-	const dReal *Position = Player->GetPosition();
+	glm::vec3 Position = Player->GetPosition();
 	Camera->Update(core::vector3df(Position[0], Position[1], Position[2]));
 	Camera->RecordReplay();
 
@@ -369,7 +369,7 @@ void _PlayState::Update(float FrameTime) {
 		ObjectManager.EndFrame();
 
 		// Update audio
-		const dReal *Position = Player->GetPosition();
+		glm::vec3 Position = Player->GetPosition();
 		Audio.SetPosition(Position[0], Position[1], Position[2]);
 
 		// Update camera for replay

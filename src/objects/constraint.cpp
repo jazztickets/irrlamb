@@ -35,7 +35,7 @@ _Constraint::_Constraint(const _ConstraintSpawn &Object) :
 					dJointAttach(Joint, Object.BodyA->GetBody(), 0);
 					dJointSetHingeAxis(Joint, Template->ConstraintAxis[0], Template->ConstraintAxis[1], Template->ConstraintAxis[2]);
 
-					const dReal *Position = Object.BodyA->GetPosition();
+					glm::vec3 Position = Object.BodyA->GetPosition();
 					dJointSetHingeAnchor(Joint, Position[0], Position[1], Position[2]);
 				}
 			} break;
