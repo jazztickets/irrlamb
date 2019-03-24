@@ -38,7 +38,7 @@ class _ObjectManager {
 		void Update(float FrameTime);
 		void UpdateReplay(float FrameTime);
 		void UpdateFromReplay();
-		void InterpolatePositions(float BlendFactor);
+		void InterpolateOrientations(float BlendFactor);
 		void BeginFrame();
 		void EndFrame();
 

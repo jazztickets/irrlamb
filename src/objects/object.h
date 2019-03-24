@@ -23,6 +23,7 @@
 #include <ISceneNode.h>
 #include <string>
 #include <glm/vec3.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 // Forward Declarations
 struct _ObjectSpawn;
@@ -58,6 +59,7 @@ class _Object {
 		virtual void Update(float FrameTime);
 		void BeginFrame();
 		virtual void EndFrame();
+		void InterpolateOrientation(float BlendFactor);
 
 		// Replays
 		virtual void UpdateReplay(float FrameTime);
@@ -82,11 +84,11 @@ class _Object {
 		void SetPosition(const glm::vec3 &Position);
 		virtual void SetPositionFromReplay(const irr::core::vector3df &Position);
 		const dReal *GetPosition() const;
-		const dReal *GetGraphicsPosition() const { return dBodyGetPosition(Body); }
+		const glm::vec3 &GetDrawPosition() const { return DrawPosition; }
 
 		void SetRotation(const dMatrix3 Rotation) { dBodySetRotation(Body, Rotation); }
-		void SetQuaternion(const dQuaternion Quaternion);
-		const dReal *GetRotation() const { return dBodyGetQuaternion(Body); }
+		void SetQuaternion(const glm::quat &Quaternion);
+		glm::quat GetQuaternion();
 
 		void SetLinearVelocity(const glm::vec3 &Velocity) { dBodySetLinearVel(Body, Velocity[0], Velocity[1], Velocity[2]); }
 		const dReal *GetLinearVelocity() { return dBodyGetLinearVel(Body); }
@@ -121,9 +123,11 @@ class _Object {
 
 		// Physics and graphics
 		irr::scene::ISceneNode *Node;
+		glm::vec3 LastPosition;
+		glm::quat LastRotation;
+		glm::vec3 DrawPosition;
 		dBodyID Body;
 		dGeomID Geometry;
-		//btTransform LastOrientation;
 
 		// Replays
 		bool NeedsReplayPacket;

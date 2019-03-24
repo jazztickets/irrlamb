@@ -378,7 +378,6 @@ void _PlayState::Update(float FrameTime) {
 
 		// Record input for replay
 		RecordInput();
-		Replay.ResetNextPacketTimer();
 
 		// Reset jump state
 		Jumped = false;
@@ -386,19 +385,16 @@ void _PlayState::Update(float FrameTime) {
 }
 
 // Interpolate object positions
-void _PlayState::UpdateRender(float TimeStepRemainder) {
+void _PlayState::UpdateRender(float BlendFactor) {
 	if(Resetting)
 		return;
 
-	if(!IsPaused()) {
-		/*
-		Physics.GetWorld()->setTimeStepRemainder(TimeStepRemainder);
-		Physics.GetWorld()->synchronizeMotionStates();
+	//Log.Write("%f\n", BlendFactor);
 
-		// Set camera position
-		glm::vec3 Position = Player->GetGraphicsPosition();
-		Camera->Update(core::vector3df(Position[0], Position[1], Position[2]));
-		*/
+	if(!IsPaused()) {
+		ObjectManager.InterpolateOrientations(BlendFactor);
+		glm::vec3 DrawPosition = Player->GetDrawPosition();
+		Camera->Update(core::vector3df(DrawPosition[0], DrawPosition[1], DrawPosition[2]));
 	}
 }
 

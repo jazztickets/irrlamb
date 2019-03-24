@@ -83,7 +83,7 @@ _ObjectSpawn::_ObjectSpawn() {
 // Get rotation from Quaternion if it exists
 void _ObjectSpawn::CalculateRotation() {
 	if(HasQuaternion) {
-		Physics.QuaternionToEuler(&Quaternion[0], &Rotation[0]);
+		Physics.QuaternionToEuler(Quaternion, &Rotation[0]);
 	}
 }
 

@@ -237,7 +237,7 @@ void _Framework::Update() {
 				TimeStepAccumulator -= TimeStep;
 			}
 
-			State->UpdateRender(TimeStepAccumulator * TimeScale);
+			State->UpdateRender(TimeStepAccumulator / TimeStep);
 		break;
 		case STATE_CLOSE:
 			if(Fader.IsDoneFading()) {

@@ -33,7 +33,6 @@ void _Replay::StartRecording() {
 
 	// Set up state
 	State = STATE_RECORDING;
-	NextPacketTime = 1.0f;
 	Time = 0;
 
 	// Get header information
@@ -234,21 +233,12 @@ void _Replay::WriteChunk(std::fstream &OutFile, char Type, const char *Data, uin
 // Updates the replay timer
 void _Replay::Update(float FrameTime) {
 	Time += FrameTime;
-	NextPacketTime += FrameTime;
 }
 
 // Determines if a packet is required
 bool _Replay::NeedsPacket() {
 
-	return false;
-	//return State == STATE_RECORDING;
-}
-
-// Resets the next packet timer
-void _Replay::ResetNextPacketTimer() {
-
-	if(NeedsPacket())
-		NextPacketTime = 0;
+	return State == STATE_RECORDING;
 }
 
 // Starts replay

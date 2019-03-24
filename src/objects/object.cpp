@@ -36,6 +36,9 @@ _Object::_Object(const _Template *Template)
 	Timer(0.0f),
 	Lifetime(0.0f),
 	Node(nullptr),
+	LastPosition(0.0f, 0.0f, 0.0f),
+	LastRotation(1.0f, 0.0f, 0.0f, 0.0f),
+	DrawPosition(0.0f, 0.0f, 0.0f),
 	Body(nullptr),
 	Geometry(nullptr),
 	NeedsReplayPacket(false),
@@ -65,7 +68,7 @@ void _Object::PrintOrientation() {
 		return;
 
 	// Get rigid body state
-	const dReal *Quaternion = GetRotation();
+	glm::quat Quaternion = GetQuaternion();
 	const dReal *Position = GetPosition();
 	const dReal *LinearVelocity = GetLinearVelocity();
 	const dReal *AngularVelocity = GetAngularVelocity();
@@ -104,20 +107,6 @@ void _Object::Update(float FrameTime) {
 	// Check for expiration
 	if(Lifetime > 0.0f && Timer > Lifetime)
 		Deleted = true;
-
-	// Update transform
-	if(Node && Body) {
-
-		// Set position
-		const dReal *Position = GetPosition();
-		Node->setPosition(core::vector3df(Position[0], Position[1], Position[2]));
-
-		// Rotation
-		const dReal *Quaternion = GetRotation();
-		dReal EulerRotation[3];
-		Physics.QuaternionToEuler(Quaternion, EulerRotation);
-		Node->setRotation(core::vector3df(EulerRotation[0], EulerRotation[1], EulerRotation[2]));
-	}
 }
 
 // Updates while replaying
@@ -141,7 +130,7 @@ void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 		glm::quat QuaternionRotation = Object.Quaternion;
 		if(!Object.HasQuaternion)
 			QuaternionRotation = glm::quat(glm::vec3(Object.Rotation[2], Object.Rotation[1], Object.Rotation[0]) * core::DEGTORAD);
-		SetQuaternion(&QuaternionRotation[0]);
+		SetQuaternion(QuaternionRotation);
 		SetPosition(Object.Position);
 	}
 
@@ -152,7 +141,7 @@ void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 			// Use quaternion if available
 			glm::vec3 Rotation;
 			if(Object.HasQuaternion)
-				Physics.QuaternionToEuler(&Object.Quaternion[0], &Rotation[0]);
+				Physics.QuaternionToEuler(Object.Quaternion, &Rotation[0]);
 			else
 				Rotation = Object.Rotation;
 
@@ -192,12 +181,48 @@ void _Object::SetProperties(const _ConstraintSpawn &Object) {
 	Lifetime = Template->Lifetime;
 }
 
+// Interpolate between last and current orientation
+void _Object::InterpolateOrientation(float BlendFactor) {
+	if(!Node)
+		return;
+
+	// Get current position
+	const dReal *Position = GetPosition();
+	if(!Position)
+		return;
+
+	glm::vec3 CurrentPosition(Position[0], Position[1], Position[2]);
+
+	// Get current rotation
+	glm::quat CurrentRotation = GetQuaternion();
+
+	// Set node position
+	DrawPosition = CurrentPosition * BlendFactor + LastPosition * (1.0f - BlendFactor);
+	Node->setPosition(core::vector3df(DrawPosition[0], DrawPosition[1], DrawPosition[2]));
+
+	// Set node rotation
+	glm::quat DrawRotation = glm::mix(LastRotation, CurrentRotation, BlendFactor);
+	core::vector3df EulerRotation;
+	Physics.QuaternionToEuler(DrawRotation, &EulerRotation.X);
+	Node->setRotation(EulerRotation);
+}
+
 // Stops the body's movement
 void _Object::Stop() {
 	if(Body) {
 		dBodySetLinearVel(Body, 0.0f, 0.0f, 0.0f);
 		dBodySetAngularVel(Body, 0.0f, 0.0f, 0.0f);
 	}
+}
+
+// Get object position
+const dReal *_Object::GetPosition() const {
+	if(Body)
+		return dBodyGetPosition(Body);
+	else if(Geometry)
+		return dGeomGetPosition(Geometry);
+
+	return nullptr;
 }
 
 // Sets the position of the object
@@ -207,15 +232,34 @@ void _Object::SetPosition(const glm::vec3 &Position) {
 	else if(Geometry)
 		dGeomSetPosition(Geometry, Position[0], Position[1], Position[2]);
 
-	//LastOrientation.setOrigin(Position);
+	LastPosition = Position;
 }
 
 // Set rotation from quaternion
-void _Object::SetQuaternion(const dQuaternion Quaternion) {
+void _Object::SetQuaternion(const glm::quat &Quaternion) {
 	if(Body)
-		dBodySetQuaternion(Body, Quaternion);
+		dBodySetQuaternion(Body, &Quaternion[0]);
 	else if(Geometry)
-		dGeomSetQuaternion(Geometry, Quaternion);
+		dGeomSetQuaternion(Geometry, &Quaternion[0]);
+
+	LastRotation = Quaternion;
+}
+
+// Get rotation
+glm::quat _Object::GetQuaternion() {
+	glm::quat Quaternion;
+	if(Body) {
+		const dReal *Rotation = dBodyGetQuaternion(Body);
+		Quaternion[0] = Rotation[0];
+		Quaternion[1] = Rotation[1];
+		Quaternion[2] = Rotation[2];
+		Quaternion[3] = Rotation[3];
+	}
+	else if(Geometry) {
+		dGeomGetQuaternion(Geometry, &Quaternion[0]);
+	}
+
+	return Quaternion;
 }
 
 // Collision callback
@@ -240,9 +284,14 @@ void _Object::HandleCollision(_Object *OtherObject, const dReal *Normal, float N
 // Resets the object state before the frame begins
 void _Object::BeginFrame() {
 	TouchingGround = TouchingWall = false;
-	//if(RigidBody) {
-		//LastOrientation = RigidBody->getWorldTransform();
-	//}
+	if(Body || Geometry) {
+		const dReal *Position = GetPosition();
+		LastPosition[0] = Position[0];
+		LastPosition[1] = Position[1];
+		LastPosition[2] = Position[2];
+
+		LastRotation = GetQuaternion();
+	}
 }
 
 // Determines if the object moved
@@ -259,14 +308,4 @@ void _Object::SetPositionFromReplay(const irr::core::vector3df &Position) {
 	if(Node) {
 		Node->setPosition(Position);
 	}
-}
-
-// Get object position
-const dReal *_Object::GetPosition() const {
-	if(Body)
-		return dBodyGetPosition(Body);
-	else if(Geometry)
-		return dGeomGetPosition(Geometry);
-
-	return nullptr;
 }

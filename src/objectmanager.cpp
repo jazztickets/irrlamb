@@ -154,7 +154,7 @@ void _ObjectManager::EndFrame() {
 			// Save the replay
 			if(Iterator->ReadyForReplayUpdate()) {
 				dReal EulerRotation[3];
-				Physics.QuaternionToEuler(Iterator->GetRotation(), EulerRotation);
+				Physics.QuaternionToEuler(Iterator->GetQuaternion(), EulerRotation);
 
 				// Write object update
 				ReplayFile.write((char *)&Iterator->GetID(), sizeof(Iterator->GetID()));
@@ -239,6 +239,13 @@ void _ObjectManager::UpdateFromReplay() {
 	}
 
 	//printf("ObjectIndex=%d\n", ObjectIndex);
+}
+
+// Interpolate between last and current orientation for every object
+void _ObjectManager::InterpolateOrientations(float BlendFactor) {
+
+	for(auto &Iterator : Objects)
+		Iterator->InterpolateOrientation(BlendFactor);
 }
 
 // Returns an object by an index, nullptr if no such index

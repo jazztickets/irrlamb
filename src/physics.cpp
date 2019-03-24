@@ -109,6 +109,7 @@ int _Physics::Init() {
 	World = dWorldCreate();
 	Space = dHashSpaceCreate(0);
 	dWorldSetGravity(World, 0, -9.81, 0);
+	//dWorldSetGravity(World, 0, 0, 0);
 	//dWorldSetCFM(World, 1e-5);
 	dWorldSetCFM(World, 0);
 	ContactGroup = dJointGroupCreate(0);
@@ -187,11 +188,11 @@ void _Physics::RemoveFilter(int &Value, int Filter) {
 }
 
 // Converts a quaternion to an euler angle
-void _Physics::QuaternionToEuler(const float *Quat, float *Euler) {
-	float W = Quat[0];
-	float X = Quat[1];
-	float Y = Quat[2];
-	float Z = Quat[3];
+void _Physics::QuaternionToEuler(const glm::quat &Quaternion, float *Euler) {
+	float W = Quaternion[0];
+	float X = Quaternion[1];
+	float Y = Quaternion[2];
+	float Z = Quaternion[3];
 	float WSquared = W * W;
 	float XSquared = X * X;
 	float YSquared = Y * Y;

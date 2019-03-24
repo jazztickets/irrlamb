@@ -77,7 +77,6 @@ class _Replay {
 		bool IsRecording() const { return State == STATE_RECORDING; }
 		bool IsReplaying() const { return State == STATE_REPLAYING; }
 		bool NeedsPacket();
-		void ResetNextPacketTimer();
 
 		std::fstream &GetFile() { return File; }
 		void WriteEvent(uint8_t Type);
@@ -118,7 +117,7 @@ class _Replay {
 		std::fstream File;
 
 		// Time management
-		float Time, NextPacketTime;
+		float Time;
 
 		// State
 		StateType State;

@@ -46,7 +46,7 @@ class _PlayState : public _State {
 		void HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, irr::gui::IGUIElement *Element);
 
 		void Update(float FrameTime);
-		void UpdateRender(float TimeStepRemainder);
+		void UpdateRender(float BlendFactor);
 		void Draw();
 
 		bool IsPaused();

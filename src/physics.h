@@ -18,6 +18,7 @@
 #pragma once
 #include <ode/common.h>
 #include <glm/vec3.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 // Classes
 class _Physics {
@@ -48,7 +49,7 @@ class _Physics {
 		bool IsEnabled() const { return Enabled; }
 		void RemoveFilter(int &Value, int Filter);
 
-		void QuaternionToEuler(const float *Quat, float *Euler);
+		void QuaternionToEuler(const glm::quat &Quaternion, float *Euler);
 
 	private:
 
