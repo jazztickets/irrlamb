@@ -50,24 +50,11 @@ _Object::~_Object() {
 	if(Node)
 		Node->remove();
 
-	// Delete rigid body
-	if(Body) {
+	// Delete body
+	if(Body)
 		dBodyDestroy(Body);
 
-		//Physics.GetWorld();
-		/*
-		Physics.GetWorld()->removeRigidBody(RigidBody);
-		if(Importer) {
-			Importer->deleteAllData();
-			delete Importer;
-		}
-		else
-			delete RigidBody->getCollisionShape();
-
-		delete RigidBody;
-		*/
-	}
-
+	// Delete geometry
 	if(Geometry)
 		dGeomDestroy(Geometry);
 }
@@ -108,16 +95,6 @@ void _Object::CreateRigidBody(const _ObjectSpawn &Object, dGeomID Geometry, bool
 	// Disable body
 	if(Template->Sleep)
 		dBodyDisable(Body);
-
-	/*
-
-	// Create body
-	RigidBody = new btRigidBody(Template->Mass, this, Shape, LocalInertia);
-	RigidBody->setFriction(Template->Friction);
-	RigidBody->setRestitution(Template->Restitution);
-	RigidBody->setDamping(Template->LinearDamping, Template->AngularDamping);
-	RigidBody->setSleepingThresholds(0.2f, 0.2f);
-	*/
 }
 
 // Updates the object
@@ -194,8 +171,12 @@ void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 	if(Body)
 		dBodySetData(Body, this);
 
-	if(Geometry)
+	// Set geometry data
+	if(Geometry) {
 		dGeomSetData(Geometry, this);
+		dGeomSetCategoryBits(Geometry, Template->CollisionGroup);
+		dGeomSetCollideBits(Geometry, Template->CollisionMask);
+	}
 
 	// Collision
 	CollisionCallback = Template->CollisionCallback;
@@ -239,20 +220,21 @@ void _Object::SetQuaternion(const dQuaternion Quaternion) {
 
 // Collision callback
 void _Object::HandleCollision(_Object *OtherObject, const dReal *Normal, float NormalScale) {
-	//if(!OtherObject)
-	//	return;
+	if(!OtherObject)
+		return;
 
 	// Get touching states
-	//if(OtherObject->GetType() != ZONE) {
+	if(OtherObject->GetType() != ZONE) {
 		float NormalY = Normal[1] * NormalScale;
 		if(NormalY > 0.6f)
 			TouchingGround = true;
 		if(NormalY < 0.7f && NormalY > -0.7f)
 			TouchingWall = true;
-	//}
+	}
 
-	//if(CollisionCallback.size())
-	//	Scripting.CallCollisionHandler(CollisionCallback, this, OtherObject);
+	// Call collision handler
+	if(CollisionCallback.size())
+		Scripting.CallCollisionHandler(CollisionCallback, this, OtherObject);
 }
 
 // Resets the object state before the frame begins
@@ -277,4 +259,14 @@ void _Object::SetPositionFromReplay(const irr::core::vector3df &Position) {
 	if(Node) {
 		Node->setPosition(Position);
 	}
+}
+
+// Get object position
+const dReal *_Object::GetPosition() const {
+	if(Body)
+		return dBodyGetPosition(Body);
+	else if(Geometry)
+		return dGeomGetPosition(Geometry);
+
+	return nullptr;
 }

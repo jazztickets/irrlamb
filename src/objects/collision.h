@@ -21,9 +21,6 @@
 #include <objects/object.h>
 #include <ode/collision_trimesh.h>
 
-// Forward Declarations
-class btTriangleIndexVertexArray;
-
 // Classes
 class _Collision : public _Object {
 

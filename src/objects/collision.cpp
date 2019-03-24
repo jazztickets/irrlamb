@@ -81,6 +81,8 @@ _Collision::_Collision(const _ObjectSpawn &Object) :
 		dGeomTriMeshDataBuildSingle1(TriMeshData, VertexList, 3 * sizeof(float), VertexCount, FaceList, FaceIndex, 3 * sizeof(dTriIndex), nullptr);
 		Geometry = dCreateTriMesh(Physics.GetSpace(), TriMeshData, 0, 0, 0);
 	}
+
+	SetProperties(Object, false);
 }
 
 // Destructor

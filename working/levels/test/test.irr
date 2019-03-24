@@ -20,6 +20,24 @@
          <colorf name="BackgroundColor" value="0.050876, 0.050876, 0.050876, 1"/>
       </attributes>
    </userData>
+   <node type="empty">
+      <attributes>
+         <string name="Name" value="zone_test"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="-3, 0, 0"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="1, 1, 4"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
    <node type="mesh">
       <attributes>
          <string name="Name" value="test"/>
@@ -27,7 +45,7 @@
          <bool name="Visible" value="true"/>
          <vector3d name="Position" value="0, 0, 0"/>
          <vector3d name="Rotation" value="0, 0, 0"/>
-         <vector3d name="Scale" value="4, 4, 4"/>
+         <vector3d name="Scale" value="1, 1, 1"/>
          <enum name="AutomaticCulling" value="frustum_box"/>
          <bool name="DebugDataVisible" value="false"/>
          <bool name="IsDebugObject" value="false"/>

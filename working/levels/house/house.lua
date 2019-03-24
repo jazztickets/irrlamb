@@ -100,7 +100,6 @@ function OnHitZone(HitType, Zone, HitObject)
 	-- Get object attributes
 	ZoneName = Object.GetName(Zone)
 	HitName = Object.GetName(HitObject)
-	X, Y, Z = Object.GetPosition(Zone)
 
 	-- Handle collision
 	if HitObject == Player then

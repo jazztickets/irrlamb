@@ -9,7 +9,7 @@ end
 -- Display zone message
 function OnHitZone(HitType, Zone, HitObject)
 
-	print(HitType .. " " .. Object.GetName(Zone))
+	print(HitType .. " " .. Object.GetName(Zone) .. " vs " .. Object.GetName(HitObject))
 
 	return 0
 end

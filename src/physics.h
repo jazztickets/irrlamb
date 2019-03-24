@@ -28,9 +28,8 @@ class _Physics {
 			FILTER_NONE			= 0x0,
 			FILTER_RIGIDBODY	= 0x1,
 			FILTER_STATIC		= 0x2,
-			FILTER_KINEMATIC	= 0x4,
-			FILTER_CAMERA		= 0x8,
-			FILTER_ZONE			= 0x10,
+			FILTER_CAMERA		= 0x4,
+			FILTER_ZONE			= 0x8,
 		};
 
 		int Init();

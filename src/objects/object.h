@@ -81,7 +81,7 @@ class _Object {
 
 		void SetPosition(const glm::vec3 &Position);
 		virtual void SetPositionFromReplay(const irr::core::vector3df &Position);
-		const dReal *GetPosition() const { return dBodyGetPosition(Body); }
+		const dReal *GetPosition() const;
 		const dReal *GetGraphicsPosition() const { return dBodyGetPosition(Body); }
 
 		void SetRotation(const dMatrix3 Rotation) { dBodySetRotation(Body, Rotation); }

@@ -29,8 +29,10 @@ _Template::_Template() {
 
 	// Collisions
 	CollisionCallback = "";
+	//CollisionGroup = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_CAMERA;
+	//CollisionMask = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_STATIC | _Physics::FILTER_ZONE;
 	CollisionGroup = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_CAMERA;
-	CollisionMask = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_STATIC | _Physics::FILTER_KINEMATIC | _Physics::FILTER_ZONE;
+	CollisionMask = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_STATIC;
 
 	// Physical properties
 	Sleep = 0;

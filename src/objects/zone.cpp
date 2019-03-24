@@ -20,6 +20,7 @@
 #include <physics.h>
 #include <scripting.h>
 #include <objects/template.h>
+#include <ode/collision.h>
 
 // Constructor
 _Zone::_Zone(const _ObjectSpawn &Object)
@@ -29,17 +30,9 @@ _Zone::_Zone(const _ObjectSpawn &Object)
 
 	// Set up physics
 	if(Physics.IsEnabled()) {
-/*
-		// Create shape
-		glm::vec3 HalfExtents = Template->Shape * 0.5f;
-		btBoxShape *Shape = new btBoxShape(HalfExtents);
 
-		// Set up physics
-		CreateRigidBody(Object, Shape);
-
-		// Set collision flags
-		RigidBody->setCollisionFlags(btCollisionObject::CF_NO_CONTACT_RESPONSE);
-		*/
+		// Create geometry
+		Geometry = dCreateBox(Physics.GetSpace(), Template->Shape[0], Template->Shape[1], Template->Shape[2]);
 	}
 
 	// Set common properties

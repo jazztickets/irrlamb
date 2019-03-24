@@ -226,6 +226,8 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 			_Template *Template = new _Template;
 			Template->CollisionFile = DataPath + File;
 			Template->Type = _Object::COLLISION;
+			Template->CollisionGroup = _Physics::FILTER_STATIC | _Physics::FILTER_CAMERA;
+			Template->CollisionMask = _Physics::FILTER_RIGIDBODY;
 			Template->Mass = 0.0f;
 			Templates.push_back(Template);
 
@@ -318,7 +320,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 		Template->Type = _Object::ZONE;
 		Template->Mass = 0.0f;
 		Template->CollisionGroup = _Physics::FILTER_ZONE;
-		Template->CollisionMask = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_KINEMATIC;
+		Template->CollisionMask = _Physics::FILTER_RIGIDBODY;
 		Template->Shape[0] = std::abs(MeshNodes[i]->getScale().X * 2);
 		Template->Shape[1] = std::abs(MeshNodes[i]->getScale().Y * 2);
 		Template->Shape[2] = std::abs(MeshNodes[i]->getScale().Z * 2);
@@ -530,7 +532,7 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 		Object.Type = _Object::ZONE;
 		Object.Mass = 0.0f;
 		Object.CollisionGroup = _Physics::FILTER_ZONE;
-		Object.CollisionMask = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_KINEMATIC;
+		Object.CollisionMask = _Physics::FILTER_RIGIDBODY;
 	}
 	else if(ObjectType == "d6") {
 		Object.Type = _Object::CONSTRAINT_D6;
@@ -539,12 +541,10 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 		Object.Type = _Object::CONSTRAINT_HINGE;
 	}
 
-	// If a rigidbody's mass is zero, set group to static
-	if(Object.Mass == 0.0f && Object.CollisionGroup == _Physics::FILTER_RIGIDBODY) {
+	// If a body's mass is zero, set group to static
+	if(Object.Mass == 0.0f && (Object.CollisionGroup & _Physics::FILTER_RIGIDBODY)) {
 		Object.CollisionGroup = _Physics::FILTER_STATIC | _Physics::FILTER_CAMERA;
-
-		// Prevent collision with other static object
-		Physics.RemoveFilter(Object.CollisionMask, _Physics::FILTER_STATIC);
+		Object.CollisionMask = 0;
 	}
 
 	return 1;

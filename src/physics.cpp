@@ -47,10 +47,6 @@ static void RayCallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 		else if(dGeomGetClass(Geometry2) != dRayClass)
 			Object = (_Object *)dGeomGetData(Geometry2);
 
-		// Check collision group
-		if(Object && Object->GetTemplate() && !(Object->GetTemplate()->CollisionGroup & _Physics::FILTER_CAMERA))
-			return;
-
 		// Check depth against current closest hit
 		if(Contacts[0].geom.depth < HitPosition[3]) {
 			HitPosition[0] = Contacts[0].geom.pos[0];
@@ -69,27 +65,44 @@ static void ODECallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 	dContact Contacts[MAX_CONTACTS];
 	int Count = dCollide(Geometry1, Geometry2, MAX_CONTACTS, &Contacts[0].geom, sizeof(dContact));
 	for(int i = 0; i < Count; i++) {
-		Contacts[i].surface.mode = dContactBounce | dContactApprox1 | dContactSoftCFM;
-		Contacts[i].surface.mu = 1;
-		Contacts[i].surface.bounce = 0.9;
-		Contacts[i].surface.bounce_vel = 0.1;
-		Contacts[i].surface.soft_cfm = 0.001;
 
-		dJointID Joint = dJointCreateContact(Physics.GetWorld(), Physics.GetContactGroup(), &Contacts[i]);
-		dJointAttach(Joint, Body1, Body2);
-
-		_Object *ObjectA = nullptr;
-		_Object *ObjectB = nullptr;
+		// Get objects
+		_Object *Object1 = nullptr;
 		if(Body1)
-			ObjectA = static_cast<_Object *>(dBodyGetData(Body1));
+			Object1 = (_Object *)dBodyGetData(Body1);
+		else if(Geometry1)
+			Object1 = (_Object *)dGeomGetData(Geometry1);
+
+		_Object *Object2 = nullptr;
 		if(Body2)
-			ObjectB = static_cast<_Object *>(dBodyGetData(Body2));
+			Object2 = (_Object *)dBodyGetData(Body2);
+		else if(Geometry2)
+			Object2 = (_Object *)dGeomGetData(Geometry2);
 
-		if(ObjectA)
-			ObjectA->HandleCollision(ObjectB, Contacts[i].geom.normal, 1);
+		// Check collision groups
+		//if(!(Object1->GetTemplate()->CollisionGroup & Object2->GetTemplate()->CollisionMask))
+		//	continue;
 
-		if(ObjectB)
-			ObjectB->HandleCollision(ObjectA, Contacts[i].geom.normal, -1);
+		bool Response = true;
+		if(Object1->GetTemplate()->CollisionGroup & _Physics::FILTER_ZONE || Object2->GetTemplate()->CollisionGroup & _Physics::FILTER_ZONE)
+			Response = false;
+
+		if(Response) {
+			Contacts[i].surface.mode = 0;//dContactBounce | dContactApprox1 | dContactSoftCFM;
+			Contacts[i].surface.mu = dInfinity;
+			Contacts[i].surface.bounce = 0.0;
+			Contacts[i].surface.bounce_vel = 0.0;
+			Contacts[i].surface.soft_cfm = 0.000;
+
+			dJointID Joint = dJointCreateContact(Physics.GetWorld(), Physics.GetContactGroup(), &Contacts[i]);
+			dJointAttach(Joint, Body1, Body2);
+		}
+
+		if(Object1)
+			Object1->HandleCollision(Object2, Contacts[i].geom.normal, 1);
+
+		if(Object2)
+			Object2->HandleCollision(Object1, Contacts[i].geom.normal, -1);
 	}
 }
 
@@ -104,7 +117,8 @@ int _Physics::Init() {
 	World = dWorldCreate();
 	Space = dHashSpaceCreate(0);
 	dWorldSetGravity(World, 0, -9.81, 0);
-	dWorldSetCFM(World, 1e-5);
+	//dWorldSetCFM(World, 1e-5);
+	dWorldSetCFM(World, 0);
 	ContactGroup = dJointGroupCreate(0);
 
 	Enabled = false;
@@ -150,8 +164,10 @@ bool _Physics::RaycastWorld(const glm::vec3 &Start, glm::vec3 &End) {
 		glm::vec3 Direction = (End - Start) / Length;
 
 		// Create ray
-		dGeomID Ray = dCreateRay(Space, Length);
+		dGeomID Ray = dCreateRay(0, Length);
 		dGeomRaySet(Ray, Start[0], Start[1], Start[2], Direction[0], Direction[1], Direction[2]);
+		dGeomSetCategoryBits(Ray, 0);
+		dGeomSetCollideBits(Ray, _Physics::FILTER_CAMERA);
 
 		// Check collisions
 		dReal HitPosition[4] = { 0, 0, 0, dInfinity };
