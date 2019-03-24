@@ -212,9 +212,7 @@ void _Object::Stop() {
 // Get object position
 glm::vec3 _Object::GetPosition() const {
 	const dReal *Position = nullptr;
-	if(Body)
-		Position = dBodyGetPosition(Body);
-	else if(Geometry)
+	if(Geometry)
 		Position = dGeomGetPosition(Geometry);
 
 	if(!Position)
@@ -225,9 +223,7 @@ glm::vec3 _Object::GetPosition() const {
 
 // Sets the position of the object
 void _Object::SetPosition(const glm::vec3 &Position) {
-	if(Body)
-		dBodySetPosition(Body, Position[0], Position[1], Position[2]);
-	else if(Geometry)
+	if(Geometry)
 		dGeomSetPosition(Geometry, Position[0], Position[1], Position[2]);
 
 	LastPosition = Position;
@@ -235,9 +231,7 @@ void _Object::SetPosition(const glm::vec3 &Position) {
 
 // Set rotation from quaternion
 void _Object::SetQuaternion(const glm::quat &Quaternion) {
-	if(Body)
-		dBodySetQuaternion(Body, &Quaternion[0]);
-	else if(Geometry)
+	if(Geometry)
 		dGeomSetQuaternion(Geometry, &Quaternion[0]);
 
 	LastRotation = Quaternion;
@@ -246,16 +240,8 @@ void _Object::SetQuaternion(const glm::quat &Quaternion) {
 // Get rotation
 glm::quat _Object::GetQuaternion() {
 	glm::quat Quaternion;
-	if(Body) {
-		const dReal *Rotation = dBodyGetQuaternion(Body);
-		Quaternion[0] = Rotation[0];
-		Quaternion[1] = Rotation[1];
-		Quaternion[2] = Rotation[2];
-		Quaternion[3] = Rotation[3];
-	}
-	else if(Geometry) {
+	if(Geometry)
 		dGeomGetQuaternion(Geometry, &Quaternion[0]);
-	}
 
 	return Quaternion;
 }

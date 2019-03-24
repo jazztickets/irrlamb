@@ -36,7 +36,7 @@
 #include <objects/cylinder.h>
 #include <objects/terrain.h>
 #include <objects/zone.h>
-#include <objects/collision.h>
+#include <objects/trimesh.h>
 #include <objects/constraint.h>
 #include <tinyxml2.h>
 #include <ISceneManager.h>
@@ -626,7 +626,7 @@ _Object *_Level::CreateObject(const _ObjectSpawn &Object) {
 			NewObject = ObjectManager.AddObject(new _Orb(Object));
 		break;
 		case _Object::COLLISION:
-			NewObject = ObjectManager.AddObject(new _Collision(Object));
+			NewObject = ObjectManager.AddObject(new _Trimesh(Object));
 		break;
 		case _Object::SPHERE:
 			NewObject = ObjectManager.AddObject(new _Sphere(Object));

@@ -163,7 +163,7 @@ bool _Physics::RaycastWorld(const glm::vec3 &Start, glm::vec3 &End) {
 		dGeomSetCollideBits(Ray, _Physics::FILTER_CAMERA);
 
 		// Check collisions
-		dReal HitPosition[4] = { 0, 0, 0, dInfinity };
+		dVector4 HitPosition = { 0, 0, 0, dInfinity };
 		dSpaceCollide2(Ray, (dGeomID)Space, HitPosition, &RayCallback);
 
 		// Cleanup

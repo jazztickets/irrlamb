@@ -22,12 +22,12 @@
 #include <ode/collision_trimesh.h>
 
 // Classes
-class _Collision : public _Object {
+class _Trimesh : public _Object {
 
 	public:
 
-		_Collision(const _ObjectSpawn &Object);
-		~_Collision();
+		_Trimesh(const _ObjectSpawn &Object);
+		~_Trimesh();
 
 	protected:
 

@@ -15,15 +15,15 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <objects/collision.h>
+#include <objects/trimesh.h>
 #include <physics.h>
 #include <globals.h>
 #include <objects/template.h>
-#include <fstream>
 #include <ode/collision.h>
+#include <fstream>
 
 // Constructor
-_Collision::_Collision(const _ObjectSpawn &Object) :
+_Trimesh::_Trimesh(const _ObjectSpawn &Object) :
 	_Object(Object.Template),
 	TriMeshData(nullptr),
 	VertexList(nullptr),
@@ -86,7 +86,7 @@ _Collision::_Collision(const _ObjectSpawn &Object) :
 }
 
 // Destructor
-_Collision::~_Collision() {
+_Trimesh::~_Trimesh() {
 
 	dGeomTriMeshDataDestroy(TriMeshData);
 	delete[] VertexList;
