@@ -22,7 +22,7 @@
 		<cylinder name="salt">
 			<mesh file="shaker.irrbmesh" scale="1" />
 			<shape w="1" h="2" />
-			<physics mass="0.25" />
+			<physics mass="0.25" sleep="1" />
 			<texture file="salt0.png" />
 		</cylinder>
 		<cylinder name="pepper">
@@ -40,7 +40,7 @@
 		<sphere name="ball">
 			<mesh file="soccer.irrbmesh" scale="1" shadows="0" />
 			<shape r="1" />
-			<physics mass="1.5" />
+			<physics mass="1.5" sleep="1" />
 			<texture file="fabric0.jpg" />
 		</sphere>
 		<sphere name="alan">
@@ -78,11 +78,11 @@
 		</object>
 		<object name="salt" template="salt">
 			<position x="-30.9444" y="23.146900" z="15" />
-			<rotation x="90" y="-90" />
+			<rotation x="90" />
 		</object>
 		<object name="pepper" template="pepper">
 			<position x="-30.9444" y="23.146900" z="12" />
-			<rotation x="90" y="-90" />
+			<rotation x="90" />
 		</object>
 		<object name="soccer" template="soccer">
 			<position x="3.968141" y="51.899986" z="-58.486183" />
