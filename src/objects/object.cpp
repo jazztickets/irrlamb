@@ -183,7 +183,7 @@ void _Object::SetProperties(const _ConstraintSpawn &Object) {
 
 // Interpolate between last and current orientation
 void _Object::InterpolateOrientation(float BlendFactor) {
-	if(!Node)
+	if(!Node || !Body)
 		return;
 
 	// Get current orientation
