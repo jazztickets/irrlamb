@@ -12,7 +12,7 @@
 		<player name="player" />
 		<orb name="orb" />
 		<hinge name="constraint_z">
-			<axis y="1" />
+			<axis z="1" />
 		</hinge>
 		<cylinder name="log">
 			<mesh file="cylinder.irrbmesh" scale="5" />

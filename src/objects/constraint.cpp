@@ -19,35 +19,38 @@
 #include <globals.h>
 #include <physics.h>
 #include <objects/template.h>
+#include <ode/objects.h>
 
 // Constructor
-_Constraint::_Constraint(const _ConstraintSpawn &Object)
-:	_Object(Object.Template) {
+_Constraint::_Constraint(const _ConstraintSpawn &Object) :
+	_Object(Object.Template),
+	Joint(nullptr) {
 
-	// Attributes
+	// Create joint
 	if(Physics.IsEnabled()) {
-/*
 		switch(Template->Type) {
 			case CONSTRAINT_HINGE: {
 				if(Object.BodyA) {
-					Constraint = new btHingeConstraint(*Object.BodyA->GetBody(), Template->ConstraintData[0], Template->ConstraintData[1]);
-					Physics.GetWorld()->addConstraint(Constraint);
+					Joint = dJointCreateHinge(Physics.GetWorld(), 0);
+					dJointAttach(Joint, Object.BodyA->GetBody(), 0);
+					dJointSetHingeAxis(Joint, Template->ConstraintAxis[0], Template->ConstraintAxis[1], Template->ConstraintAxis[2]);
+
+					const dReal *Position = Object.BodyA->GetPosition();
+					dJointSetHingeAnchor(Joint, Position[0], Position[1], Position[2]);
 				}
 			} break;
 		}
-*/
-
 	}
 
+	// Set basic properties
 	SetProperties(Object);
+
+	// Set user data
+	if(Joint)
+		dJointSetData(Joint, this);
 }
 
 // Destructor
 _Constraint::~_Constraint() {
-
-	//if(Constraint) {
-		//Physics.GetWorld()->removeConstraint(Constraint);
-
-	//	delete Constraint;
-	//}
+	dJointDestroy(Joint);
 }

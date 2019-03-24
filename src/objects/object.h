@@ -95,6 +95,7 @@ class _Object {
 		const dReal *GetAngularVelocity() { return dBodyGetAngularVel(Body); }
 
 		irr::scene::ISceneNode *GetNode() { return Node; }
+		dBodyID GetBody() { return Body; }
 
 		virtual void HandleCollision(_Object *OtherObject, const dReal *Normal, float NormalScale);
 		bool IsTouchingGround() const { return TouchingGround; }

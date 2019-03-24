@@ -46,7 +46,7 @@ struct _Template {
 	float LinearDamping, AngularDamping;
 
 	// Constraints
-	glm::vec3 ConstraintData[4];
+	glm::vec3 ConstraintAxis;
 
 	// Graphics
 	std::string Mesh;

@@ -22,6 +22,7 @@
 
 // Forward Declarations
 struct _ConstraintSpawn;
+struct dxJoint;
 
 // Classes
 class _Constraint : public _Object {
@@ -34,6 +35,6 @@ class _Constraint : public _Object {
 	private:
 
 		// Attributes
-		//btTypedConstraint *Constraint;
+		dJointID Joint;
 
 };

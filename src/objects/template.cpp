@@ -46,8 +46,7 @@ _Template::_Template() {
 	AngularDamping = 0.3f;
 
 	// Constraints
-	for(int i = 0; i < 4; i++)
-		ConstraintData[i] = glm::vec3(0.0f, 0.0f, 0.0f);
+	ConstraintAxis = glm::vec3(0.0f, 0.0f, 0.0f);
 
 	// Textures
 	for(int i = 0; i < 4; i++)

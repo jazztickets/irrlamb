@@ -455,30 +455,12 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 		Element->QueryFloatAttribute("angular", &Object.AngularDamping);
 	}
 
-	// Get limits for constraints. 0-1 is linear, 2-3 is angular
-	Element = TemplateElement->FirstChildElement("limit");
-	if(Element) {
-		int Type = 0;
-		Element->QueryIntAttribute("type", &Type);
-		Element->QueryFloatAttribute("x", &Object.ConstraintData[Type][0]);
-		Element->QueryFloatAttribute("y", &Object.ConstraintData[Type][1]);
-		Element->QueryFloatAttribute("z", &Object.ConstraintData[Type][2]);
-	}
-
-	// Get pivot for constraints
-	Element = TemplateElement->FirstChildElement("pivot");
-	if(Element) {
-		Element->QueryFloatAttribute("x", &Object.ConstraintData[0][0]);
-		Element->QueryFloatAttribute("y", &Object.ConstraintData[0][1]);
-		Element->QueryFloatAttribute("z", &Object.ConstraintData[0][2]);
-	}
-
 	// Get axis for constraints
 	Element = TemplateElement->FirstChildElement("axis");
 	if(Element) {
-		Element->QueryFloatAttribute("x", &Object.ConstraintData[1][0]);
-		Element->QueryFloatAttribute("y", &Object.ConstraintData[1][1]);
-		Element->QueryFloatAttribute("z", &Object.ConstraintData[1][2]);
+		Element->QueryFloatAttribute("x", &Object.ConstraintAxis[0]);
+		Element->QueryFloatAttribute("y", &Object.ConstraintAxis[1]);
+		Element->QueryFloatAttribute("z", &Object.ConstraintAxis[2]);
 	}
 
 	// Get textures
