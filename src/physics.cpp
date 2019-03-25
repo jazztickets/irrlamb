@@ -25,6 +25,7 @@
 #include <ode/objects.h>
 #include <ode/collision.h>
 #include <ode/misc.h>
+#include <ode/odemath.h>
 #include <glm/geometric.hpp>
 
 const int MAX_CONTACTS = 32;
@@ -42,9 +43,7 @@ static void RayCallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 
 		// Check depth against current closest hit
 		if(Contacts[i].geom.depth < HitPosition[3]) {
-			HitPosition[0] = Contacts[i].geom.pos[0];
-			HitPosition[1] = Contacts[i].geom.pos[1];
-			HitPosition[2] = Contacts[i].geom.pos[2];
+			dCopyVector3(HitPosition, Contacts[i].geom.pos);
 			HitPosition[3] = Contacts[i].geom.depth;
 		}
 	}
@@ -79,11 +78,10 @@ static void ODECallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 
 		// Create contact joins
 		if(Response) {
-			Contacts[i].surface.mode = 0;//dContactBounce | dContactApprox1 | dContactSoftCFM;
-			Contacts[i].surface.mu = dInfinity;
-			Contacts[i].surface.bounce = 0.0;
-			Contacts[i].surface.bounce_vel = 0.0;
-			Contacts[i].surface.soft_cfm = 0.000;
+			Contacts[i].surface.mode = dContactRolling | dContactApprox1;
+			Contacts[i].surface.mu = 1;
+			Contacts[i].surface.rho = 0.01;
+			Contacts[i].surface.rho2 = 0.01;
 
 			dJointID Joint = dJointCreateContact(Physics.GetWorld(), Physics.GetContactGroup(), &Contacts[i]);
 			dJointAttach(Joint, Body1, Body2);
@@ -101,38 +99,57 @@ static void ODECallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 // Initialize the physics system
 int _Physics::Init() {
 
+	// Enable physics
+	Enabled = true;
+
 	// Initialize
 	dInitODE();
 	dRandSetSeed(0);
 
 	// Create world
 	World = dWorldCreate();
-	Space = dHashSpaceCreate(0);
 	dWorldSetGravity(World, 0, -9.81, 0);
-	//dWorldSetGravity(World, 0, 0, 0);
-	//dWorldSetCFM(World, 1e-5);
-	dWorldSetCFM(World, 0);
-	ContactGroup = dJointGroupCreate(0);
+	dWorldSetCFM(World, 1e-5);
+	//dWorldSetCFM(World, 0);
+	dWorldSetERP(World, 0.2);
 
-	Enabled = false;
+	// Create space
+	Space = dHashSpaceCreate(0);
+
+	// Create contact group
+	ContactGroup = dJointGroupCreate(0);
 
 	return 1;
 }
 
 // Close the physics system
 int _Physics::Close() {
+	if(!Enabled)
+		return 0;
 
-	dJointGroupDestroy(ContactGroup);
-	dSpaceDestroy(Space);
-	dWorldDestroy(World);
+	// Free contact group
+	if(ContactGroup)
+		dJointGroupDestroy(ContactGroup);
+
+	// Free space
+	if(Space)
+		dSpaceDestroy(Space);
+
+	// Free world
+	if(World)
+		dWorldDestroy(World);
+
+	// Close ODE
 	dCloseODE();
+
+	// Disable physics
+	Enabled = false;
 
 	return 1;
 }
 
 // Updates the physics system
 void _Physics::Update(float FrameTime) {
-
 	if(Enabled) {
 		dSpaceCollide(Space, 0, &ODECallback);
 		dWorldQuickStep(World, FrameTime);
@@ -171,9 +188,7 @@ bool _Physics::RaycastWorld(const glm::vec3 &Start, glm::vec3 &End) {
 
 		// Check for hit
 		if(HitPosition[3] != dInfinity) {
-			End[0] = HitPosition[0];
-			End[1] = HitPosition[1];
-			End[2] = HitPosition[2];
+			dCopyVector3(&End[0], HitPosition);
 
 			return true;
 		}
@@ -198,7 +213,7 @@ void _Physics::QuaternionToEuler(const glm::quat &Quaternion, float *Euler) {
 	float YSquared = Y * Y;
 	float ZSquared = Z * Z;
 
-	Euler[0] = irr::core::RADTODEG * (atan2f(2.0f * (Y * Z + X * W), -XSquared - YSquared + ZSquared + WSquared));
-	Euler[1] = irr::core::RADTODEG * (asinf(-2.0f * (X * Z - Y * W)));
-	Euler[2] = irr::core::RADTODEG * (atan2f(2.0f * (X * Y + Z * W), XSquared - YSquared - ZSquared + WSquared));
+	Euler[0] = glm::degrees((atan2f(2.0f * (Y * Z + X * W), -XSquared - YSquared + ZSquared + WSquared)));
+	Euler[1] = glm::degrees((asinf(-2.0f * (X * Z - Y * W))));
+	Euler[2] = glm::degrees((atan2f(2.0f * (X * Y + Z * W), XSquared - YSquared - ZSquared + WSquared)));
 }

@@ -33,6 +33,7 @@ class _Physics {
 			FILTER_ZONE			= 0x8,
 		};
 
+		_Physics() : Enabled(false) { }
 		int Init();
 		int Close();
 

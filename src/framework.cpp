@@ -152,10 +152,6 @@ int _Framework::Init(int Count, char **Arguments) {
 	if(!Campaign.Init())
 		return 0;
 
-	// Set up physics world
-	if(!Physics.Init())
-		return 0;
-
 	// Set up fader
 	if(!Fader.Init())
 		return 0;

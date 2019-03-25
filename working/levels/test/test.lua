@@ -2,7 +2,7 @@
 function OnOrbDeactivate()
 	GoalCount = GoalCount - 1
 	if GoalCount == 0 then
-		Level.Win()
+		--Level.Win()
 	end
 end
 
@@ -18,5 +18,5 @@ end
 GoalCount = 1
 
 oPlayer = Object.GetPointer("player")
-Object.SetLinearVelocity(oPlayer, -.05, 0, 0);
-Object.SetAngularVelocity(oPlayer, 0, 0, 1);
+--Object.SetLinearVelocity(oPlayer, 0, 0, 0);
+--Object.SetAngularVelocity(oPlayer, 0, 0, 20);

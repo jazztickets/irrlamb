@@ -164,7 +164,6 @@ void _ObjectManager::EndFrame() {
 				Iterator->WroteReplayPacket();
 			}
 		}
-		//printf("ObjectIndex=%d\n", ObjectIndex);
 	}
 }
 
@@ -238,8 +237,6 @@ void _ObjectManager::UpdateFromReplay() {
 			UpdatedObjectCount++;
 		}
 	}
-
-	//printf("ObjectIndex=%d\n", ObjectIndex);
 }
 
 // Interpolate between last and current orientation for every object

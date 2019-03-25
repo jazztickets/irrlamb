@@ -13,7 +13,6 @@ add_definitions(-DdTRIMESH_ENABLED)
 add_definitions(-DdTRIMESH_OPCODE)
 add_definitions(-DdLIBCCD_ENABLED)
 add_definitions(-DdLIBCCD_CYL_CYL)
-#add_definitions(-DdNODEBUG)
 
 # projects
 project(irrlamb)
@@ -34,6 +33,7 @@ endif()
 
 # compiler flags
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-deprecated-declarations -pedantic -std=gnu++11 -msse -mfpmath=sse")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DdNODEBUG")
 
 # x11
 find_package(X11 REQUIRED)

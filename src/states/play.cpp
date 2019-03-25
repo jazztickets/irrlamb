@@ -50,7 +50,6 @@ int _PlayState::Init() {
 	HighScoreIndex = -1;
 	Timer = 0.0f;
 	InputReplay = nullptr;
-	Physics.SetEnabled(true);
 	Interface.ChangeSkin(_Interface::SKIN_GAME);
 
 	// Add camera
@@ -110,6 +109,7 @@ int _PlayState::Close() {
 	Interface.Clear();
 	irrScene->clear();
 	Audio.StopSounds();
+	Physics.Close();
 
 	// Save stats
 	if(TestLevel == "") {

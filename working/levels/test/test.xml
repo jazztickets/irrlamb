@@ -9,14 +9,14 @@
 	<resources>
 		<script file="test.lua" />
 		<scene file="test.irr" />
-		<collision file="test.col" />
+		<!--<collision file="test.col" />-->
 	</resources>
 	<templates>
 		<player name="player" />
 		<orb name="orb" />
 		<box name="box">
-			<mesh file="cube.irrbmesh" scale="1" shadows="0" />
-			<shape w="1" h="1" l="1" />
+			<mesh file="cube.irrbmesh" scale="2" shadows="0" />
+			<shape w="2" h="2" l="2" />
 			<texture file="crate0.jpg" />
 			<physics mass="0.0" />
 		</box>
@@ -29,20 +29,19 @@
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="2" y="1.5" z="0" />
+			<position x="1" y="5.5" z="0" />
 		</object>
 		<object name="box" template="box">
-			<position x="-2" y="0" z="0" />
-			<rotation x="45" y="0" z="0" />
+			<position x="0" y="0" z="0" />
+			<rotation x="0" y="0" z="45" />
 		</object>
-
 		<!--
-		<object name="orb" template="orb">
-			<position x="-1" y="1.5" z="-2" />
-		</object>
 		<object name="cylinder" template="log">
 			<position x="-1" y="2.5" z="2" />
 			<rotation x="90" y="0" z="0" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="-1" y="1.5" z="-2" />
 		</object>
 		<object name="cylinder" template="log">
 			<position x="0.5" y="2.5" z="3" />

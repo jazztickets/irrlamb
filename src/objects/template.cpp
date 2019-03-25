@@ -29,8 +29,6 @@ _Template::_Template() {
 
 	// Collisions
 	CollisionCallback = "";
-	//CollisionGroup = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_CAMERA;
-	//CollisionMask = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_STATIC | _Physics::FILTER_ZONE;
 	CollisionGroup = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_CAMERA;
 	CollisionMask = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_STATIC;
 
@@ -42,8 +40,9 @@ _Template::_Template() {
 	Mass = 1.0f;
 	Friction = 1.0f;
 	Restitution = 0.0f;
-	LinearDamping = 0.1f;
-	AngularDamping = 0.3f;
+	LinearDamping = 0.0001055f;
+	AngularDamping = 0.000356f;
+	//LinearDamping = AngularDamping = 0;
 
 	// Constraints
 	ConstraintAxis = glm::vec3(0.0f, 0.0f, 0.0f);

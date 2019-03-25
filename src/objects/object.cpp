@@ -89,6 +89,12 @@ void _Object::CreateRigidBody(const _ObjectSpawn &Object, dGeomID Geometry, bool
 
 	// Create body
 	Body = dBodyCreate(Physics.GetWorld());
+	dBodySetAutoDisableDefaults(Body);
+	dBodySetAutoDisableFlag(Body, true);
+	dBodySetDampingDefaults(Body);
+	dBodySetAngularDampingThreshold(Body, 0);
+	dBodySetLinearDampingThreshold(Body, 0);
+	dBodySetDamping(Body, Template->LinearDamping, Template->AngularDamping);
 	dGeomSetBody(Geometry, Body);
 
 	// Set initial velocities
@@ -292,7 +298,7 @@ void _Object::BeginFrame() {
 void _Object::EndFrame() {
 
 	// Note changes for replays
-	if(Node && Body && !NeedsReplayPacket /* && !(LastOrientation == RigidBody->getWorldTransform())*/) {
+	if(Node && Body && !NeedsReplayPacket && !(LastPosition == GetPosition() && LastRotation == GetQuaternion())) {
 		NeedsReplayPacket = true;
 	}
 }

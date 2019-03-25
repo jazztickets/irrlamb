@@ -140,7 +140,7 @@ void _Player::Update(float FrameTime) {
 
 		if(TouchingGround && JumpCooldown <= 0.0f) {
 			if(Body) {
-				//Body->activate();
+				dBodyEnable(Body);
 				dBodyAddForce(Body, 0, JUMP_POWER * (1.0f / FrameTime), 0);
 			}
 			JumpTimer = 0.0f;
@@ -175,6 +175,7 @@ void _Player::HandlePush(core::vector3df &Push) {
 		// Apply torque
 		core::vector3df RotationAxis = Push.crossProduct(core::vector3df(0.0f, -1.0f, 0.0f)) * TorqueFactor;
 		if(Body) {
+			dBodyEnable(Body);
 			dBodyAddTorque(Body, RotationAxis.X, RotationAxis.Y, RotationAxis.Z);
 		}
 	}
