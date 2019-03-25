@@ -491,6 +491,7 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 	// Validate objects
 	if(ObjectType == "player") {
 		Object.Type = _Object::PLAYER;
+		Object.RollingFriction = 0.001f;
 		Object.CollisionGroup &= ~_Physics::FILTER_CAMERA;
 		Object.Fog = false;
 	}

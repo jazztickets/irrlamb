@@ -71,10 +71,24 @@ static void ODECallback(void *Data, dGeomID Geometry, dGeomID OtherGeometry) {
 
 		// Create contact joins
 		if(Response) {
-			Contacts[i].surface.mode = dContactRolling | dContactApprox1;
-			Contacts[i].surface.mu = 1;
-			Contacts[i].surface.rho = 0.001;
-			Contacts[i].surface.rho2 = 0.001;
+			Contacts[i].surface.mode = dContactApprox1;
+			Contacts[i].surface.mu = std::min(Object->GetTemplate()->Friction, OtherObject->GetTemplate()->Friction);
+
+			// Handle rolling friction
+			float RollingFriction = std::max(Object->GetTemplate()->RollingFriction, OtherObject->GetTemplate()->RollingFriction);
+			if(RollingFriction > 0) {
+				Contacts[i].surface.mode |= dContactRolling;
+				Contacts[i].surface.rho = RollingFriction;
+				Contacts[i].surface.rho2 = RollingFriction;
+			}
+
+			// Handle restitution
+			float Restitution = std::max(Object->GetTemplate()->Restitution, OtherObject->GetTemplate()->Restitution);
+			if(Restitution > 0) {
+				Contacts[i].surface.mode |= dContactBounce;
+				Contacts[i].surface.bounce = Restitution;
+				Contacts[i].surface.bounce_vel = 0;
+			}
 
 			dJointID Joint = dJointCreateContact(Physics.GetWorld(), Physics.GetContactGroup(), &Contacts[i]);
 			dJointAttach(Joint, Body, OtherBody);

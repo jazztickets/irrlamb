@@ -42,7 +42,7 @@ struct _Template {
 	glm::vec3 Shape;
 	int Sleep;
 	float Radius;
-	float Mass, Friction, Restitution;
+	float Mass, Friction, RollingFriction, Restitution;
 	float LinearDamping, AngularDamping;
 
 	// Constraints

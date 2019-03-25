@@ -39,6 +39,7 @@ _Template::_Template() {
 	Radius = 0.5f;
 	Mass = 1.0f;
 	Friction = 1.0f;
+	RollingFriction = 0.0f;
 	Restitution = 0.0f;
 	LinearDamping = 0.0001f;
 	AngularDamping = 0.0003f;
