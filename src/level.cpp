@@ -578,10 +578,10 @@ int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, _ObjectSpawn &Ob
 	// Get quaternion rotation
 	Element = ObjectElement->FirstChildElement("quaternion");
 	if(Element) {
-		Element->QueryFloatAttribute("x", &ObjectSpawn.Quaternion[0]);
-		Element->QueryFloatAttribute("y", &ObjectSpawn.Quaternion[1]);
-		Element->QueryFloatAttribute("z", &ObjectSpawn.Quaternion[2]);
-		Element->QueryFloatAttribute("w", &ObjectSpawn.Quaternion[3]);
+		Element->QueryFloatAttribute("x", &ObjectSpawn.Quaternion.x);
+		Element->QueryFloatAttribute("y", &ObjectSpawn.Quaternion.y);
+		Element->QueryFloatAttribute("z", &ObjectSpawn.Quaternion.z);
+		Element->QueryFloatAttribute("w", &ObjectSpawn.Quaternion.w);
 		ObjectSpawn.HasQuaternion = true;
 		ObjectSpawn.CalculateRotation();
 	}

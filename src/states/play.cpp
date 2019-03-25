@@ -390,8 +390,6 @@ void _PlayState::UpdateRender(float BlendFactor) {
 	if(Resetting)
 		return;
 
-	//Log.Write("%f\n", BlendFactor);
-
 	if(!IsPaused()) {
 		ObjectManager.InterpolateOrientations(BlendFactor);
 		glm::vec3 DrawPosition = Player->GetDrawPosition();

@@ -76,11 +76,11 @@ void _Object::PrintOrientation() {
 
 	// Write information
 	Log.Write("<object name=\"%s\" template=\"%s\">", Name.c_str(), Template->Name.c_str());
-	Log.Write("\t<!-- %f, %f, %f -->", Position[0], Position[1], Position[2]);
-	Log.Write("\t<position x=\"%f\" y=\"%f\" z=\"%f\" />", Position[0], Position[1], Position[2]);
-	Log.Write("\t<quaternion w=\"%f\" x=\"%f\" y=\"%f\" z=\"%f\" />", Quaternion[0], Quaternion[1], Quaternion[2], Quaternion[3]);
-	Log.Write("\t<linear_velocity x=\"%f\" y=\"%f\" z=\"%f\" />", LinearVelocity[0], LinearVelocity[1], LinearVelocity[2]);
-	Log.Write("\t<angular_velocity x=\"%f\" y=\"%f\" z=\"%f\" />", AngularVelocity[0], AngularVelocity[1], AngularVelocity[2]);
+	Log.Write("\t<!-- %f, %f, %f -->", Position.x, Position.y, Position.z);
+	Log.Write("\t<position x=\"%f\" y=\"%f\" z=\"%f\" />", Position.x, Position.y, Position.z);
+	Log.Write("\t<quaternion w=\"%f\" x=\"%f\" y=\"%f\" z=\"%f\" />", Quaternion.w, Quaternion.x, Quaternion.y, Quaternion.z);
+	Log.Write("\t<linear_velocity x=\"%f\" y=\"%f\" z=\"%f\" />", LinearVelocity.x, LinearVelocity.y, LinearVelocity.z);
+	Log.Write("\t<angular_velocity x=\"%f\" y=\"%f\" z=\"%f\" />", AngularVelocity.x, AngularVelocity.y, AngularVelocity.z);
 	Log.Write("</object>");
 }
 
@@ -145,7 +145,7 @@ void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 		// Get rotation
 		glm::quat QuaternionRotation = Object.Quaternion;
 		if(!Object.HasQuaternion)
-			QuaternionRotation = glm::quat(glm::vec3(-Object.Rotation[2], Object.Rotation[1], Object.Rotation[0]) * core::DEGTORAD);
+			QuaternionRotation = glm::quat(glm::vec3(Object.Rotation[0], Object.Rotation[1], Object.Rotation[2]) * core::DEGTORAD);
 		SetQuaternion(QuaternionRotation);
 		SetPosition(Object.Position);
 	}
@@ -157,7 +157,7 @@ void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 			// Use quaternion if available
 			glm::vec3 Rotation;
 			if(Object.HasQuaternion)
-				Physics.QuaternionToEuler(Object.Quaternion, &Rotation[0]);
+				Rotation = glm::degrees(glm::eulerAngles(Object.Quaternion));
 			else
 				Rotation = Object.Rotation;
 
@@ -212,9 +212,8 @@ void _Object::InterpolateOrientation(float BlendFactor) {
 
 	// Set node rotation
 	glm::quat DrawRotation = glm::mix(LastRotation, CurrentRotation, BlendFactor);
-	core::vector3df EulerRotation;
-	Physics.QuaternionToEuler(DrawRotation, &EulerRotation.X);
-	Node->setRotation(EulerRotation);
+	glm::vec3 EulerRotation = glm::degrees(glm::eulerAngles(DrawRotation));
+	Node->setRotation(core::vector3df(EulerRotation.x, EulerRotation.y, EulerRotation.z));
 }
 
 // Stops the body's movement
@@ -247,19 +246,20 @@ void _Object::SetPosition(const glm::vec3 &Position) {
 
 // Set rotation from quaternion
 void _Object::SetQuaternion(const glm::quat &Quaternion) {
+	dQuaternion Rotation = { Quaternion.w, Quaternion.x, Quaternion.y, Quaternion.z };
 	if(Geometry)
-		dGeomSetQuaternion(Geometry, &Quaternion[0]);
+		dGeomSetQuaternion(Geometry, Rotation);
 
 	LastRotation = Quaternion;
 }
 
 // Get rotation
 glm::quat _Object::GetQuaternion() {
-	glm::quat Quaternion;
+	dQuaternion Quaternion;
 	if(Geometry)
-		dGeomGetQuaternion(Geometry, &Quaternion[0]);
+		dGeomGetQuaternion(Geometry, Quaternion);
 
-	return Quaternion;
+	return glm::quat(Quaternion[0], Quaternion[1], Quaternion[2], Quaternion[3]);
 }
 
 // Get linear velocity

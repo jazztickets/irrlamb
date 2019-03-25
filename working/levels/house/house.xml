@@ -78,11 +78,11 @@
 		</object>
 		<object name="salt" template="salt">
 			<position x="-30.9444" y="23.146900" z="15" />
-			<rotation x="90" />
+			<rotation x="-90" y="90" z="0" />
 		</object>
 		<object name="pepper" template="pepper">
 			<position x="-30.9444" y="23.146900" z="12" />
-			<rotation x="90" />
+			<rotation x="-90" y="90" z="0" />
 		</object>
 		<object name="soccer" template="soccer">
 			<position x="3.968141" y="51.899986" z="-58.486183" />

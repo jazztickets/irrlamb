@@ -219,19 +219,3 @@ bool _Physics::RaycastWorld(const glm::vec3 &Start, glm::vec3 &End) {
 void _Physics::RemoveFilter(int &Value, int Filter) {
 	Value &= (~Filter);
 }
-
-// Converts a quaternion to an euler angle
-void _Physics::QuaternionToEuler(const glm::quat &Quaternion, float *Euler) {
-	float W = Quaternion[0];
-	float X = Quaternion[1];
-	float Y = Quaternion[2];
-	float Z = Quaternion[3];
-	float WSquared = W * W;
-	float XSquared = X * X;
-	float YSquared = Y * Y;
-	float ZSquared = Z * Z;
-
-	Euler[0] = glm::degrees((atan2f(2.0f * (Y * Z + X * W), -XSquared - YSquared + ZSquared + WSquared)));
-	Euler[1] = glm::degrees((asinf(-2.0f * (X * Z - Y * W))));
-	Euler[2] = glm::degrees((atan2f(2.0f * (X * Y + Z * W), XSquared - YSquared - ZSquared + WSquared)));
-}

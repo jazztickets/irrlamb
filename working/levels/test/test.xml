@@ -18,32 +18,27 @@
 			<mesh file="cube.irrbmesh" scale="1" shadows="0" />
 			<shape w="1" h="1" l="1" />
 			<texture file="crate0.jpg" />
-			<physics mass="0.0" />
+			<physics mass="1.0" />
 		</box>
 		<cylinder name="log">
-			<mesh file="cylinder.irrbmesh" scale="1" />
+			<mesh file="shaker.irrbmesh" scale="1" />
 			<shape w="1" h="2" />
 			<physics mass="0.25" />
-			<texture file="woodfloor0.jpg" />
+			<texture file="salt0.png" />
 		</cylinder>
-		<box name="rail_big">
-			<mesh file="cube.irrbmesh" w="5" h="0.2" l="0.2" shadows="false" />
-			<shape w="5" h="0.2" l="0.2" />
-			<texture file="dark0.jpg" />
-			<physics mass="0" />
-		</box>
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="0" y="1" z="0" />
-		</object>
-		<object name="box" template="box">
-			<position x="0" y="0" z="0" />
-			<rotation x="0" y="0" z="0" />
+			<position x="-2" y="1" z="0" />
 		</object>
 		<object name="cylinder" template="log">
 			<position x="-1" y="2.5" z="2" />
-			<rotation x="90" y="0" z="0" />
+			<rotation x="-90" y="90" z="0" />
+		</object>
+		<!--
+		<object name="box" template="box">
+			<position x="0" y="2" z="0" />
+			<rotation x="0" y="0" z="0" />
 		</object>
 		<object name="orb" template="orb">
 			<position x="-1" y="1.5" z="-2" />
@@ -51,5 +46,6 @@
 		<object name="cylinder" template="log">
 			<position x="1.5" y="2.5" z="3" />
 		</object>
+		-->
 	</objects>
 </level>

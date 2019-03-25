@@ -64,8 +64,6 @@ class _Physics {
 		bool IsEnabled() const { return Enabled; }
 		void RemoveFilter(int &Value, int Filter);
 
-		void QuaternionToEuler(const glm::quat &Quaternion, float *Euler);
-
 	private:
 
 		bool Enabled;
