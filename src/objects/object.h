@@ -99,7 +99,7 @@ class _Object {
 		dBodyID GetBody() { return Body; }
 
 		virtual void HandleCollision(_Object *OtherObject, const dReal *Normal, float NormalScale);
-		bool IsTouchingGround() const { return TouchingGround; }
+		bool IsTouchingGround() const { return TouchingGroundTimer > 0.0f; }
 
 	protected:
 
@@ -133,6 +133,7 @@ class _Object {
 
 		// Collision
 		std::string CollisionCallback;
-		bool TouchingGround, TouchingWall;
+		float TouchingGroundTimer;
+		bool TouchingGround;
 
 };

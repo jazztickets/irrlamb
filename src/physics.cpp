@@ -54,22 +54,18 @@ static void ODECallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 	dBodyID Body1 = dGeomGetBody(Geometry1);
 	dBodyID Body2 = dGeomGetBody(Geometry2);
 
+	// Get objects
+	_Object *Object1 = nullptr;
+	if(Geometry1)
+		Object1 = (_Object *)dGeomGetData(Geometry1);
+
+	_Object *Object2 = nullptr;
+	if(Geometry2)
+		Object2 = (_Object *)dGeomGetData(Geometry2);
+
 	dContact Contacts[MAX_CONTACTS];
 	int Count = dCollide(Geometry1, Geometry2, MAX_CONTACTS, &Contacts[0].geom, sizeof(dContact));
 	for(int i = 0; i < Count; i++) {
-
-		// Get objects
-		_Object *Object1 = nullptr;
-		if(Body1)
-			Object1 = (_Object *)dBodyGetData(Body1);
-		else if(Geometry1)
-			Object1 = (_Object *)dGeomGetData(Geometry1);
-
-		_Object *Object2 = nullptr;
-		if(Body2)
-			Object2 = (_Object *)dBodyGetData(Body2);
-		else if(Geometry2)
-			Object2 = (_Object *)dGeomGetData(Geometry2);
 
 		// Test for zones
 		bool Response = true;
@@ -109,8 +105,8 @@ int _Physics::Init() {
 	// Create world
 	World = dWorldCreate();
 	dWorldSetGravity(World, 0, -9.81, 0);
-	dWorldSetCFM(World, 1e-5);
-	//dWorldSetCFM(World, 0);
+	//dWorldSetCFM(World, 1e-5);
+	dWorldSetCFM(World, 0.0);
 	dWorldSetERP(World, 0.2);
 
 	// Create space

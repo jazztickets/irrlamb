@@ -366,6 +366,7 @@ void _PlayState::Update(float FrameTime) {
 		Interface.Update(FrameTime);
 		Scripting.UpdateTimedCallbacks();
 
+		// Handle end of updates
 		ObjectManager.EndFrame();
 
 		// Update audio

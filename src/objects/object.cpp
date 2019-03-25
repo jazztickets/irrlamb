@@ -21,6 +21,7 @@
 #include <scripting.h>
 #include <physics.h>
 #include <log.h>
+#include <constants.h>
 #include <ode/collision.h>
 #include <ode/objects.h>
 
@@ -42,8 +43,8 @@ _Object::_Object(const _Template *Template)
 	Body(nullptr),
 	Geometry(nullptr),
 	NeedsReplayPacket(false),
-	TouchingGround(false),
-	TouchingWall(false) {
+	TouchingGroundTimer(0.0f),
+	TouchingGround(false) {
 }
 
 // Destructor
@@ -113,6 +114,15 @@ void _Object::Update(float FrameTime) {
 	// Check for expiration
 	if(Lifetime > 0.0f && Timer > Lifetime)
 		Deleted = true;
+
+	// Set touch timer
+	if(TouchingGround)
+		TouchingGroundTimer = TOUCHING_GROUND_WINDOW;
+
+	// Update touch timer
+	TouchingGroundTimer -= FrameTime;
+	if(TouchingGroundTimer < 0.0f)
+		TouchingGroundTimer = 0.0f;
 }
 
 // Updates while replaying
@@ -276,8 +286,6 @@ void _Object::HandleCollision(_Object *OtherObject, const dReal *Normal, float N
 		float NormalY = Normal[1] * NormalScale;
 		if(NormalY > 0.6f)
 			TouchingGround = true;
-		if(NormalY < 0.7f && NormalY > -0.7f)
-			TouchingWall = true;
 	}
 
 	// Call collision handler
@@ -287,7 +295,7 @@ void _Object::HandleCollision(_Object *OtherObject, const dReal *Normal, float N
 
 // Resets the object state before the frame begins
 void _Object::BeginFrame() {
-	TouchingGround = TouchingWall = false;
+	TouchingGround = false;
 	if(Body || Geometry) {
 		LastPosition = GetPosition();
 		LastRotation = GetQuaternion();

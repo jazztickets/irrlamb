@@ -31,6 +31,8 @@ const float ORB_PITCH = 2.0f;
 const float ORB_DEACTIVATETIME = 2.0f;
 const float JUMP_WINDOW = 0.1f;
 const float JUMP_POWER = 5.0f;
+const float JUMP_COOLDOWN = 0.1f;
+const float TOUCHING_GROUND_WINDOW = 0.1f;
 
 #ifdef _WIN32
 const int PLATFORM = 1;

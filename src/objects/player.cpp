@@ -138,13 +138,13 @@ void _Player::Update(float FrameTime) {
 		if(JumpTimer < 0.0f)
 			JumpTimer = 0.0f;
 
-		if(TouchingGround && JumpCooldown <= 0.0f) {
+		if(IsTouchingGround() && JumpCooldown <= 0.0f) {
 			if(Body) {
 				dBodyEnable(Body);
 				dBodyAddForce(Body, 0, JUMP_POWER * (1.0f / FrameTime), 0);
 			}
 			JumpTimer = 0.0f;
-			JumpCooldown = 0.1f;
+			JumpCooldown = JUMP_COOLDOWN;
 		}
 	}
 }
