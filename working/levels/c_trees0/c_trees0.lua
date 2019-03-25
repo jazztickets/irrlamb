@@ -50,7 +50,7 @@ Level.CreateObject("orb", tOrb, 9.084, 13.234, 15.085, 0, 0, 0);
 
 X = 14.457
 Z = 20
-Level.CreateObject("log5", tLog, X, 6, Z, 0, 0, 0);
+Level.CreateObject("log5", tLog, X, 6, Z, 90, 0, 0);
 Level.CreateObject("orb", tOrb, X, 12.5, Z, 0, 0, 0);
 
 -- Set up goal

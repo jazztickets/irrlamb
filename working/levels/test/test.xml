@@ -9,7 +9,7 @@
 	<resources>
 		<script file="test.lua" />
 		<scene file="test.irr" />
-		<!--<collision file="test.col" />-->
+		<collision file="test.col" />
 	</resources>
 	<templates>
 		<player name="player" />
@@ -26,6 +26,12 @@
 			<physics mass="0.25" />
 			<texture file="woodfloor0.jpg" />
 		</cylinder>
+		<box name="rail_big">
+			<mesh file="cube.irrbmesh" w="5" h="0.2" l="0.2" shadows="false" />
+			<shape w="5" h="0.2" l="0.2" />
+			<texture file="dark0.jpg" />
+			<physics mass="0" />
+		</box>
 	</templates>
 	<objects>
 		<object name="player" template="player">
@@ -35,7 +41,6 @@
 			<position x="0" y="0" z="0" />
 			<rotation x="0" y="0" z="0" />
 		</object>
-		<!--
 		<object name="cylinder" template="log">
 			<position x="-1" y="2.5" z="2" />
 			<rotation x="90" y="0" z="0" />
@@ -44,8 +49,7 @@
 			<position x="-1" y="1.5" z="-2" />
 		</object>
 		<object name="cylinder" template="log">
-			<position x="0.5" y="2.5" z="3" />
+			<position x="1.5" y="2.5" z="3" />
 		</object>
-		-->
 	</objects>
 </level>

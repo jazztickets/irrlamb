@@ -145,7 +145,7 @@ void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 		// Get rotation
 		glm::quat QuaternionRotation = Object.Quaternion;
 		if(!Object.HasQuaternion)
-			QuaternionRotation = glm::quat(glm::vec3(Object.Rotation[2], Object.Rotation[1], Object.Rotation[0]) * core::DEGTORAD);
+			QuaternionRotation = glm::quat(glm::vec3(-Object.Rotation[2], Object.Rotation[1], Object.Rotation[0]) * core::DEGTORAD);
 		SetQuaternion(QuaternionRotation);
 		SetPosition(Object.Position);
 	}

@@ -76,8 +76,8 @@ static void ODECallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 		if(Response) {
 			Contacts[i].surface.mode = dContactRolling | dContactApprox1;
 			Contacts[i].surface.mu = 1;
-			Contacts[i].surface.rho = 0.01;
-			Contacts[i].surface.rho2 = 0.01;
+			Contacts[i].surface.rho = 0.001;
+			Contacts[i].surface.rho2 = 0.001;
 
 			dJointID Joint = dJointCreateContact(Physics.GetWorld(), Physics.GetContactGroup(), &Contacts[i]);
 			dJointAttach(Joint, Body1, Body2);

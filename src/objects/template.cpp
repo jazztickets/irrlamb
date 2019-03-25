@@ -40,9 +40,8 @@ _Template::_Template() {
 	Mass = 1.0f;
 	Friction = 1.0f;
 	Restitution = 0.0f;
-	LinearDamping = 0.0001055f;
-	AngularDamping = 0.000356f;
-	//LinearDamping = AngularDamping = 0;
+	LinearDamping = 0.0001f;
+	AngularDamping = 0.0003f;
 
 	// Constraints
 	ConstraintAxis = glm::vec3(0.0f, 0.0f, 0.0f);
