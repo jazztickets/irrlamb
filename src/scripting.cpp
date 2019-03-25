@@ -157,8 +157,8 @@ int luaopen_Zone(lua_State *State) {
 }
 
 // Constructor
-_Scripting::_Scripting()
-:	LuaObject(nullptr) {
+_Scripting::_Scripting() :
+	LuaObject(nullptr) {
 
 }
 
@@ -274,8 +274,8 @@ void _Scripting::CallCollisionHandler(const std::string &FunctionName, _Object *
 		return;
 	}
 
-	lua_pushlightuserdata(LuaObject, static_cast<void *>(BaseObject));
-	lua_pushlightuserdata(LuaObject, static_cast<void *>(OtherObject));
+	lua_pushlightuserdata(LuaObject, BaseObject);
+	lua_pushlightuserdata(LuaObject, OtherObject);
 	lua_call(LuaObject, 2, 0);
 }
 
@@ -291,8 +291,8 @@ void _Scripting::CallZoneHandler(const std::string &FunctionName, int Type, _Obj
 
 	// Set parameters
 	lua_pushinteger(LuaObject, Type);
-	lua_pushlightuserdata(LuaObject, static_cast<void *>(Zone));
-	lua_pushlightuserdata(LuaObject, static_cast<void *>(Object));
+	lua_pushlightuserdata(LuaObject, Zone);
+	lua_pushlightuserdata(LuaObject, Object);
 	lua_call(LuaObject, 3, 1);
 
 	// Get return value for disabling the zone
@@ -375,7 +375,7 @@ int _Scripting::ObjectGetPointer(lua_State *LuaObject) {
 	_Object *Object = ObjectManager.GetObjectByName(Name);
 
 	// Pass pointer
-	lua_pushlightuserdata(LuaObject, (void *)Object);
+	lua_pushlightuserdata(LuaObject, Object);
 
 	return 1;
 }
@@ -679,7 +679,7 @@ int _Scripting::LevelCreateObject(lua_State *LuaObject) {
 	_Object *Object = Level.CreateObject(Spawn);
 
 	// Send new object to Lua
-	lua_pushlightuserdata(LuaObject, static_cast<void *>(Object));
+	lua_pushlightuserdata(LuaObject, Object);
 
 	return 1;
 }
@@ -702,7 +702,7 @@ int _Scripting::LevelCreateConstraint(lua_State *LuaObject) {
 	_Object *Object = Level.CreateConstraint(Constraint);
 
 	// Send new object to Lua
-	lua_pushlightuserdata(LuaObject, static_cast<void *>(Object));
+	lua_pushlightuserdata(LuaObject, Object);
 
 	return 1;
 }
@@ -769,7 +769,7 @@ int _Scripting::AudioPlay(lua_State *LuaObject) {
 	Audio.Play(Source, PositionX, PositionY, PositionZ);
 
 	// Return audio source
-	lua_pushlightuserdata(LuaObject, static_cast<void *>(Source));
+	lua_pushlightuserdata(LuaObject, Source);
 
 	return 1;
 }

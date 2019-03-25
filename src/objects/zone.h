@@ -38,7 +38,7 @@ class _Zone : public _Object {
 		_Zone(const _ObjectSpawn &Object);
 
 		void EndFrame();
-		virtual void HandleCollision(_Object *OtherObject, const dReal *Normal, float NormalScale);
+		virtual void HandleCollision(const _ObjectCollision &ObjectCollision) override;
 
 		void SetActive(bool Value);
 

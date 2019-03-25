@@ -19,6 +19,20 @@
 #include <ode/common.h>
 #include <glm/vec3.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include <vector>
+
+// Forward Declarations
+class _Object;
+
+// Structures
+struct _ObjectCollision {
+	_ObjectCollision(_Object *Object, _Object *OtherObject, const glm::vec3 &Normal, float NormalScale) : Object(Object), OtherObject(OtherObject), Normal(Normal), NormalScale(NormalScale) { }
+
+	_Object *Object;
+	_Object *OtherObject;
+	glm::vec3 Normal;
+	float NormalScale;
+};
 
 // Classes
 class _Physics {
@@ -54,11 +68,14 @@ class _Physics {
 
 	private:
 
+		bool Enabled;
+
 		dWorldID World;
 		dJointGroupID ContactGroup;
 		dSpaceID Space;
 
-		bool Enabled;
+		std::vector<_ObjectCollision> ObjectCollisions;
+
 };
 
 // Singletons

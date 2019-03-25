@@ -26,10 +26,11 @@
 #include <glm/gtc/quaternion.hpp>
 
 // Forward Declarations
+class _AudioSource;
 struct _ObjectSpawn;
 struct _ConstraintSpawn;
 struct _Template;
-class _AudioSource;
+struct _ObjectCollision;
 
 // Classes
 class _Object {
@@ -98,7 +99,7 @@ class _Object {
 		irr::scene::ISceneNode *GetNode() { return Node; }
 		dBodyID GetBody() { return Body; }
 
-		virtual void HandleCollision(_Object *OtherObject, const dReal *Normal, float NormalScale);
+		virtual void HandleCollision(const _ObjectCollision &ObjectCollision);
 		bool IsTouchingGround() const { return TouchingGroundTimer > 0.0f; }
 
 	protected:

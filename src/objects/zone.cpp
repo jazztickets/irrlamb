@@ -42,13 +42,13 @@ _Zone::_Zone(const _ObjectSpawn &Object)
 }
 
 // Collision callback
-void _Zone::HandleCollision(_Object *OtherObject, const dReal *Normal, float NormalScale) {
+void _Zone::HandleCollision(const _ObjectCollision &ObjectCollision) {
 
 	if(Active) {
 
 		// Search for existing objects in the touch list
 		for(auto &Iterator : TouchState) {
-			if(Iterator.Object == OtherObject) {
+			if(Iterator.Object == ObjectCollision.OtherObject) {
 
 				// Update touch count
 				Iterator.TouchCount = 2;
@@ -57,11 +57,11 @@ void _Zone::HandleCollision(_Object *OtherObject, const dReal *Normal, float Nor
 		}
 
 		// A new object has collided with the zone
-		TouchState.push_back(ObjectTouchState(OtherObject, 2));
+		TouchState.push_back(ObjectTouchState(ObjectCollision.OtherObject, 2));
 
 		// Call Lua function
 		if(CollisionCallback.size())
-			Scripting.CallZoneHandler(CollisionCallback, 0, this, OtherObject);
+			Scripting.CallZoneHandler(CollisionCallback, 0, this, ObjectCollision.OtherObject);
 	}
 }
 

@@ -277,20 +277,20 @@ glm::vec3 _Object::GetAngularVelocity() const {
 }
 
 // Collision callback
-void _Object::HandleCollision(_Object *OtherObject, const dReal *Normal, float NormalScale) {
-	if(!OtherObject)
+void _Object::HandleCollision(const _ObjectCollision &ObjectCollision) {
+	if(!ObjectCollision.OtherObject)
 		return;
 
 	// Get touching states
-	if(OtherObject->GetType() != ZONE) {
-		float NormalY = Normal[1] * NormalScale;
+	if(ObjectCollision.OtherObject->GetType() != ZONE) {
+		float NormalY = ObjectCollision.Normal[1] * ObjectCollision.NormalScale;
 		if(NormalY > 0.6f)
 			TouchingGround = true;
 	}
 
 	// Call collision handler
 	if(CollisionCallback.size())
-		Scripting.CallCollisionHandler(CollisionCallback, this, OtherObject);
+		Scripting.CallCollisionHandler(CollisionCallback, this, ObjectCollision.OtherObject);
 }
 
 // Resets the object state before the frame begins

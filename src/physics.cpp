@@ -51,18 +51,21 @@ static void RayCallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 
 // Near collision callback
 static void ODECallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
+	std::vector<_ObjectCollision> *ObjectCollisions = (std::vector<_ObjectCollision> *)Data;
 	dBodyID Body1 = dGeomGetBody(Geometry1);
 	dBodyID Body2 = dGeomGetBody(Geometry2);
 
-	// Get objects
+	// Get object1
 	_Object *Object1 = nullptr;
 	if(Geometry1)
 		Object1 = (_Object *)dGeomGetData(Geometry1);
 
+	// Get object2
 	_Object *Object2 = nullptr;
 	if(Geometry2)
 		Object2 = (_Object *)dGeomGetData(Geometry2);
 
+	// Get contacts
 	dContact Contacts[MAX_CONTACTS];
 	int Count = dCollide(Geometry1, Geometry2, MAX_CONTACTS, &Contacts[0].geom, sizeof(dContact));
 	for(int i = 0; i < Count; i++) {
@@ -83,12 +86,16 @@ static void ODECallback(void *Data, dGeomID Geometry1, dGeomID Geometry2) {
 			dJointAttach(Joint, Body1, Body2);
 		}
 
-		// Handle object collision callbacks
-		if(Object1)
-			Object1->HandleCollision(Object2, Contacts[i].geom.normal, 1);
+		// Get normal
+		glm::vec3 Normal(Contacts[i].geom.normal[0], Contacts[i].geom.normal[1], Contacts[i].geom.normal[2]);
 
+		// Handle object1 collision callback
+		if(Object1)
+			ObjectCollisions->push_back(_ObjectCollision(Object1, Object2, Normal, 1));
+
+		// Handle object2 collision callback
 		if(Object2)
-			Object2->HandleCollision(Object1, Contacts[i].geom.normal, -1);
+			ObjectCollisions->push_back(_ObjectCollision(Object2, Object1, Normal, -1));
 	}
 }
 
@@ -147,8 +154,19 @@ int _Physics::Close() {
 // Updates the physics system
 void _Physics::Update(float FrameTime) {
 	if(Enabled) {
-		dSpaceCollide(Space, 0, &ODECallback);
+
+		// Handle collisions
+		dSpaceCollide(Space, &ObjectCollisions, &ODECallback);
+
+		// Handle callbacks
+		for(auto ObjectCollision : ObjectCollisions)
+			ObjectCollision.Object->HandleCollision(ObjectCollision);
+		ObjectCollisions.clear();
+
+		// Run timestep
 		dWorldQuickStep(World, FrameTime);
+
+		// Remove contact joints
 		dJointGroupEmpty(ContactGroup);
 	}
 }
