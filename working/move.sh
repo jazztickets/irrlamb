@@ -8,9 +8,11 @@ done
 for f in $(ls *.obj 2>/dev/null); do
 	../bin/Release/colmesh $f
 	d=${f%.*}
+	# used in caves_4 to move caves_4{a,b,static}.col into caves_4
 	#l=`echo $d | grep -P '^.*_[0-9]+' -o`
-	mkdir -p levels/$d
-	mv $d.col levels/$d
+	l="$d"
+	mkdir -p levels/$l
+	mv $d.col levels/$l
 	rm $f
 done
 

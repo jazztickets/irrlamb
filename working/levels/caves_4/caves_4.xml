@@ -33,127 +33,61 @@
 		</object>
 		<object name="raft" template="raft">
 			<position x="3.820369" y="-7.726758" z="21.898024" />
-			<rotation x="16.180250" y="-1.617409" z="0.163344" />
-			<linear_velocity x="0.026573" y="-1.495249" z="5.136311" />
-		</object>
-		<!--
-
-		start:
-		<object name="player" template="player">
-			<position x="3.853479" y="-6.889010" z="21.523973" />
-			<linear_velocity x="0.234600" y="-1.562338" z="5.380947" />
-		</object>
-		<object name="raft" template="raft">
-			<position x="3.820369" y="-7.726758" z="21.898024" />
-			<rotation x="16.180250" y="-1.617409" z="0.163344" />
+			<rotation x="105.180250" y="-1.617409" z="0.163344" />
 			<linear_velocity x="0.026573" y="-1.495249" z="5.136311" />
 		</object>
 
-		fall:
-		<object name="player" template="player">
-			<position x="310.545166" y="-448.091461" z="793.971191" />
-			<quaternion x="0.826754" y="-0.306716" z="0.471157" w="0.020357" />
-			<linear_velocity x="0.306063" y="-2.605491" z="7.735458" />
-			<angular_velocity x="0.125367" y="-0.354271" z="-1.223991" />
-		</object>
-		<object name="raft" template="raft">
-			<position x="310.322052" y="-448.864990" z="794.086487" />
-			<quaternion x="-0.050590" y="0.933492" z="0.148489" w="-0.322468" />
-			<linear_velocity x="-0.230219" y="-2.555951" z="7.698668" />
-			<angular_velocity x="-0.110113" y="-0.039953" z="0.003499" />
-		</object>
-
-		raft_orb1:
-		<object name="player" template="player">
-			<position x="164.458618" y="-184.710617" z="282.195435" />
-			<quaternion x="0.798366" y="-0.228615" z="0.370452" w="-0.416068" />
-			<linear_velocity x="17.010380" y="-7.839493" z="-2.656329" />
-			<angular_velocity x="-0.067483" y="0.870831" z="-0.508522" />
-		</object>
-		<object name="raft" template="raft">
-			<position x="164.783264" y="-185.635773" z="282.115082" />
-			<quaternion x="-0.094289" y="-0.687860" z="-0.213665" w="0.687244" />
-			<linear_velocity x="16.771330" y="-7.665020" z="-2.479847" />
-			<angular_velocity x="0.072636" y="0.006535" z="0.131493" />
-		</object>
-
-		raft_orb2:
-		<object name="player" template="player">
-			<position x="309.652069" y="-432.360016" z="745.422852" />
-			<quaternion x="-0.654184" y="0.367041" z="0.658094" w="0.065085" />
-			<linear_velocity x="0.367129" y="-2.221835" z="7.395575" />
-			<angular_velocity x="1.367301" y="-0.422809" z="-0.538659" />
-		</object>
-		<object name="raft" template="raft">
-			<position x="309.813568" y="-433.048920" z="745.272278" />
-			<quaternion x="0.025627" y="0.982939" z="0.143826" w="0.111749" />
-			<linear_velocity x="0.167845" y="-1.961859" z="6.731812" />
-			<angular_velocity x="0.009240" y="0.029188" z="0.018947" />
-		</object>
-
-		log:
-		<object name="player" template="player">
-			<position x="277.983673" y="-734.683899" z="1175.330200" />
-			<quaternion x="-0.437767" y="-0.034354" z="0.414609" w="0.797044" />
-			<linear_velocity x="-1.802730" y="-13.767056" z="22.902260" />
-			<angular_velocity x="0.809462" y="-2.266806" z="-2.428598" />
-		</object>
-		<object name="raft" template="raft">
-			<position x="278.360840" y="-735.384033" z="1175.145508" />
-			<quaternion x="0.275661" y="0.005141" z="0.013495" w="0.961147" />
-			<linear_velocity x="-2.168783" y="-13.515585" z="22.435511" />
-			<angular_velocity x="0.367961" y="0.107902" z="0.237926" />
-		</object>
-
-		onlog:
-		<object name="player" template="player">
-			<position x="272.293610" y="-942.433228" z="1451.995117" />
-		</object>
-
-		bottom:
-		<object name="player" template="player">
-			<position x="264.719849" y="-1061.240356" z="1686.091553" />
-			<quaternion x="-0.390119" y="0.608057" z="-0.033574" w="0.690613" />
-			<linear_velocity x="-0.552573" y="-5.636790" z="14.133866" />
-			<angular_velocity x="0.808349" y="0.266233" z="-0.606206" />
-		</object>
-		<object name="raft_orb3" template="raft">
-			<position x="264.700531" y="-1062.278564" z="1686.804443" />
-			<quaternion x="0.067931" y="0.913494" z="0.176102" w="0.360420" />
-			<linear_velocity x="-0.596288" y="-5.488487" z="13.770165" />
-			<angular_velocity x="-0.042164" y="0.252492" z="0.096220" />
-		</object>
-		-->
 		<object name="orb" template="orb">
-			<position x="-9.120635" y="-88.693810" z="232.507996" />
+			<position x="-5.429038" y="-87.272491" z="225.576340" />
+			<quaternion w="0.321156" x="-0.626712" y="0.151155" z="0.693717" />
+			<linear_velocity x="1.350059" y="-5.147509" z="14.559643" />
+			<angular_velocity x="-2.003176" y="-6.945257" z="-5.342022" />
 		</object>
 		<object name="raft_orb0" template="raft">
-			<position x="-9.126837" y="-89.560921" z="232.446121" />
-			<quaternion x="0.118258" y="-0.059232" z="-0.104576" w="0.985683" />
+			<position x="-5.685515" y="-88.220123" z="226.231308" />
+			<quaternion w="0.096576" x="0.184161" y="0.791751" z="-0.574359" />
+			<linear_velocity x="-0.092665" y="-5.269853" z="15.318604" />
+			<angular_velocity x="-0.035287" y="-0.005096" z="-0.064783" />
 		</object>
+
 		<object name="orb" template="orb">
-			<position x="225.306641" y="-210.513977" z="288.093719" />
+			<position x="221.485214" y="-209.735092" z="290.787231" />
+			<quaternion w="0.808976" x="-0.510234" y="-0.048853" z="-0.287808" />
+			<linear_velocity x="18.849924" y="-6.697612" z="0.990971" />
+			<angular_velocity x="3.981048" y="5.774210" z="0.597551" />
 		</object>
 		<object name="raft_orb1" template="raft">
-			<position x="225.358459" y="-211.318695" z="288.237579" />
-			<quaternion x="0.180547" y="0.946491" z="0.061150" w="0.260420" />
+			<position x="221.295746" y="-210.412155" z="290.762238" />
+			<quaternion w="-0.210755" x="0.009190" y="0.746430" z="-0.631142" />
+			<linear_velocity x="18.805880" y="-6.576569" z="0.031519" />
+			<angular_velocity x="0.155679" y="-0.021789" z="0.033508" />
 		</object>
+
 		<object name="orb" template="orb">
-			<position x="310.407776" y="-449.030060" z="796.775696" />
+			<position x="311.537079" y="-447.209930" z="791.353821" />
+			<quaternion w="0.025747" x="0.370805" y="-0.287225" z="0.882804" />
+			<linear_velocity x="-0.032997" y="-3.705558" z="11.072365" />
+			<angular_velocity x="1.093115" y="-0.293016" z="-0.459774" />
 		</object>
 		<object name="raft_orb2" template="raft">
-			<position x="310.254333" y="-449.933838" z="797.297974" />
-			<quaternion x="-0.001773" y="0.987626" z="0.155514" w="-0.020181" />
+			<position x="311.682465" y="-448.083221" z="791.782715" />
+			<quaternion w="-0.447827" x="-0.633585" y="0.504370" z="-0.378989" />
+			<linear_velocity x="-0.106399" y="-3.555779" z="10.532487" />
+			<angular_velocity x="-0.003188" y="0.150547" z="0.026625" />
 		</object>
+
 		<object name="orb" template="orb">
-			<position x="271.7" y="-954.126648" z="1461" />
+			<position x="277.565826" y="-953.619202" z="1460.034302" />
 		</object>
 		<object name="raft_orb3" template="raft">
-			<position x="271.552917" y="-955.206543" z="1460.687012" />
-			<quaternion x="0.261793" y="0.004499" z="-0.001223" w="0.965113" />
+			<position x="277.654083" y="-954.321106" z="1459.748169" />
+			<quaternion w="0.497471" x="0.866327" y="0.024377" z="0.037502" />
+			<linear_velocity x="0.097227" y="-1.004018" z="1.772134" />
+			<angular_velocity x="-0.001244" y="0.001037" z="0.002437" />
 		</object>
+
 		<object name="orb" template="orb">
-			<position x="263.447906" y="-1071.493286" z="1764.184814" />
+			<position x="269.822693" y="-1099.523315" z="1818.412476" />
 		</object>
 		<object name="losezone" template="losezone">
 			<position x="260" y="-1120" z="1845" />
