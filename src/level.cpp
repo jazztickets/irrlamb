@@ -30,6 +30,7 @@
 #include <config.h>
 #include <objects/template.h>
 #include <objects/player.h>
+#include <objects/plane.h>
 #include <objects/sphere.h>
 #include <objects/box.h>
 #include <objects/orb.h>
@@ -498,6 +499,10 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 	else if(ObjectType == "orb") {
 		Object.Type = _Object::ORB;
 	}
+	else if(ObjectType == "plane") {
+		Object.Type = _Object::PLANE;
+		Object.Mass = 0.0f;
+	}
 	else if(ObjectType == "sphere") {
 		Object.Type = _Object::SPHERE;
 	}
@@ -628,6 +633,9 @@ _Object *_Level::CreateObject(const _ObjectSpawn &Object) {
 		break;
 		case _Object::COLLISION:
 			NewObject = ObjectManager.AddObject(new _Trimesh(Object));
+		break;
+		case _Object::PLANE:
+			NewObject = ObjectManager.AddObject(new _Plane(Object));
 		break;
 		case _Object::SPHERE:
 			NewObject = ObjectManager.AddObject(new _Sphere(Object));

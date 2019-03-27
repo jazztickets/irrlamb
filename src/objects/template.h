@@ -39,6 +39,7 @@ struct _Template {
 
 	// Physical properties
 	std::string CollisionFile;
+	glm::vec4 Plane;
 	glm::vec3 Shape;
 	int Sleep;
 	float Radius;

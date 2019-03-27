@@ -35,6 +35,7 @@ _Template::_Template() {
 	// Physical properties
 	Sleep = 0;
 	CollisionFile = "";
+	Plane = glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
 	Shape = glm::vec3(1.0f, 1.0f, 1.0f);
 	Radius = 0.5f;
 	Mass = 1.0f;

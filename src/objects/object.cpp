@@ -254,7 +254,7 @@ void _Object::SetQuaternion(const glm::quat &Quaternion) {
 }
 
 // Get rotation
-glm::quat _Object::GetQuaternion() {
+glm::quat _Object::GetQuaternion() const {
 	dQuaternion Quaternion;
 	if(Geometry)
 		dGeomGetQuaternion(Geometry, Quaternion);

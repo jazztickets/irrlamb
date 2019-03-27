@@ -38,6 +38,7 @@
          </attributes>
       </userData>
    </node>
+   <!--
    <node type="mesh">
       <attributes>
          <string name="Name" value="test"/>
@@ -59,4 +60,5 @@
          </attributes>
       </userData>
    </node>
+   -->
 </irr_scene>

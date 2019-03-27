@@ -9,7 +9,7 @@
 	<resources>
 		<script file="test.lua" />
 		<scene file="test.irr" />
-		<collision file="test.col" />
+		<!--<collision file="test.col" />-->
 	</resources>
 	<templates>
 		<player name="player" />
@@ -20,11 +20,16 @@
 			<texture file="crate0.jpg" />
 			<physics mass="1.0" />
 		</box>
+		<plane name="plane">
+			<mesh file="plane.irrbmesh" scale="10" shadows="0" />
+			<texture file="grass0.jpg" scale="10" />
+		</plane>
 		<cylinder name="log">
-			<mesh file="shaker.irrbmesh" scale="1" />
+			<mesh file="cylinder.irrbmesh" scale="1" />
 			<shape w="1" h="2" />
 			<physics mass="0.25" />
-			<texture file="salt0.png" />
+			<texture file="woodfloor0.jpg" />
+			<damping linear="0.001" angular="0.001" />
 		</cylinder>
 	</templates>
 	<objects>
@@ -33,7 +38,11 @@
 		</object>
 		<object name="cylinder" template="log">
 			<position x="-1" y="2.5" z="2" />
-			<rotation x="-90" y="90" z="0" />
+			<rotation x="90" y="0" z="0" />
+		</object>
+		<object name="plane" template="plane">
+			<position x="0" y="0" z="0" />
+			<rotation x="0" y="0" z="0" />
 		</object>
 		<!--
 		<object name="box" template="box">

@@ -42,6 +42,7 @@ class _Object {
 			PLAYER,
 			ORB,
 			COLLISION,
+			PLANE,
 			SPHERE,
 			BOX,
 			CYLINDER,
@@ -84,16 +85,16 @@ class _Object {
 
 		void SetPosition(const glm::vec3 &Position);
 		virtual void SetPositionFromReplay(const irr::core::vector3df &Position);
-		glm::vec3 GetPosition() const;
+		virtual glm::vec3 GetPosition() const;
 		const glm::vec3 &GetDrawPosition() const { return DrawPosition; }
 
 		void SetQuaternion(const glm::quat &Quaternion);
-		glm::quat GetQuaternion();
+		virtual glm::quat GetQuaternion() const;
 
-		void SetLinearVelocity(const glm::vec3 &Velocity) { dBodySetLinearVel(Body, Velocity[0], Velocity[1], Velocity[2]); }
+		void SetLinearVelocity(const glm::vec3 &Velocity) { dBodyEnable(Body); dBodySetLinearVel(Body, Velocity[0], Velocity[1], Velocity[2]); }
 		glm::vec3 GetLinearVelocity() const;
 
-		void SetAngularVelocity(const glm::vec3 &Velocity) { dBodySetAngularVel(Body, Velocity[0], Velocity[1], Velocity[2]); }
+		void SetAngularVelocity(const glm::vec3 &Velocity) { dBodyEnable(Body); dBodySetAngularVel(Body, Velocity[0], Velocity[1], Velocity[2]); }
 		glm::vec3 GetAngularVelocity() const;
 
 		irr::scene::ISceneNode *GetNode() { return Node; }

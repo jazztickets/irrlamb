@@ -15,10 +15,9 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
-#include <objects/cylinder.h>
+#include <objects/plane.h>
 #include <globals.h>
 #include <physics.h>
-#include <config.h>
 #include <objects/template.h>
 #include <IAnimatedMesh.h>
 #include <IAnimatedMeshSceneNode.h>
@@ -29,7 +28,7 @@
 using namespace irr;
 
 // Constructor
-_Cylinder::_Cylinder(const _ObjectSpawn &Object)
+_Plane::_Plane(const _ObjectSpawn &Object)
 :	_Object(Object.Template) {
 
 	// Check for mesh file
@@ -47,6 +46,8 @@ _Cylinder::_Cylinder(const _ObjectSpawn &Object)
 				Node->setMaterialTexture(0, irrDriver->getTexture(Template->Textures[0].c_str()));
 			if(Template->CustomMaterial != -1)
 				Node->setMaterialType((video::E_MATERIAL_TYPE)Template->CustomMaterial);
+
+			Node->getMaterial(0).getTextureMatrix(0).setScale(core::vector3df(Template->TextureScale[0], Template->TextureScale[0], 0));
 		}
 	}
 
@@ -54,19 +55,9 @@ _Cylinder::_Cylinder(const _ObjectSpawn &Object)
 	if(Physics.IsEnabled()) {
 
 		// Create geometry
-		Geometry = dCreateCylinder(Physics.GetSpace(), Template->Shape[0] / 2, Template->Shape[1]);
-
-		// Create body
-		if(Template->Mass > 0) {
-			CreateRigidBody(Object, Geometry);
-
-			// Set mass
-			dMass Mass;
-			dMassSetCylinderTotal(&Mass, Template->Mass, 3, Template->Shape[0] / 2, Template->Shape[1]);
-			dBodySetMass(Body, &Mass);
-		}
+		Geometry = dCreatePlane(Physics.GetSpace(), Template->Plane[0], Template->Plane[1], Template->Plane[2], Template->Plane[3]);
 	}
 
 	// Set common properties
-	SetProperties(Object);
+	SetProperties(Object, false);
 }
