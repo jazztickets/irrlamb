@@ -1580,7 +1580,7 @@ void _Menu::LaunchReplay() {
 void _Menu::ValidateReplay() {
 
 	// Get replay file
-	if(SelectedLevel >= 0 /*&& ReplayFiles[SelectedLevel].Platform == PLATFORM*/) {
+	if(SelectedLevel >= 0 && ReplayFiles[SelectedLevel].Platform == PLATFORM) {
 
 		// Load replay
 		PlayState.SetValidateReplay(ReplayFiles[SelectedLevel].Filename);

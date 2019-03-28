@@ -18,6 +18,7 @@
 #include <objects/template.h>
 #include <objects/object.h>
 #include <physics.h>
+#include <constants.h>
 
 _Template::_Template() {
 
@@ -42,8 +43,8 @@ _Template::_Template() {
 	Friction = 1.0f;
 	RollingFriction = 0.0f;
 	Restitution = 0.0f;
-	LinearDamping = 0.0001f;
-	AngularDamping = 0.0003f;
+	LinearDamping = 0.001f * (100 * PHYSICS_TIMESTEP);
+	AngularDamping = 0.003f * (100 * PHYSICS_TIMESTEP);
 
 	// Constraints
 	ConstraintAxis = glm::vec3(0.0f, 0.0f, 0.0f);
