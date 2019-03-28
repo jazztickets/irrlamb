@@ -378,7 +378,6 @@ void _PlayState::Update(float FrameTime) {
 
 		// Record input for replay
 		RecordInput();
-		Replay.ResetNextPacketTimer();
 
 		// Reset jump state
 		Jumped = false;
