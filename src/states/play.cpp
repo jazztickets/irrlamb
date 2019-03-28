@@ -433,6 +433,8 @@ void _PlayState::StartReset() {
 // Win the level and update stats
 void _PlayState::WinLevel() {
 
+	Log.Write("Won %s %fs", Level.LevelName.c_str(), PlayState.Timer);
+
 	// Skip stats if just testing a level
 	if(PlayState.TestLevel == "") {
 
@@ -464,6 +466,8 @@ void _PlayState::WinLevel() {
 
 // Lose the level and update stats
 void _PlayState::LoseLevel() {
+
+	Log.Write("Lose %s %fs", Level.LevelName.c_str(), PlayState.Timer);
 
 	// Skip stats if just testing a level
 	if(PlayState.TestLevel == "") {
@@ -561,6 +565,9 @@ void _PlayState::GetInputFromReplay() {
 		InputReplay->ReadEvent(NextEvent);
 	}
 
-	if(InputReplay->ReplayStopped())
+	if(InputReplay->ReplayStopped()) {
+		Log.Write("Validation stopped %fs", PlayState.Timer);
+
 		Menu.InitPause();
+	}
 }

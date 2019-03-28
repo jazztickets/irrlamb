@@ -8,8 +8,6 @@ endif()
 # define constants
 add_definitions(-DGAME_VERSION="0.3.0")
 add_definitions(-D_IRR_STATIC_LIB_)
-#add_definitions(-DdIDESINGLE)
-#add_definitions(-DCCD_IDESINGLE)
 add_definitions(-DdIDEDOUBLE)
 add_definitions(-DCCD_IDEDOUBLE)
 add_definitions(-DdTRIMESH_ENABLED)
