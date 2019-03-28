@@ -29,22 +29,30 @@
 			<shape w="1" h="2" />
 			<physics mass="0.25" />
 			<texture file="woodfloor0.jpg" />
-			<damping linear="0.001" angular="0.001" />
+			<!--<damping linear="0.001" angular="0.001" />-->
 		</cylinder>
+		<sphere name="ball" detail="32">
+			<shape r="5" />
+			<physics mass="1.5" />
+			<texture file="woodfloor0.jpg" />
+		</sphere>
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="-2" y="1" z="0" />
-		</object>
-		<object name="cylinder" template="log">
-			<position x="-1" y="2.5" z="2" />
-			<rotation x="90" y="0" z="0" />
+			<position x="0" y="17" z="0" />
 		</object>
 		<object name="plane" template="plane">
 			<position x="0" y="0" z="0" />
 			<rotation x="0" y="0" z="0" />
 		</object>
+		<object name="ball" template="ball">
+			<position x="0" y="5" z="0" />
+		</object>
 		<!--
+		<object name="cylinder" template="log">
+			<position x="-1" y="2.5" z="2" />
+			<rotation x="90" y="0" z="0" />
+		</object>
 		<object name="box" template="box">
 			<position x="0" y="2" z="0" />
 			<rotation x="0" y="0" z="0" />

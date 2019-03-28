@@ -18,7 +18,7 @@
 		<cylinder name="log">
 			<mesh file="cylinder_tall.irrbmesh" scale="2" />
 			<shape w="2" h="12" l="2" />
-			<physics mass="6.0" />
+			<physics mass="6.0" sleep="1" />
 			<texture file="bark0.jpg" />
 		</cylinder>
 		<zone name="losezone">
