@@ -116,7 +116,7 @@ int _Physics::Init() {
 	// Create world
 	World = dWorldCreate();
 	dWorldSetGravity(World, 0, -9.81, 0);
-	//dWorldSetCFM(World, 1e-5);
+	//dWorldSetCFM(World, 1e-10);
 	dWorldSetCFM(World, 0.0);
 	dWorldSetERP(World, 0.2);
 
@@ -206,7 +206,10 @@ bool _Physics::RaycastWorld(const glm::vec3 &Start, glm::vec3 &End) {
 
 		// Check for hit
 		if(HitPosition[3] != dInfinity) {
-			dCopyVector3(&End[0], HitPosition);
+			End[0] = HitPosition[0];
+			End[1] = HitPosition[1];
+			End[2] = HitPosition[2];
+			//dCopyVector3(&End[0], HitPosition);
 
 			return true;
 		}

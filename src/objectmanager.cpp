@@ -158,8 +158,8 @@ void _ObjectManager::EndFrame() {
 
 				// Write object update
 				ReplayFile.write((char *)&Iterator->GetID(), sizeof(Iterator->GetID()));
-				ReplayFile.write((char *)&Position[0], sizeof(dReal) * 3);
-				ReplayFile.write((char *)&Rotation[0], sizeof(dReal) * 3);
+				ReplayFile.write((char *)&Position[0], sizeof(float) * 3);
+				ReplayFile.write((char *)&Rotation[0], sizeof(float) * 3);
 				Iterator->WroteReplayPacket();
 			}
 		}
