@@ -40,7 +40,6 @@ struct _Template {
 
 	// Physical properties
 	std::string CollisionFile;
-	glm::vec4 Plane;
 	glm::vec3 Shape;
 	int Sleep;
 	float Radius;
@@ -82,6 +81,7 @@ struct _ObjectSpawn {
 	std::string Name;
 	glm::vec3 Position;
 	glm::vec3 Rotation;
+	glm::vec4 Plane;
 	glm::quat Quaternion;
 	glm::vec3 LinearVelocity;
 	glm::vec3 AngularVelocity;

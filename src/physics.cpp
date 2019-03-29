@@ -70,7 +70,7 @@ static void ODECallback(void *Data, dGeomID Geometry, dGeomID OtherGeometry) {
 		if(Object->GetTemplate()->CollisionGroup & _Physics::FILTER_ZONE || OtherObject->GetTemplate()->CollisionGroup & _Physics::FILTER_ZONE)
 			Response = false;
 
-		// Create contact joins
+		// Collision response
 		if(Response) {
 			Contacts[i].surface.mode = dContactApprox1 | dContactSoftERP | dContactSoftCFM;
 			Contacts[i].surface.mu = std::min(Object->GetTemplate()->Friction, OtherObject->GetTemplate()->Friction);
@@ -95,7 +95,7 @@ static void ODECallback(void *Data, dGeomID Geometry, dGeomID OtherGeometry) {
 				Contacts[i].surface.bounce_vel = 0;
 			}
 
-
+			// Create contact joint
 			dJointID Joint = dJointCreateContact(Physics.GetWorld(), Physics.GetContactGroup(), &Contacts[i]);
 			dJointAttach(Joint, Body, OtherBody);
 		}

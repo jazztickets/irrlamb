@@ -24,12 +24,14 @@
 #include <ISceneManager.h>
 #include <ode/objects.h>
 #include <ode/collision.h>
+#include <glm/gtx/rotate_vector.hpp>
 
 using namespace irr;
 
 // Constructor
-_Plane::_Plane(const _ObjectSpawn &Object)
-:	_Object(Object.Template) {
+_Plane::_Plane(const _ObjectSpawn &Object) :
+	_Object(Object.Template),
+	Plane(Object.Plane) {
 
 	// Check for mesh file
 	if(Template->Mesh != "") {
@@ -55,9 +57,27 @@ _Plane::_Plane(const _ObjectSpawn &Object)
 	if(Physics.IsEnabled()) {
 
 		// Create geometry
-		Geometry = dCreatePlane(Physics.GetSpace(), Template->Plane[0], Template->Plane[1], Template->Plane[2], Template->Plane[3]);
+		Geometry = dCreatePlane(Physics.GetSpace(), Plane[0], Plane[1], Plane[2], Plane[3]);
 	}
 
 	// Set common properties
 	SetProperties(Object, false);
+	UpdateTransform();
+}
+
+// Update node transform from plane equation
+void _Plane::UpdateTransform() {
+
+	// Get normal
+	glm::vec3 Normal = Plane;
+
+	// Set position
+	Node->setPosition(core::vector3df(Normal[0], Normal[1], Normal[2]) * Plane[3]);
+
+	// Set rotation
+	if(Normal != glm::vec3(0, 1, 0)) {
+		glm::mat4 RotationMatrix = glm::orientation(Normal, glm::vec3(0, 1, 0));
+		glm::vec3 Rotation = glm::degrees(glm::eulerAngles(glm::quat(RotationMatrix)));
+		Node->setRotation(core::vector3df(Rotation[0], Rotation[1], Rotation[2]));
+	}
 }

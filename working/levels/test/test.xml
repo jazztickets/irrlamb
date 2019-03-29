@@ -21,8 +21,8 @@
 			<physics mass="1.0" />
 		</box>
 		<plane name="plane">
-			<mesh file="plane.irrbmesh" scale="50" shadows="0" />
-			<texture file="grass0.jpg" scale="50" />
+			<mesh file="plane.irrbmesh" scale="1000" shadows="0" />
+			<texture file="grass0.jpg" scale="1000" />
 		</plane>
 		<cylinder name="log">
 			<mesh file="cylinder.irrbmesh" scale="1" />
@@ -34,7 +34,6 @@
 			<mesh file="cylinder.irrbmesh" scale="2.5" />
 			<shape w="2.5" h="5" l="2.5" />
 			<physics mass="6.0" sleep="1" />
-			<damping angular="0" linear="0" />
 			<texture file="woodfloor0.jpg" />
 		</cylinder>
 		<sphere name="ball" detail="32">
@@ -48,8 +47,7 @@
 			<position x="0" y="3" z="0" />
 		</object>
 		<object name="plane" template="plane">
-			<position x="0" y="0" z="0" />
-			<rotation x="0" y="0" z="0" />
+			<plane x="1" y="15" z="0" d="-5" />
 		</object>
 		<object name="cylinder" template="log">
 			<position x="-5" y="1.5" z="0" />

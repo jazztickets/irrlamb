@@ -83,12 +83,12 @@ class _Object {
 		// Rigid body
 		void Stop();
 
-		void SetPosition(const glm::vec3 &Position);
+		virtual void SetPosition(const glm::vec3 &Position);
 		virtual void SetPositionFromReplay(const irr::core::vector3df &Position);
 		virtual glm::vec3 GetPosition() const;
 		const glm::vec3 &GetDrawPosition() const { return DrawPosition; }
 
-		void SetQuaternion(const glm::quat &Quaternion);
+		virtual void SetQuaternion(const glm::quat &Quaternion);
 		virtual glm::quat GetQuaternion() const;
 
 		void SetLinearVelocity(const glm::vec3 &Velocity) { dBodyEnable(Body); dBodySetLinearVel(Body, Velocity[0], Velocity[1], Velocity[2]); }

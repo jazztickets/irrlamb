@@ -27,9 +27,16 @@ class _Plane : public _Object {
 
 		_Plane(const _ObjectSpawn &Object);
 
+		void SetPosition(const glm::vec3 &Position) override { }
 		glm::vec3 GetPosition() const override { return glm::vec3(0, 0, 0); }
+
+		void SetQuaternion(const glm::quat &Quaternion) override { }
 		glm::quat GetQuaternion() const override { return glm::quat(1, 0, 0, 0); }
 
+		void UpdateTransform();
+
 	private:
+
+		glm::vec4 Plane;
 
 };

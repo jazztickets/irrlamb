@@ -592,6 +592,25 @@ int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, _ObjectSpawn &Ob
 		ObjectSpawn.CalculateRotation();
 	}
 
+	// Get plane
+	Element = ObjectElement->FirstChildElement("plane");
+	if(Element) {
+
+		// Get normal
+		glm::vec3 Normal;
+		Element->QueryFloatAttribute("x", &Normal[0]);
+		Element->QueryFloatAttribute("y", &Normal[1]);
+		Element->QueryFloatAttribute("z", &Normal[2]);
+		Element->QueryFloatAttribute("d", &ObjectSpawn.Plane[3]);
+
+		// Normalize
+		if(Normal != glm::vec3(0))
+			Normal = glm::normalize(Normal);
+
+		// Set plane
+		ObjectSpawn.Plane = glm::vec4(Normal, ObjectSpawn.Plane[3]);
+	}
+
 	// Get linear velocity
 	Element = ObjectElement->FirstChildElement("linear_velocity");
 	if(Element) {

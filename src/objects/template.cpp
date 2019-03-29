@@ -36,7 +36,6 @@ _Template::_Template() {
 	// Physical properties
 	Sleep = 0;
 	CollisionFile = "";
-	Plane = glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
 	Shape = glm::vec3(1.0f, 1.0f, 1.0f);
 	Radius = 0.5f;
 	Mass = 1.0f;
@@ -76,6 +75,7 @@ _ObjectSpawn::_ObjectSpawn() {
 	Name = "";
 	Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	Rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+	Plane = glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
 	Quaternion = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 	LinearVelocity = glm::vec3(0.0f, 0.0f, 0.0f);
 	AngularVelocity = glm::vec3(0.0f, 0.0f, 0.0f);
