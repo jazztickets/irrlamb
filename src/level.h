@@ -71,7 +71,7 @@ class _Level {
 	private:
 
 		// Loading
-		int GetTemplateProperties(tinyxml2::XMLElement *TemplateElement, _Template &Object);
+		int GetTemplateProperties(tinyxml2::XMLElement *TemplateElement, _Template &Template);
 		int GetObjectSpawnProperties(tinyxml2::XMLElement *ObjectElement, _ObjectSpawn &ObjectSpawn);
 
 		// Resources

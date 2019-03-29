@@ -385,7 +385,7 @@ int _Level::Close() {
 }
 
 // Processes a template tag
-int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object) {
+int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Template) {
 	XMLElement *Element;
 	const char *String;
 
@@ -394,7 +394,7 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 
 	// Object defaults
 	if(ObjectType == "orb") {
-		Object.Sleep = true;
+		Template.Sleep = true;
 	}
 
 	// Get name
@@ -403,20 +403,20 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 		Log.Write("Template is missing name");
 		return 0;
 	}
-	Object.Name = String;
+	Template.Name = String;
 
 	// Get attributes
-	TemplateElement->QueryFloatAttribute("lifetime", &Object.Lifetime);
-	TemplateElement->QueryIntAttribute("smooth", &Object.Smooth);
-	TemplateElement->QueryIntAttribute("detail", &Object.Detail);
+	TemplateElement->QueryFloatAttribute("lifetime", &Template.Lifetime);
+	TemplateElement->QueryIntAttribute("smooth", &Template.Smooth);
+	TemplateElement->QueryIntAttribute("detail", &Template.Detail);
 
 	// Get scale
 	Element = TemplateElement->FirstChildElement("shape");
 	if(Element) {
-		Element->QueryFloatAttribute("w", &Object.Shape[0]);
-		Element->QueryFloatAttribute("h", &Object.Shape[1]);
-		Element->QueryFloatAttribute("l", &Object.Shape[2]);
-		Element->QueryFloatAttribute("r", &Object.Radius);
+		Element->QueryFloatAttribute("w", &Template.Shape[0]);
+		Element->QueryFloatAttribute("h", &Template.Shape[1]);
+		Element->QueryFloatAttribute("l", &Template.Shape[2]);
+		Element->QueryFloatAttribute("r", &Template.Radius);
 	}
 
 	// Get mesh properties
@@ -424,46 +424,46 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 	if(Element) {
 		String = Element->Attribute("file");
 		if(String)
-			Object.Mesh = String;
+			Template.Mesh = String;
 
-		Element->QueryBoolAttribute("shadows", &Object.Shadows);
+		Element->QueryBoolAttribute("shadows", &Template.Shadows);
 
 		// Get component scale
-		Element->QueryFloatAttribute("w", &Object.Scale[0]);
-		Element->QueryFloatAttribute("h", &Object.Scale[1]);
-		Element->QueryFloatAttribute("l", &Object.Scale[2]);
+		Element->QueryFloatAttribute("w", &Template.Scale[0]);
+		Element->QueryFloatAttribute("h", &Template.Scale[1]);
+		Element->QueryFloatAttribute("l", &Template.Scale[2]);
 
 		// Get scale
 		float Scale = 1.0f;
 		Element->QueryFloatAttribute("scale", &Scale);
 		for(int i = 0; i < 3; i++)
-			Object.Scale[i] *= Scale;
+			Template.Scale[i] *= Scale;
 	}
 
 	// Get physical attributes
 	Element = TemplateElement->FirstChildElement("physics");
 	if(Element) {
-		Element->QueryIntAttribute("sleep", &Object.Sleep);
-		Element->QueryFloatAttribute("mass", &Object.Mass);
-		Element->QueryFloatAttribute("friction", &Object.Friction);
-		Element->QueryFloatAttribute("restitution", &Object.Restitution);
-		Element->QueryFloatAttribute("erp", &Object.ERP);
-		Element->QueryFloatAttribute("cfm", &Object.CFM);
+		Element->QueryIntAttribute("sleep", &Template.Sleep);
+		Element->QueryFloatAttribute("mass", &Template.Mass);
+		Element->QueryFloatAttribute("friction", &Template.Friction);
+		Element->QueryFloatAttribute("restitution", &Template.Restitution);
+		Element->QueryFloatAttribute("erp", &Template.ERP);
+		Element->QueryFloatAttribute("cfm", &Template.CFM);
 	}
 
 	// Get damping
 	Element = TemplateElement->FirstChildElement("damping");
 	if(Element) {
-		Element->QueryFloatAttribute("linear", &Object.LinearDamping);
-		Element->QueryFloatAttribute("angular", &Object.AngularDamping);
+		Element->QueryFloatAttribute("linear", &Template.LinearDamping);
+		Element->QueryFloatAttribute("angular", &Template.AngularDamping);
 	}
 
 	// Get axis for constraints
 	Element = TemplateElement->FirstChildElement("axis");
 	if(Element) {
-		Element->QueryFloatAttribute("x", &Object.ConstraintAxis[0]);
-		Element->QueryFloatAttribute("y", &Object.ConstraintAxis[1]);
-		Element->QueryFloatAttribute("z", &Object.ConstraintAxis[2]);
+		Element->QueryFloatAttribute("x", &Template.ConstraintAxis[0]);
+		Element->QueryFloatAttribute("y", &Template.ConstraintAxis[1]);
+		Element->QueryFloatAttribute("z", &Template.ConstraintAxis[2]);
 	}
 
 	// Get textures
@@ -478,13 +478,13 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 		}
 
 		// Get texture scale
-		Element->QueryFloatAttribute("scale", &Object.TextureScale[Index]);
+		Element->QueryFloatAttribute("scale", &Template.TextureScale[Index]);
 
 		// Get filename
 		const char *Filename = Element->Attribute("file");
 		if(Filename) {
-			Object.Textures[Index] = Framework.GetWorkingPath() + std::string("textures/") + Filename;
-			if(!irrFile->existFile(Object.Textures[Index].c_str())) {
+			Template.Textures[Index] = Framework.GetWorkingPath() + std::string("textures/") + Filename;
+			if(!irrFile->existFile(Template.Textures[Index].c_str())) {
 				Log.Write("Texture file does not exist: %s", Filename);
 				return 0;
 			}
@@ -493,48 +493,48 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 
 	// Validate objects
 	if(ObjectType == "player") {
-		Object.Type = _Object::PLAYER;
-		Object.RollingFriction = 0.001f;
-		Object.CollisionGroup &= ~_Physics::FILTER_CAMERA;
-		Object.Fog = false;
+		Template.Type = _Object::PLAYER;
+		Template.RollingFriction = 0.001f;
+		Template.CollisionGroup &= ~_Physics::FILTER_CAMERA;
+		Template.Fog = false;
 	}
 	else if(ObjectType == "orb") {
-		Object.Type = _Object::ORB;
+		Template.Type = _Object::ORB;
 	}
 	else if(ObjectType == "plane") {
-		Object.Type = _Object::PLANE;
-		Object.Mass = 0.0f;
+		Template.Type = _Object::PLANE;
+		Template.Mass = 0.0f;
 	}
 	else if(ObjectType == "sphere") {
-		Object.Type = _Object::SPHERE;
+		Template.Type = _Object::SPHERE;
 	}
 	else if(ObjectType == "box") {
-		Object.Type = _Object::BOX;
+		Template.Type = _Object::BOX;
 	}
 	else if(ObjectType == "cylinder") {
-		Object.Type = _Object::CYLINDER;
+		Template.Type = _Object::CYLINDER;
 	}
 	else if(ObjectType == "terrain") {
-		Object.Type = _Object::TERRAIN;
-		Object.Mass = 0.0f;
+		Template.Type = _Object::TERRAIN;
+		Template.Mass = 0.0f;
 	}
 	else if(ObjectType == "zone") {
-		Object.Type = _Object::ZONE;
-		Object.Mass = 0.0f;
-		Object.CollisionGroup = _Physics::FILTER_ZONE;
-		Object.CollisionMask = _Physics::FILTER_RIGIDBODY;
+		Template.Type = _Object::ZONE;
+		Template.Mass = 0.0f;
+		Template.CollisionGroup = _Physics::FILTER_ZONE;
+		Template.CollisionMask = _Physics::FILTER_RIGIDBODY;
 	}
 	else if(ObjectType == "d6") {
-		Object.Type = _Object::CONSTRAINT_D6;
+		Template.Type = _Object::CONSTRAINT_D6;
 	}
 	else if(ObjectType == "hinge") {
-		Object.Type = _Object::CONSTRAINT_HINGE;
+		Template.Type = _Object::CONSTRAINT_HINGE;
 	}
 
 	// If a body's mass is zero, set group to static
-	if(Object.Mass == 0.0f && (Object.CollisionGroup & _Physics::FILTER_RIGIDBODY)) {
-		Object.CollisionGroup = _Physics::FILTER_STATIC | _Physics::FILTER_CAMERA;
-		Object.CollisionMask = 0;
+	if(Template.Mass == 0.0f && (Template.CollisionGroup & _Physics::FILTER_RIGIDBODY)) {
+		Template.CollisionGroup = _Physics::FILTER_STATIC | _Physics::FILTER_CAMERA;
+		Template.CollisionMask = 0;
 	}
 
 	return 1;
@@ -559,12 +559,11 @@ int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, _ObjectSpawn &Ob
 	}
 
 	// Get template data
-	_Template *Template = GetTemplate(TemplateName);
-	if(Template == nullptr) {
+	ObjectSpawn.Template = GetTemplate(TemplateName);
+	if(ObjectSpawn.Template == nullptr) {
 		Log.Write("Cannot find template %s", TemplateName.c_str());
 		return 0;
 	}
-	ObjectSpawn.Template = Template;
 
 	// Get position
 	Element = ObjectElement->FirstChildElement("position");
