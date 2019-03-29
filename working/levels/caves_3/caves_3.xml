@@ -9,7 +9,6 @@
 	<resources>
 		<script file="caves_3.lua" />
 		<scene file="caves_3.irr" />
-		<collision file="caves_3.col" />
 	</resources>
 	<templates>
 		<player name="player" />
@@ -20,6 +19,10 @@
 			<texture index="0" file="blue.jpg" scale="16.0" />
 			<physics friction="0.6" />
 		</terrain>
+		<plane name="plane">
+			<mesh file="plane.irrbmesh" scale="500" shadows="0" />
+			<texture file="dirt0.jpg" scale="500" />
+		</plane>
 		<zone name="losezone">
 			<shape w="500" h="10" l="500" />
 		</zone>
@@ -31,6 +34,9 @@
 		<object name="terrain" template="terrain">
 			<position x="0.0" y="0.0" z="0.0" />
 			<rotation x="45.0" y="0.0" z="0.0" />
+		</object>
+		<object name="plane" template="plane">
+			<plane x="0" y="0" z="-1" d="-115" />
 		</object>
 		<object name="orb1" template="orb">
 			<position x="93.222" y="45.420" z="97.117" />
