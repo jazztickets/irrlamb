@@ -276,15 +276,25 @@ void _ViewReplayState::Update(float FrameTime) {
 
 				// Read replay
 				std::fstream &ReplayFile = Replay.GetFile();
+
+				// Get template
 				int16_t TemplateID;
-				int16_t ObjectID;
 				ReplayFile.read((char *)&TemplateID, sizeof(TemplateID));
+				Spawn.Template = Level.GetTemplateFromID(TemplateID);
+
+				// Get object id
+				int16_t ObjectID;
 				ReplayFile.read((char *)&ObjectID, sizeof(ObjectID));
-				ReplayFile.read((char *)&Spawn.Position, sizeof(float) * 3);
+
+				// Get orientation
+				int PositionType = ReplayFile.get();
+				if(PositionType == 1)
+					ReplayFile.read((char *)&Spawn.Plane, sizeof(float) * 4);
+				else
+					ReplayFile.read((char *)&Spawn.Position, sizeof(float) * 3);
 				ReplayFile.read((char *)&Spawn.Rotation, sizeof(float) * 3);
 
 				// Create spawn object
-				Spawn.Template = Level.GetTemplateFromID(TemplateID);
 				if(Spawn.Template != nullptr) {
 					_Object *NewObject = Level.CreateObject(Spawn);
 					NewObject->SetID(ObjectID);

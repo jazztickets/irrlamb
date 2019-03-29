@@ -525,9 +525,15 @@ void _PlayState::GetInputFromReplay() {
 				for(int i = 0; i < ObjectCount; i++)
 					ReplayFile.read(Buffer, 2 + 4 * 3 + 4 * 3);
 			} break;
-			case _Replay::PACKET_CREATE:
-				ReplayFile.read(Buffer, 2 + 2 + 4 * 3 + 4 * 3);
-			break;
+			case _Replay::PACKET_CREATE: {
+				ReplayFile.read(Buffer, 2 + 2);
+				int PositionType = ReplayFile.get();
+				if(PositionType == 1)
+					ReplayFile.read(Buffer, 4 * 4);
+				else
+					ReplayFile.read(Buffer, 4 * 3);
+				ReplayFile.read(Buffer, 4 * 3);
+			} break;
 			case _Replay::PACKET_DELETE:
 				ReplayFile.read(Buffer, 2);
 			break;

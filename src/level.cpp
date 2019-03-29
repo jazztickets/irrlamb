@@ -682,7 +682,14 @@ _Object *_Level::CreateObject(const _ObjectSpawn &Object) {
 		Replay.WriteEvent(_Replay::PACKET_CREATE);
 		ReplayFile.write((char *)&Object.Template->TemplateID, sizeof(Object.Template->TemplateID));
 		ReplayFile.write((char *)&NewObject->GetID(), sizeof(NewObject->GetID()));
-		ReplayFile.write((char *)&Object.Position, sizeof(float) * 3);
+		if(Object.Template->Type == _Object::PLANE) {
+			ReplayFile.put(1);
+			ReplayFile.write((char *)&Object.Plane, sizeof(float) * 4);
+		}
+		else {
+			ReplayFile.put(0);
+			ReplayFile.write((char *)&Object.Position, sizeof(float) * 3);
+		}
 		ReplayFile.write((char *)&Object.Rotation, sizeof(float) * 3);
 	}
 
