@@ -45,6 +45,8 @@ _Template::_Template() {
 	Restitution = 0.0f;
 	LinearDamping = 0.001f * (100 * PHYSICS_TIMESTEP);
 	AngularDamping = 0.003f * (100 * PHYSICS_TIMESTEP);
+	ERP = 0.2;
+	CFM = 0.0;
 
 	// Constraints
 	ConstraintAxis = glm::vec3(0.0f, 0.0f, 0.0f);

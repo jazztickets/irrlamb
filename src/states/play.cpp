@@ -277,6 +277,8 @@ bool _PlayState::HandleKeyPress(int Key) {
 			case KEY_F3:
 				if(Input.GetKeyState(KEY_RSHIFT))
 					ObjectManager.PrintObjectOrientations();
+				else if(Input.GetKeyState(KEY_RCONTROL))
+					Physics.Dump();
 				else
 					Player->PrintOrientation();
 			break;

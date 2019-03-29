@@ -25,6 +25,7 @@
 #include <ode/objects.h>
 #include <ode/collision.h>
 #include <ode/misc.h>
+#include <ode/export-dif.h>
 #include <ode/odemath.h>
 #include <glm/geometric.hpp>
 
@@ -71,8 +72,12 @@ static void ODECallback(void *Data, dGeomID Geometry, dGeomID OtherGeometry) {
 
 		// Create contact joins
 		if(Response) {
-			Contacts[i].surface.mode = dContactApprox1;
+			Contacts[i].surface.mode = dContactApprox1 | dContactSoftERP | dContactSoftCFM;
 			Contacts[i].surface.mu = std::min(Object->GetTemplate()->Friction, OtherObject->GetTemplate()->Friction);
+
+			// Handle ERP and CFM
+			Contacts[i].surface.soft_erp = std::min(Object->GetTemplate()->ERP, OtherObject->GetTemplate()->ERP);
+			Contacts[i].surface.soft_cfm = std::max(Object->GetTemplate()->CFM, OtherObject->GetTemplate()->CFM);
 
 			// Handle rolling friction
 			float RollingFriction = std::max(Object->GetTemplate()->RollingFriction, OtherObject->GetTemplate()->RollingFriction);
@@ -89,6 +94,7 @@ static void ODECallback(void *Data, dGeomID Geometry, dGeomID OtherGeometry) {
 				Contacts[i].surface.bounce = Restitution;
 				Contacts[i].surface.bounce_vel = 0;
 			}
+
 
 			dJointID Joint = dJointCreateContact(Physics.GetWorld(), Physics.GetContactGroup(), &Contacts[i]);
 			dJointAttach(Joint, Body, OtherBody);
@@ -116,9 +122,7 @@ int _Physics::Init() {
 	// Create world
 	World = dWorldCreate();
 	dWorldSetGravity(World, 0, -9.81, 0);
-	//dWorldSetCFM(World, 1e-10);
 	dWorldSetCFM(World, 0.0);
-	dWorldSetERP(World, 0.2);
 
 	// Create space
 	Space = dHashSpaceCreate(0);
@@ -209,7 +213,6 @@ bool _Physics::RaycastWorld(const glm::vec3 &Start, glm::vec3 &End) {
 			End[0] = HitPosition[0];
 			End[1] = HitPosition[1];
 			End[2] = HitPosition[2];
-			//dCopyVector3(&End[0], HitPosition);
 
 			return true;
 		}
@@ -221,4 +224,9 @@ bool _Physics::RaycastWorld(const glm::vec3 &Start, glm::vec3 &End) {
 // Removes a bit field from a value
 void _Physics::RemoveFilter(int &Value, int Filter) {
 	Value &= (~Filter);
+}
+
+// Dump physics state to stdout
+void _Physics::Dump() {
+	dWorldExportDIF(World, stdout, "");
 }

@@ -22,13 +22,13 @@
 		<cylinder name="salt">
 			<mesh file="shaker.irrbmesh" scale="1" />
 			<shape w="1" h="2" />
-			<physics mass="0.25" sleep="1" />
+			<physics mass="0.25" sleep="1" cfm="1e-5" erp="0.0" />
 			<texture file="salt0.png" />
 		</cylinder>
 		<cylinder name="pepper">
 			<mesh file="shaker.irrbmesh" scale="1" />
 			<shape w="1" h="2" />
-			<physics mass="0.5" sleep="1" />
+			<physics mass="0.5" sleep="1" cfm="1e-5" erp="0.0" />
 			<texture file="pepper0.png" />
 		</cylinder>
 		<sphere name="soccer">

@@ -1,8 +1,8 @@
 irrlamb 0.3.0 -
+- Replaced Bullet physics with ODE
+- Physics now runs at 500hz
 - UI now scales with resolution
 - Reworked UI theme
-- Replaced Bullet physics with ODE
-- Physics now runs at 1000hz
 - Added rolling friction
 - Added replay sorting
 - Added freecamera mode to replays
@@ -13,7 +13,6 @@ irrlamb 0.3.0 -
 - Updated some tutorial levels
 - Windows build now uses MinGW-w64
 - Added irrlicht source to project and fixed many irrlicht bugs
-- Fixed replays on 32-bit version
 - Increased quality of in-game screenshots
 
 irrlamb 0.2.1 - 2015-10-02

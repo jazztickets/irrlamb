@@ -35,7 +35,8 @@ struct _Template {
 
 	// Collision
 	std::string CollisionCallback;
-	int CollisionGroup, CollisionMask;
+	int CollisionGroup;
+	int CollisionMask;
 
 	// Physical properties
 	std::string CollisionFile;
@@ -43,8 +44,14 @@ struct _Template {
 	glm::vec3 Shape;
 	int Sleep;
 	float Radius;
-	float Mass, Friction, RollingFriction, Restitution;
-	float LinearDamping, AngularDamping;
+	float Mass;
+	float Friction;
+	float RollingFriction;
+	float Restitution;
+	float LinearDamping;
+	float AngularDamping;
+	float ERP;
+	float CFM;
 
 	// Constraints
 	glm::vec3 ConstraintAxis;

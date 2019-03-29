@@ -447,6 +447,8 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Object
 		Element->QueryFloatAttribute("mass", &Object.Mass);
 		Element->QueryFloatAttribute("friction", &Object.Friction);
 		Element->QueryFloatAttribute("restitution", &Object.Restitution);
+		Element->QueryFloatAttribute("erp", &Object.ERP);
+		Element->QueryFloatAttribute("cfm", &Object.CFM);
 	}
 
 	// Get damping

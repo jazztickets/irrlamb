@@ -22,11 +22,6 @@ subdirs(tools)
 # add extra find modules
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 
-# check for -DLUA_VERSION=x.x
-if(NOT LUA_VERSION)
-	set(LUA_VERSION "5.3")
-endif()
-
 # mingw
 if(WIN32)
 	set(EXTRA_LIBS ${EXTRA_LIBS} winmm ws2_32)

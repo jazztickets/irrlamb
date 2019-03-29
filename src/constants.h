@@ -18,7 +18,7 @@
 #pragma once
 
 // Constants
-const float PHYSICS_TIMESTEP = 1.0f / 1000.0f;
+const float PHYSICS_TIMESTEP = 1.0f / 500.0f;
 const float MAXFPS = 300.0f;
 const float FADE_SPEED = 5.0f;
 const float FADE_AMOUNT = 0.85f;

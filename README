@@ -50,7 +50,7 @@ F12                   Screenshot
 cmake 2.8+
 freetype2
 sqlite3
-lua 5.2+
+lua 5.3+
 openal
 zlib
 libvorbis
@@ -67,9 +67,6 @@ cd build
 cmake ..
 make -j`nproc`
 cd ../working && ../bin/Release/irrlamb
-
-Lua 5.2 can be used by setting LUA_VERSION
-cmake .. -DLUA_VERSION=5.2
 
 -- Installing --
 run "sudo make install" from the build directory.

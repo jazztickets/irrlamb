@@ -64,6 +64,8 @@ class _Physics {
 		bool IsEnabled() const { return Enabled; }
 		void RemoveFilter(int &Value, int Filter);
 
+		void Dump();
+
 	private:
 
 		bool Enabled;
