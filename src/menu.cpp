@@ -527,7 +527,10 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 					PlayState.StartReset();
 				break;
 				case PAUSE_QUITLEVEL:
-					NullState.State = STATE_LEVELS;
+					if(PlayState.ReplayInputs)
+						NullState.State = STATE_REPLAYS;
+					else
+						NullState.State = STATE_LEVELS;
 					Framework.ChangeState(&NullState);
 				break;
 				case SAVEREPLAY_SAVE:
