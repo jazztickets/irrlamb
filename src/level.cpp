@@ -467,7 +467,7 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Templa
 	}
 
 	// Get textures
-	for(XMLElement *Element = TemplateElement->FirstChildElement("texture"); Element != 0; Element = TemplateElement->NextSiblingElement("texture")) {
+	for(XMLElement *Element = TemplateElement->FirstChildElement("texture"); Element != 0; Element = Element->NextSiblingElement("texture")) {
 
 		// Get texture index
 		int Index = 0;
