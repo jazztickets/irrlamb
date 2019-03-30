@@ -17,6 +17,5 @@ end
 -- Set up goal
 GoalCount = 1
 
-oPlayer = Object.GetPointer("player")
---Object.SetLinearVelocity(oPlayer, 0, 0, 0);
---Object.SetAngularVelocity(oPlayer, 0, 0, 20);
+--Object.SetLinearVelocity(Player, 0, 0, 0);
+--Object.SetAngularVelocity(Player, 0, 0, 20);

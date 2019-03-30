@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<level version="0" gameversion="0.3.0">
+	<info>
+		<name>Acrobatics</name>
+	</info>
+	<options>
+		<emitlight enabled="1" />
+	</options>
+	<resources>
+		<script file="c_acrobatics0.lua" />
+		<scene file="c_acrobatics0.irr" />
+		<collision file="c_acrobatics0.col" />
+	</resources>
+	<templates>
+		<player name="player" />
+		<orb name="orb">
+			<physics sleep="0" />
+		</orb>
+		<box name="lava">
+			<mesh file="cube.irrbmesh" scale="20" />
+			<texture file="lava0.jpg" scale="5" />
+			<shape w="20" h="20" l="20" />
+			<physics mass="0" />
+		</box>
+		<cylinder name="log">
+			<mesh file="cylinder.irrbmesh" scale="1" />
+			<shape w="1" h="2" />
+			<physics mass="0.35" cfm="1e-5" erp="0.0" />
+			<texture file="dark0.jpg" />
+		</cylinder>
+		<zone name="losezone">
+			<shape w="500" h="10" l="500" />
+		</zone>
+	</templates>
+	<objects>
+		<object name="player" template="player">
+			<position x="0.2" y="3" z="0" />
+		</object>
+		<object name="lava" template="lava">
+			<position x="0" y="-10" z="0" />
+		</object>
+		<object name="cylinder" template="log">
+			<position x="0" y="0.5" z="0" />
+			<rotation x="0" y="23" z="0" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="-5" y="0.5" z="0" />
+		</object>
+		<object name="losezone" template="losezone">
+			<position x="0" y="-20" z="0" />
+		</object>
+	</objects>
+</level>

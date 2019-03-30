@@ -43,8 +43,10 @@ _Box::_Box(const _ObjectSpawn &Object)
 		Node = irrScene->addAnimatedMeshSceneNode(AnimatedMesh);
 		if(Node) {
 			Node->setScale(core::vector3df(Template->Scale[0], Template->Scale[1], Template->Scale[2]));
-			if(Template->Textures[0] != "")
+			if(Template->Textures[0] != "") {
 				Node->setMaterialTexture(0, irrDriver->getTexture(Template->Textures[0].c_str()));
+				Node->getMaterial(0).getTextureMatrix(0).setScale(Template->TextureScale[0]);
+			}
 			if(Template->CustomMaterial != -1)
 				Node->setMaterialType((video::E_MATERIAL_TYPE)Template->CustomMaterial);
 		}
