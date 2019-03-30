@@ -41,7 +41,7 @@ build() {
 
 	cd "$projectdir"
 
-	cp /usr/$arch/bin/{libtinyxml2.dll,libjpeg-8.dll,libpng16-16.dll,zlib1.dll,libfreetype-6.dll,libbz2-1.dll,lua53.dll,libsqlite3-0.dll,libvorbisfile-3.dll,libvorbis-0.dll,libogg-0.dll,libstdc++-6.dll,libwinpthread-1.dll,libgcc_*.dll} working/
+	cp /usr/$arch/bin/{OpenAL32.dll,libtinyxml2.dll,libjpeg-8.dll,libpng16-16.dll,zlib1.dll,libfreetype-6.dll,libbz2-1.dll,lua53.dll,libsqlite3-0.dll,libvorbisfile-3.dll,libvorbis-0.dll,libogg-0.dll,libstdc++-6.dll,libwinpthread-1.dll,libgcc_*.dll} working/
 
 	gitver=`git log --oneline | wc -l`
 	mv bin/Release/irrlamb.exe working/
