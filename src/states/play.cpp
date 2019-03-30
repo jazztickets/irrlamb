@@ -154,6 +154,7 @@ void _PlayState::ResetLevel() {
 	// Set up camera
 	Camera->SetRotation(0.0f, 30.0f);
 	Camera->SetDistance(5.0f);
+	Camera->SetFOV(Config.FOV);
 
 	// Clear objects
 	ObjectManager.ClearObjects();

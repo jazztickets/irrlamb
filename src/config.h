@@ -40,6 +40,7 @@ class _Config {
 		int DriverType;
 		int ScreenWidth, ScreenHeight;
 		int MaxFPS;
+		int FOV;
 		bool Fullscreen;
 		bool TrilinearFiltering;
 		bool Shaders;

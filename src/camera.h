@@ -33,6 +33,7 @@ class _Camera {
 
 		void SetRotation(float Yaw, float Pitch) { this->Yaw = Yaw, this->Pitch = Pitch; }
 		void SetDistance(float Distance) { MaxDistance = Distance; }
+		void SetFOV(float FOV);
 
 		float GetYaw() const { return Yaw; }
 		float GetPitch() const { return Pitch; }

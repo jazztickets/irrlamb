@@ -58,6 +58,11 @@ void _Camera::HandleMouseMotion(float UpdateX, float UpdateY) {
 		Pitch = -89.0f;
 }
 
+// Set camera fov
+void _Camera::SetFOV(float FOV) {
+	Node->setFOV(FOV * core::DEGTORAD);
+}
+
 // Updates the camera
 void _Camera::Update(const core::vector3df &Target) {
 

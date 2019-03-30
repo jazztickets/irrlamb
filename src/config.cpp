@@ -49,6 +49,7 @@ void _Config::Reset() {
 	DriverType = video::EDT_OPENGL;
 	ScreenWidth = 800;
 	ScreenHeight = 600;
+	FOV = 72;
 	Fullscreen = false;
 	MultipleLights = true;
 	Shaders = true;
@@ -212,14 +213,12 @@ int _Config::ReadConfig() {
 	if(VideoElement) {
 		XMLElement *Element;
 
-		// Get driver
-		//VideoElement->QueryIntAttribute("driver", (int *)(&DriverType));
-
 		// Check for the screen tag
 		Element = VideoElement->FirstChildElement("screen");
 		if(Element) {
 			Element->QueryIntAttribute("width", &ScreenWidth);
 			Element->QueryIntAttribute("height", &ScreenHeight);
+			Element->QueryIntAttribute("fov", &FOV);
 			Element->QueryBoolAttribute("fullscreen", &Fullscreen);
 		}
 
@@ -317,6 +316,7 @@ int _Config::WriteConfig() {
 	XMLElement *ScreenElement = Document.NewElement("screen");
 	ScreenElement->SetAttribute("width", ScreenWidth);
 	ScreenElement->SetAttribute("height", ScreenHeight);
+	ScreenElement->SetAttribute("fov", FOV);
 	ScreenElement->SetAttribute("fullscreen", Fullscreen);
 	VideoElement->LinkEndChild(ScreenElement);
 
