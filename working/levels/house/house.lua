@@ -197,7 +197,8 @@ end
 function FurnaceTeleport()
 	GUI.TutorialText("You got sucked into the HVAC system. You almost died!", 6)
 	Object.Stop(Player)
-	Object.SetPosition(Player, 86.805, 100, 36.694)
+	Object.SetPosition(Player, 87.756561, 100, 36.694031)
+	Camera.SetYaw(180)
 end
 
 -- Objects
