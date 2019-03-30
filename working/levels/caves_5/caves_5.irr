@@ -28,25 +28,4 @@
          <colorf name="BackgroundColor" value="0.384374, 0.065095, 0.021185, 1"/>
       </attributes>
    </userData>
-   <node type="mesh">
-      <attributes>
-         <string name="Name" value="caves_5"/>
-         <int name="Id" value="-1"/>
-         <bool name="Visible" value="true"/>
-         <vector3d name="Position" value="0, 0, 0"/>
-         <vector3d name="Rotation" value="0, 0, 0"/>
-         <vector3d name="Scale" value="1, 1, 1"/>
-         <enum name="AutomaticCulling" value="frustum_box"/>
-         <bool name="DebugDataVisible" value="false"/>
-         <bool name="IsDebugObject" value="false"/>
-         <bool name="ReadOnlyMaterials" value="false"/>
-         <string name="Mesh" value="meshes/caves_5.irrbmesh"/>
-         <enum name="HardwareMappingHint" value="never"/>
-         <enum name="HardwareMappingBufferType" value="vertexindex"/>
-      </attributes>
-      <userData>
-         <attributes>
-         </attributes>
-      </userData>
-   </node>
 </irr_scene>

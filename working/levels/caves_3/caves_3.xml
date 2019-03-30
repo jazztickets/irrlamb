@@ -19,8 +19,8 @@
 			<texture index="0" file="blue.jpg" scale="16.0" />
 			<physics friction="0.6" />
 		</terrain>
-		<plane name="plane">
-			<mesh file="plane.irrbmesh" scale="500" shadows="0" />
+		<plane name="wall">
+			<mesh file="plane.irrbmesh" scale="500" />
 			<texture file="dirt0.jpg" scale="500" />
 		</plane>
 		<zone name="losezone">
@@ -35,7 +35,7 @@
 			<position x="0.0" y="0.0" z="0.0" />
 			<rotation x="45.0" y="0.0" z="0.0" />
 		</object>
-		<object name="plane" template="plane">
+		<object name="wall" template="wall">
 			<plane x="0" y="0" z="-1" d="-115" />
 		</object>
 		<object name="orb1" template="orb">

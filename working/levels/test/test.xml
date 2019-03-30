@@ -15,13 +15,13 @@
 		<player name="player" />
 		<orb name="orb" />
 		<box name="box">
-			<mesh file="cube.irrbmesh" scale="1" shadows="0" />
+			<mesh file="cube.irrbmesh" scale="1" />
 			<shape w="1" h="1" l="1" />
 			<texture file="crate0.jpg" />
 			<physics mass="1.0" />
 		</box>
 		<plane name="plane">
-			<mesh file="plane.irrbmesh" scale="1000" shadows="0" />
+			<mesh file="plane.irrbmesh" scale="1000" />
 			<texture file="grass0.jpg" scale="1000" />
 		</plane>
 		<cylinder name="log">

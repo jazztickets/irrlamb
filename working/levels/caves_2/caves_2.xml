@@ -25,13 +25,13 @@
 			<texture file="dirt0.jpg" />
 		</sphere>
 		<box name="pillar_med" >
-			<mesh file="cube.irrbmesh" w="2" h="5" l="2" shadows="0" />
+			<mesh file="cube.irrbmesh" w="2" h="5" l="2" />
 			<shape w="2" h="5" l="2" />
 			<texture file="dirt0.jpg" />
 			<physics mass="10" sleep="1" />
 		</box>
 		<box name="pillar_high">
-			<mesh file="cube.irrbmesh" w="2" h="7" l="2" shadows="0" />
+			<mesh file="cube.irrbmesh" w="2" h="7" l="2" />
 			<shape w="2" h="7" l="2" />
 			<texture file="dirt0.jpg" />
 			<physics mass="10" sleep="1" />

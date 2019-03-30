@@ -32,19 +32,19 @@
 			<texture file="pepper0.png" />
 		</cylinder>
 		<sphere name="soccer">
-			<mesh file="soccer.irrbmesh" scale="2" shadows="0" />
+			<mesh file="soccer.irrbmesh" scale="2" />
 			<shape r="2" />
 			<physics mass="3.0" />
 			<texture file="soccer0.png" />
 		</sphere>
 		<sphere name="ball">
-			<mesh file="soccer.irrbmesh" scale="1" shadows="0" />
+			<mesh file="soccer.irrbmesh" scale="1" />
 			<shape r="1" />
 			<physics mass="1.5" sleep="1" />
 			<texture file="fabric0.jpg" />
 		</sphere>
 		<sphere name="alan">
-			<mesh file="alan.irrbmesh" scale="2" shadows="0" />
+			<mesh file="alan.irrbmesh" scale="2" />
 			<shape r="0.75" />
 			<physics mass="10.0" />
 			<texture file="alan0.jpg" />

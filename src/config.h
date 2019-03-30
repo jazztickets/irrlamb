@@ -41,7 +41,6 @@ class _Config {
 		int ScreenWidth, ScreenHeight;
 		int MaxFPS;
 		bool Fullscreen;
-		bool Shadows;
 		bool TrilinearFiltering;
 		bool Shaders;
 		bool MultipleLights;

@@ -9,7 +9,6 @@
 	<resources>
 		<script file="caves_5.lua" />
 		<scene file="caves_5.irr" />
-		<collision name="lava" file="caves_5.col" />
 	</resources>
 	<templates>
 		<player name="player" />
@@ -19,6 +18,10 @@
 			<shape w="5" h="0.9" l="5" />
 			<texture index="0" file="dark0.jpg" scale="128.0" />
 		</terrain>
+		<plane name="lava">
+			<mesh file="plane.irrbmesh" scale="1300" />
+			<texture file="lava0.jpg" scale="50" />
+		</plane>
 	</templates>
 	<objects>
 		<object name="player" template="player">
@@ -26,6 +29,9 @@
 		</object>
 		<object name="terrain" template="terrain">
 			<position x="-320.0" y="-100.0" z="-320.0" />
+		</object>
+		<object name="lava" template="lava">
+			<plane x="0" y="1" z="0" d="0" />
 		</object>
 		<object name="orb" template="orb">
 			<position x="93.950768" y="37.340786" z="232.574051" />

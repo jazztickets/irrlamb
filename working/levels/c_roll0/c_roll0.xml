@@ -39,7 +39,7 @@
 			<position x="-22" y="3.2" z="18.5" />
 		</object>
 		<object name="losezone" template="losezone">
-			<position x="-12.5" y="-20" z="-10" />
+			<position x="-12.5" y="-10" z="-10" />
 		</object>
 	</objects>
 </level>

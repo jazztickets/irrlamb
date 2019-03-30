@@ -60,7 +60,6 @@ int _Graphics::Init(bool UseDesktopResolution, int Width, int Height, bool Fulls
 	Parameters.Fullscreen = Fullscreen;
 	Parameters.Bits = 32;
 	Parameters.Vsync = Config.Vsync;
-	Parameters.Stencilbuffer = Config.Shadows;
 	Parameters.AntiAlias = Config.AntiAliasing;
 	Parameters.WindowSize.set(Width, Height);
 

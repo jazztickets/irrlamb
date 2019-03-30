@@ -392,10 +392,6 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 					gui::IGUICheckBox *Fullscreen = static_cast<gui::IGUICheckBox *>(CurrentLayout->getElementFromId(VIDEO_FULLSCREEN));
 					Config.Fullscreen = Fullscreen->isChecked();
 
-					// Save shadows
-					gui::IGUICheckBox *Shadows = static_cast<gui::IGUICheckBox *>(CurrentLayout->getElementFromId(VIDEO_SHADOWS));
-					Config.Shadows = Shadows->isChecked();
-
 					// Save the anisotropy
 					gui::IGUIComboBox *Anisotropy = static_cast<gui::IGUIComboBox *>(CurrentLayout->getElementFromId(VIDEO_ANISOTROPY));
 					if(Anisotropy != nullptr) {
@@ -963,11 +959,6 @@ void _Menu::InitVideoOptions() {
 	Y += SpacingY;
 	AddMenuText(Interface.GetPositionPercent(X - SidePadding, Y), L"Fullscreen", _Interface::FONT_SMALL, -1, gui::EGUIA_LOWERRIGHT);
 	irrGUI->addCheckBox(Config.Fullscreen, Interface.GetRectPercent(X + SidePadding, Y, 32, 32), CurrentLayout, VIDEO_FULLSCREEN);
-
-	// Shadows
-	Y += SpacingY;
-	AddMenuText(Interface.GetPositionPercent(X - SidePadding, Y), L"Shadows", _Interface::FONT_SMALL, -1, gui::EGUIA_LOWERRIGHT);
-	irrGUI->addCheckBox(Config.Shadows, Interface.GetRectPercent(X + SidePadding, Y, 32, 32), CurrentLayout, VIDEO_SHADOWS);
 
 	// Shaders
 	Y += SpacingY;

@@ -50,7 +50,6 @@ void _Config::Reset() {
 	ScreenWidth = 800;
 	ScreenHeight = 600;
 	Fullscreen = false;
-	Shadows = true;
 	MultipleLights = true;
 	Shaders = true;
 	TrilinearFiltering = true;
@@ -232,12 +231,6 @@ int _Config::ReadConfig() {
 			Element->QueryIntAttribute("antialiasing", &AntiAliasing);
 		}
 
-		// Check for the shadow tag
-		Element = VideoElement->FirstChildElement("shadows");
-		if(Element) {
-			Element->QueryBoolAttribute("enabled", &Shadows);
-		}
-
 		// Check for the shader tag
 		Element = VideoElement->FirstChildElement("shaders");
 		if(Element) {
@@ -333,11 +326,6 @@ int _Config::WriteConfig() {
 	FilteringElement->SetAttribute("anisotropic", AnisotropicFiltering);
 	FilteringElement->SetAttribute("antialiasing", AntiAliasing);
 	VideoElement->LinkEndChild(FilteringElement);
-
-	// Shadows
-	XMLElement *ShadowsElement = Document.NewElement("shadows");
-	ShadowsElement->SetAttribute("enabled", Shadows);
-	VideoElement->LinkEndChild(ShadowsElement);
 
 	// Shaders
 	XMLElement *ShadersElement = Document.NewElement("shaders");

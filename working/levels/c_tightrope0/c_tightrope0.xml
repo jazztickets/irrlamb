@@ -14,13 +14,13 @@
 		<player name="player" />
 		<orb name="orb" />
 		<box name="rail_big">
-			<mesh file="cube.irrbmesh" w="5" h="0.2" l="0.2" shadows="false" />
+			<mesh file="cube.irrbmesh" w="5" h="0.2" l="0.2" />
 			<shape w="5" h="0.2" l="0.2" />
 			<texture file="dark0.jpg" />
 			<physics mass="0" />
 		</box>
 		<box name="rail_small">
-			<mesh file="cube.irrbmesh" w="5" h="0.1" l="0.1" shadows="false" />
+			<mesh file="cube.irrbmesh" w="5" h="0.1" l="0.1" />
 			<shape w="5" h="0.1" l="0.1" />
 			<texture file="dark0.jpg" />
 			<physics mass="0" />

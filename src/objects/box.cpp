@@ -47,11 +47,6 @@ _Box::_Box(const _ObjectSpawn &Object)
 				Node->setMaterialTexture(0, irrDriver->getTexture(Template->Textures[0].c_str()));
 			if(Template->CustomMaterial != -1)
 				Node->setMaterialType((video::E_MATERIAL_TYPE)Template->CustomMaterial);
-
-			// Add shadows
-			if(Config.Shadows && Template->Shadows) {
-				((scene::IAnimatedMeshSceneNode *)Node)->addShadowVolumeSceneNode();
-			}
 		}
 	}
 
