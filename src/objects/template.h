@@ -69,6 +69,7 @@ struct _Template {
 	bool Active;
 
 	// Terrain
+	std::string HeightMap;
 	int Smooth;
 };
 

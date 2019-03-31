@@ -14,7 +14,7 @@
 		<player name="player" />
 		<orb name="orb" />
 		<terrain name="terrain" smooth="5">
-			<mesh file="height1.png" />
+			<heightmap file="height1.png" />
 			<shape w="5" h="0.9" l="5" />
 			<texture index="0" file="dark0.jpg" scale="128.0" />
 		</terrain>

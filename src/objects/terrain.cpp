@@ -37,10 +37,9 @@ _Terrain::_Terrain(const _ObjectSpawn &Object) :
 	FaceList(nullptr) {
 
 	// Check for mesh file
-	if(Template->Mesh != "") {
-		std::string HeightMap = "textures/" + Template->Mesh;
+	if(Template->HeightMap != "") {
 		scene::ITerrainSceneNode *Terrain = irrScene->addTerrainSceneNode(
-			HeightMap.c_str(),
+			Template->HeightMap.c_str(),
 			0,
 			-1,
 			core::vector3df(Object.Position[0], Object.Position[1], Object.Position[2]),

@@ -453,6 +453,27 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Templa
 			Template.Scale[i] *= Scale;
 	}
 
+	// Get heightmap properties
+	Element = TemplateElement->FirstChildElement("heightmap");
+	if(Element) {
+		String = Element->Attribute("file");
+		if(String) {
+			Template.HeightMap = String;
+
+			// Try custom path first
+			Template.HeightMap = CustomDataPath + std::string("textures/") + String;
+			if(!irrFile->existFile(Template.HeightMap.c_str())) {
+
+				// Try normal path
+				Template.HeightMap = Framework.GetWorkingPath() + std::string("textures/") + String;
+				if(!irrFile->existFile(Template.HeightMap.c_str())) {
+					Log.Write("Heightmap file does not exist: %s", String);
+					return 0;
+				}
+			}
+		}
+	}
+
 	// Get physical attributes
 	Element = TemplateElement->FirstChildElement("physics");
 	if(Element) {
