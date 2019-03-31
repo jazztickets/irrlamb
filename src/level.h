@@ -39,6 +39,7 @@ class _UserDataLoader : public irr::scene::ISceneUserDataSerializer {
 
 // Classes
 class _Level {
+
 	friend class _UserDataLoader;
 
 	public:
@@ -73,6 +74,9 @@ class _Level {
 		// Loading
 		int GetTemplateProperties(tinyxml2::XMLElement *TemplateElement, _Template &Template);
 		int GetObjectSpawnProperties(tinyxml2::XMLElement *ObjectElement, _ObjectSpawn &ObjectSpawn);
+
+		// Custom levels
+		std::string CustomDataPath;
 
 		// Resources
 		std::vector<std::string> Scripts;

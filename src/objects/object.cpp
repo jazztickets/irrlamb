@@ -21,8 +21,12 @@
 #include <scripting.h>
 #include <physics.h>
 #include <log.h>
+#include <globals.h>
 #include <ode/collision.h>
 #include <ode/objects.h>
+#include <IAnimatedMesh.h>
+#include <IAnimatedMeshSceneNode.h>
+#include <ISceneManager.h>
 
 const float TOUCHING_GROUND_WINDOW = 0.13f;
 
@@ -292,6 +296,21 @@ void _Object::HandleCollision(const _ObjectCollision &ObjectCollision) {
 	// Call collision handler
 	if(CollisionCallback.size())
 		Scripting.CallCollisionHandler(CollisionCallback, this, ObjectCollision.OtherObject);
+}
+
+// Load a mesh file
+irr::scene::ISceneNode *_Object::LoadMesh(const std::string &MeshFile) {
+
+	// Load mesh
+	scene::IAnimatedMesh *AnimatedMesh = irrScene->getMesh(MeshFile.c_str());
+
+	// Can't find mesh
+	if(!AnimatedMesh) {
+		Log.Write("Can't find mesh: %s", MeshFile.c_str());
+		return nullptr;
+	}
+
+	return irrScene->addAnimatedMeshSceneNode(AnimatedMesh);
 }
 
 // Resets the object state before the frame begins

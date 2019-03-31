@@ -36,12 +36,8 @@ _Plane::_Plane(const _ObjectSpawn &Object) :
 	// Check for mesh file
 	if(Template->Mesh != "") {
 
-		// Get file path
-		std::string MeshPath = std::string("meshes/") + Template->Mesh;
-
-		// Add mesh
-		scene::IAnimatedMesh *AnimatedMesh = irrScene->getMesh(MeshPath.c_str());
-		Node = irrScene->addAnimatedMeshSceneNode(AnimatedMesh);
+		// Load mesh
+		Node = LoadMesh(Template->Mesh);
 		if(Node) {
 			Node->setScale(core::vector3df(Template->Scale[0], Template->Scale[1], Template->Scale[2]));
 			if(Template->Textures[0] != "")
@@ -67,6 +63,8 @@ _Plane::_Plane(const _ObjectSpawn &Object) :
 
 // Update node transform from plane equation
 void _Plane::UpdateTransform() {
+	if(!Node)
+		return;
 
 	// Get normal
 	glm::vec3 Normal = Plane;

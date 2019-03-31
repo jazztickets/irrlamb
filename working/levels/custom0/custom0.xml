@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<level version="0" gameversion="1.0.0">
+	<info>
+		<name>Custom Level</name>
+	</info>
+	<options>
+		<emitlight enabled="1" />
+	</options>
+	<resources>
+		<script file="custom0.lua" />
+		<scene file="custom0.irr" />
+		<!-- <collision file="custom0.col" /> -->
+	</resources>
+	<templates>
+		<player name="player" />
+		<orb name="orb" />
+		<box name="box">
+			<mesh file="cube.irrbmesh" scale="1" />
+			<shape w="1" h="1" l="1" />
+			<texture file="checker0.png" />
+			<physics mass="1.0" />
+		</box>
+		<plane name="plane">
+			<mesh file="plane.irrbmesh" scale="1000" />
+			<texture file="checker0.png" scale="1000" />
+		</plane>
+	</templates>
+	<objects>
+		<object name="player" template="player">
+			<position x="0" y="0.5" z="0" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="0" y="3.5" z="5" />
+		</object>
+		<object name="plane" template="plane">
+			<plane x="0" y="1" z="0" d="0" />
+		</object>
+	</objects>
+</level>

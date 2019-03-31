@@ -106,6 +106,7 @@ class _Object {
 	protected:
 
 		// Physics
+		irr::scene::ISceneNode *LoadMesh(const std::string &MeshFile);
 		void CreateRigidBody(const _ObjectSpawn &Object, dGeomID Geometry, bool SetTransform=true);
 		void SetProperties(const _ObjectSpawn &Object, bool SetTransform=true);
 		void SetProperties(const _ConstraintSpawn &Object);

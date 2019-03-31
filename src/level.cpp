@@ -80,7 +80,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 	std::string LevelFile = LevelName + "/" + LevelName + ".xml";
 	std::string FilePath = Framework.GetWorkingPath() + std::string("levels/") + LevelFile;
 	std::string CustomFilePath = Save.CustomLevelsPath + LevelFile;
-	std::string DataPath = Framework.GetWorkingPath() + std::string("levels/") + LevelName + "/";
+	CustomDataPath = Framework.GetWorkingPath() + std::string("levels/") + LevelName + "/";
 
 	// See if custom level exists first
 	IsCustomLevel = false;
@@ -88,7 +88,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 	if(CustomLevelExists) {
 		IsCustomLevel = true;
 		FilePath = CustomFilePath;
-		DataPath = Save.CustomLevelsPath + LevelName + "/";
+		CustomDataPath = Save.CustomLevelsPath + LevelName + "/";
 	}
 	CustomLevelExists.close();
 
@@ -147,12 +147,14 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 	bool Fog = false;
 	bool EmitLight = false;
 	Level.ClearColor.set(255, 0, 0, 0);
+	irrScene->setAmbientLight(video::SColorf(0.3, 0.3, 0.3, 1));
+	irrDriver->setFog(video::SColor(0), irr::video::EFT_FOG_EXP, 0, 0, 0);
 
 	// Load options
 	XMLElement *OptionsElement = LevelElement->FirstChildElement("options");
 	if(OptionsElement) {
 
-		// Does the player emit light?
+		// Use lights from world/player
 		XMLElement *EmitLightElement = OptionsElement->FirstChildElement("emitlight");
 		if(EmitLightElement) {
 			EmitLightElement->QueryBoolAttribute("enabled", &EmitLight);
@@ -179,12 +181,12 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 
 			// Load scene
 			if(IsCustomLevel) {
-				irrFile->changeWorkingDirectoryTo(DataPath.c_str());
+				irrFile->changeWorkingDirectoryTo(CustomDataPath.c_str());
 				irrScene->loadScene(File.c_str(), &UserDataLoader);
 				irrFile->changeWorkingDirectoryTo(Framework.GetWorkingPath().c_str());
 			}
 			else {
-				irrScene->loadScene((DataPath + File).c_str(), &UserDataLoader);
+				irrScene->loadScene((CustomDataPath + File).c_str(), &UserDataLoader);
 			}
 
 			// Set texture filters on meshes in the scene
@@ -225,7 +227,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 
 			// Create template
 			_Template *Template = new _Template;
-			Template->CollisionFile = DataPath + File;
+			Template->CollisionFile = CustomDataPath + File;
 			Template->Type = _Object::COLLISION;
 			Template->CollisionGroup = _Physics::FILTER_STATIC | _Physics::FILTER_CAMERA;
 			Template->CollisionMask = _Physics::FILTER_RIGIDBODY;
@@ -255,7 +257,7 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 				return 0;
 			}
 
-			Scripts.push_back(DataPath + File);
+			Scripts.push_back(CustomDataPath + File);
 		}
 
 		// Load sounds
@@ -423,8 +425,21 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Templa
 	Element = TemplateElement->FirstChildElement("mesh");
 	if(Element) {
 		String = Element->Attribute("file");
-		if(String)
+		if(String) {
 			Template.Mesh = String;
+
+			// Try custom path first
+			Template.Mesh = CustomDataPath + std::string("meshes/") + String;
+			if(!irrFile->existFile(Template.Mesh.c_str())) {
+
+				// Try normal path
+				Template.Mesh = Framework.GetWorkingPath() + std::string("meshes/") + String;
+				if(!irrFile->existFile(Template.Mesh.c_str())) {
+					Log.Write("Mesh file does not exist: %s", String);
+					return 0;
+				}
+			}
+		}
 
 		// Get component scale
 		Element->QueryFloatAttribute("w", &Template.Scale[0]);
@@ -482,10 +497,17 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Templa
 		// Get filename
 		const char *Filename = Element->Attribute("file");
 		if(Filename) {
-			Template.Textures[Index] = Framework.GetWorkingPath() + std::string("textures/") + Filename;
+
+			// Try custom path first
+			Template.Textures[Index] = CustomDataPath + std::string("textures/") + Filename;
 			if(!irrFile->existFile(Template.Textures[Index].c_str())) {
-				Log.Write("Texture file does not exist: %s", Filename);
-				return 0;
+
+				// Try normal path
+				Template.Textures[Index] = Framework.GetWorkingPath() + std::string("textures/") + Filename;
+				if(!irrFile->existFile(Template.Textures[Index].c_str())) {
+					Log.Write("Texture file does not exist: %s", Filename);
+					return 0;
+				}
 			}
 		}
 	}
