@@ -21,6 +21,10 @@
 			<physics mass="6.0" sleep="1" />
 			<texture file="bark0.jpg" />
 		</cylinder>
+		<plane name="floor">
+			<mesh file="plane.irrbmesh" scale="100" />
+			<texture file="grass0.jpg" scale="100" />
+		</plane>
 		<zone name="losezone">
 			<shape w="100" h="2" l="100" />
 		</zone>
@@ -31,6 +35,9 @@
 		</object>
 		<object name="losezone" template="losezone">
 			<position x="0" y="0" z="0" />
+		</object>
+		<object name="floor" template="floor">
+			<plane x="0" y="1" z="0" d="0" />
 		</object>
 	</objects>
 </level>
