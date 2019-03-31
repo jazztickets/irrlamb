@@ -15,9 +15,6 @@
 	<templates>
 		<player name="player" />
 		<orb name="orb" />
-		<zone name="losezone">
-			<shape w="100" h="2.5" l="100" />
-		</zone>
 	</templates>
 	<objects>
 		<object name="player" template="player">
@@ -31,9 +28,6 @@
 		</object>
 		<object name="orb" template="orb">
 			<position x="-2.5" y="-0.5" z="0.0" />
-		</object>
-		<object name="losezone" template="losezone">
-			<position x="0" y="-4.5" z="0" />
 		</object>
 	</objects>
 </level>

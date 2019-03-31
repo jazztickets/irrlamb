@@ -13,10 +13,6 @@ function OnHitZone(HitType, Zone, HitObject)
 
 	ZoneName = Object.GetName(Zone)
 	Name = Object.GetName(HitObject)
-	if Name == "orb" or HitObject == Player then
-		X, Y, Z = Object.GetPosition(HitObject)
-		Audio.Play("splash.ogg", X, Y, Z, 0, 0.3, 0.7)
-	end
 
 	if ZoneName == "zone_secret" then
 		Timer.DelayedFunction("SecretMessage", 10)
@@ -25,9 +21,12 @@ function OnHitZone(HitType, Zone, HitObject)
 		return 1
 	end
 
-	if HitObject == Player then
-		Level.Lose("You drowned!")
-		return 1
+	if ZoneName == "zone_lose" then
+		X, Y, Z = Object.GetPosition(HitObject)
+		Audio.Play("splash.ogg", X, Y, Z, 0, 0.3, 0.7)
+		if HitObject == Player then
+			Level.Lose("You drowned!")
+		end
 	end
 
 	return 0
