@@ -25,7 +25,7 @@
 		<cylinder name="log">
 			<mesh file="cylinder.irrbmesh" scale="1" />
 			<shape w="1" h="2" />
-			<physics mass="0.35" cfm="1e-5" erp="0.0" />
+			<physics mass="0.35" cfm="1e-5" erp="0.0" rolling_friction="0.03" />
 			<texture file="dark0.jpg" />
 		</cylinder>
 		<zone name="losezone">

@@ -249,13 +249,15 @@ bool _Replay::LoadReplay(const std::string &ReplayFile, bool HeaderOnly) {
 	Won = false;
 	Platform = 0;
 
-	// Get file name
-	std::string FilePath = Save.ReplayPath + ReplayFile;
+	// Try absolute path
+	File.open(ReplayFile.c_str(), std::ios::in | std::ios::binary);
+	if(!File) {
 
-	// Open the replay
-	File.open(FilePath.c_str(), std::ios::in | std::ios::binary);
-	if(!File)
-		return false;
+		// Pass only file name
+		File.open((Save.ReplayPath + ReplayFile).c_str(), std::ios::in | std::ios::binary);
+		if(!File)
+			return false;
+	}
 
 	// Read header
 	LoadHeader();

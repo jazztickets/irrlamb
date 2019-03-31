@@ -446,6 +446,7 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Templa
 		Element->QueryIntAttribute("sleep", &Template.Sleep);
 		Element->QueryFloatAttribute("mass", &Template.Mass);
 		Element->QueryFloatAttribute("friction", &Template.Friction);
+		Element->QueryFloatAttribute("rolling_friction", &Template.RollingFriction);
 		Element->QueryFloatAttribute("restitution", &Template.Restitution);
 		Element->QueryFloatAttribute("erp", &Template.ERP);
 		Element->QueryFloatAttribute("cfm", &Template.CFM);
