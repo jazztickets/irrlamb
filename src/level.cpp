@@ -426,8 +426,6 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Templa
 		if(String)
 			Template.Mesh = String;
 
-		Element->QueryBoolAttribute("shadows", &Template.Shadows);
-
 		// Get component scale
 		Element->QueryFloatAttribute("w", &Template.Scale[0]);
 		Element->QueryFloatAttribute("h", &Template.Scale[1]);

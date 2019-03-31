@@ -62,7 +62,6 @@ struct _Template {
 	float TextureScale[4];
 	bool Fog;
 	bool EmitLight;
-	bool Shadows;
 	int Detail;
 	int CustomMaterial;
 

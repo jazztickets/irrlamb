@@ -56,7 +56,7 @@
          <float name="Radius" value="100.00"/>
          <float name="OuterCone" value="45.00"/>
          <float name="InnerCone" value="0.00"/>
-         <bool name="CastShadows" value="true"/>
+         <bool name="CastShadows" value="false"/>
       </attributes>
       <userData>
          <attributes>

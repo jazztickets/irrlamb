@@ -46,6 +46,7 @@ class _Player : public _Object {
 
 		// Graphics
 		irr::scene::ILightSceneNode *Light;
+		irr::scene::ISceneNode *InnerNode;
 
 		// Audio
 		_AudioSource *Sound;

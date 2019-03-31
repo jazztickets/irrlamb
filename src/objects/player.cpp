@@ -46,6 +46,7 @@ _Player::_Player(const _ObjectSpawn &Object)
 :	_Object(Object.Template),
 	Camera(nullptr),
 	Light(nullptr),
+	InnerNode(nullptr),
 	Sound(nullptr),
 	JumpTimer(0.0f),
 	JumpCooldown(0.0f),
@@ -66,7 +67,6 @@ _Player::_Player(const _ObjectSpawn &Object)
 	}
 
 	// Add glow
-	scene::ISceneNode *InnerNode;
 	InnerNode = irrScene->addBillboardSceneNode(Node, core::dimension2df(1.5f, 1.5f));
 	InnerNode->setMaterialFlag(video::EMF_LIGHTING, false);
 	InnerNode->setMaterialFlag(video::EMF_ZBUFFER, false);
@@ -150,6 +150,11 @@ void _Player::Update(float FrameTime) {
 			JumpCooldown = JUMP_COOLDOWN;
 		}
 	}
+
+	//if(TouchingGround)
+	//	InnerNode->setMaterialTexture(0, irrDriver->getTexture("textures/player_glow0.png"));
+	//else
+	//	InnerNode->setMaterialTexture(0, irrDriver->getTexture("textures/player_glow1.png"));
 }
 
 // Processes input from the keyboard

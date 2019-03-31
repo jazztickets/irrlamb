@@ -58,7 +58,6 @@ _Template::_Template() {
 		Scale[i] = 1.0f;
 	Mesh = "";
 	Fog = false;
-	Shadows = true;
 	Detail = 24;
 	CustomMaterial = -1;
 	EmitLight = false;
