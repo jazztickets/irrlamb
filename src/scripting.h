@@ -86,7 +86,6 @@ class _Scripting {
 		static int LevelGetTemplate(lua_State *LuaObject);
 		static int LevelCreateObject(lua_State *LuaObject);
 		static int LevelCreateConstraint(lua_State *LuaObject);
-		static int LevelCreateSpring(lua_State *LuaObject);
 
 		static int GUITutorialText(lua_State *LuaObject);
 

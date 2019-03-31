@@ -79,7 +79,6 @@ luaL_Reg _Scripting::LevelFunctions[] = {
 	{"GetTemplate", &_Scripting::LevelGetTemplate},
 	{"CreateObject", &_Scripting::LevelCreateObject},
 	{"CreateConstraint", &_Scripting::LevelCreateConstraint},
-	{"CreateSpring", &_Scripting::LevelCreateSpring},
 	{nullptr, nullptr}
 };
 
@@ -703,12 +702,6 @@ int _Scripting::LevelCreateConstraint(lua_State *LuaObject) {
 
 	// Send new object to Lua
 	lua_pushlightuserdata(LuaObject, Object);
-
-	return 1;
-}
-
-// Creates a spring constraint
-int _Scripting::LevelCreateSpring(lua_State *LuaObject) {
 
 	return 1;
 }
