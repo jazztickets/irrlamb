@@ -30,7 +30,6 @@
 #include <config.h>
 #include <save.h>
 #include <campaign.h>
-#include <constants.h>
 #include <states/play.h>
 #include <states/viewreplay.h>
 #include <states/null.h>

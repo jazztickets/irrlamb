@@ -27,7 +27,6 @@
 #include <camera.h>
 #include <framework.h>
 #include <interface.h>
-#include <constants.h>
 #include <objects/orb.h>
 #include <objects/template.h>
 #include <font/CGUITTFont.h>
@@ -35,6 +34,8 @@
 #include <menu.h>
 #include <states/null.h>
 #include <ISceneManager.h>
+
+const float REPLAY_TIME_INCREMENT = 0.1f;
 
 using namespace irr;
 

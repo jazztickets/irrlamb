@@ -21,6 +21,9 @@
 #include <glm/gtc/quaternion.hpp>
 #include <vector>
 
+// Constants
+const float PHYSICS_TIMESTEP = 1.0f / 500.0f;
+
 // Forward Declarations
 class _Object;
 

@@ -20,9 +20,13 @@
 #include <chrono>
 #include <irrTypes.h>
 
+// Constants
+const float FADE_SPEED = 5.0f;
+
 // Forward Declarations
 class _State;
 
+// Handles window management and changing game states
 class _Framework {
 
 	public:

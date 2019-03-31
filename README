@@ -47,16 +47,16 @@ F12                   Screenshot
 ----- BUILDING -----
 
 -- Dependencies --
-cmake 2.8+
+cmake
 freetype2
 sqlite3
-lua 5.3+
+lua
 openal
-zlib
 libvorbis
 libogg
 libjpeg
 libpng
+zlib
 
 -- Cloning --
 git clone https://github.com/jazztickets/irrlamb.git --recurse-submodules
@@ -73,9 +73,6 @@ run "sudo make install" from the build directory.
 
 -- Uninstall --
 cat install_manifest.txt | xargs sudo rm
-
-Windows users will need to install OpenAL:
-https://www.openal.org/downloads/oalinst.zip
 
 ----- COMMAND-LINE ARGUMENTS -----
 -level [.xml file]        Test a level

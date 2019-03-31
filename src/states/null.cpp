@@ -16,7 +16,6 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #include <states/null.h>
-#include <constants.h>
 #include <globals.h>
 #include <input.h>
 #include <log.h>

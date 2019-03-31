@@ -21,9 +21,10 @@
 #include <scripting.h>
 #include <physics.h>
 #include <log.h>
-#include <constants.h>
 #include <ode/collision.h>
 #include <ode/objects.h>
+
+const float TOUCHING_GROUND_WINDOW = 0.13f;
 
 using namespace irr;
 

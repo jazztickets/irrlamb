@@ -18,7 +18,6 @@
 #include <physics.h>
 #include <globals.h>
 #include <framework.h>
-#include <constants.h>
 #include <objects/object.h>
 #include <objects/template.h>
 #include <ode/odeinit.h>

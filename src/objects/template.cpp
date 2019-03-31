@@ -18,7 +18,6 @@
 #include <objects/template.h>
 #include <objects/object.h>
 #include <physics.h>
-#include <constants.h>
 
 _Template::_Template() {
 

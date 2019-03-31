@@ -19,7 +19,6 @@
 #include <save.h>
 #include <log.h>
 #include <config.h>
-#include <constants.h>
 #include <level.h>
 #include <framework.h>
 #include <sstream>

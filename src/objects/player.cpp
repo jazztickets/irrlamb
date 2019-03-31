@@ -16,7 +16,6 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #include <objects/player.h>
-#include <constants.h>
 #include <globals.h>
 #include <physics.h>
 #include <input.h>
@@ -35,6 +34,10 @@
 #include <ISceneNode.h>
 #include <IMeshSceneNode.h>
 #include <IBillboardSceneNode.h>
+
+const float JUMP_WINDOW = 0.1f;
+const float JUMP_POWER = 5.0f;
+const float JUMP_COOLDOWN = 0.13f;
 
 using namespace irr;
 

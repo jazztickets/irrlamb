@@ -19,7 +19,10 @@
 #include <globals.h>
 #include <log.h>
 #include <database.h>
-#include <constants.h>
+
+const int STATS_VERSION = 0;
+const int STATS_MAXSCORES = 10;
+
 #ifdef _WIN32
 	#define WIN32_LEAN_AND_MEAN
 	#include <windows.h>

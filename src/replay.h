@@ -20,6 +20,9 @@
 // Libraries
 #include <fstream>
 
+// Constants
+const int REPLAY_VERSION = 4;
+
 // Event packet structure
 struct _ReplayEvent {
 	uint8_t Type;

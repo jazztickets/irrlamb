@@ -18,7 +18,6 @@
 #include <menu.h>
 #include <graphics.h>
 #include <input.h>
-#include <constants.h>
 #include <interface.h>
 #include <globals.h>
 #include <config.h>
@@ -28,6 +27,7 @@
 #include <level.h>
 #include <save.h>
 #include <audio.h>
+#include <physics.h>
 #include <states/viewreplay.h>
 #include <states/play.h>
 #include <states/null.h>

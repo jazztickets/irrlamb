@@ -18,7 +18,7 @@
 #include <fader.h>
 #include <audio.h>
 #include <globals.h>
-#include <constants.h>
+#include <physics.h>
 
 using namespace irr;
 

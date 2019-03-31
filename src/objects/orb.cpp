@@ -21,7 +21,6 @@
 #include <physics.h>
 #include <scripting.h>
 #include <replay.h>
-#include <constants.h>
 #include <config.h>
 #include <audio.h>
 #include <objects/template.h>
@@ -29,6 +28,10 @@
 #include <IMeshSceneNode.h>
 #include <ode/objects.h>
 #include <ode/collision.h>
+
+const float ORB_GLOWSIZE = 2.5f;
+const float ORB_PITCH = 2.0f;
+const float ORB_DEACTIVATETIME = 2.0f;
 
 using namespace irr;
 

@@ -6,7 +6,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # define constants
-add_definitions(-DGAME_VERSION="0.3.0")
+add_definitions(-DGAME_VERSION="1.0.0")
 add_definitions(-D_IRR_STATIC_LIB_)
 add_definitions(-DdIDEDOUBLE)
 add_definitions(-DCCD_IDEDOUBLE)
@@ -22,9 +22,12 @@ subdirs(tools)
 # add extra find modules
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 
-# mingw
+# platform
 if(WIN32)
 	set(EXTRA_LIBS ${EXTRA_LIBS} winmm ws2_32)
+	add_definitions(-DPLATFORM=1)
+elseif(UNIX)
+	add_definitions(-DPLATFORM=0)
 endif()
 
 # compiler flags

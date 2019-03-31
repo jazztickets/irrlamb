@@ -16,7 +16,6 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #include <states/play.h>
-#include <constants.h>
 #include <globals.h>
 #include <input.h>
 #include <log.h>
@@ -40,6 +39,8 @@
 #include <states/null.h>
 #include <ISceneManager.h>
 #include <IFileSystem.h>
+
+const float PAUSE_FADE_AMOUNT = 0.85f;
 
 using namespace irr;
 
@@ -412,7 +413,7 @@ void _PlayState::Draw() {
 
 	// Darken the screen
 	if(IsPaused())
-		Interface.FadeScreen(FADE_AMOUNT);
+		Interface.FadeScreen(PAUSE_FADE_AMOUNT);
 
 	// Draw irrlicht GUI
 	Menu.Draw();

@@ -20,7 +20,6 @@
 #include <globals.h>
 #include <save.h>
 #include <input.h>
-#include <constants.h>
 
 using namespace irr;
 
@@ -57,7 +56,7 @@ void _Config::Reset() {
 	AnisotropicFiltering = 0;
 	AntiAliasing = 0;
 	Vsync = false;
-	MaxFPS = MAXFPS;
+	MaxFPS = 300.0f;
 	ShowFPS = false;
 	Caching = false;
 	ShowTutorial = true;
