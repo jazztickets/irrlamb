@@ -26,8 +26,8 @@ using namespace irr;
 _ObjectManager ObjectManager;
 
 // Constructor
-_ObjectManager::_ObjectManager()
-:	NextObjectID(0) {
+_ObjectManager::_ObjectManager() :
+	NextObjectID(0) {
 
 }
 

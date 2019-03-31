@@ -21,8 +21,8 @@
 #include <cassert>
 
 // Constructor
-_Database::_Database()
-:	Database(nullptr) {
+_Database::_Database() :
+	Database(nullptr) {
 
 	QueryHandle[0] = nullptr;
 	QueryHandle[1] = nullptr;

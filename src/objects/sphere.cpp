@@ -29,8 +29,8 @@
 using namespace irr;
 
 // Constructor
-_Sphere::_Sphere(const _ObjectSpawn &Object)
-:	_Object(Object.Template) {
+_Sphere::_Sphere(const _ObjectSpawn &Object) :
+	_Object(Object.Template) {
 
 	// Check for mesh file
 	if(Template->Mesh != "") {

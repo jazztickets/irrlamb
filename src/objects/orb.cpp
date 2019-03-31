@@ -36,8 +36,8 @@ const float ORB_DEACTIVATETIME = 2.0f;
 using namespace irr;
 
 // Constructor
-_Orb::_Orb(const _ObjectSpawn &Object)
-:	_Object(Object.Template),
+_Orb::_Orb(const _ObjectSpawn &Object) :
+	_Object(Object.Template),
 	Light(nullptr),
 	Sound(nullptr),
 	DeactivationCallback(""),

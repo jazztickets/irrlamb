@@ -29,8 +29,8 @@
 using namespace irr;
 
 // Constructor
-_Cylinder::_Cylinder(const _ObjectSpawn &Object)
-:	_Object(Object.Template) {
+_Cylinder::_Cylinder(const _ObjectSpawn &Object) :
+	_Object(Object.Template) {
 
 	// Check for mesh file
 	if(Template->Mesh != "") {

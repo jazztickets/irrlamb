@@ -42,8 +42,8 @@ const float JUMP_COOLDOWN = 0.13f;
 using namespace irr;
 
 // Constructor
-_Player::_Player(const _ObjectSpawn &Object)
-:	_Object(Object.Template),
+_Player::_Player(const _ObjectSpawn &Object) :
+	_Object(Object.Template),
 	Camera(nullptr),
 	Light(nullptr),
 	InnerNode(nullptr),

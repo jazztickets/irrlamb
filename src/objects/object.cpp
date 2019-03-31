@@ -29,8 +29,8 @@ const float TOUCHING_GROUND_WINDOW = 0.13f;
 using namespace irr;
 
 // Constructor
-_Object::_Object(const _Template *Template)
-:	Name(""),
+_Object::_Object(const _Template *Template) :
+	Name(""),
 	Template(Template),
 	Type(NONE),
 	ID(-1),

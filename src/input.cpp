@@ -36,8 +36,8 @@ using namespace irr;
 _Input Input;
 
 // Event receiver constructor
-_Input::_Input()
-:	LastJoystickButtonState(0),
+_Input::_Input() :
+	LastJoystickButtonState(0),
 	MouseLocked(false),
 	MouseX(0),
 	MouseY(0),

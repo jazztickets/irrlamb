@@ -23,8 +23,8 @@
 #include <ode/collision.h>
 
 // Constructor
-_Zone::_Zone(const _ObjectSpawn &Object)
-:	_Object(Object.Template) {
+_Zone::_Zone(const _ObjectSpawn &Object) :
+	_Object(Object.Template) {
 
 	Active = Template->Active;
 

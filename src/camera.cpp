@@ -25,8 +25,8 @@
 using namespace irr;
 
 // Constructor
-_Camera::_Camera()
-:	Node(nullptr),
+_Camera::_Camera() :
+	Node(nullptr),
 	Yaw(0.0f),
 	Pitch(30.0f),
 	MaxDistance(5.0f),
