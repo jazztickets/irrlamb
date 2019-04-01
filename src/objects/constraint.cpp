@@ -28,14 +28,24 @@ _Constraint::_Constraint(const _ConstraintSpawn &Object) :
 
 	// Create joint
 	if(Physics.IsEnabled() && Template) {
+
+		// Get bodies
+		dBodyID MainBody = nullptr;
+		dBodyID OtherBody = nullptr;
+		if(Object.MainObject)
+			MainBody = Object.MainObject->GetBody();
+		if(Object.OtherObject)
+			OtherBody = Object.OtherObject->GetBody();
+
+		// Handle constraint types
 		switch(Template->Type) {
 			case CONSTRAINT_HINGE: {
-				if(Object.BodyA) {
+				if(Object.MainObject) {
 					Joint = dJointCreateHinge(Physics.GetWorld(), 0);
-					dJointAttach(Joint, Object.BodyA->GetBody(), 0);
+					dJointAttach(Joint, MainBody, OtherBody);
 					dJointSetHingeAxis(Joint, Template->ConstraintAxis[0], Template->ConstraintAxis[1], Template->ConstraintAxis[2]);
 
-					glm::vec3 Position = Object.BodyA->GetPosition();
+					glm::vec3 Position = Object.MainObject->GetPosition();
 					dJointSetHingeAnchor(Joint, Position[0], Position[1], Position[2]);
 				}
 			} break;

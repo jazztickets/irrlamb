@@ -694,8 +694,8 @@ int _Scripting::LevelCreateConstraint(lua_State *LuaObject) {
 	_ConstraintSpawn Constraint;
 	Constraint.Name = lua_tostring(LuaObject, 1);
 	Constraint.Template = (_Template *)(lua_touserdata(LuaObject, 2));
-	Constraint.BodyA = (_Object *)(lua_touserdata(LuaObject, 3));
-	Constraint.BodyB = (_Object *)(lua_touserdata(LuaObject, 4));
+	Constraint.MainObject = (_Object *)(lua_touserdata(LuaObject, 3));
+	Constraint.OtherObject = (_Object *)(lua_touserdata(LuaObject, 4));
 
 	// Create object
 	_Object *Object = Level.CreateConstraint(Constraint);

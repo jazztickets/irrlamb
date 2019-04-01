@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<level version="0" gameversion="1.0.0">
+	<info>
+		<name>Seesaw</name>
+	</info>
+	<options>
+		<emitlight enabled="1" />
+	</options>
+	<resources>
+		<script file="c_seesaw0.lua" />
+		<scene file="c_seesaw0.irr" />
+	</resources>
+	<templates>
+		<player name="player" />
+		<orb name="orb" />
+		<cylinder name="log">
+			<mesh file="cylinder_tall.irrbmesh" scale="1" />
+			<texture file="bark0.jpg" />
+			<shape w="1" h="6" l="1" />
+			<physics mass="0.5" />
+			<damping angular="0.1" />
+		</cylinder>
+		<hinge name="constraint_x">
+			<axis x="1" />
+		</hinge>
+		<hinge name="constraint_z">
+			<axis z="1" />
+		</hinge>
+		<zone name="losezone">
+			<shape w="500" h="10" l="500" />
+		</zone>
+	</templates>
+	<objects>
+		<object name="player" template="player">
+			<position x="10.5" y="1" z="17.5" />
+			<position x="0" y="1" z="0" />
+		</object>
+		<object name="orb0" template="orb">
+			<position x="0" y="0.0" z="-3.5" />
+		</object>
+		<object name="losezone" template="losezone">
+			<position x="0" y="-10" z="0" />
+		</object>
+	</objects>
+</level>

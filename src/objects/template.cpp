@@ -89,7 +89,7 @@ void _ObjectSpawn::CalculateRotation() {
 
 _ConstraintSpawn::_ConstraintSpawn() {
 	Name = "";
-	BodyA = nullptr;
-	BodyB = nullptr;
+	MainObject = nullptr;
+	OtherObject = nullptr;
 	Template = nullptr;
 }
