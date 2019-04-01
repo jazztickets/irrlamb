@@ -13,7 +13,13 @@
 	<templates>
 		<player name="player" />
 		<orb name="orb" />
-		<cylinder name="log">
+		<cylinder name="log_short">
+			<mesh file="cylinder.irrbmesh" />
+			<texture file="bark0.jpg" />
+			<shape w="1" h="2" />
+			<physics mass="2" />
+		</cylinder>
+		<cylinder name="log_medium">
 			<mesh file="cylinder_tall.irrbmesh" scale="1" />
 			<texture file="bark0.jpg" />
 			<shape w="1" h="6" />
@@ -26,6 +32,7 @@
 			<shape w="1" h="8" />
 			<physics mass="2" />
 		</cylinder>
+		<fixed name="constraint_fixed" />
 		<hinge name="constraint_x">
 			<axis x="1" />
 		</hinge>
@@ -44,17 +51,19 @@
 			<position x="7" y="1" z="20.5" />
 			-->
 		</object>
-		<object name="orb" template="orb">
+		<!--
+		<object name="orb0" template="orb">
 			<position x="14" y="0.5" z="17.5" />
 		</object>
-		<object name="orb_log" template="orb">
-			<position x="10.5" y="2" z="28" />
-		</object>
-		<object name="log_long" template="log_long">
+		-->
+		<object name="log2" template="log_long">
 			<position x="10.5" y="1" z="28" />
 		</object>
+		<object name="orb2" template="orb">
+			<position x="10.5" y="2" z="28" />
+		</object>
 		<object name="losezone" template="losezone">
-			<position x="0" y="-10" z="0" />
+			<position x="0" y="-20" z="0" />
 		</object>
 	</objects>
 </level>
