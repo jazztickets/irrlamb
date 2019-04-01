@@ -11,6 +11,14 @@
       <bool name="DebugDataVisible" value="false"/>
       <bool name="IsDebugObject" value="false"/>
       <bool name="Visible" value="true"/>
+      <enum name="FogType" value="FogExp"/>
+      <float name="FogStart" value="25.000000"/>
+      <float name="FogEnd" value="250.000000"/>
+      <float name="FogHeight" value="0.000000"/>
+      <float name="FogDensity" value="0.05"/>
+      <colorf name="FogColor" value="0.0, 0.0, 0.0, 1.000000"/>
+      <bool name="FogPixel" value="false"/>
+      <bool name="FogRange" value="false"/>
    </attributes>
    <userData>
       <attributes>

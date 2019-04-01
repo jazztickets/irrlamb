@@ -12,6 +12,12 @@ function OnHitZone(HitType, Zone, HitObject)
 	if HitObject == Player then
 		Level.Lose("You fell off!")
 	else
+
+		-- Check for active orbs
+		HitObjectTemplate = Object.GetTemplate(HitObject)
+		if HitObjectTemplate == tOrb then
+		end
+
 		Object.SetLifetime(HitObject, 2)
 	end
 
@@ -23,7 +29,11 @@ tOrb = Level.GetTemplate("orb")
 tConstraintX = Level.GetTemplate("constraint_x")
 tConstraintZ = Level.GetTemplate("constraint_z")
 tLog = Level.GetTemplate("log")
-oOrb0 = Object.GetPointer("orb0")
+oOrbLog = Object.GetPointer("orb_log")
+oLogLong = Object.GetPointer("log_long")
+
+-- Create constraint between log and orb
+Level.CreateConstraint("constraint", tConstraintX, oOrbLog, oLogLong)
 
 Spacing = 7
 Count = 5
@@ -58,5 +68,5 @@ for i = 1, Count do
 end
 
 -- Set up goal
-GoalCount = 3
+GoalCount = 5
 
