@@ -9,7 +9,6 @@
 	<resources>
 		<script file="c_acrobatics0.lua" />
 		<scene file="c_acrobatics0.irr" />
-		<collision file="c_acrobatics0.col" />
 	</resources>
 	<templates>
 		<player name="player" />

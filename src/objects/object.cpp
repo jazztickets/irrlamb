@@ -162,7 +162,7 @@ void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 			// Use quaternion if available
 			glm::vec3 Rotation;
 			if(Object.HasQuaternion)
-				Rotation = glm::degrees(glm::eulerAngles(Object.Quaternion));
+				Rotation = Physics.QuaternionToEuler(Object.Quaternion);
 			else
 				Rotation = Object.Rotation;
 
@@ -195,6 +195,8 @@ void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 // Sets object properties
 void _Object::SetProperties(const _ConstraintSpawn &Object) {
 	_Template *Template = Object.Template;
+	if(!Template)
+		return;
 
 	// Basic properties
 	Name = Object.Name;
@@ -217,8 +219,8 @@ void _Object::InterpolateOrientation(float BlendFactor) {
 
 	// Set node rotation
 	glm::quat DrawRotation = glm::mix(LastRotation, CurrentRotation, BlendFactor);
-	glm::vec3 EulerRotation = glm::degrees(glm::eulerAngles(DrawRotation));
-	Node->setRotation(core::vector3df(EulerRotation.x, EulerRotation.y, EulerRotation.z));
+	glm::vec3 EulerRotation = Physics.QuaternionToEuler(DrawRotation);
+	Node->setRotation(core::vector3df(EulerRotation[0], EulerRotation[1], EulerRotation[2]));
 }
 
 // Stops the body's movement

@@ -27,7 +27,7 @@ _Constraint::_Constraint(const _ConstraintSpawn &Object) :
 	Joint(nullptr) {
 
 	// Create joint
-	if(Physics.IsEnabled()) {
+	if(Physics.IsEnabled() && Template) {
 		switch(Template->Type) {
 			case CONSTRAINT_HINGE: {
 				if(Object.BodyA) {
@@ -52,5 +52,6 @@ _Constraint::_Constraint(const _ConstraintSpawn &Object) :
 
 // Destructor
 _Constraint::~_Constraint() {
-	dJointDestroy(Joint);
+	if(Joint)
+		dJointDestroy(Joint);
 }

@@ -57,6 +57,7 @@ class _Physics {
 		void Update(float FrameTime);
 		void Reset();
 
+		glm::vec3 QuaternionToEuler(const glm::quat &Quaternion);
 		bool RaycastWorld(const glm::vec3 &Start, glm::vec3 &End);
 
 		dWorldID GetWorld() { return World; }

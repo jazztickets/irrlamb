@@ -84,7 +84,7 @@ _ObjectSpawn::_ObjectSpawn() {
 // Get rotation from Quaternion if it exists
 void _ObjectSpawn::CalculateRotation() {
 	if(HasQuaternion)
-		Rotation = glm::degrees(glm::eulerAngles(Quaternion));
+		Rotation = Physics.QuaternionToEuler(Quaternion);
 }
 
 _ConstraintSpawn::_ConstraintSpawn() {

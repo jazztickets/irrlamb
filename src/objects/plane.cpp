@@ -75,7 +75,7 @@ void _Plane::UpdateTransform() {
 	// Set rotation
 	if(Normal != glm::vec3(0, 1, 0)) {
 		glm::mat4 RotationMatrix = glm::orientation(Normal, glm::vec3(0, 1, 0));
-		glm::vec3 Rotation = glm::degrees(glm::eulerAngles(glm::quat(RotationMatrix)));
+		glm::vec3 Rotation = Physics.QuaternionToEuler(glm::quat(RotationMatrix));
 		Node->setRotation(core::vector3df(Rotation[0], Rotation[1], Rotation[2]));
 	}
 }

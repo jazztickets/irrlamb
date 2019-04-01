@@ -153,7 +153,7 @@ void _ObjectManager::EndFrame() {
 
 			// Save the replay
 			if(Iterator->ReadyForReplayUpdate()) {
-				glm::vec3 Rotation = glm::degrees(glm::eulerAngles(Iterator->GetQuaternion()));
+				glm::vec3 Rotation = Physics.QuaternionToEuler(Iterator->GetQuaternion());
 				glm::vec3 Position = Iterator->GetPosition();
 
 				// Write object update

@@ -16,8 +16,6 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #include <physics.h>
-#include <globals.h>
-#include <framework.h>
 #include <objects/object.h>
 #include <objects/template.h>
 #include <ode/odeinit.h>
@@ -228,4 +226,13 @@ void _Physics::RemoveFilter(int &Value, int Filter) {
 // Dump physics state to stdout
 void _Physics::Dump() {
 	dWorldExportDIF(World, stdout, "");
+}
+
+// Converts a quaternion to an euler angle
+glm::vec3 _Physics::QuaternionToEuler(const glm::quat &Quaternion) {
+	irr::core::vector3df EulerAngles;
+	irr::core::quaternion Quat(Quaternion.x, Quaternion.y, Quaternion.z, Quaternion.w);
+	Quat.toEuler(EulerAngles);
+
+	return glm::degrees(glm::vec3(EulerAngles.X, EulerAngles.Y, EulerAngles.Z));
 }
