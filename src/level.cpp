@@ -569,6 +569,9 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Templa
 	else if(ObjectType == "d6") {
 		Template.Type = _Object::CONSTRAINT_D6;
 	}
+	else if(ObjectType == "fixed") {
+		Template.Type = _Object::CONSTRAINT_FIXED;
+	}
 	else if(ObjectType == "hinge") {
 		Template.Type = _Object::CONSTRAINT_HINGE;
 	}

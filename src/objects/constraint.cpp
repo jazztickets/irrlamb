@@ -39,7 +39,14 @@ _Constraint::_Constraint(const _ConstraintSpawn &Object) :
 
 		// Handle constraint types
 		switch(Template->Type) {
-			case CONSTRAINT_HINGE: {
+			case CONSTRAINT_FIXED:
+				if(Object.MainObject) {
+					Joint = dJointCreateFixed(Physics.GetWorld(), 0);
+					dJointAttach(Joint, MainBody, OtherBody);
+					dJointSetFixed(Joint);
+				}
+			break;
+			case CONSTRAINT_HINGE:
 				if(Object.MainObject) {
 					Joint = dJointCreateHinge(Physics.GetWorld(), 0);
 					dJointAttach(Joint, MainBody, OtherBody);
@@ -48,7 +55,7 @@ _Constraint::_Constraint(const _ConstraintSpawn &Object) :
 					glm::vec3 Position = Object.MainObject->GetPosition();
 					dJointSetHingeAnchor(Joint, Position[0], Position[1], Position[2]);
 				}
-			} break;
+			break;
 		}
 	}
 

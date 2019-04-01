@@ -47,6 +47,7 @@ class _Object {
 			BOX,
 			CYLINDER,
 			TERRAIN,
+			CONSTRAINT_FIXED,
 			CONSTRAINT_HINGE,
 			CONSTRAINT_D6,
 			ZONE,
