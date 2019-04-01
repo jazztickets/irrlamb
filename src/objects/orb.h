@@ -42,6 +42,7 @@ class _Orb : public _Object {
 
 		void StartDeactivation(const std::string &TCallback, float Length);
 		bool IsStillActive() const { return State == ORBSTATE_NORMAL; }
+		int GetState() const { return State; }
 
 	private:
 
@@ -58,6 +59,7 @@ class _Orb : public _Object {
 		// Deactivation
 		std::string DeactivationCallback;
 		int State;
-		float OrbTime, DeactivateLength;
+		float OrbTime;
+		float DeactivateLength;
 
 };

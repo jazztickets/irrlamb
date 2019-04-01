@@ -51,17 +51,6 @@
 			<position x="7" y="1" z="20.5" />
 			-->
 		</object>
-		<!--
-		<object name="orb0" template="orb">
-			<position x="14" y="0.5" z="17.5" />
-		</object>
-		-->
-		<object name="log2" template="log_long">
-			<position x="10.5" y="1" z="28" />
-		</object>
-		<object name="orb2" template="orb">
-			<position x="10.5" y="2" z="28" />
-		</object>
 		<object name="losezone" template="losezone">
 			<position x="0" y="-20" z="0" />
 		</object>

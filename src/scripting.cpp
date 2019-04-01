@@ -60,6 +60,7 @@ luaL_Reg _Scripting::ObjectFunctions[] = {
 // Functions for manipulating orbs
 luaL_Reg _Scripting::OrbFunctions[] = {
 	{"Deactivate", &_Scripting::OrbDeactivate},
+	{"GetState", &_Scripting::OrbGetState},
 	{nullptr, nullptr}
 };
 
@@ -544,16 +545,35 @@ int _Scripting::OrbDeactivate(lua_State *LuaObject) {
 		return 0;
 
 	// Get parameters
-	_Orb *Orb = (_Orb *)(lua_touserdata(LuaObject, 1));
+	_Orb *Orb = (_Orb *)lua_touserdata(LuaObject, 1);
 	std::string FunctionName = lua_tostring(LuaObject, 2);
 	float Time = (float)lua_tonumber(LuaObject, 3);
 
 	// Deactivate orb
-	if(Orb != nullptr && Orb->IsStillActive()) {
+	if(Orb != nullptr && Orb->IsStillActive())
 		Orb->StartDeactivation(FunctionName, Time);
-	}
 
 	return 0;
+}
+
+// Gets an orb activation state
+int _Scripting::OrbGetState(lua_State *LuaObject) {
+
+	// Validate arguments
+	if(!CheckArguments(LuaObject, 1))
+		return 0;
+
+	// Get parameters
+	_Orb *Orb = (_Orb *)lua_touserdata(LuaObject, 1);
+
+	// Check for object
+	if(!Orb)
+		return 0;
+
+	// Send state to Lua
+	lua_pushinteger(LuaObject, Orb->GetState());
+
+	return 1;
 }
 
 // Returns a time stamp from the start of the level

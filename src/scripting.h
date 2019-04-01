@@ -76,6 +76,7 @@ class _Scripting {
 		static int ObjectDelete(lua_State *LuaObject);
 
 		static int OrbDeactivate(lua_State *LuaObject);
+		static int OrbGetState(lua_State *LuaObject);
 
 		static int TimerDelayedFunction(lua_State *LuaObject);
 		static int TimerStamp(lua_State *LuaObject);
