@@ -7,7 +7,7 @@
       <vector3d name="Position" value="0, 0, 0"/>
       <vector3d name="Rotation" value="0, 0, 0"/>
       <vector3d name="Scale" value="1, 1, 1"/>
-      <colorf name="AmbientLight" value="0.303197, 0.303197, 0.303197, 1"/>
+      <colorf name="AmbientLight" value="0.4, 0.4, 0.4, 1"/>
       <bool name="AutomaticCulling" value="true"/>
       <bool name="DebugDataVisible" value="false"/>
       <bool name="IsDebugObject" value="false"/>
@@ -16,7 +16,7 @@
       <float name="FogStart" value="25.000000"/>
       <float name="FogEnd" value="250.000000"/>
       <float name="FogHeight" value="0.000000"/>
-      <float name="FogDensity" value="0.0"/>
+      <float name="FogDensity" value="0.03"/>
       <colorf name="FogColor" value="0.03, 0.0, 0.0, 1.000000"/>
       <bool name="FogPixel" value="false"/>
       <bool name="FogRange" value="false"/>
@@ -25,7 +25,7 @@
       <attributes>
          <bool name="Physics.Enabled" value="false"/>
          <float name="Gravity" value="-9.81"/>
-         <colorf name="BackgroundColor" value="0.0, 0.0, 0.0, 1"/>
+         <colorf name="BackgroundColor" value="0.03, 0.0, 0.0, 1"/>
       </attributes>
    </userData>
 </irr_scene>
