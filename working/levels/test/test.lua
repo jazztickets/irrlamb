@@ -13,7 +13,7 @@ function OnHitZone(HitType, Zone, HitObject)
 end
 
 -- Set up goal
-GoalCount = 1
+GoalCount = 5
 
 tConstraintY = Level.GetTemplate("constraint_y")
 oDrum = Object.GetPointer("drum")

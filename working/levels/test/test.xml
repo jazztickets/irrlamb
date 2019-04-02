@@ -13,7 +13,9 @@
 	</resources>
 	<templates>
 		<player name="player" />
-		<orb name="orb" />
+		<orb name="orb">
+			<physics sleep="0" />
+		</orb>
 		<box name="box">
 			<mesh file="cube.irrbmesh" scale="1" />
 			<shape w="1" h="1" l="1" />
@@ -53,7 +55,16 @@
 		<object name="drum" template="drum">
 			<position x="0" y="0" z="0" />
 			<rotation x="90" y="0" z="0" />
-			<angular_velocity y="1" />
+			<angular_velocity y="0.5" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="0" y="21.5" z="2" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="0" y="21.5" z="4" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="0" y="21.5" z="6" />
 		</object>
 		<!--
 		<object name="plane" template="plane">
@@ -72,9 +83,6 @@
 		<object name="box" template="box">
 			<position x="0" y="2" z="0" />
 			<rotation x="0" y="0" z="0" />
-		</object>
-		<object name="orb" template="orb">
-			<position x="-1" y="1.5" z="-2" />
 		</object>
 		-->
 	</objects>
