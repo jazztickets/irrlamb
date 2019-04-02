@@ -13,6 +13,12 @@
 	<templates>
 		<player name="player" />
 		<orb name="orb" />
+		<box name="box_medium">
+			<mesh file="cube.irrbmesh" w="4" h="1" l="4" />
+			<shape w="4" h="1" l="4" />
+			<texture file="wood1.jpg" />
+			<physics mass="0.5" />
+		</box>
 		<cylinder name="log_short">
 			<mesh file="cylinder.irrbmesh" />
 			<texture file="bark0.jpg" />
@@ -46,10 +52,6 @@
 	<objects>
 		<object name="player" template="player">
 			<position x="0" y="1" z="0" />
-			<!--
-			<position x="10.5" y="1" z="17.5" />
-			<position x="7" y="1" z="20.5" />
-			-->
 		</object>
 		<object name="losezone" template="losezone">
 			<position x="0" y="-20" z="0" />

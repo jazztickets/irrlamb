@@ -37,6 +37,7 @@ tConstraintZ = Level.GetTemplate("constraint_z")
 tLogShort = Level.GetTemplate("log_short")
 tLogMedium = Level.GetTemplate("log_medium")
 tLogLong = Level.GetTemplate("log_long")
+tBoxMedium = Level.GetTemplate("box_medium")
 
 -- Grid parameters
 Spacing = 7.1
@@ -53,6 +54,17 @@ for i = 1, Count do
 		oLog = Level.CreateObject("log_medium", tLogMedium, X, Y, Z, 0, 0, 0)
 		Level.CreateConstraint("constraint", tConstraintX, oLog, nil)
 
+		-- Attach orb to barrier
+		if j == 1 and i == 3 then
+			oOrb0 = Level.CreateObject("orb0", tOrb, X, Y + 1, Z, 0, 0, 0)
+			Level.CreateConstraint("constraint", tConstraintFixed, oLog, oOrb0)
+		end
+
+		-- Create barriers
+		if j == 1 and i == 2 then
+			oBarrier0 = Level.CreateObject("barrier0", tLogShort, X, Y + 1.5, Z, 90, 0, 0)
+			Level.CreateConstraint("constraint", tConstraintFixed, oLog, oBarrier0)
+		end
 
 		X = X + Spacing
 	end
@@ -68,8 +80,8 @@ for i = 1, Count do
 		oLog = Level.CreateObject("log_medium", tLogMedium, X, Y, Z, 0, 90, 0)
 		Level.CreateConstraint("constraint", tConstraintZ, oLog, nil)
 
-		-- Create t log shape with orb
-		if i == 2 and j == 3 then
+		-- Create barrier with orb underneath
+		if j == 3 and i == 2 then
 			oLog1 = Level.CreateObject("log1", tLogShort, X, Y + 1.5, Z, 90, 0, 0)
 			oOrb1 = Level.CreateObject("orb1", tOrb, X, Y - 1, Z, 0, 0, 0)
 			Level.CreateConstraint("constraint", tConstraintFixed, oLog, oLog1)
@@ -77,10 +89,28 @@ for i = 1, Count do
 		end
 
 		-- Create z log with orb on top
-		if i == 5 and j == 3 then
+		if j == 3 and i == 5 then
 			oLog2 = Level.CreateObject("log2", tLogLong, X, Y + 1, Z - Spacing / 2, 0, 0, 0)
 			oOrb2 = Level.CreateObject("orb2", tOrb, X, Y + 2, Z - Spacing / 2, 0, 0, 0)
 			Level.CreateConstraint("constraint", tConstraintFixed, oLog2, oOrb2)
+		end
+
+		-- Create box
+		if j == 4 and i == 3 then
+			oOrb3 = Level.CreateObject("orb3", tOrb, X + Spacing / 2, Y + 2, Z, 0, 0, 0)
+			oBox3 = Level.CreateObject("box3", tBoxMedium, X + Spacing / 2, Y + 1, Z, 0, 0, 0)
+		end
+
+		-- Create barriers
+		if (j == 3 and i == 1) or (j == 2 and i == 3) then
+			oBarrier = Level.CreateObject("barrier", tLogShort, X, Y + 1.5, Z, 90, 0, 0)
+			Level.CreateConstraint("constraint", tConstraintFixed, oLog, oBarrier)
+		end
+
+		-- Attach orb to barrier
+		if j == 3 and i == 1 then
+			oOrb4 = Level.CreateObject("orb4", tOrb, X, Y + 3, Z, 0, 0, 0)
+			Level.CreateConstraint("constraint", tConstraintFixed, oBarrier, oOrb4)
 		end
 
 		X = X + Spacing
