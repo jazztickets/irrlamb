@@ -744,9 +744,10 @@ int _Level::GetConstraintSpawnProperties(XMLElement *ConstraintElement, _Constra
 	// Get position
 	Element = ConstraintElement->FirstChildElement("anchor_position");
 	if(Element) {
-		//Element->QueryFloatAttribute("x", &ConstraintSpawn.Position[0]);
-		//Element->QueryFloatAttribute("y", &ConstraintSpawn.Position[1]);
-		//Element->QueryFloatAttribute("z", &ConstraintSpawn.Position[2]);
+		Element->QueryFloatAttribute("x", &ConstraintSpawn.AnchorPosition[0]);
+		Element->QueryFloatAttribute("y", &ConstraintSpawn.AnchorPosition[1]);
+		Element->QueryFloatAttribute("z", &ConstraintSpawn.AnchorPosition[2]);
+		ConstraintSpawn.HasAnchorPosition = true;
 	}
 
 	return 1;
@@ -828,10 +829,10 @@ _Object *_Level::CreateObject(const _ObjectSpawn &Object) {
 }
 
 // Creates a constraint from a template
-_Object *_Level::CreateConstraint(const _ConstraintSpawn &Object) {
+_Object *_Level::CreateConstraint(const _ConstraintSpawn &Constraint) {
 
 	// Add object
-	_Object *NewObject = ObjectManager.AddObject(new _Constraint(Object));
+	_Object *NewObject = ObjectManager.AddObject(new _Constraint(Constraint));
 
 	return NewObject;
 }

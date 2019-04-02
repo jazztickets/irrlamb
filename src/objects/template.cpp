@@ -93,4 +93,6 @@ _ConstraintSpawn::_ConstraintSpawn() {
 	MainObject = nullptr;
 	OtherObject = nullptr;
 	Template = nullptr;
+	AnchorPosition = glm::vec3(0.0f, 0.0f, 0.0f);
+	HasAnchorPosition = false;
 }

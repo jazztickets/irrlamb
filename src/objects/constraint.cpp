@@ -22,8 +22,8 @@
 #include <ode/objects.h>
 
 // Constructor
-_Constraint::_Constraint(const _ConstraintSpawn &Object) :
-	_Object(Object.Template),
+_Constraint::_Constraint(const _ConstraintSpawn &Constraint) :
+	_Object(Constraint.Template),
 	Joint(nullptr) {
 
 	// Create joint
@@ -32,35 +32,41 @@ _Constraint::_Constraint(const _ConstraintSpawn &Object) :
 		// Get bodies
 		dBodyID MainBody = nullptr;
 		dBodyID OtherBody = nullptr;
-		if(Object.MainObject)
-			MainBody = Object.MainObject->GetBody();
-		if(Object.OtherObject)
-			OtherBody = Object.OtherObject->GetBody();
+		if(Constraint.MainObject)
+			MainBody = Constraint.MainObject->GetBody();
+		if(Constraint.OtherObject)
+			OtherBody = Constraint.OtherObject->GetBody();
 
 		// Handle constraint types
 		switch(Template->Type) {
 			case CONSTRAINT_FIXED:
-				if(Object.MainObject) {
+				if(Constraint.MainObject) {
 					Joint = dJointCreateFixed(Physics.GetWorld(), 0);
 					dJointAttach(Joint, MainBody, OtherBody);
 					dJointSetFixed(Joint);
 				}
 			break;
 			case CONSTRAINT_HINGE:
-				if(Object.MainObject) {
+				if(Constraint.MainObject) {
 					Joint = dJointCreateHinge(Physics.GetWorld(), 0);
 					dJointAttach(Joint, MainBody, OtherBody);
 					dJointSetHingeAxis(Joint, Template->ConstraintAxis[0], Template->ConstraintAxis[1], Template->ConstraintAxis[2]);
 
-					glm::vec3 Position = Object.MainObject->GetPosition();
-					dJointSetHingeAnchor(Joint, Position[0], Position[1], Position[2]);
+					// Set anchor point
+					if(Constraint.HasAnchorPosition) {
+						dJointSetHingeAnchor(Joint, Constraint.AnchorPosition[0], Constraint.AnchorPosition[1], Constraint.AnchorPosition[2]);
+					}
+					else {
+						glm::vec3 Position = Constraint.MainObject->GetPosition();
+						dJointSetHingeAnchor(Joint, Position[0], Position[1], Position[2]);
+					}
 				}
 			break;
 		}
 	}
 
 	// Set basic properties
-	SetProperties(Object);
+	SetProperties(Constraint);
 
 	// Set user data
 	if(Joint)

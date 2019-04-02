@@ -50,7 +50,7 @@ class _Level {
 		// Objects
 		void SpawnEntities();
 		_Object *CreateObject(const _ObjectSpawn &Object);
-		_Object *CreateConstraint(const _ConstraintSpawn &Object);
+		_Object *CreateConstraint(const _ConstraintSpawn &Constraint);
 
 		// Templates
 		_Template *GetTemplate(const std::string &Name);

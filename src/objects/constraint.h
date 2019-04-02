@@ -29,7 +29,7 @@ class _Constraint : public _Object {
 
 	public:
 
-		_Constraint(const _ConstraintSpawn &Object);
+		_Constraint(const _ConstraintSpawn &Constraint);
 		~_Constraint();
 
 	private:

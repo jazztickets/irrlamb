@@ -16,16 +16,29 @@
 		<orb name="orb">
 			<physics sleep="0" />
 		</orb>
+		<plane name="plane">
+			<mesh file="plane.irrbmesh" scale="1000" />
+			<texture file="dark0.jpg" scale="50" />
+		</plane>
 		<box name="box">
 			<mesh file="cube.irrbmesh" scale="1" />
 			<shape w="1" h="1" l="1" />
-			<texture file="crate0.jpg" />
-			<physics mass="1.0" />
+			<texture file="concrete0.jpg" />
+			<physics mass="0.1" />
 		</box>
-		<plane name="plane">
-			<mesh file="plane.irrbmesh" scale="1000" />
-			<texture file="grass0.jpg" scale="1000" />
-		</plane>
+		<box name="tether">
+			<mesh file="cube.irrbmesh" w="0.1" h="20" l="0.1" />
+			<shape w="0.1" h="20" l="0.1" />
+			<physics mass="50" erp="0" />
+			<damping linear="0" angular="0" />
+			<texture file="black.png" />
+		</box>
+		<sphere name="ball" detail="32">
+			<shape r="2" />
+			<physics mass="50" friction="0" erp="0" />
+			<damping linear="0" angular="0" />
+			<texture file="black.png" />
+		</sphere>
 		<cylinder name="log">
 			<mesh file="cylinder.irrbmesh" scale="1" />
 			<shape w="1" h="2" />
@@ -39,51 +52,50 @@
 			<damping angular="0" />
 			<texture file="dark0.jpg" scale="20" />
 		</cylinder>
-		<sphere name="ball" detail="32">
-			<shape r="2" />
-			<physics mass="25" />
-			<texture file="dark0.jpg" />
-		</sphere>
 		<hinge name="hinge_y">
 			<axis y="1" />
 		</hinge>
+		<hinge name="hinge_z">
+			<axis z="1" />
+		</hinge>
+		<fixed name="fixed" />
+		<zone name="losezone">
+			<shape w="500" h="5" l="500" />
+		</zone>
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="0" y="20.5" z="-5" />
+			<position x="0" y="0.5" z="-7.5" />
+		</object>
+		<object name="plane" template="plane">
+			<plane x="0" y="1" z="0" d="-100" />
 		</object>
 		<object name="drum" template="drum">
-			<position x="0" y="0" z="0" />
-			<rotation x="90" y="0" z="0" />
+			<position y="-20" />
+			<rotation x="90" />
 			<angular_velocity y="0.5" />
 		</object>
-		<object name="orb" template="orb">
-			<position x="0" y="21.5" z="5" />
-		</object>
-		<object name="ball" template="ball">
-			<position x="0" y="22.5" z="0" />
-		</object>
 		<!--
-		<object name="plane" template="plane">
-			<plane x="0" y="1" z="0" d="-5" />
-		</object>
-		<object name="cylinder" template="log">
-			<position x="-5" y="1.5" z="0" />
-			<rotation x="90" y="0" z="0" />
-		</object>
-		<object name="ball" template="ball">
-			<position x="10" y="5" z="0" />
-		</object>
-		<object name="ball" template="ball">
-			<position x="0" y="5" z="0" />
-		</object>
-		<object name="box" template="box">
-			<position x="0" y="2" z="0" />
-			<rotation x="0" y="0" z="0" />
+		<object name="orb" template="orb">
+			<position x="0" y="1.5" z="0" />
 		</object>
 		-->
+
+		<object name="ball0" template="ball">
+			<position x="-22" y="24.05" z="0" />
+		</object>
+		<object name="tether0" template="tether">
+			<position x="-10" y="24.05" z="0" />
+			<rotation x="0" y="0" z="90" />
+		</object>
+		<object name="losezone" template="losezone">
+			<position x="0" y="-70" z="0" />
+		</object>
 	</objects>
 	<constraints>
-		<!--<constraint name="hinge" template="hinge_y" object1="ball" />-->
+		<constraint name="hinge" template="hinge_z" object1="tether0">
+			<anchor_position y="24.05" />
+		</constraint>
+		<constraint name="ball_tether" template="fixed" object1="ball0" object2="tether0" />
 	</constraints>
 </level>

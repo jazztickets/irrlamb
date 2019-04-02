@@ -12,53 +12,20 @@
       <bool name="DebugDataVisible" value="false"/>
       <bool name="IsDebugObject" value="false"/>
       <bool name="Visible" value="true"/>
+      <enum name="FogType" value="FogExp"/>
+      <float name="FogStart" value="25.000000"/>
+      <float name="FogEnd" value="250.000000"/>
+      <float name="FogHeight" value="0.000000"/>
+      <float name="FogDensity" value="0.03"/>
+      <colorf name="FogColor" value="0.03, 0.0, 0.0, 1.000000"/>
+      <bool name="FogPixel" value="false"/>
+      <bool name="FogRange" value="false"/>
    </attributes>
    <userData>
       <attributes>
          <bool name="Physics.Enabled" value="false"/>
          <float name="Gravity" value="-9.81"/>
-         <colorf name="BackgroundColor" value="0.050876, 0.050876, 0.050876, 1"/>
+         <colorf name="BackgroundColor" value="0.03, 0.0, 0.0, 1"/>
       </attributes>
    </userData>
-   <node type="empty">
-      <attributes>
-         <string name="Name" value="zone_test"/>
-         <int name="Id" value="-1"/>
-         <bool name="Visible" value="true"/>
-         <vector3d name="Position" value="-3, 0, 0"/>
-         <vector3d name="Rotation" value="0, 0, 0"/>
-         <vector3d name="Scale" value="1, 1, 4"/>
-         <enum name="AutomaticCulling" value="frustum_box"/>
-         <bool name="DebugDataVisible" value="false"/>
-         <bool name="IsDebugObject" value="false"/>
-         <bool name="ReadOnlyMaterials" value="false"/>
-      </attributes>
-      <userData>
-         <attributes>
-         </attributes>
-      </userData>
-   </node>
-   <!--
-   <node type="mesh">
-      <attributes>
-         <string name="Name" value="test"/>
-         <int name="Id" value="-1"/>
-         <bool name="Visible" value="true"/>
-         <vector3d name="Position" value="0, 0, 0"/>
-         <vector3d name="Rotation" value="0, 0, 0"/>
-         <vector3d name="Scale" value="1, 1, 1"/>
-         <enum name="AutomaticCulling" value="frustum_box"/>
-         <bool name="DebugDataVisible" value="false"/>
-         <bool name="IsDebugObject" value="false"/>
-         <bool name="ReadOnlyMaterials" value="false"/>
-         <string name="Mesh" value="meshes/test.irrbmesh"/>
-         <enum name="HardwareMappingHint" value="never"/>
-         <enum name="HardwareMappingBufferType" value="vertexindex"/>
-      </attributes>
-      <userData>
-         <attributes>
-         </attributes>
-      </userData>
-   </node>
-   -->
 </irr_scene>

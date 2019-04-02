@@ -100,4 +100,6 @@ struct _ConstraintSpawn {
 	_Object *MainObject;
 	_Object *OtherObject;
 	_Template *Template;
+	glm::vec3 AnchorPosition;
+	bool HasAnchorPosition;
 };
