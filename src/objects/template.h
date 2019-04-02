@@ -95,6 +95,8 @@ struct _ConstraintSpawn {
 	_ConstraintSpawn();
 
 	std::string Name;
+	std::string MainObjectName;
+	std::string OtherObjectName;
 	_Object *MainObject;
 	_Object *OtherObject;
 	_Template *Template;

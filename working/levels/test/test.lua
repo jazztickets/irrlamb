@@ -14,8 +14,3 @@ end
 
 -- Set up goal
 GoalCount = 5
-
-tConstraintY = Level.GetTemplate("constraint_y")
-oDrum = Object.GetPointer("drum")
-
-Level.CreateConstraint("constraint", tConstraintY, oDrum, nil)

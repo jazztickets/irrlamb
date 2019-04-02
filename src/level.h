@@ -48,7 +48,7 @@ class _Level {
 		int Close();
 
 		// Objects
-		void SpawnObjects();
+		void SpawnEntities();
 		_Object *CreateObject(const _ObjectSpawn &Object);
 		_Object *CreateConstraint(const _ConstraintSpawn &Object);
 
@@ -74,6 +74,7 @@ class _Level {
 		// Loading
 		int GetTemplateProperties(tinyxml2::XMLElement *TemplateElement, _Template &Template);
 		int GetObjectSpawnProperties(tinyxml2::XMLElement *ObjectElement, _ObjectSpawn &ObjectSpawn);
+		int GetConstraintSpawnProperties(tinyxml2::XMLElement *ConstraintElement, _ConstraintSpawn &ConstraintSpawn);
 
 		// Custom levels
 		std::string CustomDataPath;
@@ -85,6 +86,7 @@ class _Level {
 		// Objects
 		std::vector<_Template *> Templates;
 		std::vector<_ObjectSpawn *> ObjectSpawns;
+		std::vector<_ConstraintSpawn *> ConstraintSpawns;
 };
 
 // Singletons

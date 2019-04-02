@@ -11,7 +11,7 @@
 	<templates>
 		<player name="player" />
 		<orb name="orb" />
-		<hinge name="constraint_z">
+		<hinge name="hinge_z">
 			<axis z="1" />
 		</hinge>
 		<cylinder name="log">
@@ -29,5 +29,12 @@
 		<object name="orb0" template="orb">
 			<position x="0" y="0.5" z="16" />
 		</object>
+		<object name="log" template="log">
+			<position x="0" y="-2.5" z="8.1" />
+			<angular_velocity z="2" />
+		</object>
 	</objects>
+	<constraints>
+		<constraint name="hinge" template="hinge_z" object1="log" />
+	</constraints>
 </level>

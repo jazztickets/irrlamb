@@ -356,6 +356,23 @@ int _Level::Init(const std::string &LevelName, bool HeaderOnly) {
 		}
 	}
 
+	// Load constraint spawns
+	XMLElement *ConstraintsElement = LevelElement->FirstChildElement("constraints");
+	if(ConstraintsElement) {
+		for(XMLElement *ConstraintElement = ConstraintsElement->FirstChildElement(); ConstraintElement != 0; ConstraintElement = ConstraintElement->NextSiblingElement()) {
+
+			// Create a constraint spawn
+			_ConstraintSpawn *ConstraintSpawn = new _ConstraintSpawn;
+
+			// Get the constraint properties
+			if(!GetConstraintSpawnProperties(ConstraintElement, *ConstraintSpawn))
+				return 0;
+
+			// Store for later
+			ConstraintSpawns.push_back(ConstraintSpawn);
+		}
+	}
+
 	return 1;
 }
 
@@ -366,22 +383,28 @@ int _Level::Close() {
 	Scripts.clear();
 
 	// Clear sounds
-	for(size_t i = 0; i < Sounds.size(); i++) {
+	for(size_t i = 0; i < Sounds.size(); i++)
 		Audio.CloseBuffer(Sounds[i]);
-	}
+
 	Sounds.clear();
 
 	// Delete templates
-	for(size_t i = 0; i < Templates.size(); i++) {
+	for(size_t i = 0; i < Templates.size(); i++)
 		delete Templates[i];
-	}
+
 	Templates.clear();
 
 	// Delete object spawn data
-	for(size_t i = 0; i < ObjectSpawns.size(); i++) {
+	for(size_t i = 0; i < ObjectSpawns.size(); i++)
 		delete ObjectSpawns[i];
-	}
+
 	ObjectSpawns.clear();
+
+	// Delete constraint spawn data
+	for(size_t i = 0; i < ConstraintSpawns.size(); i++)
+		delete ConstraintSpawns[i];
+
+	ConstraintSpawns.clear();
 
 	return 1;
 }
@@ -607,7 +630,7 @@ int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, _ObjectSpawn &Ob
 	// Get template data
 	ObjectSpawn.Template = GetTemplate(TemplateName);
 	if(ObjectSpawn.Template == nullptr) {
-		Log.Write("Cannot find template %s", TemplateName.c_str());
+		Log.Write("Cannot find object template %s", TemplateName.c_str());
 		return 0;
 	}
 
@@ -676,12 +699,74 @@ int _Level::GetObjectSpawnProperties(XMLElement *ObjectElement, _ObjectSpawn &Ob
 	return 1;
 }
 
-// Spawns all of the objects in the level
-void _Level::SpawnObjects() {
+// Processes a constraint tag
+int _Level::GetConstraintSpawnProperties(XMLElement *ConstraintElement, _ConstraintSpawn &ConstraintSpawn) {
+	XMLElement *Element;
+	const char *String = nullptr;
 
+	// Get name
+	ConstraintSpawn.Name = ConstraintElement->Attribute("name");
+	if(ConstraintSpawn.Name == "") {
+		Log.Write("Constraint is missing name");
+		return 0;
+	}
+
+	// Get template name
+	std::string TemplateName = ConstraintElement->Attribute("template");
+	if(TemplateName == "") {
+		Log.Write("Constraint is missing template name");
+		return 0;
+	}
+
+	// Get template data
+	ConstraintSpawn.Template = GetTemplate(TemplateName);
+	if(ConstraintSpawn.Template == nullptr) {
+		Log.Write("Cannot find constraint template %s", TemplateName.c_str());
+		return 0;
+	}
+
+	// Get first object
+	String = ConstraintElement->Attribute("object1");
+	if(String)
+		ConstraintSpawn.MainObjectName = String;
+
+	// Requirements
+	if(ConstraintSpawn.MainObjectName == "") {
+		Log.Write("Constraint is missing object1's name");
+		return 0;
+	}
+
+	// Get second object
+	String = ConstraintElement->Attribute("object2");
+	if(String)
+		ConstraintSpawn.OtherObjectName = String;
+
+	// Get position
+	Element = ConstraintElement->FirstChildElement("anchor_position");
+	if(Element) {
+		//Element->QueryFloatAttribute("x", &ConstraintSpawn.Position[0]);
+		//Element->QueryFloatAttribute("y", &ConstraintSpawn.Position[1]);
+		//Element->QueryFloatAttribute("z", &ConstraintSpawn.Position[2]);
+	}
+
+	return 1;
+}
+
+// Spawns all of the objects and constraints in the level
+void _Level::SpawnEntities() {
+
+	// Create objects
 	for(size_t i = 0; i < ObjectSpawns.size(); i++) {
 		_ObjectSpawn *Spawn = ObjectSpawns[i];
 		CreateObject(*Spawn);
+	}
+
+	// Create constraints
+	for(size_t i = 0; i < ConstraintSpawns.size(); i++) {
+		_ConstraintSpawn *Spawn = ConstraintSpawns[i];
+		Spawn->MainObject = ObjectManager.GetObjectByName(Spawn->MainObjectName);
+		Spawn->OtherObject = ObjectManager.GetObjectByName(Spawn->OtherObjectName);
+		CreateConstraint(*Spawn);
 	}
 }
 

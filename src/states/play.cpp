@@ -165,7 +165,7 @@ void _PlayState::ResetLevel() {
 	Replay.StartRecording();
 
 	// Load level objects
-	Level.SpawnObjects();
+	Level.SpawnEntities();
 	Level.RunScripts();
 	Graphics.SetLightCount();
 

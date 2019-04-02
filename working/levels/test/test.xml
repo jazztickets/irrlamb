@@ -29,7 +29,7 @@
 		<cylinder name="log">
 			<mesh file="cylinder.irrbmesh" scale="1" />
 			<shape w="1" h="2" />
-			<physics mass="0.25" cfm="1e-5" erp="0.0" />
+			<physics mass="0.25" cfm="0" erp="0.0" />
 			<texture file="woodfloor0.jpg" />
 		</cylinder>
 		<cylinder name="drum">
@@ -37,20 +37,20 @@
 			<shape w="20" h="40" />
 			<physics kinematic="1" />
 			<damping angular="0" />
-			<texture file="wood1.jpg" />
+			<texture file="dark0.jpg" scale="20" />
 		</cylinder>
 		<sphere name="ball" detail="32">
-			<shape r="5" />
-			<physics mass="1.5" />
-			<texture file="woodfloor0.jpg" />
+			<shape r="2" />
+			<physics mass="25" />
+			<texture file="dark0.jpg" />
 		</sphere>
-		<hinge name="constraint_y">
+		<hinge name="hinge_y">
 			<axis y="1" />
 		</hinge>
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="0" y="20.5" z="0" />
+			<position x="0" y="20.5" z="-5" />
 		</object>
 		<object name="drum" template="drum">
 			<position x="0" y="0" z="0" />
@@ -58,13 +58,10 @@
 			<angular_velocity y="0.5" />
 		</object>
 		<object name="orb" template="orb">
-			<position x="0" y="21.5" z="2" />
+			<position x="0" y="21.5" z="5" />
 		</object>
-		<object name="orb" template="orb">
-			<position x="0" y="21.5" z="4" />
-		</object>
-		<object name="orb" template="orb">
-			<position x="0" y="21.5" z="6" />
+		<object name="ball" template="ball">
+			<position x="0" y="22.5" z="0" />
 		</object>
 		<!--
 		<object name="plane" template="plane">
@@ -86,4 +83,7 @@
 		</object>
 		-->
 	</objects>
+	<constraints>
+		<!--<constraint name="hinge" template="hinge_y" object1="ball" />-->
+	</constraints>
 </level>
