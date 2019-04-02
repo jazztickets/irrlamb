@@ -16,7 +16,7 @@
 		<orb name="orb" />
 		<cylinder name="log">
 			<mesh file="cylinder.irrbmesh" scale="2.5" />
-			<shape w="2.5" h="5" l="2.5" />
+			<shape w="2.5" h="5" />
 			<physics mass="6.0" sleep="1" />
 			<damping angular="0" linear="0" />
 			<texture file="woodfloor0.jpg" />

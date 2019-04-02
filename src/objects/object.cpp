@@ -178,8 +178,11 @@ void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 	}
 
 	// Physics
-	if(Body)
+	if(Body) {
+		if(Template->Kinematic)
+			dBodySetKinematic(Body);
 		dBodySetData(Body, this);
+	}
 
 	// Set geometry data
 	if(Geometry) {

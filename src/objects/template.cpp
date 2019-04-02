@@ -33,6 +33,7 @@ _Template::_Template() {
 	CollisionMask = _Physics::FILTER_RIGIDBODY | _Physics::FILTER_STATIC;
 
 	// Physical properties
+	Kinematic = 0;
 	Sleep = 0;
 	CollisionFile = "";
 	Shape = glm::vec3(1.0f, 1.0f, 1.0f);

@@ -18,7 +18,7 @@
 		<orb name="orb" />
 		<cylinder name="raft">
 			<mesh file="disc.irrbmesh" scale="4" />
-			<shape w="4" h="0.4" l="4" />
+			<shape w="4" h="0.4" />
 			<texture file="woodfloor0.jpg" />
 			<physics mass="1" sleep="1"/>
 		</cylinder>

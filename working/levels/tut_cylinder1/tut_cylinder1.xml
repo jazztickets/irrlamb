@@ -16,7 +16,7 @@
 		</hinge>
 		<cylinder name="log">
 			<mesh file="cylinder.irrbmesh" scale="5" />
-			<shape w="5" h="10" l="5" />
+			<shape w="5" h="10" />
 			<physics mass="15.0" />
 			<damping angular="0" />
 			<texture file="woodfloor0.jpg" />

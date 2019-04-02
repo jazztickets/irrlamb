@@ -9,13 +9,13 @@ end
 -- Display zone message
 function OnHitZone(HitType, Zone, HitObject)
 
-	print(HitType .. " " .. Object.GetName(Zone) .. " vs " .. Object.GetName(HitObject))
-
 	return 0
 end
 
 -- Set up goal
 GoalCount = 1
 
---Object.SetLinearVelocity(Player, 0, 0, 0);
---Object.SetAngularVelocity(Player, 0, 0, 20);
+tConstraintY = Level.GetTemplate("constraint_y")
+oDrum = Object.GetPointer("drum")
+
+Level.CreateConstraint("constraint", tConstraintY, oDrum, nil)
