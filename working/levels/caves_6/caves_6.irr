@@ -17,7 +17,7 @@
       <float name="FogEnd" value="250.000000"/>
       <float name="FogHeight" value="0.000000"/>
       <float name="FogDensity" value="0.03"/>
-      <colorf name="FogColor" value="0.03, 0.0, 0.0, 1.000000"/>
+      <colorf name="FogColor" value="0.07, 0.0, 0.01, 1.000000"/>
       <bool name="FogPixel" value="false"/>
       <bool name="FogRange" value="false"/>
    </attributes>
@@ -25,7 +25,7 @@
       <attributes>
          <bool name="Physics.Enabled" value="false"/>
          <float name="Gravity" value="-9.81"/>
-         <colorf name="BackgroundColor" value="0.03, 0.0, 0.0, 1"/>
+         <colorf name="BackgroundColor" value="0.07, 0.0, 0.01, 1"/>
       </attributes>
    </userData>
 </irr_scene>

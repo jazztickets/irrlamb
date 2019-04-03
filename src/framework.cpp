@@ -65,6 +65,7 @@ int _Framework::Init(int Count, char **Arguments) {
 	// Initialize logging system
 	Log.Init();
 	Log.Write("irrlamb %s", GAME_VERSION);
+	Log.Write("platform %d", PLATFORM);
 
 	// Set up config system
 	if(!Config.Init())
