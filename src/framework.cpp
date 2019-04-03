@@ -34,8 +34,9 @@
 #include <states/viewreplay.h>
 #include <states/null.h>
 #include <menu.h>
-#include <iostream>
 #include <IFileSystem.h>
+#include <iostream>
+#include <sstream>
 
 using namespace irr;
 
@@ -56,6 +57,21 @@ int _Framework::Init(int Count, char **Arguments) {
 	bool AudioEnabled = true;
 	PlayState.SetCampaign(-1);
 	PlayState.SetCampaignLevel(-1);
+
+	// Set up the save system
+	if(!Save.Init())
+		return 0;
+
+	// Initialize logging system
+	Log.Init();
+	Log.Write("irrlamb %s", GAME_VERSION);
+
+	// Set up config system
+	if(!Config.Init())
+		return 0;
+
+	// Read the config file
+	int HasConfigFile = Config.ReadConfig();
 
 	// Process arguments
 	std::string Token;
@@ -78,22 +94,18 @@ int _Framework::Init(int Count, char **Arguments) {
 			PlayState.SetValidateReplay(Arguments[++i]);
 			FirstState = &PlayState;
 		}
+		else if(Token == "-resolution" && TokensRemaining > 1) {
+			std::stringstream Buffer(std::string(Arguments[i+1]) + " " + std::string(Arguments[i+2]));
+			Buffer >> Config.ScreenWidth >> Config.ScreenHeight;
+			i += 2;
+		}
+		else if(Token == "-fullscreen") {
+			Config.Fullscreen = true;
+		}
+		else if(Token == "-windowed") {
+			Config.Fullscreen = false;
+		}
 	}
-
-	// Set up the save system
-	if(!Save.Init())
-		return 0;
-
-	// Initialize logging system
-	Log.Init();
-	Log.Write("irrlamb %s", GAME_VERSION);
-
-	// Set up config system
-	if(!Config.Init())
-		return 0;
-
-	// Read the config file
-	int HasConfigFile = Config.ReadConfig();
 
 	// Set up the graphics
 	DriverType = (video::E_DRIVER_TYPE)Config.DriverType;

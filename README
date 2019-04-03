@@ -75,10 +75,13 @@ run "sudo make install" from the build directory.
 cat install_manifest.txt | xargs sudo rm
 
 ----- COMMAND-LINE ARGUMENTS -----
--level [.xml file]        Test a level
--replay [.replay file]    View a replay
--validate [.replay file]  Test a level with replay inputs
--noaudio                  Disable audio
+-resolution [width] [height]     Set screen resolution
+-fullscreen                      Set fullscreen mode
+-windowed                        Set windowed mode
+-level [.xml file]               Test a level
+-replay [.replay file]           View a replay
+-validate [.replay file]         Test a level with replay inputs
+-noaudio                         Disable audio
 
 Save data is in ~/.local/share/irrlamb for linux and %APPDATA%/irrlamb for windows.
 

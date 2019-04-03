@@ -23,7 +23,11 @@ function OnHitZone(HitType, Zone, HitObject)
 			end
 		end
 
-		Object.SetLifetime(HitObject, 2)
+		Name = Object.GetName(HitObject)
+
+		if Name ~= "drum" then
+			Object.SetLifetime(HitObject, 2)
+		end
 	end
 
 	return 0
