@@ -73,6 +73,7 @@ class _Scripting {
 		static int ObjectSetLinearVelocity(lua_State *LuaObject);
 		static int ObjectSetAngularVelocity(lua_State *LuaObject);
 		static int ObjectSetLifetime(lua_State *LuaObject);
+		static int ObjectSetSleep(lua_State *LuaObject);
 		static int ObjectDelete(lua_State *LuaObject);
 
 		static int OrbDeactivate(lua_State *LuaObject);

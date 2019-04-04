@@ -23,8 +23,8 @@ function OnHitZone(HitType, Zone, HitObject)
 			end
 		end
 
+		-- Delete objects
 		Name = Object.GetName(HitObject)
-
 		if Name ~= "drum" then
 			Object.SetLifetime(HitObject, 2)
 		end
@@ -33,21 +33,48 @@ function OnHitZone(HitType, Zone, HitObject)
 	return 0
 end
 
--- Set up goal
-GoalCount = 5
+-- Initial crash
+function Crash(Object, OtherObject)
+	if Crashed == 0 and OtherObject == oBall0 then
+		Audio.Play("blast.ogg", 0, 0, 0, 0, 1, 1)
+		Crashed = 1
+	end
+end
+
+-- Set wrecking ball in motion
+function Drop()
+	Object.SetSleep(oTether1, 0)
+	Object.SetSleep(oBall1, 0)
+end
+
+-- States
+Crashed = 0
 
 -- Set up templates
 tOrb = Level.GetTemplate("orb")
+tBox = Level.GetTemplate("box")
+
+-- Get objects
+oTether0 = Object.GetPointer("tether0")
+oBall0 = Object.GetPointer("ball0")
+oTether1 = Object.GetPointer("tether1")
+oBall1 = Object.GetPointer("ball1")
+Object.SetSleep(oTether0, 0)
+Object.SetSleep(oBall0, 0)
 
 -- Build block stack
-tCrate = Level.GetTemplate("box")
-
 BaseCount = 3
 Y = 0.5
 while BaseCount >= 0 do
 	for i = 0, BaseCount do
-		Level.CreateObject("box", tCrate, -BaseCount / 2 + i, Y, 0)
+		Level.CreateObject("box", tBox, -BaseCount / 2 + i, Y, 0)
 	end
 	BaseCount = BaseCount - 1
 	Y = Y + 1
 end
+
+-- Set up goal
+GoalCount = 5
+
+-- Set drop timer
+Timer.DelayedFunction("Drop", 2.5)

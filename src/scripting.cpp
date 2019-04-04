@@ -53,6 +53,7 @@ luaL_Reg _Scripting::ObjectFunctions[] = {
 	{"SetLinearVelocity", &_Scripting::ObjectSetLinearVelocity},
 	{"SetAngularVelocity", &_Scripting::ObjectSetAngularVelocity},
 	{"SetLifetime", &_Scripting::ObjectSetLifetime},
+	{"SetSleep", &_Scripting::ObjectSetSleep},
 	{"Delete", &_Scripting::ObjectDelete},
 	{nullptr, nullptr}
 };
@@ -464,6 +465,24 @@ int _Scripting::ObjectSetLifetime(lua_State *LuaObject) {
 	// Set lifetime
 	if(Object != nullptr)
 		Object->SetLifetime(Lifetime);
+
+	return 0;
+}
+
+// Sets the object's sleep state
+int _Scripting::ObjectSetSleep(lua_State *LuaObject) {
+
+	// Validate arguments
+	if(!CheckArguments(LuaObject, 2))
+		return 0;
+
+	// Get parameters
+	_Object *Object = (_Object *)(lua_touserdata(LuaObject, 1));
+	int State = (float)lua_tonumber(LuaObject, 2);
+
+	// Set sleep
+	if(Object != nullptr)
+		Object->SetSleep(State);
 
 	return 0;
 }

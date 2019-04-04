@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- Created by irrb v0.6 - "Irrlicht/Blender Exporter" -->
 <irr_scene>
    <attributes>
       <string name="Name" value="root"/>

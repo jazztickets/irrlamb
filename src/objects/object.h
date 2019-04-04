@@ -73,6 +73,7 @@ class _Object {
 		void SetID(int Value) { ID = Value; }
 		void SetDeleted(bool Value) { Deleted = Value; }
 		void SetLifetime(float Value) { Lifetime = Timer + Value; }
+		void SetSleep(int State);
 
 		std::string GetName() const { return Name; }
 		bool GetDeleted() const { return Deleted; }

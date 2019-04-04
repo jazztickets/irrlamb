@@ -4,6 +4,7 @@ build
 *.dll
 *.swp
 *.patch
+.vscode
 TODO
 CMakeLists.txt.user
 deployment/out

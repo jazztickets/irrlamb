@@ -135,6 +135,18 @@ void _Object::UpdateReplay(float FrameTime) {
 	Timer += FrameTime;
 }
 
+// Set sleep state
+void _Object::SetSleep(int State) {
+	if(!Body)
+		return;
+
+	// Set state
+	if(State)
+		dBodyDisable(Body);
+	else
+		dBodyEnable(Body);
+}
+
 // Sets object properties
 void _Object::SetProperties(const _ObjectSpawn &Object, bool SetTransform) {
 	Template = Object.Template;

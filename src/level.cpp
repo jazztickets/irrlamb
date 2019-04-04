@@ -510,6 +510,16 @@ int _Level::GetTemplateProperties(XMLElement *TemplateElement, _Template &Templa
 		Element->QueryFloatAttribute("cfm", &Template.CFM);
 	}
 
+	// Get collision attributes
+	Element = TemplateElement->FirstChildElement("collision");
+	if(Element) {
+		Element->QueryIntAttribute("group", &Template.CollisionGroup);
+		Element->QueryIntAttribute("mask", &Template.CollisionMask);
+		String = Element->Attribute("callback");
+		if(String)
+			Template.CollisionCallback = String;
+	}
+
 	// Get damping
 	Element = TemplateElement->FirstChildElement("damping");
 	if(Element) {
