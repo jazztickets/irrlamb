@@ -69,6 +69,8 @@ class _Scripting {
 		static int ObjectGetTemplate(lua_State *LuaObject);
 		static int ObjectSetPosition(lua_State *LuaObject);
 		static int ObjectGetPosition(lua_State *LuaObject);
+		static int ObjectSetScale(lua_State *LuaObject);
+		static int ObjectSetShape(lua_State *LuaObject);
 		static int ObjectStop(lua_State *LuaObject);
 		static int ObjectSetLinearVelocity(lua_State *LuaObject);
 		static int ObjectSetAngularVelocity(lua_State *LuaObject);

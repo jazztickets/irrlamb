@@ -298,6 +298,12 @@ glm::vec3 _Object::GetAngularVelocity() const {
 	return glm::vec3(Velocity[0], Velocity[1], Velocity[2]);
 }
 
+// Set scale of object
+void _Object::SetScale(const glm::vec3 &Scale) {
+	if(Node)
+		Node->setScale(core::vector3df(Scale.x, Scale.y, Scale.z));
+}
+
 // Collision callback
 void _Object::HandleCollision(const _ObjectCollision &ObjectCollision) {
 	if(!ObjectCollision.OtherObject)

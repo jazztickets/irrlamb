@@ -40,14 +40,14 @@
 			<physics mass="50" erp="0" sleep="1" />
 			<damping linear="0" angular="0" />
 			<collision group="2" mask="0" />
-			<texture file="black.png" />
+			<texture file="darkgray.png" />
 		</box>
 		<sphere name="ball" detail="32">
 			<shape r="2" />
 			<physics mass="50" friction="0" erp="0" sleep="1" />
 			<damping linear="0" angular="0" />
 			<collision group="2" mask="0" />
-			<texture file="black.png" />
+			<texture file="darkgray.png" />
 		</sphere>
 		<cylinder name="log">
 			<mesh file="cylinder.irrbmesh" scale="1" />

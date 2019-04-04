@@ -68,3 +68,9 @@ _Cylinder::_Cylinder(const _ObjectSpawn &Object) :
 	// Set common properties
 	SetProperties(Object);
 }
+
+// Set shape
+void _Cylinder::SetShape(const glm::vec3 &Shape) {
+	if(Geometry)
+		dGeomCylinderSetParams(Geometry, Shape.x / 2, Shape.y);
+}

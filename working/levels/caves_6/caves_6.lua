@@ -52,14 +52,28 @@ function BallDrop1()
 	oOrb1 = Level.CreateObject("orb1", tOrb, 0, 5, 5)
 end
 
+-- Decrease drum size
+function UpdateDrum()
+	DrumSize = DrumSize - 0.01
+	if DrumSize > 7 then
+		Timer.DelayedFunction("UpdateDrum", DrumChangePeriod)
+	end
+
+	Object.SetScale(oDrum, DrumSize, DrumSize, 20)
+	Object.SetShape(oDrum, DrumSize, 40, DrumSize)
+end
+
 -- States
 Crashed = 0
+DrumSize = 20
+DrumChangePeriod = 0.05
 
 -- Set up templates
 tOrb = Level.GetTemplate("orb")
 tBox = Level.GetTemplate("box")
 
 -- Get objects
+oDrum = Object.GetPointer("drum")
 oTether0 = Object.GetPointer("tether0")
 oBall0 = Object.GetPointer("ball0")
 oTether1 = Object.GetPointer("tether1")
@@ -82,5 +96,6 @@ end
 GoalCount = 5
 
 -- Set drop timer
+Timer.DelayedFunction("UpdateDrum", DrumChangePeriod)
 Timer.DelayedFunction("BallDrop1", 10.0)
 Timer.DelayedFunction("Drop", 13)

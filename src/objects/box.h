@@ -27,6 +27,8 @@ class _Box : public _Object {
 
 		_Box(const _ObjectSpawn &Object);
 
+		void SetShape(const glm::vec3 &Shape) override;
+
 	private:
 
 };

@@ -49,6 +49,8 @@ luaL_Reg _Scripting::ObjectFunctions[] = {
 	{"GetTemplate", &_Scripting::ObjectGetTemplate},
 	{"SetPosition", &_Scripting::ObjectSetPosition},
 	{"GetPosition", &_Scripting::ObjectGetPosition},
+	{"SetScale", &_Scripting::ObjectSetScale},
+	{"SetShape", &_Scripting::ObjectSetShape},
 	{"Stop", &_Scripting::ObjectStop},
 	{"SetLinearVelocity", &_Scripting::ObjectSetLinearVelocity},
 	{"SetAngularVelocity", &_Scripting::ObjectSetAngularVelocity},
@@ -449,6 +451,48 @@ int _Scripting::ObjectGetPosition(lua_State *LuaObject) {
 	lua_pushnumber(LuaObject, Object->GetPosition()[2]);
 
 	return 3;
+}
+
+// Set scale
+int _Scripting::ObjectSetScale(lua_State *LuaObject) {
+
+	// Validate arguments
+	if(!CheckArguments(LuaObject, 4))
+		return 0;
+
+	// Get parameters
+	_Object *Object = (_Object *)(lua_touserdata(LuaObject, 1));
+	glm::vec3 Scale;
+	Scale.x = (float)lua_tonumber(LuaObject, 2);
+	Scale.y = (float)lua_tonumber(LuaObject, 3);
+	Scale.z = (float)lua_tonumber(LuaObject, 4);
+
+	// Set scale
+	if(Object != nullptr)
+		Object->SetScale(Scale);
+
+	return 0;
+}
+
+// Set shape of object
+int _Scripting::ObjectSetShape(lua_State *LuaObject) {
+
+	// Validate arguments
+	if(!CheckArguments(LuaObject, 4))
+		return 0;
+
+	// Get parameters
+	_Object *Object = (_Object *)(lua_touserdata(LuaObject, 1));
+	glm::vec3 Shape;
+	Shape.x = (float)lua_tonumber(LuaObject, 2);
+	Shape.y = (float)lua_tonumber(LuaObject, 3);
+	Shape.z = (float)lua_tonumber(LuaObject, 4);
+
+	// Set shape
+	if(Object != nullptr)
+		Object->SetShape(Shape);
+
+	return 0;
 }
 
 // Sets the object's lifetime

@@ -68,3 +68,9 @@ _Box::_Box(const _ObjectSpawn &Object) :
 	// Set common properties
 	SetProperties(Object);
 }
+
+// Set shape
+void _Box::SetShape(const glm::vec3 &Shape) {
+	if(Geometry)
+		dGeomBoxSetLengths(Geometry, Shape.x, Shape.y, Shape.z);
+}

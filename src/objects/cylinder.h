@@ -27,6 +27,8 @@ class _Cylinder : public _Object {
 
 		_Cylinder(const _ObjectSpawn &Object);
 
+		void SetShape(const glm::vec3 &Shape) override;
+
 	private:
 
 };

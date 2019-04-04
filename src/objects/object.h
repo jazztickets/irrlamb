@@ -99,6 +99,9 @@ class _Object {
 		void SetAngularVelocity(const glm::vec3 &Velocity) { dBodyEnable(Body); dBodySetAngularVel(Body, Velocity[0], Velocity[1], Velocity[2]); }
 		glm::vec3 GetAngularVelocity() const;
 
+		void SetScale(const glm::vec3 &Scale);
+		virtual void SetShape(const glm::vec3 &Shape) { }
+
 		irr::scene::ISceneNode *GetNode() { return Node; }
 		dBodyID GetBody() { return Body; }
 
