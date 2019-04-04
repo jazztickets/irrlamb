@@ -47,6 +47,11 @@ function Drop()
 	Object.SetSleep(oBall1, 0)
 end
 
+-- Drop orb1
+function BallDrop1()
+	oOrb1 = Level.CreateObject("orb1", tOrb, 0, 5, 5)
+end
+
 -- States
 Crashed = 0
 
@@ -77,4 +82,5 @@ end
 GoalCount = 5
 
 -- Set drop timer
-Timer.DelayedFunction("Drop", 2.5)
+Timer.DelayedFunction("BallDrop1", 10.0)
+Timer.DelayedFunction("Drop", 13)

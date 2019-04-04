@@ -17,9 +17,16 @@
 			<physics sleep="0" />
 		</orb>
 		<plane name="plane">
-			<mesh file="plane.irrbmesh" scale="1000" />
+			<mesh file="plane.irrbmesh" scale="300" />
 			<texture file="dark0.jpg" scale="50" />
+			<collision group="0" mask="0" />
 		</plane>
+		<box name="tower">
+			<mesh file="cube.irrbmesh" w="20" h="500" l="20" />
+			<texture file="dark0.jpg" />
+			<collision group="0" mask="0" />
+			<physics mass="0" />
+		</box>
 		<box name="box">
 			<mesh file="cube.irrbmesh" scale="1" />
 			<shape w="1" h="1" l="1" />
@@ -73,19 +80,20 @@
 		<object name="player" template="player">
 			<position x="0" y="0.5" z="-8.5" />
 		</object>
+		<object name="tower" template="tower">
+			<position y="-290" />
+		</object>
 		<object name="plane" template="plane">
-			<plane x="0" y="1" z="0" d="-100" />
+			<plane x="0" y="1" z="0" d="-400" />
 		</object>
 		<object name="drum" template="drum">
 			<position y="-20" />
 			<rotation x="90" />
 			<angular_velocity y="0.5" />
 		</object>
-		<!--
 		<object name="orb0" template="orb">
 			<position x="0" y="0.5" z="7.5" />
 		</object>
-		-->
 		<object name="ball0" template="ball">
 			<position x="-22" y="24.05" z="0" />
 		</object>
@@ -101,7 +109,7 @@
 			<rotation x="90" y="0" z="0" />
 		</object>
 		<object name="losezone" template="losezone">
-			<position x="0" y="-20" z="0" />
+			<position x="0" y="-50" z="0" />
 		</object>
 	</objects>
 	<constraints>
