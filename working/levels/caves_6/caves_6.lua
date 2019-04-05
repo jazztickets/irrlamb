@@ -10,7 +10,8 @@ end
 function OnHitZone(HitType, Zone, HitObject)
 
 	if Zone == oStartZone and HitObject == Player then
-		StartTower()
+		GUI.Fade(-1)
+		Timer.DelayedFunction("StartTower", 1)
 		return 1
 	elseif Zone == oLoseZone then
 
@@ -85,6 +86,8 @@ function StartTower()
 	for i = 1, #oPlanks do
 		Object.Delete(oPlanks[i])
 	end
+
+	GUI.Fade(5)
 end
 
 -- Create block tower
@@ -92,6 +95,7 @@ function CreateBlocks()
 
 	-- Remove previous blocks
 	for i = 1, #oBoxes do
+		Object.SetPosition(oBoxes[i], 0, 1000, 0)
 		Object.Delete(oBoxes[i])
 	end
 	oBoxes = {}

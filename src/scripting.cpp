@@ -16,19 +16,20 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 #include <scripting.h>
-#include <interface.h>
-#include <log.h>
-#include <objectmanager.h>
-#include <level.h>
-#include <campaign.h>
-#include <audio.h>
-#include <framework.h>
 #include <objects/template.h>
 #include <objects/player.h>
 #include <objects/orb.h>
 #include <objects/zone.h>
 #include <objects/constraint.h>
 #include <states/play.h>
+#include <interface.h>
+#include <fader.h>
+#include <log.h>
+#include <objectmanager.h>
+#include <level.h>
+#include <campaign.h>
+#include <audio.h>
+#include <framework.h>
 #include <menu.h>
 #include <random>
 
@@ -51,6 +52,7 @@ luaL_Reg _Scripting::CameraFunctions[] = {
 
 // Functions for the GUI
 luaL_Reg _Scripting::GUIFunctions[] = {
+	{"Fade", &_Scripting::GUIFade},
 	{"TutorialText", &_Scripting::GUITutorialText},
 	{nullptr, nullptr}
 };
@@ -414,6 +416,17 @@ int _Scripting::CameraSetYaw(lua_State *LuaObject) {
 	return 0;
 }
 
+// Fade screen
+int _Scripting::GUIFade(lua_State *LuaObject) {
+
+	// Validate arguments
+	if(!CheckArguments(LuaObject, 1))
+		return 0;
+
+	float Speed = (float)lua_tonumber(LuaObject, 1);
+	Fader.Start(Speed);
+}
+
 // Sets the tutorial text
 int _Scripting::GUITutorialText(lua_State *LuaObject) {
 
@@ -566,7 +579,7 @@ int _Scripting::ObjectDelete(lua_State *LuaObject) {
 	// Delete object
 	_Object *Object = (_Object *)(lua_touserdata(LuaObject, 1));
 	if(Object != nullptr)
-		ObjectManager.DeleteObject(Object);
+		Object->SetDeleted(true);
 
 	return 0;
 }

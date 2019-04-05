@@ -88,7 +88,6 @@ void _Fader::Draw() {
 
 // Starts fading the audio/screen
 void _Fader::Start(float Speed) {
-
 	this->Speed = Speed;
 	State = STATE_FADING;
 }
