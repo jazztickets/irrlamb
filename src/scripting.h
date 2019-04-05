@@ -61,44 +61,44 @@ class _Scripting {
 
 		static bool CheckArguments(lua_State *LuaObject, int Required);
 
-		static int CameraSetYaw(lua_State *LuaObject);
-		static int CameraSetPitch(lua_State *LuaObject);
+		static int AudioPlay(lua_State *LuaObject);
+		static int AudioStop(lua_State *LuaObject);
 
-		static int ObjectGetPointer(lua_State *LuaObject);
+		static int CameraSetPitch(lua_State *LuaObject);
+		static int CameraSetYaw(lua_State *LuaObject);
+
+		static int GUITutorialText(lua_State *LuaObject);
+
+		static int LevelChange(lua_State *LuaObject);
+		static int LevelCreateConstraint(lua_State *LuaObject);
+		static int LevelCreateObject(lua_State *LuaObject);
+		static int LevelGetTemplate(lua_State *LuaObject);
+		static int LevelLose(lua_State *LuaObject);
+		static int LevelWin(lua_State *LuaObject);
+
+		static int ObjectDelete(lua_State *LuaObject);
 		static int ObjectGetName(lua_State *LuaObject);
-		static int ObjectGetTemplate(lua_State *LuaObject);
-		static int ObjectSetPosition(lua_State *LuaObject);
+		static int ObjectGetPointer(lua_State *LuaObject);
 		static int ObjectGetPosition(lua_State *LuaObject);
-		static int ObjectSetScale(lua_State *LuaObject);
-		static int ObjectSetShape(lua_State *LuaObject);
-		static int ObjectStop(lua_State *LuaObject);
-		static int ObjectSetLinearVelocity(lua_State *LuaObject);
+		static int ObjectGetTemplate(lua_State *LuaObject);
 		static int ObjectSetAngularVelocity(lua_State *LuaObject);
 		static int ObjectSetLifetime(lua_State *LuaObject);
+		static int ObjectSetLinearVelocity(lua_State *LuaObject);
+		static int ObjectSetPosition(lua_State *LuaObject);
+		static int ObjectSetScale(lua_State *LuaObject);
+		static int ObjectSetShape(lua_State *LuaObject);
 		static int ObjectSetSleep(lua_State *LuaObject);
-		static int ObjectDelete(lua_State *LuaObject);
+		static int ObjectStop(lua_State *LuaObject);
 
 		static int OrbDeactivate(lua_State *LuaObject);
 		static int OrbGetState(lua_State *LuaObject);
 
-		static int TimerDelayedFunction(lua_State *LuaObject);
-		static int TimerStamp(lua_State *LuaObject);
-
-		static int LevelLose(lua_State *LuaObject);
-		static int LevelWin(lua_State *LuaObject);
-		static int LevelChange(lua_State *LuaObject);
-		static int LevelGetTemplate(lua_State *LuaObject);
-		static int LevelCreateObject(lua_State *LuaObject);
-		static int LevelCreateConstraint(lua_State *LuaObject);
-
-		static int GUITutorialText(lua_State *LuaObject);
-
-		static int AudioPlay(lua_State *LuaObject);
-		static int AudioStop(lua_State *LuaObject);
-
-		static int RandomSeed(lua_State *LuaObject);
 		static int RandomGetFloat(lua_State *LuaObject);
 		static int RandomGetInt(lua_State *LuaObject);
+		static int RandomSeed(lua_State *LuaObject);
+
+		static int TimerDelayedFunction(lua_State *LuaObject);
+		static int TimerStamp(lua_State *LuaObject);
 
 		void AddTimedCallback(const std::string &FunctionName, float Time);
 		void AttachKeyToFunction(int Key, const std::string &FunctionName);
