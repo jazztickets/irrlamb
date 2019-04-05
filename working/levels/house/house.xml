@@ -10,11 +10,12 @@
 		<script file="house.lua" />
 		<scene file="house.irr" />
 		<collision file="house.col" name="house" />
+		<sound file="emptyclip.ogg" />
+		<sound file="fart.ogg" />
 		<sound file="flush.ogg" />
-		<sound file="shower.ogg" />
 		<sound file="furnace.ogg" />
 		<sound file="jazztown.ogg" />
-		<sound file="emptyclip.ogg" />
+		<sound file="shower.ogg" />
 	</resources>
 	<templates>
 		<player name="player" />

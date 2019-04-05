@@ -111,6 +111,7 @@ function OnHitZone(HitType, Zone, HitObject)
 		elseif ZoneName == "zone_toilet" then
 			Goofs = Goofs + 1
 			GUI.TutorialText("Oh man you fell into the toilet!", 6)
+			Audio.Play("fart.ogg", -9, 56, 31, 0, 0.0, 0.8, 10)
 			return 1
 		elseif ZoneName == "zone_stairs" then
 			if State < 5 then
