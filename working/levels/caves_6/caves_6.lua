@@ -2,7 +2,7 @@
 function OnOrbDeactivate()
 	GoalCount = GoalCount - 1
 	if GoalCount == 0 then
-		Level.Win()
+		WinState()
 	end
 end
 
@@ -49,7 +49,49 @@ end
 
 -- Drop orb1
 function BallDrop1()
-	oOrb1 = Level.CreateObject("orb1", tOrb, 0, 5, 5)
+	Level.CreateObject("orb1", tOrb, 0, 5, 5)
+	Timer.DelayedFunction("BallDrop2", 10.0)
+	Object.SetAngularVelocity(oDrum, 0, 0.55, 0)
+end
+
+-- Drop orb2
+function BallDrop2()
+	Level.CreateObject("orb2", tOrb, 5, 5, 5)
+	Timer.DelayedFunction("BallDrop3", 10.0)
+	Object.SetAngularVelocity(oDrum, 0, 0.6, 0)
+end
+
+-- Drop orb3
+function BallDrop3()
+	Level.CreateObject("orb3", tOrb, -4, 5, 0)
+	Timer.DelayedFunction("BallDrop4", 10.0)
+	Object.SetAngularVelocity(oDrum, 0, 0.65, 0)
+end
+
+-- Drop orb4
+function BallDrop4()
+	Level.CreateObject("orb4", tOrb, -3, 5, 2)
+	Object.SetAngularVelocity(oDrum, 0, 0.7, 0)
+end
+
+-- Handle end game
+function WinState()
+	GUI.TutorialText("You have conquered the evil twin balls!", 8)
+	Object.SetSleep(oBall0, 1)
+	Object.SetSleep(oBall1, 1)
+	Object.SetSleep(oTether0, 1)
+	Object.SetSleep(oTether1, 1)
+	Object.Stop(oBall0)
+	Object.Stop(oBall1)
+	Object.Stop(oTether0)
+	Object.Stop(oTether1)
+	Object.Stop(oDrum)
+	Timer.DelayedFunction("Won", 10)
+end
+
+-- End game
+function Won()
+	Level.Win()
 end
 
 -- Decrease drum size
@@ -64,6 +106,7 @@ function UpdateDrum()
 end
 
 -- States
+GoalCount = 5
 Crashed = 0
 DrumSize = 20
 DrumChangePeriod = 0.05
@@ -92,10 +135,8 @@ while BaseCount >= 0 do
 	Y = Y + 1
 end
 
--- Set up goal
-GoalCount = 5
-
 -- Set drop timer
 Timer.DelayedFunction("UpdateDrum", DrumChangePeriod)
 Timer.DelayedFunction("BallDrop1", 10.0)
 Timer.DelayedFunction("Drop", 13)
+--Timer.DelayedFunction("WinState", 2.3)
