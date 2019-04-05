@@ -21,11 +21,25 @@
 			<texture file="dark0.jpg" scale="50" />
 			<collision group="0" mask="0" />
 		</plane>
+		<cylinder name="drum">
+			<mesh file="drum.irrbmesh" w="20" h="20" l="20" />
+			<texture file="dark0.jpg" scale="20" />
+			<shape w="20" h="10" />
+			<physics kinematic="1" />
+			<damping angular="0" />
+		</cylinder>
 		<box name="tower">
 			<mesh file="cube.irrbmesh" w="20" h="500" l="20" />
 			<texture file="dark0.jpg" />
-			<collision group="0" mask="0" />
+			<shape w="20" h="500" l="20" />
 			<physics mass="0" />
+		</box>
+		<box name="plank">
+			<mesh file="cube.irrbmesh" w="5" h="0.2" l="2" />
+			<texture file="dark0.jpg" />
+			<shape w="5" h="0.2" l="2" />
+			<physics mass="50" kinematic="0" erp="0" />
+			<damping linear="0" angular="0" />
 		</box>
 		<box name="box">
 			<mesh file="cube.irrbmesh" scale="1" />
@@ -49,19 +63,6 @@
 			<collision group="2" mask="0" />
 			<texture file="darkgray.png" />
 		</sphere>
-		<cylinder name="log">
-			<mesh file="cylinder.irrbmesh" scale="1" />
-			<shape w="1" h="2" />
-			<physics mass="0.25" cfm="0" erp="0.0" />
-			<texture file="woodfloor0.jpg" />
-		</cylinder>
-		<cylinder name="drum">
-			<mesh file="cylinder.irrbmesh" w="20" h="20" l="20" />
-			<shape w="20" h="40" />
-			<physics kinematic="1" />
-			<damping angular="0" />
-			<texture file="dark0.jpg" scale="20" />
-		</cylinder>
 		<hinge name="hinge_x">
 			<axis x="1" />
 		</hinge>
@@ -75,24 +76,27 @@
 		<zone name="losezone">
 			<shape w="500" h="10" l="500" />
 		</zone>
+		<zone name="startzone">
+			<shape w="20" h="1" l="20" />
+		</zone>
 	</templates>
 	<objects>
 		<object name="player" template="player">
-			<position x="0" y="0.5" z="-8.5" />
+			<position x="8.75" y="-9.500000" z="-9" />
+			<!--
+			<position x="10.574684" y="-0.8" z="6" />
+			-->
 		</object>
 		<object name="tower" template="tower">
-			<position y="-290" />
+			<position y="-260" />
 		</object>
 		<object name="plane" template="plane">
 			<plane x="0" y="1" z="0" d="-400" />
 		</object>
 		<object name="drum" template="drum">
-			<position y="-20" />
+			<position y="-5" />
 			<rotation x="90" />
-			<angular_velocity y="0.5" />
-		</object>
-		<object name="orb0" template="orb">
-			<position x="0" y="0.5" z="7.5" />
+			<angular_velocity y="0.2" />
 		</object>
 		<object name="ball0" template="ball">
 			<position x="-22" y="24.05" z="0" />
@@ -110,6 +114,9 @@
 		</object>
 		<object name="losezone" template="losezone">
 			<position x="0" y="-50" z="0" />
+		</object>
+		<object name="startzone" template="startzone">
+			<position x="0" y="1" z="0" />
 		</object>
 	</objects>
 	<constraints>

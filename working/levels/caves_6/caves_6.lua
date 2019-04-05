@@ -9,24 +9,30 @@ end
 -- Display zone message
 function OnHitZone(HitType, Zone, HitObject)
 
-	if HitObject == Player then
-		Level.Lose("You fell off the tower!")
-	else
+	if Zone == oStartZone and HitObject == Player then
+		StartTower()
+		return 1
+	elseif Zone == oLoseZone then
 
-		-- Check for active orbs
-		HitObjectTemplate = Object.GetTemplate(HitObject)
-		if HitObjectTemplate == tOrb then
-			OrbState = Orb.GetState(HitObject)
-			if OrbState == 0 then
-				Level.Lose("You lost an orb!")
-				return 0
+		if HitObject == Player then
+			Level.Lose("You fell off the tower!")
+		else
+
+			-- Check for active orbs
+			local HitObjectTemplate = Object.GetTemplate(HitObject)
+			if HitObjectTemplate == tOrb then
+				local OrbState = Orb.GetState(HitObject)
+				if OrbState == 0 then
+					Level.Lose("You lost an orb!")
+					return 0
+				end
 			end
-		end
 
-		-- Delete objects
-		Name = Object.GetName(HitObject)
-		if Name ~= "drum" then
-			Object.SetLifetime(HitObject, 2)
+			-- Delete objects
+			local Name = Object.GetName(HitObject)
+			if Name ~= "drum" then
+				Object.SetLifetime(HitObject, 2)
+			end
 		end
 	end
 
@@ -41,7 +47,82 @@ function Crash(Object, OtherObject)
 	end
 end
 
--- Set wrecking ball in motion
+-- Create plank and attach to drum
+function CreatePlank(Y, Degrees)
+	local X = math.cos(math.rad(Degrees)) * PlankStart
+	local Z = -math.sin(math.rad(Degrees)) * PlankStart
+
+	-- Create plank
+	local i = PlankCount + 1
+	oPlanks[i] = Level.CreateObject("plank" .. i, tPlank, X, Y, Z, 0, Degrees, 0)
+	Level.CreateConstraint("plank_fixed" .. i, tFixed, oDrum, oPlanks[i])
+
+	-- Update count
+	PlankCount = PlankCount + 1
+end
+
+-- Start final stage
+function StartTower()
+	Stage = 1
+	Camera.SetYaw(0)
+	Camera.SetPitch(30)
+	Level.CreateObject("orb0", tOrb, 0, 0.5, 7.5)
+	Object.SetPosition(Player, 0, 0.5, -8.5)
+	Object.Stop(Player)
+	Object.SetSleep(oTether0, 0)
+	Object.SetSleep(oBall0, 0)
+	Object.SetAngularVelocity(oDrum, 0, 0.5, 0)
+	Object.SetRotation(oDrum, 90, 0, 0)
+	Object.SetPosition(oLoseZone, 0, -14, 0)
+	Timer.DelayedFunction("UpdateDrum", DrumChangePeriod)
+	Timer.DelayedFunction("BallDrop1", 10.0)
+	Timer.DelayedFunction("Drop", 13)
+
+	-- Recreate block tower with correct orientation
+	CreateBlocks()
+
+	-- Remove planks
+	for i = 1, #oPlanks do
+		Object.Delete(oPlanks[i])
+	end
+end
+
+-- Create block tower
+function CreateBlocks()
+
+	-- Remove previous blocks
+	for i = 1, #oBoxes do
+		Object.Delete(oBoxes[i])
+	end
+	oBoxes = {}
+
+	-- Build block stack
+	BaseCount = 3
+	Y = 0.5
+	j = 1
+	while BaseCount >= 0 do
+		for i = 0, BaseCount do
+			oBoxes[j] = Level.CreateObject("box", tBox, -BaseCount / 2 + i, Y, 0)
+			j = j + 1
+		end
+		BaseCount = BaseCount - 1
+		Y = Y + 1
+	end
+
+end
+
+-- Decrease drum size
+function UpdateDrum()
+	DrumSize = DrumSize - 0.01
+	if DrumSize > 7 then
+		Timer.DelayedFunction("UpdateDrum", DrumChangePeriod)
+	end
+
+	Object.SetScale(oDrum, DrumSize, DrumSize, 20)
+	Object.SetShape(oDrum, DrumSize, 10, DrumSize)
+end
+
+-- Set 2nd ball in motion
 function Drop()
 	Object.SetSleep(oTether1, 0)
 	Object.SetSleep(oBall1, 0)
@@ -94,49 +175,54 @@ function Won()
 	Level.Win()
 end
 
--- Decrease drum size
-function UpdateDrum()
-	DrumSize = DrumSize - 0.01
-	if DrumSize > 7 then
-		Timer.DelayedFunction("UpdateDrum", DrumChangePeriod)
-	end
-
-	Object.SetScale(oDrum, DrumSize, DrumSize, 20)
-	Object.SetShape(oDrum, DrumSize, 40, DrumSize)
-end
-
 -- States
 GoalCount = 5
+Stage = 0
 Crashed = 0
 DrumSize = 20
+PlankStart = 12.5
 DrumChangePeriod = 0.05
+PlankCount = 0
+Camera.SetYaw(0)
 
 -- Set up templates
 tOrb = Level.GetTemplate("orb")
 tBox = Level.GetTemplate("box")
+tPlank = Level.GetTemplate("plank")
+tFixed = Level.GetTemplate("fixed")
+oPlanks = {}
+oBoxes = {}
 
 -- Get objects
 oDrum = Object.GetPointer("drum")
+oTower = Object.GetPointer("tower")
 oTether0 = Object.GetPointer("tether0")
 oBall0 = Object.GetPointer("ball0")
 oTether1 = Object.GetPointer("tether1")
 oBall1 = Object.GetPointer("ball1")
-Object.SetSleep(oTether0, 0)
-Object.SetSleep(oBall0, 0)
+oLoseZone = Object.GetPointer("losezone")
+oStartZone = Object.GetPointer("startzone")
 
--- Build block stack
-BaseCount = 3
-Y = 0.5
-while BaseCount >= 0 do
-	for i = 0, BaseCount do
-		Level.CreateObject("box", tBox, -BaseCount / 2 + i, Y, 0)
-	end
-	BaseCount = BaseCount - 1
-	Y = Y + 1
+-- Build planks
+Y = 0
+Degrees = 0
+Increments = {
+	{ -9.3, 0 },
+	{ 1.3, -25 },
+	{ 1.3, -25 },
+	{ 1.3, 15 },
+	{ 0.2, 30 },
+	{ 1.5, 20 },
+	{ 1.1, -30 },
+	{ 1.4, -20 },
+}
+
+-- Create planks
+for i = 1, #Increments do
+	Y = Y + Increments[i][1]
+	Degrees = Degrees + Increments[i][2]
+	CreatePlank(Y, Degrees)
 end
 
--- Set drop timer
-Timer.DelayedFunction("UpdateDrum", DrumChangePeriod)
-Timer.DelayedFunction("BallDrop1", 10.0)
-Timer.DelayedFunction("Drop", 13)
---Timer.DelayedFunction("WinState", 2.3)
+-- Create block tower
+CreateBlocks()

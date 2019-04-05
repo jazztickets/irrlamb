@@ -1,5 +1,5 @@
 irrlamb 1.0.0 -
-- Added 11 new levels including a secret level
+- Added 12 new levels including a secret level
 - Replaced Bullet physics engine with ODE
 - Physics now runs at 500hz
 - Updated UI which now scales with resolution

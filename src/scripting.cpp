@@ -80,6 +80,7 @@ luaL_Reg _Scripting::ObjectFunctions[] = {
 	{"SetAngularVelocity", &_Scripting::ObjectSetAngularVelocity},
 	{"SetLifetime", &_Scripting::ObjectSetLifetime},
 	{"SetSleep", &_Scripting::ObjectSetSleep},
+	{"SetRotation", &_Scripting::ObjectSetRotation},
 	{"Delete", &_Scripting::ObjectDelete},
 	{nullptr, nullptr}
 };
@@ -770,6 +771,29 @@ int _Scripting::ObjectSetSleep(lua_State *LuaObject) {
 	// Set sleep
 	if(Object != nullptr)
 		Object->SetSleep(State);
+
+	return 0;
+}
+
+// Set object rotation
+int _Scripting::ObjectSetRotation(lua_State *LuaObject) {
+
+	// Validate arguments
+	if(!CheckArguments(LuaObject, 4))
+		return 0;
+
+	// Get parameters
+	_Object *Object = (_Object *)(lua_touserdata(LuaObject, 1));
+	glm::vec3 Rotation;
+	Rotation.x = (float)lua_tonumber(LuaObject, 2);
+	Rotation.y = (float)lua_tonumber(LuaObject, 3);
+	Rotation.z = (float)lua_tonumber(LuaObject, 4);
+
+	// Set rotation
+	if(Object) {
+		glm::quat QuaternionRotation = glm::quat(glm::radians(Rotation));
+		Object->SetQuaternion(QuaternionRotation);
+	}
 
 	return 0;
 }

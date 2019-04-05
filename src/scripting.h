@@ -88,6 +88,7 @@ class _Scripting {
 		static int ObjectSetScale(lua_State *LuaObject);
 		static int ObjectSetShape(lua_State *LuaObject);
 		static int ObjectSetSleep(lua_State *LuaObject);
+		static int ObjectSetRotation(lua_State *LuaObject);
 		static int ObjectStop(lua_State *LuaObject);
 
 		static int OrbDeactivate(lua_State *LuaObject);
