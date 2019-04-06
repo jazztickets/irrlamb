@@ -41,6 +41,7 @@ class _Zone : public _Object {
 		virtual void HandleCollision(const _ObjectCollision &ObjectCollision) override;
 
 		void SetActive(bool Value);
+		void SetShape(const glm::vec3 &Shape) override;
 
 	private:
 

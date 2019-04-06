@@ -93,3 +93,9 @@ void _Zone::SetActive(bool Value) {
 
 	TouchState.clear();
 }
+
+// Set shape
+void _Zone::SetShape(const glm::vec3 &Shape) {
+	if(Geometry)
+		dGeomBoxSetLengths(Geometry, Shape.x, Shape.y, Shape.z);
+}

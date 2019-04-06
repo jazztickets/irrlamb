@@ -425,6 +425,8 @@ int _Scripting::GUIFade(lua_State *LuaObject) {
 
 	float Speed = (float)lua_tonumber(LuaObject, 1);
 	Fader.Start(Speed);
+
+	return 0;
 }
 
 // Sets the tutorial text
