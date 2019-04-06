@@ -29,8 +29,17 @@ function OnHitZone(HitType, Zone, HitObject)
 	return 0
 end
 
+function UpdateBall()
+	Object.SetScale(oBall, 0.5, 0.5, 0.5)
+	Object.SetShape(oBall, 1, 0, 0)
+end
+
 -- Set up goal
 GoalCount = 5
 
 -- Set up templates
 tOrb = Level.GetTemplate("orb")
+oBall = Object.GetPointer("ball")
+
+-- Callbacks
+Timer.DelayedFunction("UpdateBall", 2)

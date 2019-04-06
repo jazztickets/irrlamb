@@ -70,3 +70,9 @@ _Sphere::_Sphere(const _ObjectSpawn &Object) :
 	// Set common properties
 	SetProperties(Object);
 }
+
+// Set radius
+void _Sphere::SetShape(const glm::vec3 &Shape) {
+	if(Geometry)
+		dGeomSphereSetRadius(Geometry, Shape.x);
+}

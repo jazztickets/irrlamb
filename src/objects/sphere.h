@@ -27,6 +27,8 @@ class _Sphere : public _Object {
 
 		_Sphere(const _ObjectSpawn &Object);
 
+		void SetShape(const glm::vec3 &Shape) override;
+
 	private:
 
 };

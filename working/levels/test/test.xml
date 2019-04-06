@@ -16,6 +16,11 @@
 		<orb name="orb">
 			<physics sleep="0" />
 		</orb>
+		<sphere name="ball" detail="32">
+			<texture file="concrete0.jpg" />
+			<shape r="2" />
+			<physics mass="1" />
+		</sphere>
 		<plane name="plane">
 			<mesh file="plane.irrbmesh" scale="1000" />
 			<texture file="grass0.jpg" scale="500" />
@@ -27,6 +32,9 @@
 	<objects>
 		<object name="player" template="player">
 			<position x="0" y="0.5" z="0" />
+		</object>
+		<object name="ball" template="ball">
+			<position x="0" y="3" z="5" />
 		</object>
 		<object name="plane" template="plane">
 			<plane x="0" y="1" z="0" d="0" />
