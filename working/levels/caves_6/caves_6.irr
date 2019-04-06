@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- Created by irrb v0.6 - "Irrlicht/Blender Exporter" -->
 <irr_scene>
    <attributes>
       <string name="Name" value="root"/>
@@ -15,8 +16,8 @@
       <float name="FogStart" value="25.000000"/>
       <float name="FogEnd" value="250.000000"/>
       <float name="FogHeight" value="0.000000"/>
-      <float name="FogDensity" value="0.02"/>
-      <colorf name="FogColor" value="0.0, 0.0, 0.0, 1.000000"/>
+      <float name="FogDensity" value="0.020000"/>
+      <colorf name="FogColor" value="0.000000, 0.000000, 0.000000, 1.000000"/>
       <bool name="FogPixel" value="false"/>
       <bool name="FogRange" value="false"/>
    </attributes>
@@ -24,9 +25,30 @@
       <attributes>
          <bool name="Physics.Enabled" value="false"/>
          <float name="Gravity" value="-9.81"/>
-         <colorf name="BackgroundColor" value="0.0, 0.0, 0.0, 1"/>
+         <colorf name="BackgroundColor" value="0, 0, 0, 1"/>
       </attributes>
    </userData>
+   <node type="mesh">
+      <attributes>
+         <string name="Name" value="caves_6"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="0, 0, 0"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="1, 1, 1"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+         <string name="Mesh" value="meshes/caves_6.irrbmesh"/>
+         <enum name="HardwareMappingHint" value="never"/>
+         <enum name="HardwareMappingBufferType" value="vertexindex"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
    <node type="skyBox">
       <attributes>
          <string name="Name" value="skybox"/>

@@ -9,6 +9,7 @@
 	<resources>
 		<script file="caves_6.lua" />
 		<scene file="caves_6.irr" />
+		<collision file="caves_6.col" />
 		<sound file="blast.ogg" />
 	</resources>
 	<templates>
@@ -28,12 +29,6 @@
 			<physics kinematic="1" />
 			<damping angular="0" />
 		</cylinder>
-		<box name="tower">
-			<mesh file="cube.irrbmesh" w="20" h="500" l="20" />
-			<texture file="dark0.jpg" />
-			<shape w="20" h="500" l="20" />
-			<physics mass="0" />
-		</box>
 		<box name="plank">
 			<mesh file="cube.irrbmesh" w="5" h="0.2" l="2" />
 			<texture file="dark0.jpg" />
@@ -87,9 +82,7 @@
 			<position x="10.574684" y="-0.8" z="6" />
 			-->
 		</object>
-		<object name="tower" template="tower">
-			<position y="-260" />
-		</object>
+
 		<object name="plane" template="plane">
 			<plane x="0" y="1" z="0" d="-400" />
 		</object>

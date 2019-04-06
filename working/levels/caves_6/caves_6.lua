@@ -199,7 +199,6 @@ oBoxes = {}
 
 -- Get objects
 oDrum = Object.GetPointer("drum")
-oTower = Object.GetPointer("tower")
 oTether0 = Object.GetPointer("tether0")
 oBall0 = Object.GetPointer("ball0")
 oTether1 = Object.GetPointer("tether1")
