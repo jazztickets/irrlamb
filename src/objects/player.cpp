@@ -216,3 +216,9 @@ void _Player::SetPositionFromReplay(const irr::core::vector3df &Position) {
 	if(Light)
 		Light->setPosition(Position);
 }
+
+// Set radius
+void _Player::SetShape(const glm::vec3 &Shape) {
+	if(Geometry)
+		dGeomSphereSetRadius(Geometry, Shape.x);
+}

@@ -38,6 +38,7 @@ class _Player : public _Object {
 		void Jump();
 		void SetCamera(_Camera *Camera) { this->Camera = Camera; }
 		void SetPositionFromReplay(const irr::core::vector3df &Position);
+		void SetShape(const glm::vec3 &Shape) override;
 
 	private:
 

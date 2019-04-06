@@ -203,3 +203,9 @@ void _Orb::SetPositionFromReplay(const irr::core::vector3df &Position) {
 	if(Light)
 		Light->setPosition(Position);
 }
+
+// Set radius
+void _Orb::SetShape(const glm::vec3 &Shape) {
+	if(Geometry)
+		dGeomSphereSetRadius(Geometry, Shape.x);
+}

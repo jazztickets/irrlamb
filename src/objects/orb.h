@@ -44,6 +44,8 @@ class _Orb : public _Object {
 		bool IsStillActive() const { return State == ORBSTATE_NORMAL; }
 		int GetState() const { return State; }
 
+		void SetShape(const glm::vec3 &Shape) override;
+
 	private:
 
 		void UpdateDeactivation(float FrameTime);
