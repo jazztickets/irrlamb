@@ -16,4 +16,4 @@ GoalCount = 1
 
 -- Show text
 GUI.TutorialText("Press [" .. KEY_FORWARD .. "], [" .. KEY_LEFT .. "], [" .. KEY_BACK .. "], [" .. KEY_RIGHT .. "] to move. The mouse is used to look around.", 15)
-Timer.DelayedFunction("ShowMoreText", 20)
+Timer.Callback("ShowMoreText", 20)

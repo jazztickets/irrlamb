@@ -42,4 +42,4 @@ tOrb = Level.GetTemplate("orb")
 oBall = Object.GetPointer("ball")
 
 -- Callbacks
-Timer.DelayedFunction("UpdateBall", 2)
+Timer.Callback("UpdateBall", 2)

@@ -11,7 +11,7 @@ function OnHitZone(HitType, Zone, HitObject)
 
 	if Zone == oStartZone and HitObject == Player then
 		GUI.Fade(-1)
-		Timer.DelayedFunction("StartTower", 1)
+		Timer.Callback("StartTower", 1)
 		return 1
 	elseif Zone == oLoseZone then
 
@@ -75,9 +75,9 @@ function StartTower()
 	Object.SetAngularVelocity(oDrum, 0, 0.5, 0)
 	Object.SetRotation(oDrum, 90, 0, 0)
 	Object.SetPosition(oLoseZone, 0, -14, 0)
-	Timer.DelayedFunction("UpdateDrum", DrumChangePeriod)
-	Timer.DelayedFunction("BallDrop1", 10.0)
-	Timer.DelayedFunction("Drop", 13)
+	Timer.Callback("UpdateDrum", DrumChangePeriod)
+	Timer.Callback("BallDrop1", 10.0)
+	Timer.Callback("Drop", 13)
 
 	-- Recreate block tower with correct orientation
 	CreateBlocks()
@@ -119,7 +119,7 @@ end
 function UpdateDrum()
 	DrumSize = DrumSize - 0.01
 	if DrumSize > 7 then
-		Timer.DelayedFunction("UpdateDrum", DrumChangePeriod)
+		Timer.Callback("UpdateDrum", DrumChangePeriod)
 	end
 
 	Object.SetScale(oDrum, DrumSize, DrumSize, 20)
@@ -135,21 +135,21 @@ end
 -- Drop orb1
 function BallDrop1()
 	Level.CreateObject("orb1", tOrb, 0, 5, 5)
-	Timer.DelayedFunction("BallDrop2", 10.0)
+	Timer.Callback("BallDrop2", 10.0)
 	Object.SetAngularVelocity(oDrum, 0, 0.55, 0)
 end
 
 -- Drop orb2
 function BallDrop2()
 	Level.CreateObject("orb2", tOrb, 5, 5, 5)
-	Timer.DelayedFunction("BallDrop3", 10.0)
+	Timer.Callback("BallDrop3", 10.0)
 	Object.SetAngularVelocity(oDrum, 0, 0.6, 0)
 end
 
 -- Drop orb3
 function BallDrop3()
 	Level.CreateObject("orb3", tOrb, -4, 5, 0)
-	Timer.DelayedFunction("BallDrop4", 10.0)
+	Timer.Callback("BallDrop4", 10.0)
 	Object.SetAngularVelocity(oDrum, 0, 0.65, 0)
 end
 
@@ -171,7 +171,7 @@ function WinState()
 	Object.Stop(oTether0)
 	Object.Stop(oTether1)
 	Object.Stop(oDrum)
-	Timer.DelayedFunction("Won", 10)
+	Timer.Callback("Won", 10)
 end
 
 -- End game

@@ -16,4 +16,4 @@ GoalCount = 1
 
 -- Show text
 GUI.TutorialText("Try moving your camera to the side. This way you can see how close you are to the next step.", 15)
-Timer.DelayedFunction("ShowMoreText", 17)
+Timer.Callback("ShowMoreText", 17)

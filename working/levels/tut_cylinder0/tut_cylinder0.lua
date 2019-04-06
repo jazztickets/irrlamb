@@ -16,4 +16,4 @@ GoalCount = 1
 
 -- Show text
 GUI.TutorialText("When rolling on the cylinder, tap [" .. KEY_RIGHT .. "] to counteract the rotation.", 10)
-Timer.DelayedFunction("ShowMoreText", 15)
+Timer.Callback("ShowMoreText", 15)

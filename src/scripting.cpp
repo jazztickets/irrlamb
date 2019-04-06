@@ -105,7 +105,7 @@ luaL_Reg _Scripting::RandomFunctions[] = {
 // Functions for timers
 luaL_Reg _Scripting::TimerFunctions[] = {
 	{"Stamp", &_Scripting::TimerStamp},
-	{"DelayedFunction", &_Scripting::TimerDelayedFunction},
+	{"Callback", &_Scripting::TimerCallback},
 	{nullptr, nullptr}
 };
 
@@ -920,7 +920,7 @@ int _Scripting::RandomSeed(lua_State *LuaObject) {
 }
 
 // Adds a timed callback
-int _Scripting::TimerDelayedFunction(lua_State *LuaObject) {
+int _Scripting::TimerCallback(lua_State *LuaObject) {
 
 	// Validate arguments
 	if(!CheckArguments(LuaObject, 2))

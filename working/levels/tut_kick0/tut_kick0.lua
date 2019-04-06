@@ -15,8 +15,8 @@ function OnHitZone(HitType, Zone, HitObject)
 	Name = Object.GetName(HitObject)
 
 	if ZoneName == "zone_secret" then
-		Timer.DelayedFunction("SecretMessage", 10)
-		Timer.DelayedFunction("Secret", 15)
+		Timer.Callback("SecretMessage", 10)
+		Timer.Callback("Secret", 15)
 		SecretFound = 1
 		return 1
 	end
@@ -59,4 +59,4 @@ tOrb = Level.GetTemplate("orb")
 
 -- Text
 GUI.TutorialText("Jump forward, then hold [" .. KEY_BACK .. "] as you land to kick the orb off and take its place.", 10)
-Timer.DelayedFunction("Hint", 30)
+Timer.Callback("Hint", 30)

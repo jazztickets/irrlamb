@@ -99,7 +99,7 @@ class _Scripting {
 		static int RandomGetInt(lua_State *LuaObject);
 		static int RandomSeed(lua_State *LuaObject);
 
-		static int TimerDelayedFunction(lua_State *LuaObject);
+		static int TimerCallback(lua_State *LuaObject);
 		static int TimerStamp(lua_State *LuaObject);
 
 		void AddTimedCallback(const std::string &FunctionName, float Time);

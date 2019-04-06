@@ -35,13 +35,13 @@ function UpdateState()
 		GUI.TutorialText("It's getting cold in here. Let's check on that furnace.", 10)
 		Level.CreateObject("orb", tOrb, -37.7854, 22.8, -57.108673, 0, 0, 0);
 	elseif State == 8 then
-		Timer.DelayedFunction("WindowMessage", 7)
+		Timer.Callback("WindowMessage", 7)
 		Level.CreateObject("orb", tOrb, 97.503487, 77.7, -15.73, 0, 0, 0);
 	elseif State == 9 then
 		GUI.TutorialText("Time to go! Hmm, where did I leave my keys...", 10)
 		Level.CreateObject("orb", tOrb, 87.076630, 0.500000, 48.877991, 0, 0, 0);
 	elseif State == 10 then
-		Timer.DelayedFunction("Finished", 10)
+		Timer.Callback("Finished", 10)
 		if Goofs == 1 then
 			GoofText = Goofs .. " time."
 		else
@@ -147,12 +147,12 @@ function OnHitZone(HitType, Zone, HitObject)
 		elseif ZoneName == "zone_choria" then
 			GamesPlayed = GamesPlayed + 1
 			GUI.TutorialText("Hey this game looks neat. I love chores.", 7)
-			Timer.DelayedFunction("CheckGames", 8)
+			Timer.Callback("CheckGames", 8)
 			return 1
 		elseif ZoneName == "zone_emptyclip" then
 			GamesPlayed = GamesPlayed + 1
 			GUI.TutorialText("That game was okay back in 2006...", 7)
-			Timer.DelayedFunction("CheckGames", 8)
+			Timer.Callback("CheckGames", 8)
 			return 1
 		elseif ZoneName == "zone_pizza" then
 			Secrets = Secrets + 1
