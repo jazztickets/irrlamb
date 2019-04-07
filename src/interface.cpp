@@ -104,8 +104,8 @@ int _Interface::Init() {
 	CenterX = irrDriver->getScreenSize().Width / 2;
 	CenterY = irrDriver->getScreenSize().Height / 2;
 
-	TutorialText.MessageX = CenterX;
-	TutorialText.MessageY = irrDriver->getScreenSize().Height - MESSAGE_HEIGHT * GetUIScale() / 2 - 50 * GetUIScale();
+	Text.X = CenterX;
+	Text.Y = irrDriver->getScreenSize().Height - MESSAGE_HEIGHT * GetUIScale() / 2 - 50 * GetUIScale();
 
 	Menu.ClearCurrentLayout();
 
@@ -155,26 +155,26 @@ void _Interface::ChangeSkin(SkinType Type) {
 
 // Clear all the GUI elements
 void _Interface::Clear() {
-	if(TutorialText.Text) {
-		TutorialText.Text->remove();
-		TutorialText.Text = nullptr;
+	if(Text.Message) {
+		Text.Message->remove();
+		Text.Message = nullptr;
 	}
 	Timer = 0.0f;
 }
 
 // Adds tutorial text to the screen
 void _Interface::SetTutorialText(const std::string &String, float Length) {
-	if(TutorialText.Text) {
-		TutorialText.Text->remove();
-		TutorialText.Text = nullptr;
+	if(Text.Message) {
+		Text.Message->remove();
+		Text.Message = nullptr;
 	}
 
 	// Add text
-	TutorialText.Text = irrGUI->addStaticText(
+	Text.Message = irrGUI->addStaticText(
 		core::stringw(String.c_str()).c_str(),
 		GetCenteredRect(
-			TutorialText.MessageX,
-			TutorialText.MessageY,
+			Text.X,
+			Text.Y,
 			(MESSAGE_WIDTH - MESSAGE_PADDING) * GetUIScale(),
 			MESSAGE_HEIGHT * GetUIScale()
 		),
@@ -182,19 +182,19 @@ void _Interface::SetTutorialText(const std::string &String, float Length) {
 		true
 	);
 
-	TutorialText.Text->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_CENTER);
-	TutorialText.Text->setOverrideFont(Interface.Fonts[_Interface::FONT_MEDIUM]);
-	TutorialText.DeleteTime = Length + Timer;
+	Text.Message->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_CENTER);
+	Text.Message->setOverrideFont(Interface.Fonts[_Interface::FONT_MEDIUM]);
+	Text.DeleteTime = Length + Timer;
 }
 
 // Maintains all of the timed elements
 void _Interface::Update(float FrameTime) {
 
 	Timer += FrameTime;
-	if(TutorialText.Text) {
-		if(Timer >= TutorialText.DeleteTime) {
-			TutorialText.Text->remove();
-			TutorialText.Text = nullptr;
+	if(Text.Message) {
+		if(Timer >= Text.DeleteTime) {
+			Text.Message->remove();
+			Text.Message = nullptr;
 		}
 	}
 }
@@ -222,23 +222,23 @@ void _Interface::RenderHUD(float Time, bool FirstLoad) {
 	}
 
 	// Draw message box
-	if(TutorialText.Text) {
-		TutorialText.Text->setVisible(DrawHUD && Config.ShowTutorial);
+	if(Text.Message) {
+		Text.Message->setVisible(DrawHUD && Config.ShowTutorial);
 
 		// Get tutorial text alpha
 		video::SColor TextColor(255, 255, 255, 255), BoxColor(160, 255, 255, 255);
-		float TimeLeft = TutorialText.DeleteTime - Timer;
+		float TimeLeft = Text.DeleteTime - Timer;
 		if(TimeLeft < 2.0f) {
 			TextColor.setAlpha((uint32_t)(255 * TimeLeft / 2.0));
 			BoxColor.setAlpha((uint32_t)(160 * TimeLeft / 2.0));
 		}
 
 		// Update tutorial text color
-		TutorialText.Text->setOverrideColor(TextColor);
+		Text.Message->setOverrideColor(TextColor);
 
 		// Draw tutorial text
 		if(DrawHUD && Config.ShowTutorial)
-			DrawTextBox(TutorialText.MessageX, TutorialText.MessageY, MESSAGE_WIDTH * GetUIScale(), MESSAGE_HEIGHT * GetUIScale(), BoxColor);
+			DrawTextBox(Text.X, Text.Y, MESSAGE_WIDTH * GetUIScale(), MESSAGE_HEIGHT * GetUIScale(), BoxColor);
 	}
 }
 
@@ -312,10 +312,10 @@ float _Interface::GetUIScale() {
 // Fades the screen
 void _Interface::FadeScreen(float Amount) {
 	irrDriver->draw2DImage(Images[IMAGE_FADE], core::position2di(0, 0), core::recti(0, 0, irrDriver->getScreenSize().Width, irrDriver->getScreenSize().Height), 0, video::SColor((uint32_t)(Amount * 255), 255, 255, 255), true);
-	if(TutorialText.Text) {
-		video::SColor TextColor = TutorialText.Text->getOverrideColor();
+	if(Text.Message) {
+		video::SColor TextColor = Text.Message->getOverrideColor();
 		TextColor.setAlpha((uint32_t)(TextColor.getAlpha() * (1.0f - Amount)));
-		TutorialText.Text->setOverrideColor(TextColor);
+		Text.Message->setOverrideColor(TextColor);
 	}
 }
 

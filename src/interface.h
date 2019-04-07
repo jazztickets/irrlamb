@@ -39,11 +39,11 @@ namespace irr {
 }
 
 // Structures
-struct _TutorialText {
-	irr::gui::IGUIStaticText *Text;
+struct _Text {
+	irr::gui::IGUIStaticText *Message;
 	float DeleteTime;
-	int MessageX;
-	int MessageY;
+	int X;
+	int Y;
 };
 
 const int MGUIET_EMPTY = irr::gui::EGUIET_COUNT+1;
@@ -158,7 +158,7 @@ class _Interface {
 
 	private:
 
-		_TutorialText TutorialText;
+		_Text Text;
 		bool DrawHUD;
 		float Timer;
 		float ScreenHeight;
