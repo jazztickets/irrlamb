@@ -1,6 +1,6 @@
 -- Display tutorial text
 function ShowMoreText()
-	GUI.TutorialText("Once you're facing the wall, Use [" .. KEY_LEFT .. "] and [" .. KEY_RIGHT .. "] to move side to side.", 30)
+	GUI.Text("Once you're facing the wall, Use [" .. KEY_LEFT .. "] and [" .. KEY_RIGHT .. "] to move side to side.", 30)
 end
 
 -- Called when an orb is deactivated
@@ -15,5 +15,5 @@ end
 GoalCount = 1
 
 -- Show text
-GUI.TutorialText("Try moving your camera to the side. This way you can see how close you are to the second step.", 15)
+GUI.Text("Try moving your camera to the side. This way you can see how close you are to the second step.", 15)
 Timer.Callback("ShowMoreText", 17)

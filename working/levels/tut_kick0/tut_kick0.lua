@@ -35,13 +35,13 @@ end
 -- Show hint
 function Hint()
 	if SecretFound == 0 then
-		GUI.TutorialText("Can you find the secret?", 5)
+		GUI.Text("Can you find the secret?", 5)
 	end
 end
 
 -- Show secret message
 function SecretMessage()
-	GUI.TutorialText("You found the secret level!", 5)
+	GUI.Text("You found the secret level!", 5)
 end
 
 -- Launch secret level
@@ -58,5 +58,5 @@ Camera.SetPitch(75)
 tOrb = Level.GetTemplate("orb")
 
 -- Text
-GUI.TutorialText("Jump forward, then hold [" .. KEY_BACK .. "] as you land to kick the orb off and take its place.", 10)
+GUI.Text("Jump forward, then hold [" .. KEY_BACK .. "] as you land to kick the orb off and take its place.", 10)
 Timer.Callback("Hint", 30)

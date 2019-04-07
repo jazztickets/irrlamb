@@ -14,7 +14,7 @@ function ShowLastOrb()
 	tOrb = Level.GetTemplate("orb")
 	oOrb = Level.CreateObject("orb_cave", tOrb, -48.220, -21.117, -60.686, 0, 0, 0)
 
-	GUI.TutorialText("Enter the cave to begin your adventure.", 12)
+	GUI.Text("Enter the cave to begin your adventure.", 12)
 end
 
 -- Display lose message

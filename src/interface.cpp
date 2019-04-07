@@ -163,7 +163,7 @@ void _Interface::Clear() {
 }
 
 // Adds tutorial text to the screen
-void _Interface::SetTutorialText(const std::string &Text, float Length) {
+void _Interface::SetTutorialText(const std::string &String, float Length) {
 	if(TutorialText.Text) {
 		TutorialText.Text->remove();
 		TutorialText.Text = nullptr;
@@ -171,7 +171,7 @@ void _Interface::SetTutorialText(const std::string &Text, float Length) {
 
 	// Add text
 	TutorialText.Text = irrGUI->addStaticText(
-		core::stringw(Text.c_str()).c_str(),
+		core::stringw(String.c_str()).c_str(),
 		GetCenteredRect(
 			TutorialText.MessageX,
 			TutorialText.MessageY,

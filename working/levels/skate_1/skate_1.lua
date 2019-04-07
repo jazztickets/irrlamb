@@ -11,7 +11,7 @@ end
 function OnHitZone(HitType, Zone, Object)
 	
 	if Object == Player then
-		GUI.TutorialText("Big Air!", 3)
+		GUI.Text("Big Air!", 3)
 	end
 	
 	return 0

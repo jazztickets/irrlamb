@@ -68,7 +68,7 @@ class _Scripting {
 		static int CameraSetYaw(lua_State *LuaObject);
 
 		static int GUIFade(lua_State *LuaObject);
-		static int GUITutorialText(lua_State *LuaObject);
+		static int GUIText(lua_State *LuaObject);
 
 		static int LevelChange(lua_State *LuaObject);
 		static int LevelCreateConstraint(lua_State *LuaObject);

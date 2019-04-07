@@ -14,7 +14,7 @@ function ShowLastOrb()
 	tOrb = Level.GetTemplate("orb")
 	oOrb = Level.CreateObject("orb", tOrb, 0, 8, 80, 0, 0, 0)
 
-	GUI.TutorialText("At last! Now exit the cave.", 5)
+	GUI.Text("At last! Now exit the cave.", 5)
 end
 
 -- Display lose message

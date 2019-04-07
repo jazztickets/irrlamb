@@ -161,7 +161,7 @@ end
 
 -- Handle end game
 function WinState()
-	GUI.TutorialText("You have conquered the evil twin balls!", 8)
+	GUI.Text("You have conquered the evil twin balls!", 8)
 	Object.SetSleep(oBall0, 1)
 	Object.SetSleep(oBall1, 1)
 	Object.SetSleep(oTether0, 1)

@@ -11,4 +11,4 @@ end
 GoalCount = 1
 
 -- Show text
-GUI.TutorialText("Get some speed, then jump as you cross the blue patch.", 5)
+GUI.Text("Get some speed, then jump as you cross the blue patch.", 5)

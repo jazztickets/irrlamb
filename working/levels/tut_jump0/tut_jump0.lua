@@ -10,4 +10,4 @@ end
 GoalCount = 1
 
 -- Show text
-GUI.TutorialText("Press [" .. KEY_JUMP .. "] to jump.", 10)
+GUI.Text("Press [" .. KEY_JUMP .. "] to jump.", 10)

@@ -11,4 +11,4 @@ end
 GoalCount = 4
 
 -- Show text
-GUI.TutorialText("Use the mouse to look around.", 10)
+GUI.Text("Use the mouse to look around.", 10)

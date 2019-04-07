@@ -53,7 +53,7 @@ luaL_Reg _Scripting::CameraFunctions[] = {
 // Functions for the GUI
 luaL_Reg _Scripting::GUIFunctions[] = {
 	{"Fade", &_Scripting::GUIFade},
-	{"TutorialText", &_Scripting::GUITutorialText},
+	{"Text", &_Scripting::GUIText},
 	{nullptr, nullptr}
 };
 
@@ -430,7 +430,7 @@ int _Scripting::GUIFade(lua_State *LuaObject) {
 }
 
 // Sets the tutorial text
-int _Scripting::GUITutorialText(lua_State *LuaObject) {
+int _Scripting::GUIText(lua_State *LuaObject) {
 
 	// Validate arguments
 	if(!CheckArguments(LuaObject, 2))
