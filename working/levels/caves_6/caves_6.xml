@@ -24,7 +24,7 @@
 		</plane>
 		<cylinder name="drum">
 			<mesh file="drum.irrbmesh" w="20" h="20" l="20" />
-			<texture file="dark0.jpg" scale="20" />
+			<texture file="dark0.jpg" />
 			<shape w="20" h="10" />
 			<physics kinematic="1" />
 			<damping angular="0" />
@@ -88,7 +88,7 @@
 		</object>
 		<object name="drum" template="drum">
 			<position y="-5" />
-			<rotation x="90" />
+			<rotation x="-90" />
 			<angular_velocity y="0.2" />
 		</object>
 		<object name="ball0" template="ball">
