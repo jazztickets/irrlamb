@@ -11,6 +11,7 @@
 		<scene file="caves_6.irr" />
 		<collision file="caves_6.col" />
 		<sound file="blast.ogg" />
+		<sound file="howl.ogg" />
 	</resources>
 	<templates>
 		<player name="player" />

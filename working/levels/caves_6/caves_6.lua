@@ -78,6 +78,7 @@ function StartTower()
 	Timer.Callback("UpdateDrum", DrumChangePeriod)
 	Timer.Callback("BallDrop1", 10.0)
 	Timer.Callback("Drop", 13)
+	Audio.Stop(aHowl)
 
 	-- Recreate block tower with correct orientation
 	CreateBlocks()
@@ -188,6 +189,7 @@ PlankStart = 12.5
 DrumChangePeriod = 0.05
 PlankCount = 0
 Camera.SetYaw(0)
+aHowl = Audio.Play("howl.ogg", 0, 0, 0, 1, 0.9, 0.9)
 
 -- Set up templates
 tOrb = Level.GetTemplate("orb")
