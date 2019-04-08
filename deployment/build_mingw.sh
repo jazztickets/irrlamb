@@ -45,6 +45,7 @@ build() {
 
 	gitver=`git log --oneline | wc -l`
 	mv bin/Release/irrlamb.exe working/
+	mv bin/Release/colmesh.exe working/
 	cp {README,CHANGELOG} working/
 	#chmod +x working/run_*.bat
 
@@ -54,7 +55,7 @@ build() {
 	zip -r "$archive" "$archive_base" -x /"${archive_base}"/irrlamb /"${archive_base}"/move*
 	rm "${archive_base}"
 
-	rm working/irrlamb.exe
+	rm working/*.exe
 	rm working/*.dll
 	rm working/README
 	rm working/CHANGELOG
