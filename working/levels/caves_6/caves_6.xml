@@ -12,6 +12,7 @@
 		<collision file="caves_6.col" />
 		<sound file="blast.ogg" />
 		<sound file="howl.ogg" />
+		<sound file="tower.ogg" />
 	</resources>
 	<templates>
 		<player name="player" />

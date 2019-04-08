@@ -44,6 +44,7 @@ end
 function Crash(Object, OtherObject)
 	if Crashed == 0 and OtherObject == oBall0 then
 		Audio.Play("blast.ogg", 0, 0, 0, 0, 1, 1)
+		Audio.Play("tower.ogg", 0, 0, 0, 1, 1, 1)
 		Crashed = 1
 	end
 end
