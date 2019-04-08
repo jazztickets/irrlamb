@@ -1,6 +1,6 @@
 /*************************************************************************************
 *	irrlamb - https://github.com/jazztickets/irrlamb
-*	Copyright (C) 2013  Alan Witkowski
+*	Copyright (C) 2019  Alan Witkowski
 *
 *	This program is free software: you can redistribute it and/or modify
 *	it under the terms of the GNU General Public License as published by
@@ -15,50 +15,60 @@
 *	You should have received a copy of the GNU General Public License
 *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************************/
-#include <vector>
+#include <iostream>
 #include <string>
+#include <vector>
 #include <fstream>
-#include <cstdlib>
+#include <array>
+#include <map>
 
-using namespace std;
+// Face struct
+struct _Face {
+	_Face() { }
+	_Face(int Index1, int Index2, int Index3) : Data({Index1, Index2, Index3}) { }
+	int &operator[](std::size_t Index) { return Data[Index]; }
 
-// Structures
-struct VertexStruct {
-	float Data[3];
+	std::array<int, 3> Data;
 };
 
-struct FaceStruct {
-	int Data[3];
+// Vertex struct
+struct _Vertex {
+	_Vertex() { }
+	_Vertex(float X, float Y, float Z) : Data({X, Y, Z}) { }
+	bool operator<(const _Vertex &Value) const { return std::tie(Data[0], Data[1], Data[2]) < std::tie(Value.Data[0], Value.Data[1], Value.Data[2]); }
+	const float &operator[](std::size_t Index) const { return Data[Index]; }
+
+	std::array<float, 3> Data;
 };
 
 // Globals
-static vector<VertexStruct> Vertices;
-static vector<FaceStruct> Faces;
+static std::vector<_Vertex> Vertices;
+static std::vector<_Face> Faces;
 
 // Functions
-bool ReadObjFile(const char *Filename);
-bool WriteColFile(const char *Filename);
+static bool ReadObjFile(const char *Filename);
+static bool WriteColFile(const char *Filename);
 
 int main(int ArgumentCount, char **Arguments) {
 
 	// Parse arguments
 	if(ArgumentCount != 2) {
-		printf("Needs 1 argument: .obj file\n");
+		std::cout << "Needs 1 argument: .obj file" << std::endl;
 		return EXIT_FAILURE;
 	}
 
 	// Parse file
-	string File = Arguments[1];
+	std::string File = Arguments[1];
 	size_t Extension = File.rfind(".obj");
-	if(Extension == string::npos) {
-		printf("Bad argument: %s\n", Arguments[1]);
+	if(Extension == std::string::npos) {
+		std::cout << "Bad argument: " << Arguments[1] << std::endl;
 		return EXIT_FAILURE;
 	}
 
 	// Get filenames
-	string BaseName = File.substr(0, Extension);
-	string ObjFilename = BaseName + string(".obj");
-	string ColFilename = BaseName + string(".col");
+	std::string BaseName = File.substr(0, Extension);
+	std::string ObjFilename = BaseName + std::string(".obj");
+	std::string ColFilename = BaseName + std::string(".col");
 
 	// Read file
 	if(!ReadObjFile(ObjFilename.c_str())) {
@@ -77,9 +87,9 @@ int main(int ArgumentCount, char **Arguments) {
 bool ReadObjFile(const char *Filename) {
 
 	// Open file
-	ifstream InputFile(Filename);
+	std::ifstream InputFile(Filename);
 	if(!InputFile.is_open()) {
-		printf("Error opening %s for reading\n", Filename);
+		std::cout << "Error opening '" << Filename << "' for reading" << std::endl;
 
 		return false;
 	}
@@ -87,22 +97,27 @@ bool ReadObjFile(const char *Filename) {
 	// Read file
 	char Buffer[256];
 	bool HasTexture = false;
+	int NewVertexIndex = 0;
+	std::map<_Vertex, int> VertexMap;
+	std::vector<_Vertex> TempVertices;
 	while(!InputFile.eof()) {
-
 		InputFile.getline(Buffer, 255);
+
+		// Read vertices
 		if(Buffer[0] == 'v') {
 			if(Buffer[1] == ' ') {
-				VertexStruct Vertex;
+				_Vertex Vertex;
 
 				sscanf(Buffer, "v %f %f %f", &Vertex.Data[0], &Vertex.Data[1], &Vertex.Data[2]);
-				Vertices.push_back(Vertex);
+				TempVertices.push_back(Vertex);
 			}
 			else if(Buffer[1] == 't') {
 				HasTexture = true;
 			}
 		}
+		// Read faces
 		else if(Buffer[0] == 'f' && Buffer[1] == ' ') {
-			FaceStruct Face;
+			_Face Face;
 			int Dummy;
 
 			if(HasTexture)
@@ -113,23 +128,38 @@ bool ReadObjFile(const char *Filename) {
 			Face.Data[0]--;
 			Face.Data[1]--;
 			Face.Data[2]--;
+
+			// Eliminate duplicate vertices
+			for(int i = 0; i < 3; i++) {
+				const _Vertex &Vertex = TempVertices[Face.Data[i]];
+				auto Iterator = VertexMap.find(Vertex);
+				if(Iterator == VertexMap.end()) {
+					Vertices.push_back(Vertex);
+					VertexMap[Vertex] = NewVertexIndex++;
+				}
+
+				// Get new vertex index
+				Face.Data[i] = VertexMap[Vertex];
+			}
+
 			Faces.push_back(Face);
 		}
 	}
 
+	// Close file
 	InputFile.close();
 
 	return true;
 }
 
-// Write vertices/faces to a file
+// Write vertices/faces to a binary file
 bool WriteColFile(const char *Filename) {
 
 	// Open file
-	ofstream File;
-	File.open(Filename, ios::out | ios::binary);
+	std::ofstream File;
+	File.open(Filename, std::ios::out | std::ios::binary);
 	if(!File.is_open()) {
-		printf("Error opening %s for writing\n", Filename);
+		std::cout << "Error opening '" << Filename << "' for writing" << std::endl;
 
 		return false;
 	}
@@ -154,6 +184,7 @@ bool WriteColFile(const char *Filename) {
 		File.write((char *)&Faces[i].Data[2], sizeof(int));
 	}
 
+	// Close file
 	File.close();
 
 	return true;
