@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<level version="0" gameversion="1.0.0">
+	<info>
+		<name>Spake Park IV</name>
+	</info>
+	<options>
+		<emitlight enabled="1" />
+	</options>
+	<resources>
+		<script file="skate_3.lua" />
+		<scene file="skate_3.irr" />
+		<collision file="skate_3.col" />
+	</resources>
+	<templates>
+		<player name="player">
+			<damping linear="0" angular="0" />
+		</player>
+		<orb name="orb" />
+		<zone name="losezone">
+			<shape w="1000" h="5" l="1000" />
+		</zone>
+	</templates>
+	<objects>
+		<object name="player" template="player">
+			<position x="0" y="110.5" z="0" />
+			<position x="0.0" y="0.5" z="0.5" />
+			<!--
+			<position x="0.0" y="0.5" z="0.5" />
+			-->
+		</object>
+		<object name="losezone" template="losezone">
+			<position x="0" y="-150" z="00" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="-0.000000" y="0.500000" z="-15" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="0" y="110.5" z="-5" />
+		</object>
+	</objects>
+</level>
