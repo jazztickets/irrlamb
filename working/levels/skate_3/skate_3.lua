@@ -10,7 +10,7 @@ end
 -- Display lose message
 function OnHitZone(HitType, Zone, HitObject)
 	if HitObject == Player then
-		Level.Lose("You crashed!")
+		Level.Lose("You flew off into space!")
 	else
 		Object.SetLifetime(HitObject, 2)
 	end
@@ -19,5 +19,6 @@ function OnHitZone(HitType, Zone, HitObject)
 end
 
 -- Set up goal
-GoalCount = 5
+GoalCount = 4
 Camera.SetPitch(89)
+--Camera.SetYaw(180)
