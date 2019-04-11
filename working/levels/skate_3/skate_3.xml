@@ -23,21 +23,6 @@
 	<objects>
 		<object name="player" template="player">
 			<position x="0.0" y="0.5" z="0.5" />
-			<!--
-			<position x="-2.256991" y="131.188187" z="-40.917603" />
-
-			<position x="0.400976" y="52.800289" z="-109.017738" />
-			<quaternion w="-0.995953" x="-0.089829" y="-0.000176" z="0.002887" />
-			<linear_velocity x="-0.000000" y="-3.435610" z="-23.459324" />
-			<angular_velocity x="-51.408642" y="0.000001" z="0.000000" />
-
-			<position x="0.381277" y="125.476913" z="-29.370161" />
-			<linear_velocity x="0.043715" y="0.000000" z="-16.488798" />
-
-			<position x="0" y="110.5" z="8" />
-
-			<position x="0.0" y="0.5" z="0.5" />
-			-->
 		</object>
 		<object name="losezone" template="losezone">
 			<position x="0" y="-500" z="0" />

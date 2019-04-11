@@ -21,4 +21,3 @@ end
 -- Set up goal
 GoalCount = 4
 Camera.SetPitch(89)
---Camera.SetYaw(180)
