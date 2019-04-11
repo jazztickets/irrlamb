@@ -287,6 +287,10 @@ bool _PlayState::HandleKeyPress(int Key) {
 			case KEY_F5:
 				Framework.ChangeState(&PlayState);
 			break;
+			case KEY_F10:
+				Config.SoundVolume = !Config.SoundVolume;
+				Audio.SetGain(Config.SoundVolume);
+			break;
 			case KEY_F11:
 				Interface.DrawHUD = !Interface.DrawHUD;
 			break;
