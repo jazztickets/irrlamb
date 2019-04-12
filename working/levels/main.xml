@@ -37,6 +37,7 @@
 	</campaign>
 	<campaign name="Challenges">
 		<level unlocked="1">c_roll0</level>
+		<level>c_sinkhole0</level>
 		<level>c_trees0</level>
 		<level>c_tightrope0</level>
 		<level>c_seesaw0</level>
