@@ -183,6 +183,7 @@ end
 -- Check games played count
 function CheckGames()
 	if GamesPlayed >= 2 then
+		Audio.Stop(aSong)
 		GUI.Text("What was that noise?", 5)
 		Audio.Play("emptyclip.ogg", -36.756924, 1.5, -35.409771, 0, 0.2, 0.2)
 		oAlan = Level.CreateObject("alan", tAlan, -36.756924, 1.5, -35.409771, 180, 180, 0);
@@ -218,7 +219,7 @@ DownstairsAttemptMax = 20
 AlanTouched = 0
 
 -- Sounds
-Audio.Play("jazztown.ogg", 86, 72, 36, 1, 0.0, 1.0, 20.0, 20.0)
+aSong = Audio.Play("jazztown.ogg", 86, 72, 36, 1, 0.0, 1.0, 20.0, 20.0)
 Audio.Play("furnace.ogg", -37, 11, -56, 1, 0.0, 1.0, 20.0, 10.0)
 
 -- Set up goal
