@@ -25,32 +25,32 @@
 		<object name="player" template="player">
 			<position x="5.373963" y="118.713211" z="-98.413528" />
 		</object>
-		<object name="orb" template="orb">
+		<object name="orb0" template="orb">
 			<position x="16.121838" y="116.069984" z="-86.458527" />
 			<linear_velocity x="2.834170" y="-1.518949" z="6.126657" />
 			<angular_velocity x="12.754033" y="-1.769670" z="-6.338716" />
 		</object>
-		<object name="orb" template="orb">
+		<object name="orb1" template="orb">
 			<position x="66.568657" y="119.289169" z="76.158401" />
 			<linear_velocity x="-3.836758" y="-0.183744" z="2.348875" />
 			<angular_velocity x="5.102648" y="-1.997395" z="8.178648" />
 		</object>
-		<object name="orb" template="orb">
+		<object name="orb2" template="orb">
 			<position x="-82.622704" y="117.790298" z="46.196854" />
 			<linear_velocity x="9.216672" y="-0.634698" z="10.299649" />
 			<angular_velocity x="22.098150" y="4.348945" z="-19.506556" />
 		</object>
-		<object name="orb" template="orb">
-			<position x="54.382961" y="108.062576" z="-35.521378" />
-			<linear_velocity x="-7.716461" y="-0.687895" z="-9.889837" />
-			<angular_velocity x="-23.517185" y="4.808085" z="18.014648" />
+		<object name="orb3" template="orb">
+			<position x="-19.064793" y="105.527611" z="-56.415386" />
+			<linear_velocity x="-12.410100" y="-0.945715" z="6.438710" />
+			<angular_velocity x="15.173314" y="4.492422" z="29.905199" />
 		</object>
-		<object name="orb" template="orb">
-			<position x="-15.751744" y="63.598145" z="-5.178777" />
-			<linear_velocity x="1.866956" y="-15.059195" z="17.372000" />
-			<angular_velocity x="59.862640" y="-8.280119" z="-12.652956" />
+		<object name="orb4" template="orb">
+			<position x="16.544844" y="66.574051" z="-7.370541" />
+			<linear_velocity x="1.931963" y="-7.557397" z="14.008364" />
+			<angular_velocity x="67.824837" y="-9.191189" z="-13.993604" />
 		</object>
-		<object name="orb" template="orb">
+		<object name="orb5" template="orb">
 			<position x="10.800490" y="110.437347" z="69.779373" />
 			<linear_velocity x="-12.916943" y="1.684627" z="6.297399" />
 			<angular_velocity x="14.609782" y="-19.328094" z="35.137398" />
