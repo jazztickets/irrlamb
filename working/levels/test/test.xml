@@ -12,7 +12,9 @@
 		<!--<collision file="test.col" />-->
 	</resources>
 	<templates>
-		<player name="player" />
+		<player name="player">
+			<!--<damping linear="0" angular="0" />-->
+		</player>
 		<orb name="orb">
 			<physics sleep="0" />
 		</orb>
@@ -22,8 +24,8 @@
 			<physics mass="1" />
 		</sphere>
 		<plane name="plane">
-			<mesh file="plane.irrbmesh" scale="1000" />
-			<texture file="grass0.jpg" scale="500" />
+			<mesh file="plane.irrbmesh" scale="10000" />
+			<texture file="grass0.jpg" scale="5000" />
 		</plane>
 		<zone name="losezone">
 			<shape w="500" h="5" l="500" />
@@ -32,9 +34,6 @@
 	<objects>
 		<object name="player" template="player">
 			<position x="0" y="0.5" z="0" />
-		</object>
-		<object name="ball" template="ball">
-			<position x="0" y="3" z="5" />
 		</object>
 		<object name="plane" template="plane">
 			<plane x="0" y="1" z="0" d="0" />

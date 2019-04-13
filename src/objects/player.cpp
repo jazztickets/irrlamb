@@ -86,7 +86,7 @@ _Player::_Player(const _ObjectSpawn &Object) :
 		dBodySetMass(Body, &Mass);
 
 		// Audio
-		Sound = new _AudioSource(Audio.GetBuffer("player.ogg"), true, 0.0, 0.50f);
+		Sound = new _AudioSource(Audio.GetBuffer("player.ogg"), true, 0.0, 0.35f);
 		Sound->SetPosition(Object.Position[0], Object.Position[1], Object.Position[2]);
 		Sound->Play();
 	}
@@ -119,16 +119,9 @@ void _Player::Update(float FrameTime) {
 		Light->setPosition(core::vector3df(Position[0], Position[1], Position[2]));
 	}
 
-	// Get pitch for player idle sound
-	float LinearSpeed = glm::length(GetLinearVelocity());
-	float AngularSpeed = glm::length(GetAngularVelocity());
-	float MinSpeed = 3.0f;
-	float MaxSpeed = 120.0f;
-	float Pitch = std::max(MinSpeed, std::min(LinearSpeed + AngularSpeed, MaxSpeed));
-	Pitch -= MinSpeed;
-	Pitch /= MaxSpeed / 2;
-	Pitch += 0.9f;
-	Sound->SetPitch(Pitch);
+	// Get pitch for player sound
+	float Speed = glm::length(GetLinearVelocity()) + glm::length(GetAngularVelocity());
+	Sound->SetPitch(1 + Speed / 100.0f);
 
 	// Update jump cooldown
 	if(JumpCooldown > 0.0f) {
