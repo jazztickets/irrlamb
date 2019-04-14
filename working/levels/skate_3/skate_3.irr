@@ -7,7 +7,7 @@
       <vector3d name="Position" value="0, 0, 0"/>
       <vector3d name="Rotation" value="0, 0, 0"/>
       <vector3d name="Scale" value="1, 1, 1"/>
-      <colorf name="AmbientLight" value="0.5, 0.5, 0.5, 1"/>
+      <colorf name="AmbientLight" value="0.3, 0.3, 0.3, 1"/>
       <bool name="AutomaticCulling" value="true"/>
       <bool name="DebugDataVisible" value="false"/>
       <bool name="IsDebugObject" value="false"/>
@@ -20,6 +20,28 @@
          <colorf name="BackgroundColor" value="0, 0, 0, 1"/>
       </attributes>
    </userData>
+   <node type="light">
+      <attributes>
+         <string name="Name" value="Sun"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="216.729416, 172.317047, 172.04541"/>
+         <vector3d name="Rotation" value="135, 45.000005, -0.000004"/>
+         <enum name="LightType" value="Point"/>
+         <colorf name="AmbientColor" value="0, 0, 0, 1"/>
+         <colorf name="DiffuseColor" value="1, 1, 1, 1"/>
+         <colorf name="SpecularColor" value="1, 1, 1, 1"/>
+         <vector3d name="Attenuation" value="1, 0, 0"/>
+         <float name="Radius" value="100.00"/>
+         <float name="OuterCone" value="45.00"/>
+         <float name="InnerCone" value="0.00"/>
+         <bool name="CastShadows" value="true"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
    <node type="mesh">
       <attributes>
          <string name="Name" value="skate_3"/>
