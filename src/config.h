@@ -65,9 +65,6 @@ class _Config {
 		// Replays
 		bool AutosaveNewRecords;
 
-		// Caching
-		bool Caching;
-
 	private:
 
 };
