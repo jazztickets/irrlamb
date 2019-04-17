@@ -15,5 +15,5 @@ end
 GoalCount = 1
 
 -- Show text
-GUI.Text("Press [" .. KEY_FORWARD .. "], [" .. KEY_LEFT .. "], [" .. KEY_BACK .. "], [" .. KEY_RIGHT .. "] to move. The mouse is used to look around.", 15)
+GUI.Text("Press [" .. KEY_FORWARD .. "], [" .. KEY_LEFT .. "], [" .. KEY_BACK .. "], [" .. KEY_RIGHT .. "] to move. Use the mouse to look around.", 15)
 Timer.Callback("ShowMoreText", 20)
