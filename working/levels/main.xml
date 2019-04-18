@@ -19,6 +19,7 @@
 	</campaign>
 	<campaign name="Secrets" show="false">
 		<level>house</level>
+		<level>plane</level>
 	</campaign>
 	<campaign name="Caves">
 		<level unlocked="1">caves_0</level>

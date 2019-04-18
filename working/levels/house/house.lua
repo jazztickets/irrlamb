@@ -137,6 +137,7 @@ function OnHitZone(HitType, Zone, HitObject)
 			return 1
 		elseif ZoneName == "zone_tv" then
 			GUI.Text("Hey, how'd you make it up here?", 7)
+			Timer.Callback("SecretLevel", 10)
 			return 1
 		elseif ZoneName == "zone_smells" then
 			GUI.Text("Smells funky in here...", 7)
@@ -178,6 +179,17 @@ end
 -- Get text when secrets are found
 function SecretText()
 	return Secrets .. " out of " .. TotalSecrets .. " secrets found."
+end
+
+-- Secret level text
+function SecretLevel()
+	GUI.Text("Oh man I don't feel so good anymore...", 7)
+	Timer.Callback("SecretLevelLaunch", 10)
+end
+
+-- Secret level launch
+function SecretLevelLaunch()
+	Level.Change(1, 1)
 end
 
 -- Check games played count

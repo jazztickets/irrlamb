@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <level version="0" gameversion="1.0.0">
 	<info>
-		<name>Plane</name>
+		<name>Drug</name>
 	</info>
 	<options>
 		<emitlight enabled="1" />
@@ -22,7 +22,7 @@
 		</box>
 		<plane name="plane">
 			<mesh file="plane.irrbmesh" scale="1000000" />
-			<texture file="grass0.jpg" scale="500000" />
+			<texture file="checker0.png" scale="500000" />
 		</plane>
 		<zone name="winzone">
 			<shape w="50000" h="50000" l="50000" />
@@ -36,7 +36,7 @@
 			<plane x="0" y="1" z="0" d="0" />
 		</object>
 		<object name="winzone" template="winzone">
-			<position x="0" y="0" z="1050000" />
+			<position x="0" y="0" z="1030000" />
 		</object>
 	</objects>
 </level>
