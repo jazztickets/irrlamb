@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<level version="0" gameversion="1.0.0">
+	<info>
+		<name>Plane</name>
+	</info>
+	<options>
+		<emitlight enabled="1" />
+	</options>
+	<resources>
+		<script file="plane.lua" />
+		<scene file="plane.irr" />
+	</resources>
+	<templates>
+		<player name="player">
+			<damping linear="0" angular="0" />
+		</player>
+		<box name="box">
+			<mesh file="cube.irrbmesh" w="5" h="50" l="5" />
+			<shape w="5" h="50" l="5" />
+			<texture file="concrete0.jpg" />
+			<physics mass="0" />
+		</box>
+		<plane name="plane">
+			<mesh file="plane.irrbmesh" scale="1000000" />
+			<texture file="grass0.jpg" scale="500000" />
+		</plane>
+		<zone name="winzone">
+			<shape w="50000" h="50000" l="50000" />
+		</zone>
+	</templates>
+	<objects>
+		<object name="player" template="player">
+			<position x="0" y="0.5" z="0" />
+		</object>
+		<object name="plane" template="plane">
+			<plane x="0" y="1" z="0" d="0" />
+		</object>
+		<object name="winzone" template="winzone">
+			<position x="0" y="0" z="1050000" />
+		</object>
+	</objects>
+</level>
