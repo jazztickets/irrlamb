@@ -277,7 +277,7 @@ bool _PlayState::HandleKeyPress(int Key) {
 			case KEY_KEY_4:
 			case KEY_KEY_5:
 				if(ReplayInputs)
-					Framework.SetTimeScale(powf(2, Key - KEY_KEY_1));
+					Framework.SetTimeScale(1 << (Key - KEY_KEY_1));
 			break;
 			case KEY_F1:
 				Menu.InitPause();
