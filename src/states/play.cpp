@@ -123,6 +123,7 @@ int _PlayState::Close() {
 
 // Resets the level
 void _PlayState::ResetLevel() {
+	Framework.SetTimeScale(1.0f);
 	HighScoreIndex = -1;
 	FirstLoad = false;
 	Jumped = false;
@@ -270,6 +271,14 @@ bool _PlayState::HandleKeyPress(int Key) {
 
 	if(Menu.State == _Menu::STATE_NONE) {
 		switch(Key) {
+			case KEY_KEY_1:
+			case KEY_KEY_2:
+			case KEY_KEY_3:
+			case KEY_KEY_4:
+			case KEY_KEY_5:
+				if(ReplayInputs)
+					Framework.SetTimeScale(powf(2, Key - KEY_KEY_1));
+			break;
 			case KEY_F1:
 				Menu.InitPause();
 			break;
