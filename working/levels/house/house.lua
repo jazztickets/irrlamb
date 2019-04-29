@@ -158,6 +158,11 @@ function OnHitZone(HitType, Zone, HitObject)
 		elseif ZoneName == "zone_pizza" then
 			Secrets = Secrets + 1
 			GUI.Text("You licked the secret pizza! " .. SecretText(), 10)
+			Audio.Play("slurp.ogg", 97, 20, -18, 0, 1, 1)
+			return 1
+		elseif ZoneName == "zone_motorcycle" then
+			GUI.Text("Goddamn neighbors and their motorcycle.. shut the hell up!", 6)
+			Audio.Play("motorcycle.ogg", 120, 20, 19, 0, 2, 2)
 			return 1
 		end
 	elseif HitName == "salt" then

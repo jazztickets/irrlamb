@@ -22,6 +22,24 @@
    </userData>
    <node type="empty">
       <attributes>
+         <string name="Name" value="zone_motorcycle"/>
+         <int name="Id" value="-1"/>
+         <bool name="Visible" value="true"/>
+         <vector3d name="Position" value="98.210281, 19.674545, 19.317656"/>
+         <vector3d name="Rotation" value="0, 0, 0"/>
+         <vector3d name="Scale" value="1.068666, 1, 12.16346"/>
+         <enum name="AutomaticCulling" value="frustum_box"/>
+         <bool name="DebugDataVisible" value="false"/>
+         <bool name="IsDebugObject" value="false"/>
+         <bool name="ReadOnlyMaterials" value="false"/>
+      </attributes>
+      <userData>
+         <attributes>
+         </attributes>
+      </userData>
+   </node>
+   <node type="empty">
+      <attributes>
          <string name="Name" value="zone_toilet"/>
          <int name="Id" value="-1"/>
          <bool name="Visible" value="true"/>

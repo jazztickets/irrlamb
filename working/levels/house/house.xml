@@ -16,6 +16,8 @@
 		<sound file="furnace.ogg" />
 		<sound file="jazztown.ogg" />
 		<sound file="shower.ogg" />
+		<sound file="motorcycle.ogg" />
+		<sound file="slurp.ogg" />
 	</resources>
 	<templates>
 		<player name="player" />
