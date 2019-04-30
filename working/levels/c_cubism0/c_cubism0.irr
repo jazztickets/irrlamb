@@ -6,7 +6,7 @@
       <vector3d name="Position" value="0, 0, 0"/>
       <vector3d name="Rotation" value="0, 0, 0"/>
       <vector3d name="Scale" value="1, 1, 1"/>
-      <colorf name="AmbientLight" value="0.303197, 0.303197, 0.303197, 1"/>
+      <colorf name="AmbientLight" value="0.5, 0.5, 0.5, 1"/>
       <bool name="AutomaticCulling" value="true"/>
       <bool name="DebugDataVisible" value="false"/>
       <bool name="IsDebugObject" value="false"/>

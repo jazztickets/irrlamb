@@ -9,50 +9,86 @@
 	<resources>
 		<script file="c_cubism0.lua" />
 		<scene file="c_cubism0.irr" />
-		<!--<collision file="c_cubism0.col" />-->
+		<sound file="pop.ogg" />
 	</resources>
 	<templates>
 		<player name="player">
 			<damping linear="0" angular="0" />
 		</player>
 		<orb name="orb">
-			<physics sleep="0" />
+			<physics sleep="1" />
 		</orb>
 		<box name="box1">
 			<mesh file="cube.irrbmesh" scale="1" />
 			<shape w="1" h="1" l="1" />
 			<texture file="cube0.png" />
-			<physics mass="0.2" />
+			<physics mass="0.2" sleep="1" />
 		</box>
 		<box name="box2">
 			<mesh file="cube.irrbmesh" scale="2" />
 			<shape w="2" h="2" l="2" />
 			<texture file="cube0.png" />
-			<physics mass="0.2" />
+			<physics mass="0.2" sleep="1" />
 		</box>
 		<box name="box3">
 			<mesh file="cube.irrbmesh" scale="3" />
 			<shape w="3" h="3" l="3" />
 			<texture file="cube0.png" />
-			<physics mass="0.2" />
+			<physics mass="0.2" sleep="1" />
 		</box>
 		<box name="box4">
 			<mesh file="cube.irrbmesh" scale="4" />
 			<shape w="4" h="4" l="4" />
 			<texture file="cube0.png" />
-			<physics mass="0.2" />
+			<physics mass="0.2" sleep="1" />
 		</box>
 		<box name="box5">
 			<mesh file="cube.irrbmesh" scale="5" />
 			<shape w="5" h="5" l="5" />
 			<texture file="cube0.png" />
-			<physics mass="0.2" />
+			<physics mass="0.2" sleep="1" />
+		</box>
+		<box name="box20">
+			<mesh file="cube.irrbmesh" scale="20" />
+			<shape w="20" h="20" l="20" />
+			<texture file="cube0.png" />
+			<physics mass="0.2" sleep="1" />
 		</box>
 		<box name="box_tall0">
 			<mesh file="cube.irrbmesh" w="5" h="16" l="5" />
 			<shape w="5" h="16" l="5" />
 			<texture file="cube0.png" />
-			<physics mass="1" />
+			<physics mass="1" sleep="1" />
+		</box>
+		<box name="box_slab0">
+			<mesh file="cube.irrbmesh" w="1" h="16" l="5" />
+			<shape w="1" h="16" l="5" />
+			<texture file="cube0.png" />
+			<physics mass="2" sleep="1" />
+		</box>
+		<box name="box_slab1">
+			<mesh file="cube.irrbmesh" w="1" h="17" l="5" />
+			<shape w="1" h="17" l="5" />
+			<texture file="cube0.png" />
+			<physics mass="2" sleep="1" />
+		</box>
+		<box name="box_thin0">
+			<mesh file="cube.irrbmesh" w="1" h="16" l="1" />
+			<shape w="1" h="16" l="1" />
+			<texture file="cube0.png" />
+			<physics mass="3" sleep="1" />
+		</box>
+		<box name="box_platform0">
+			<mesh file="cube.irrbmesh" w="7" h="1" l="5" />
+			<shape w="7" h="1" l="5" />
+			<texture file="cube0.png" />
+			<physics mass="0" />
+		</box>
+		<box name="box_platform1">
+			<mesh file="cube.irrbmesh" w="25" h="1" l="25" />
+			<shape w="25" h="1" l="25" />
+			<texture file="cube0.png" />
+			<physics mass="0" />
 		</box>
 		<plane name="plane">
 			<mesh file="plane.irrbmesh" scale="1000" />
@@ -63,27 +99,36 @@
 		<object name="player" template="player">
 			<position x="-0.8" y="2.5" z="0" />
 			<!--
-				<position x="14.478760" y="16.512657" z="0.010749" />
+				<position x="178.066544" y="16.000000" z="-0.089897" />
+				<position x="55" y="18.2" z="0.0" />
+				<position x="14.478760" y="16.512657" z="0.0" />
 				<position x="-0.8" y="2.5" z="0" />
 			-->
-		</object>
-		<object name="box" template="box2">
-			<position x="0" y="1" z="0" />
-		</object>
-		<object name="box" template="box4">
-			<position x="4.5" y="2" z="0" />
-		</object>
-		<object name="box" template="box_tall0">
-			<position x="14.5" y="8" z="0" />
 		</object>
 		<object name="plane" template="plane">
 			<plane x="0" y="1" z="0" d="0" />
 		</object>
-		<!--
-		<object name="orb" template="orb">
-			<position x="14.5" y="16.5" z="0" />
+		<object name="cube0" template="box2">
+			<position x="0" y="1" z="0" />
 		</object>
-		-->
+		<object name="cube1" template="box4">
+			<position x="4.5" y="2" z="0" />
+		</object>
+		<object name="cube2" template="box_tall0">
+			<position x="14.5" y="8" z="0" />
+		</object>
+		<object name="cube3" template="box_platform0">
+			<position x="57" y="17.2" z="0" />
+		</object>
+		<object name="cube4" template="box20">
+			<position x="75" y="10" z="0" />
+		</object>
+		<object name="cube5" template="box_platform1">
+			<position x="175" y="15" z="0" />
+		</object>
+		<object name="orb" template="orb">
+			<position x="175" y="16" z="0" />
+		</object>
 	</objects>
 	<constraints>
 	</constraints>
