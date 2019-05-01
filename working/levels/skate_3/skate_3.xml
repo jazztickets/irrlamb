@@ -17,7 +17,7 @@
 		</player>
 		<orb name="orb" />
 		<zone name="losezone">
-			<shape w="1000" h="5" l="1000" />
+			<shape w="5000" h="5" l="5000" />
 		</zone>
 	</templates>
 	<objects>
