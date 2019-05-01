@@ -39,7 +39,7 @@
 #include <objects/zone.h>
 #include <objects/trimesh.h>
 #include <objects/constraint.h>
-#include <tinyxml2.h>
+#include <tinyxml2/tinyxml2.h>
 #include <ISceneManager.h>
 #include <IFileSystem.h>
 

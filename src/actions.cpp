@@ -19,7 +19,7 @@
 #include <framework.h>
 #include <state.h>
 #include <config.h>
-#include <tinyxml2.h>
+#include <tinyxml2/tinyxml2.h>
 
 _Actions Actions;
 

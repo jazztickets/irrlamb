@@ -20,7 +20,7 @@
 #include <log.h>
 #include <framework.h>
 #include <level.h>
-#include <tinyxml2.h>
+#include <tinyxml2/tinyxml2.h>
 
 _Campaign Campaign;
 
