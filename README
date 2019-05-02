@@ -42,6 +42,7 @@ Mouse Wheel*          Increase/decrease replay speed by 0.1x
 5                     Set replay speed to 8.0x
 F11                   Toggle HUD
 F12                   Screenshot
+V                     Validate replay (from Replays menu)
 
 *Holding Left Shift changes by 0.01x
 
@@ -84,19 +85,3 @@ cat install_manifest.txt | xargs sudo rm
 -noaudio                         Disable audio
 
 Save data is in ~/.local/share/irrlamb for linux and %APPDATA%/irrlamb for windows.
-
------ DEVELOPMENT -----
-
-Setting up blender for exporting:
-
-In blender, select File -> User Preferences -> Add-ons -> Install from File...
-
-Select the file irrlamb/assets/irrb/io_export_irrlicht.py
-
-Enable the add-on by checking the checkbox.
-
-Run the setup_env.sh script:
-cd irrlamb/assets/irrb/
-./setup_env.sh
-
-Log out or reboot for the environment variable to take effect.
