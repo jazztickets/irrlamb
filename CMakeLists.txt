@@ -63,7 +63,6 @@ find_package(OpenAL REQUIRED)
 find_package(Vorbis REQUIRED)
 find_package(Ogg REQUIRED)
 find_package(SQLite REQUIRED)
-find_package(Lua ${LUA_VERSION} REQUIRED)
 find_package(ZLIB REQUIRED)
 find_package(PNG REQUIRED)
 find_package(JPEG REQUIRED)
@@ -80,7 +79,6 @@ include_directories(${OPENAL_INCLUDE_DIR})
 include_directories(${VORBIS_INCLUDE_DIR})
 include_directories(${OGG_INCLUDE_DIR})
 include_directories(${SQLITE_INCLUDE_DIR})
-include_directories(${LUA_INCLUDE_DIR})
 include_directories(${ZLIB_INCLUDE_DIRS})
 include_directories(${PNG_INCLUDE_DIRS})
 include_directories(${JPEG_INCLUDE_DIRS})
@@ -104,7 +102,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 	${VORBIS_LIBRARIES}
 	${OGG_LIBRARIES}
 	${SQLITE_LIBRARIES}
-	${LUA_LIBRARIES}
 	${ZLIB_LIBRARIES}
 	${PNG_LIBRARIES}
 	${JPEG_LIBRARIES}

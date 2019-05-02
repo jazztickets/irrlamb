@@ -51,7 +51,6 @@ F12                   Screenshot
 cmake
 freetype2
 sqlite3
-lua
 openal
 libvorbis
 libogg
