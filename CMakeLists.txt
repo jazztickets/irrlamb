@@ -28,6 +28,8 @@ if(WIN32)
 	add_definitions(-DPLATFORM=1)
 elseif(UNIX)
 	add_definitions(-DPLATFORM=0)
+	add_definitions(-DLUA_USE_LINUX)
+	set(EXTRA_LIBS ${EXTRA_LIBS} dl)
 endif()
 
 # compiler flags
