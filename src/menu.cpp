@@ -1191,7 +1191,7 @@ void _Menu::InitLose() {
 }
 
 // Create the win screen
-void _Menu::InitWin() {
+void _Menu::InitWin(bool HideNextLevel) {
 	Interface.Clear();
 
 	// Get level stats
@@ -1213,7 +1213,7 @@ void _Menu::InitWin() {
 	AddMenuButton(Interface.GetRectPercent(X + Padding + Spacing, Y, BUTTON_MEDIUM_SIZE_X, BUTTON_MEDIUM_SIZE_Y), WIN_MAINMENU, L"Main Menu", _Interface::IMAGE_BUTTON_MEDIUM);
 
 	// Set state of next level button
-	if(!Campaign.GetNextLevel(PlayState.CurrentCampaign, PlayState.CampaignLevel, false))
+	if(HideNextLevel || !Campaign.GetNextLevel(PlayState.CurrentCampaign, PlayState.CampaignLevel, false))
 		ButtonNextLevel->setEnabled(false);
 
 	// Disable save replay if playing from replay

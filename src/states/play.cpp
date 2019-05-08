@@ -448,7 +448,7 @@ void _PlayState::StartReset() {
 }
 
 // Win the level and update stats
-void _PlayState::WinLevel() {
+void _PlayState::WinLevel(bool HideNextLevel) {
 
 	Log.Write("Won %s %fs", Level.LevelName.c_str(), PlayState.Timer);
 
@@ -478,7 +478,7 @@ void _PlayState::WinLevel() {
 	}
 
 	// Show win screen
-	Menu.InitWin();
+	Menu.InitWin(HideNextLevel);
 }
 
 // Lose the level and update stats

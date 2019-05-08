@@ -565,8 +565,13 @@ int _Scripting::LevelLose(lua_State *LuaObject) {
 
 // Wins the level
 int _Scripting::LevelWin(lua_State *LuaObject) {
+	bool HideNextLevel = false;
 
-	PlayState.WinLevel();
+	int ArgumentCount = lua_gettop(LuaObject);
+	if(ArgumentCount == 1)
+		HideNextLevel = lua_toboolean(LuaObject, 1);
+
+	PlayState.WinLevel(HideNextLevel);
 
 	return 0;
 }

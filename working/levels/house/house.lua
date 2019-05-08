@@ -178,7 +178,7 @@ end
 
 -- Level completed
 function Finished()
-	Level.Win()
+	Level.Win(true)
 end
 
 -- Get text when secrets are found

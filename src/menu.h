@@ -93,7 +93,7 @@ class _Menu {
 
 		void InitPlay();
 		void InitLose();
-		void InitWin();
+		void InitWin(bool HideNextLevel=false);
 		void InitPause();
 		void InitSaveReplay();
 		void SaveReplay();

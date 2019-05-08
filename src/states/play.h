@@ -52,7 +52,7 @@ class _PlayState : public _State {
 		bool IsPaused();
 		void StartReset();
 		void ResetLevel();
-		void WinLevel();
+		void WinLevel(bool HideNextLevel=false);
 		void LoseLevel();
 
 		void SetTestLevel(const std::string &Level) { TestLevel = Level; }

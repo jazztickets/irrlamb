@@ -3,7 +3,7 @@
 function OnHitZone(HitType, Zone, HitObject)
 
 	if HitObject == Player then
-		Level.Win()
+		Level.Win(true)
 	end
 
 	return 0
