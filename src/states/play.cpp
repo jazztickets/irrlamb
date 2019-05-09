@@ -397,7 +397,8 @@ void _PlayState::Update(float FrameTime) {
 		Camera->Update(core::vector3df(Position[0], Position[1], Position[2]));
 		Camera->RecordReplay();
 
-		// Record input for replay
+		// Record state for replay
+		RecordPlayerSpeed();
 		RecordInput();
 
 		// Reset jump state
@@ -526,6 +527,20 @@ void _PlayState::RecordInput() {
 	ReplayFile.write((char *)&Jumped, sizeof(Jumped));
 }
 
+// Record player speed to replay
+void _PlayState::RecordPlayerSpeed() {
+	if(!Player)
+		return;
+
+	// Get speed
+	float Speed = glm::length(Player->GetLinearVelocity()) + glm::length(Player->GetAngularVelocity());
+
+	// Write replay event
+	std::fstream &ReplayFile = Replay.GetFile();
+	Replay.WriteEvent(_Replay::PACKET_PLAYERSPEED);
+	ReplayFile.write((char *)&Speed, sizeof(Speed));
+}
+
 // Control game from replay inputs
 void _PlayState::GetInputFromReplay() {
 	if(!ReplayInputs)
@@ -583,6 +598,9 @@ void _PlayState::GetInputFromReplay() {
 
 				//printf("t=%f x=%f z=%f yaw=%f pitch=%f jumping=%d\n", NextEvent.Timestamp, Push.X, Push.Z, Yaw, Pitch, Jumping);
 			}
+			break;
+			case _Replay::PACKET_PLAYERSPEED:
+				ReplayFile.read(Buffer, 4);
 			break;
 			default:
 			break;

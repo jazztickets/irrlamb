@@ -74,6 +74,12 @@ _Player::_Player(const _ObjectSpawn &Object) :
 	InnerNode->setMaterialType(video::EMT_ONETEXTURE_BLEND);
 	InnerNode->getMaterial(0).MaterialTypeParam = pack_textureBlendFunc(video::EBF_ONE, video::EBF_ONE);
 
+	// Audio
+	Sound = new _AudioSource(Audio.GetBuffer("player.ogg"), true, 0.0, 0.35f);
+	Sound->SetPosition(Object.Position[0], Object.Position[1], Object.Position[2]);
+	Sound->Play();
+
+	// Set up physics
 	if(Physics.IsEnabled()) {
 
 		// Create object
@@ -84,13 +90,9 @@ _Player::_Player(const _ObjectSpawn &Object) :
 		dMass Mass;
 		dMassSetSphereTotal(&Mass, Template->Mass, Template->Radius);
 		dBodySetMass(Body, &Mass);
-
-		// Audio
-		Sound = new _AudioSource(Audio.GetBuffer("player.ogg"), true, 0.0, 0.35f);
-		Sound->SetPosition(Object.Position[0], Object.Position[1], Object.Position[2]);
-		Sound->Play();
 	}
 
+	// Set object properties
 	SetProperties(Object);
 	if(CollisionCallback == "")
 		CollisionCallback = "OnHitPlayer";
@@ -111,17 +113,12 @@ void _Player::Update(float FrameTime) {
 
 	// Update audio
 	glm::vec3 Position = GetPosition();
-	Sound->SetPosition(Position[0], Position[1], Position[2]);
-	Sound->SetGain(Config.PlayerSounds);
+	float Speed = glm::length(GetLinearVelocity()) + glm::length(GetAngularVelocity());
+	UpdateAudio(Position, Speed);
 
 	// Update light
-	if(Light) {
+	if(Light)
 		Light->setPosition(core::vector3df(Position[0], Position[1], Position[2]));
-	}
-
-	// Get pitch for player sound
-	float Speed = glm::length(GetLinearVelocity()) + glm::length(GetAngularVelocity());
-	Sound->SetPitch(1 + Speed / 100.0f);
 
 	// Update jump cooldown
 	if(JumpCooldown > 0.0f) {
@@ -143,11 +140,13 @@ void _Player::Update(float FrameTime) {
 			JumpCooldown = JUMP_COOLDOWN;
 		}
 	}
+}
 
-	//if(TouchingGround)
-	//	InnerNode->setMaterialTexture(0, irrDriver->getTexture("textures/player_glow0.png"));
-	//else
-	//	InnerNode->setMaterialTexture(0, irrDriver->getTexture("textures/player_glow1.png"));
+// Update player's audio
+void _Player::UpdateAudio(const glm::vec3 &Position, float Speed) {
+	Sound->SetPosition(Position[0], Position[1], Position[2]);
+	Sound->SetGain(Config.PlayerSounds);
+	Sound->SetPitch(1 + Speed / 100.0f);
 }
 
 // Processes input from the keyboard

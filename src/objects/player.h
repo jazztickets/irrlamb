@@ -30,7 +30,8 @@ class _Player : public _Object {
 		_Player(const _ObjectSpawn &Object);
 		~_Player();
 
-		void Update(float FrameTime);
+		void Update(float FrameTime) override;
+		void UpdateAudio(const glm::vec3 &Position, float Speed) override;
 		void HandleInput();
 		void HandlePush(irr::core::vector3df &Push);
 		void GetPushDirection(irr::core::vector3df &Push);

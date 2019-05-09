@@ -25,9 +25,11 @@
 #include <objectmanager.h>
 #include <replay.h>
 #include <camera.h>
+#include <audio.h>
 #include <framework.h>
 #include <interface.h>
 #include <objects/orb.h>
+#include <objects/player.h>
 #include <objects/template.h>
 #include <font/CGUITTFont.h>
 #include <states/play.h>
@@ -47,6 +49,7 @@ int _ViewReplayState::Init() {
 	Layout = new CGUIEmptyElement(irrGUI, irrGUI->getRootGUIElement());
 	Layout->drop();
 	Camera = nullptr;
+	Player = nullptr;
 	FreeCamera = false;
 
 	// Set up state
@@ -299,6 +302,10 @@ void _ViewReplayState::Update(float FrameTime) {
 				if(Spawn.Template != nullptr) {
 					_Object *NewObject = Level.CreateObject(Spawn);
 					NewObject->SetID(ObjectID);
+
+					// Get player
+					if(NewObject->GetType() == _Object::PLAYER)
+						Player = (_Player *)NewObject;
 				}
 
 				// Update number of lights
@@ -324,8 +331,10 @@ void _ViewReplayState::Update(float FrameTime) {
 				ReplayFile.read((char *)&Position.X, sizeof(float) * 3);
 				ReplayFile.read((char *)&LookAt.X, sizeof(float) * 3);
 
+				// Update audio
+				Audio.SetPosition(LookAt.X, LookAt.Y, LookAt.Z);
+
 				// Set camera orientation
-				PlayerPosition = LookAt;
 				if(!FreeCamera) {
 					Camera->GetNode()->setPosition(Position);
 					Camera->GetNode()->setTarget(LookAt);
@@ -374,6 +383,20 @@ void _ViewReplayState::Update(float FrameTime) {
 				//printf("x=%f z=%f yaw=%f pitch=%f jumping=%d\n", Push.X, Push.Z, Yaw, Pitch, Jumping);
 			}
 			break;
+			case _Replay::PACKET_PLAYERSPEED: {
+
+				// Read replay
+				float Speed;
+				std::fstream &ReplayFile = Replay.GetFile();
+				ReplayFile.read((char *)&Speed, sizeof(Speed));
+
+				// Update player audio
+				if(Player) {
+					core::vector3df Position = Player->GetNode()->getPosition();
+					Player->UpdateAudio(glm::vec3(Position.X, Position.Y, Position.Z), Speed);
+				}
+			}
+			break;
 			default:
 			break;
 		}
@@ -387,8 +410,8 @@ void _ViewReplayState::Update(float FrameTime) {
 
 // Draws the current state
 void _ViewReplayState::Draw() {
-	if(FreeCamera)
-		Camera->Update(PlayerPosition);
+	if(FreeCamera && Player)
+		Camera->Update(Player->GetNode()->getPosition());
 
 	if(!ShowHUD)
 		return;

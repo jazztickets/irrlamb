@@ -67,6 +67,7 @@ class _PlayState : public _State {
 
 		// Replays
 		void RecordInput();
+		void RecordPlayerSpeed();
 		void GetInputFromReplay();
 
 		// States

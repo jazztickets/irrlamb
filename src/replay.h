@@ -56,6 +56,7 @@ class _Replay {
 			PACKET_DELETE,
 			PACKET_ORBDEACTIVATE,
 			PACKET_INPUT,
+			PACKET_PLAYERSPEED,
 		};
 
 		enum StateType {

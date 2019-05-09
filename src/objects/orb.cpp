@@ -77,6 +77,12 @@ _Orb::_Orb(const _ObjectSpawn &Object) :
 		Light->setLightData(LightData);
 	}
 
+	// Audio
+	Sound = new _AudioSource(Audio.GetBuffer("orb.ogg"), true, 0.0f, 0.40f, 8.0f, 16.0f);
+	Sound->SetPitch(ORB_PITCH);
+	Sound->SetPosition(Object.Position[0], Object.Position[1], Object.Position[2]);
+	Sound->Play();
+
 	// Set up physics
 	if(Physics.IsEnabled()) {
 
@@ -88,14 +94,9 @@ _Orb::_Orb(const _ObjectSpawn &Object) :
 		dMass Mass;
 		dMassSetSphereTotal(&Mass, Template->Mass, Template->Radius);
 		dBodySetMass(Body, &Mass);
-
-		// Audio
-		Sound = new _AudioSource(Audio.GetBuffer("orb.ogg"), true, 0.0f, 0.40f, 8.0f, 16.0f);
-		Sound->SetPitch(ORB_PITCH);
-		Sound->SetPosition(Object.Position[0], Object.Position[1], Object.Position[2]);
-		Sound->Play();
 	}
 
+	// Set object properties
 	SetProperties(Object);
 	if(CollisionCallback == "")
 		CollisionCallback = "OnHitOrb";

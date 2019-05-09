@@ -74,7 +74,7 @@ class _ViewReplayState : public _State {
 
 		// Objects
 		_Camera *Camera;
-		irr::core::vector3df PlayerPosition;
+		_Player *Player;
 
 		// Replay information
 		_ReplayEvent NextEvent;

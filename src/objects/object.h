@@ -68,6 +68,7 @@ class _Object {
 		virtual void UpdateReplay(float FrameTime);
 		bool ReadyForReplayUpdate() const { return NeedsReplayPacket; }
 		void WroteReplayPacket() { NeedsReplayPacket = false; }
+		virtual void UpdateAudio(const glm::vec3 &Position, float Speed) { }
 
 		// Object properties
 		void SetID(int Value) { ID = Value; }
