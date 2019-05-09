@@ -65,7 +65,7 @@ void _Config::Reset() {
 	PlayerSounds = true;
 
 	// Input
-	JoystickEnabled = true;
+	JoystickEnabled = false;
 	JoystickIndex = -1;
 
 	MouseScaleX = 1.0f;

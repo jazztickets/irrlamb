@@ -84,7 +84,7 @@ enum GUIElements {
 	GAMEPLAY_SHOWFPS, GAMEPLAY_SHOWTUTORIAL, GAMEPLAY_SAVE, GAMEPLAY_CANCEL,
 	VIDEO_SAVE, VIDEO_CANCEL, VIDEO_VIDEOMODES, VIDEO_FULLSCREEN, VIDEO_SHADOWS, VIDEO_SHADERS, VIDEO_MULTIPLELIGHTS, VIDEO_VSYNC, VIDEO_ANISOTROPY, VIDEO_ANTIALIASING,
 	AUDIO_ENABLED, AUDIO_PLAYERSOUNDS, AUDIO_SAVE, AUDIO_CANCEL,
-	CONTROLS_SAVE, CONTROLS_CANCEL, CONTROLS_DEADZONE, CONTROLS_SENSITIVITY, CONTROLS_INVERTMOUSE, CONTROLS_INVERTGAMEPADY, CONTROLS_KEYMAP,
+	CONTROLS_SAVE, CONTROLS_CANCEL, CONTROLS_GAMEPAD, CONTROLS_SENSITIVITY, CONTROLS_INVERTMOUSE, CONTROLS_INVERTGAMEPADY, CONTROLS_KEYMAP,
 	PAUSE_RESUME=(CONTROLS_KEYMAP + _Actions::COUNT), PAUSE_SAVEREPLAY, PAUSE_RESTART, PAUSE_OPTIONS, PAUSE_QUITLEVEL,
 	SAVEREPLAY_NAME, SAVEREPLAY_SAVE, SAVEREPLAY_CANCEL,
 	LOSE_RESTARTLEVEL, LOSE_SAVEREPLAY, LOSE_MAINMENU,
@@ -467,9 +467,9 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 					gui::IGUICheckBox *InvertGamepadY = static_cast<gui::IGUICheckBox *>(CurrentLayout->getElementFromId(CONTROLS_INVERTGAMEPADY));
 					Config.InvertGamepadY = InvertGamepadY->isChecked();
 
-					// Save deadzone
-					gui::IGUIEditBox *DeadZone = static_cast<gui::IGUIEditBox *>(CurrentLayout->getElementFromId(CONTROLS_DEADZONE));
-					Config.DeadZone = wcstof(DeadZone->getText(), nullptr);
+					// Save gamepad enabled
+					gui::IGUICheckBox *Gamepad = static_cast<gui::IGUICheckBox *>(CurrentLayout->getElementFromId(CONTROLS_GAMEPAD));
+					Config.JoystickEnabled = Gamepad->isChecked();
 
 					// Save sensitivity
 					gui::IGUIEditBox *MouseSensitivity = static_cast<gui::IGUIEditBox *>(CurrentLayout->getElementFromId(CONTROLS_SENSITIVITY));
@@ -1096,19 +1096,17 @@ void _Menu::InitControlOptions() {
 	AddMenuText(Interface.GetPositionPercent(X - SidePadding, Y), L"Invert Gamepad Y", _Interface::FONT_SMALL, -1, gui::EGUIA_LOWERRIGHT);
 	irrGUI->addCheckBox(Config.InvertGamepadY, Interface.GetRectPercent(X + SidePadding, Y, 32, 32), CurrentLayout, CONTROLS_INVERTGAMEPADY);
 
-	// Add mouse sensitivity
+	// Enable gamepad
+	Y += SpacingY;
+	AddMenuText(Interface.GetPositionPercent(X - SidePadding, Y), L"Enable Gamepad", _Interface::FONT_SMALL, -1, gui::EGUIA_LOWERRIGHT);
+	irrGUI->addCheckBox(Config.JoystickEnabled, Interface.GetRectPercent(X + SidePadding, Y, 32, 32), CurrentLayout, CONTROLS_GAMEPAD);
+
+	// Mouse sensitivity
 	Y += SpacingY;
 	AddMenuText(Interface.GetPositionPercent(X - SidePadding, Y), L"Mouse Sensitivity", _Interface::FONT_SMALL, -1, gui::EGUIA_LOWERRIGHT);
 	swprintf(Buffer, 32, L"%.3f", Config.MouseSensitivity);
 	gui::IGUIEditBox *EditMouseSensitivity = irrGUI->addEditBox(Buffer, Interface.GetRectPercent(X + SidePadding, Y, 150, 48), true, CurrentLayout, CONTROLS_SENSITIVITY);
 	EditMouseSensitivity->setMax(32);
-
-	// Add deadzone
-	Y += SpacingY;
-	AddMenuText(Interface.GetPositionPercent(X - SidePadding, Y), L"Gamepad Deadzone", _Interface::FONT_SMALL, -1, gui::EGUIA_LOWERRIGHT);
-	swprintf(Buffer, 32, L"%.3f", Config.DeadZone);
-	gui::IGUIEditBox *EditDeadZone = irrGUI->addEditBox(Buffer, Interface.GetRectPercent(X + SidePadding, Y, 150, 48), true, CurrentLayout, CONTROLS_DEADZONE);
-	EditDeadZone->setMax(32);
 
 	// Save and cancel buttons
 	AddMenuButton(Interface.GetRightRectPercent(0.5 - SidePadding, 0.9, BUTTON_SMALL_SIZE_X, BUTTON_SMALL_SIZE_Y), CONTROLS_SAVE, L"Save", _Interface::IMAGE_BUTTON_SMALL);
