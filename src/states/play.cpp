@@ -73,10 +73,13 @@ int _PlayState::Init() {
 
 	// Get level name
 	std::string LevelFile;
-	if(TestLevel != "")
+	if(TestLevel != "") {
 		LevelFile = TestLevel;
-	else
+	}
+	else {
 		LevelFile = Campaign.GetLevel(CurrentCampaign, CampaignLevel);
+		Save.UnlockLevel(LevelFile);
+	}
 
 	// Load level
 	if(!Level.Init(LevelFile))
@@ -468,7 +471,7 @@ void _PlayState::WinLevel(bool HideNextLevel) {
 		// Unlock next level
 		uint32_t NewCampaign = PlayState.CurrentCampaign;
 		uint32_t NewLevel = PlayState.CampaignLevel;
-		if(Campaign.GetNextLevel(NewCampaign, NewLevel, true)) {
+		if(!HideNextLevel && Campaign.GetNextLevel(NewCampaign, NewLevel, true)) {
 			std::string NextLevelFile = Campaign.GetLevel(NewCampaign, NewLevel);
 			Save.UnlockLevel(NextLevelFile);
 		}

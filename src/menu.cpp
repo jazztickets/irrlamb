@@ -635,8 +635,21 @@ void _Menu::InitCampaigns() {
 	const float CAMPAIGN_SPACING_Y = (BUTTON_SIZE_Y * Interface.GetUIScale() / irrDriver->getScreenSize().Height) + 0.01f;
 	const std::vector<_CampaignInfo> &Campaigns = Campaign.GetCampaigns();
 	for(uint32_t i = 0; i < Campaigns.size(); i++) {
-		if(!Campaigns[i].Show)
-			continue;
+
+		// Show hidden campaigns if at least one level is unlocked
+		if(!Campaigns[i].Show) {
+			bool Unlocked = false;
+			for(const auto &Level : Campaigns[i].Levels) {
+				if(Save.LevelStats[Level.File].Unlocked) {
+					Unlocked = true;
+					break;
+				}
+			}
+
+			// Skip
+			if(!Unlocked)
+				continue;
+		}
 
 		// Add campaign button
 		irr::core::stringw Name(Campaigns[i].Name.c_str());
@@ -686,8 +699,8 @@ void _Menu::InitLevels() {
 		// Set unlocked status
 		if(Stats->Unlocked == 0) {
 
-			// Unlock level if previous level has any highscores
-			if(i > 0 && Save.LevelStats[CampaignData.Levels[i-1].File].HighScores.size() > 0) {
+			// Unlock level if previous level has any highscores, but only if it's not a hidden campaign
+			if(i > 0 && Save.LevelStats[CampaignData.Levels[i-1].File].HighScores.size() > 0 && CampaignData.Show) {
 				Save.UnlockLevel(CampaignData.Levels[i].File);
 			}
 			else {

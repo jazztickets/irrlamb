@@ -1,6 +1,8 @@
 irrlamb 1.0.1 -
+- Added secret levels to menu when unlocked
 - Fixed various bugs in house level
 - Fixed some compile warnings
+- Minor bug fixes
 
 irrlamb 1.0.0 - 2019-05-04
 - Added 16 new levels including a secret level
