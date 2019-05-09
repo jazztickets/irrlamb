@@ -1,3 +1,7 @@
+irrlamb 1.0.1 -
+- Fixed various bugs in house level
+- Fixed some compile warnings
+
 irrlamb 1.0.0 - 2019-05-04
 - Added 16 new levels including a secret level
 - Replaced Bullet physics engine with ODE
