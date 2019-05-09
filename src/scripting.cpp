@@ -569,7 +569,7 @@ int _Scripting::LevelWin(lua_State *LuaObject) {
 
 	int ArgumentCount = lua_gettop(LuaObject);
 	if(ArgumentCount == 1)
-		HideNextLevel = lua_toboolean(LuaObject, 1);
+		HideNextLevel = (bool)lua_tointeger(LuaObject, 1);
 
 	PlayState.WinLevel(HideNextLevel);
 
