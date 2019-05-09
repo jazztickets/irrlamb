@@ -58,5 +58,5 @@ Camera.SetPitch(75)
 tOrb = Level.GetTemplate("orb")
 
 -- Text
-GUI.Text("Jump forward, then hold [" .. KEY_BACK .. "] as you land to kick the orb off and take its place.", 10)
+GUI.Text("Jump forward, then hold [" .. KEY_BACK .. "] as you land to kick the orb off and take its place.", 10, 1)
 Timer.Callback("Hint", 30)

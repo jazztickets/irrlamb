@@ -1,6 +1,6 @@
 -- Display tutorial text
 function ShowMoreText()
-	GUI.Text("Touch the glowing orb to win.", 30)
+	GUI.Text("Touch the glowing orb to win.", 30, 1)
 end
 
 -- Called when an orb is deactivated
@@ -15,5 +15,5 @@ end
 GoalCount = 1
 
 -- Show text
-GUI.Text("Press [" .. KEY_FORWARD .. "], [" .. KEY_LEFT .. "], [" .. KEY_BACK .. "], [" .. KEY_RIGHT .. "] to move. Use the mouse to look around.", 15)
+GUI.Text("Press [" .. KEY_FORWARD .. "], [" .. KEY_LEFT .. "], [" .. KEY_BACK .. "], [" .. KEY_RIGHT .. "] to move. Use the mouse to look around.", 15, 1)
 Timer.Callback("ShowMoreText", 20)

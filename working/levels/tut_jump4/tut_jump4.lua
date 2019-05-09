@@ -41,4 +41,4 @@ Level.CreateObject("box", tCrate, 11, -3, 4)
 Level.CreateObject("box", tCrate, 11, -1, 4)
 
 -- Show text
-GUI.Text("The key to this one is taking one jump at a time. When you jump, briefly hold [" .. KEY_BACK .."] in the air to land stopped.", 20)
+GUI.Text("The key to this one is taking one jump at a time. When you jump, briefly hold [" .. KEY_BACK .."] in the air to land stopped.", 20, 1)

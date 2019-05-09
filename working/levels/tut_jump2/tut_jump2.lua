@@ -20,4 +20,4 @@ Level.CreateObject("box", tCrate, 0, -3, 10)
 Level.CreateObject("box", tCrate, 0, -1, 10)
 
 -- Show text
-GUI.Text("After jumping, try tapping [" .. KEY_BACK .. "] to spin backwards. This helps you land with control.", 20)
+GUI.Text("After jumping, try tapping [" .. KEY_BACK .. "] to spin backwards. This helps you land with control.", 20, 1)

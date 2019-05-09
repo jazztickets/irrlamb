@@ -11,4 +11,4 @@ end
 GoalCount = 1
 
 -- Show text
-GUI.Text("Jumping can help you get up steep hills, or you can try an easier path.", 10)
+GUI.Text("Jumping can help you get up steep hills, or you can try an easier path.", 10, 1)

@@ -8,12 +8,12 @@ end
 
 -- Display lose message
 function OnHitZone(HitType, Zone, Object)
-	
+
 	if Object == Player then
 		Level.Lose()
 		return 1
 	end
-	
+
 	return 0
 end
 
@@ -26,4 +26,4 @@ Camera.SetPitch(5)
 GoalCount = 1
 
 -- Show text
-GUI.Text("Jump and hold [" .. KEY_RIGHT .. "] at the same time. While still holding [" .. KEY_RIGHT .. "], jump again right as you land.", 15)
+GUI.Text("Jump and hold [" .. KEY_RIGHT .. "] at the same time. While still holding [" .. KEY_RIGHT .. "], jump again right as you land.", 15, 1)

@@ -162,8 +162,8 @@ void _Interface::Clear() {
 	Timer = 0.0f;
 }
 
-// Adds tutorial text to the screen
-void _Interface::SetTutorialText(const std::string &String, float Length) {
+// Adds a text messagebox to the screen
+void _Interface::SetText(const std::string &String, float Length, bool Tutorial) {
 	if(Text.Message) {
 		Text.Message->remove();
 		Text.Message = nullptr;
@@ -185,6 +185,7 @@ void _Interface::SetTutorialText(const std::string &String, float Length) {
 	Text.Message->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_CENTER);
 	Text.Message->setOverrideFont(Interface.Fonts[_Interface::FONT_MEDIUM]);
 	Text.DeleteTime = Length + Timer;
+	Text.Tutorial = Tutorial;
 }
 
 // Maintains all of the timed elements
@@ -223,9 +224,10 @@ void _Interface::RenderHUD(float Time, bool FirstLoad) {
 
 	// Draw message box
 	if(Text.Message) {
-		Text.Message->setVisible(DrawHUD && Config.ShowTutorial);
+		bool Display = DrawHUD && (Config.ShowTutorial || !Text.Tutorial);
+		Text.Message->setVisible(Display);
 
-		// Get tutorial text alpha
+		// Get text alpha
 		video::SColor TextColor(255, 255, 255, 255), BoxColor(160, 255, 255, 255);
 		float TimeLeft = Text.DeleteTime - Timer;
 		if(TimeLeft < 2.0f) {
@@ -233,11 +235,11 @@ void _Interface::RenderHUD(float Time, bool FirstLoad) {
 			BoxColor.setAlpha((uint32_t)(160 * TimeLeft / 2.0));
 		}
 
-		// Update tutorial text color
+		// Update text color
 		Text.Message->setOverrideColor(TextColor);
 
-		// Draw tutorial text
-		if(DrawHUD && Config.ShowTutorial)
+		// Draw text
+		if(Display)
 			DrawTextBox(Text.X, Text.Y, MESSAGE_WIDTH * GetUIScale(), MESSAGE_HEIGHT * GetUIScale(), BoxColor);
 	}
 }

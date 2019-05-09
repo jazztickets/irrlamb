@@ -41,6 +41,7 @@ namespace irr {
 // Structures
 struct _Text {
 	irr::gui::IGUIStaticText *Message;
+	bool Tutorial;
 	float DeleteTime;
 	int X;
 	int Y;
@@ -126,7 +127,7 @@ class _Interface {
 		void Clear();
 		void ChangeSkin(SkinType Type);
 
-		void SetTutorialText(const std::string &String, float Length);
+		void SetText(const std::string &String, float Length, bool Tutorial);
 		void ConvertSecondsToString(float Time, char *String, const char *Prefix="");
 
 		irr::core::recti GetCenteredRect(int PositionX, int PositionY, int Width, int Height);

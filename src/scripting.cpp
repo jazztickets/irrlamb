@@ -429,19 +429,28 @@ int _Scripting::GUIFade(lua_State *LuaObject) {
 	return 0;
 }
 
-// Sets the tutorial text
+// Show a text messagebox
 int _Scripting::GUIText(lua_State *LuaObject) {
 
-	// Validate arguments
-	if(!CheckArguments(LuaObject, 2))
-		return 0;
+	// Get argument count
+	int ArgumentCount = lua_gettop(LuaObject);
+
+	// Check for arguments
+	if(ArgumentCount < 2) {
+		Log.Write("Function GUI.Text requires 2 or 3 arguments\n");
+		return false;
+	}
 
 	// Get parameters
 	std::string Text(lua_tostring(LuaObject, 1));
 	float Length = (float)lua_tonumber(LuaObject, 2);
 
+	bool Tutorial = false;
+	if(ArgumentCount > 2)
+		Tutorial = (bool)lua_tonumber(LuaObject, 3);
+
 	// Show text
-	Interface.SetTutorialText(Text, Length);
+	Interface.SetText(Text, Length, Tutorial);
 
 	return 0;
 }
