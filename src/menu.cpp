@@ -657,8 +657,12 @@ void _Menu::InitCampaigns() {
 
 		// Add campaign progress
 		char Buffer[1024];
-		sprintf(Buffer, "%d/%d", Campaign.GetCompletedLevels(i), (int)Campaigns[i].Levels.size());
-		AddMenuText(Interface.GetPositionPercent(X + ((BUTTON_SIZE_X + 130) / 2 * Interface.GetUIScale()) / irrDriver->getScreenSize().Width, Y), core::stringw(Buffer).c_str(), _Interface::FONT_SMALL);
+		int Completed = Campaign.GetCompletedLevels(i);
+		int Total = (int)Campaigns[i].Levels.size();
+		sprintf(Buffer, "%d/%d", Completed, Total);
+		gui::IGUIStaticText *Text = AddMenuText(Interface.GetPositionPercent(X + ((BUTTON_SIZE_X + 130) / 2 * Interface.GetUIScale()) / irrDriver->getScreenSize().Width, Y), core::stringw(Buffer).c_str(), _Interface::FONT_SMALL);
+		if(Completed != Total)
+			Text->setOverrideColor(video::SColor(255, 89, 126, 156));
 
 		// Update position
 		Y += CAMPAIGN_SPACING_Y;
@@ -1635,7 +1639,6 @@ gui::IGUIStaticText *_Menu::AddMenuText(const core::position2di &CenterPosition,
 	// Add text
 	gui::IGUIStaticText *NewText = irrGUI->addStaticText(Text, Rectangle, false, false, CurrentLayout);
 	NewText->setOverrideFont(Interface.Fonts[Font]);
-	//NewText->setOverrideColor(video::SColor(255, 255, 255, 255));
 
 	return NewText;
 }
