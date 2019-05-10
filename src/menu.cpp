@@ -1582,6 +1582,9 @@ void _Menu::ReplayScrollUp() {
 
 // Scroll the replay list down
 void _Menu::ReplayScrollDown() {
+	if(ReplayFiles.size() < REPLAY_SCROLL_AMOUNT)
+		return;
+
 	if(StartOffset < ReplayFiles.size() - REPLAY_SCROLL_AMOUNT)
 		StartOffset += REPLAY_SCROLL_AMOUNT;
 
