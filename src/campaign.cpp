@@ -20,6 +20,7 @@
 #include <log.h>
 #include <framework.h>
 #include <level.h>
+#include <save.h>
 #include <tinyxml2/tinyxml2.h>
 
 _Campaign Campaign;
@@ -89,6 +90,18 @@ int _Campaign::Close() {
 	Campaigns.clear();
 
 	return 1;
+}
+
+// Get number of completed levels for a campaign
+int _Campaign::GetCompletedLevels(int CampaignIndex) {
+
+	int Completed = 0;
+	for(auto &Level : Campaigns[CampaignIndex].Levels) {
+		if(Save.LevelStats[Level.File].WinCount)
+			Completed++;
+	}
+
+	return Completed;
 }
 
 // Get next level or 1st level in next campaign, return false if no next level

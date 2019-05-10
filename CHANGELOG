@@ -1,5 +1,6 @@
 irrlamb 1.0.1 -
 - Added secret levels to menu when unlocked
+- Added campaign progress to menu
 - Added player/orb sounds to replays
 - Added option to enable/disable gamepad
 - Fixed various bugs in house level

@@ -655,6 +655,11 @@ void _Menu::InitCampaigns() {
 		irr::core::stringw Name(Campaigns[i].Name.c_str());
 		AddMenuButton(Interface.GetCenteredRectPercent(X, Y, BUTTON_SIZE_X, BUTTON_SIZE_Y), PLAY_CAMPAIGNID + i, Name.c_str());
 
+		// Add campaign progress
+		char Buffer[1024];
+		sprintf(Buffer, "%d/%d", Campaign.GetCompletedLevels(i), (int)Campaigns[i].Levels.size());
+		AddMenuText(Interface.GetPositionPercent(X + ((BUTTON_SIZE_X + 130) / 2 * Interface.GetUIScale()) / irrDriver->getScreenSize().Width, Y), core::stringw(Buffer).c_str(), _Interface::FONT_SMALL);
+
 		// Update position
 		Y += CAMPAIGN_SPACING_Y;
 	}
