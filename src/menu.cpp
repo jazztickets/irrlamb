@@ -312,6 +312,11 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 					ReplaySort++;
 					if(ReplaySort >= SORT_MAX)
 						ReplaySort = 0;
+
+					if(ReplaySort == SORT_TIMESTAMP)
+						Interface.SetShortMessage("Sorted by date", INTERFACE_SHORTMESSAGE_X, INTERFACE_SHORTMESSAGE_Y);
+					else if(ReplaySort == SORT_LEVELNAME)
+						Interface.SetShortMessage("Sorted by level", INTERFACE_SHORTMESSAGE_X, INTERFACE_SHORTMESSAGE_Y);
 					InitReplays(true);
 				break;
 				case REPLAYS_DELETE: {
@@ -327,6 +332,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 						remove(FilePath.c_str());
 
 						// Refresh screen
+						Interface.SetShortMessage("Replay deleted", INTERFACE_SHORTMESSAGE_X, INTERFACE_SHORTMESSAGE_Y);
 						InitReplays(true);
 					}
 				}
@@ -583,6 +589,7 @@ void _Menu::HandleGUI(irr::gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 void _Menu::InitMain() {
 	Interface.ChangeSkin(_Interface::SKIN_MENU);
 	Input.SetMouseLocked(false);
+	Interface.SetShortMessage("", 0, 0);
 	ClearCurrentLayout();
 
 	// Title
@@ -1462,6 +1469,9 @@ void _Menu::Draw() {
 		default:
 		break;
 	}
+
+	// Draw any messages
+	Interface.DrawShortMessage();
 }
 
 // Draw the win screen

@@ -88,7 +88,7 @@ void _NullState::HandleGUI(gui::EGUI_EVENT_TYPE EventType, gui::IGUIElement *Ele
 
 // Updates the current state
 void _NullState::Update(float FrameTime) {
-
+	Interface.Update(FrameTime);
 }
 
 // Interpolate object positions

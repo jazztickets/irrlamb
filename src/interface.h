@@ -28,6 +28,8 @@ const int BUTTON_SMALL_SIZE_X = 212;
 const int BUTTON_SMALL_SIZE_Y = 84;
 const int BUTTON_LEVEL_SIZE = 128;
 const int BUTTON_ICON_SIZE = 64;
+const float INTERFACE_SHORTMESSAGE_X = 0.03;
+const float INTERFACE_SHORTMESSAGE_Y = 0.94;
 
 // Forward Declarations
 class _AudioSource;
@@ -40,6 +42,8 @@ namespace irr {
 
 // Structures
 struct _Text {
+	_Text() : Message(nullptr), Tutorial(false), DeleteTime(0), X(0), Y(0) { }
+
 	irr::gui::IGUIStaticText *Message;
 	bool Tutorial;
 	float DeleteTime;
@@ -128,6 +132,7 @@ class _Interface {
 		void ChangeSkin(SkinType Type);
 
 		void SetText(const std::string &String, float Length, bool Tutorial);
+		void SetShortMessage(const std::string &String, float X, float Y);
 		void ConvertSecondsToString(float Time, char *String, const char *Prefix="");
 
 		irr::core::recti GetCenteredRect(int PositionX, int PositionY, int Width, int Height);
@@ -145,6 +150,7 @@ class _Interface {
 		void RenderFPS(int PositionX, int PositionY);
 		void DrawImage(ImageType Type, int PositionX, int PositionY, int Width, int Height, const irr::video::SColor &Color=irr::video::SColor(255, 255, 255, 255));
 		void DrawTextBox(int PositionX, int PositionY, int Width, int Height, const irr::video::SColor &Color=irr::video::SColor(255, 255, 255, 255));
+		void DrawShortMessage();
 
 		void LoadSounds();
 		void UnloadSounds();
@@ -160,6 +166,7 @@ class _Interface {
 	private:
 
 		_Text Text;
+		_Text ShortMessage;
 		bool DrawHUD;
 		float Timer;
 		float ScreenHeight;

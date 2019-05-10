@@ -271,8 +271,8 @@ bool _PlayState::HandleKeyPress(int Key) {
 		return true;
 
 	bool LuaProcessed = false;
-
 	if(Menu.State == _Menu::STATE_NONE) {
+
 		switch(Key) {
 			case KEY_KEY_1:
 			case KEY_KEY_2:
@@ -287,6 +287,11 @@ bool _PlayState::HandleKeyPress(int Key) {
 			break;
 			case KEY_F2:
 				Config.InvertMouse = !Config.InvertMouse;
+
+				if(Config.InvertMouse)
+					Interface.SetShortMessage("Mouse inverted", INTERFACE_SHORTMESSAGE_X, INTERFACE_SHORTMESSAGE_Y);
+				else
+					Interface.SetShortMessage("Mouse normal", INTERFACE_SHORTMESSAGE_X, INTERFACE_SHORTMESSAGE_Y);
 			break;
 			case KEY_F3:
 				if(Input.GetKeyState(KEY_RSHIFT))
@@ -302,12 +307,19 @@ bool _PlayState::HandleKeyPress(int Key) {
 			case KEY_F10:
 				Config.SoundVolume = !Config.SoundVolume;
 				Audio.SetGain(Config.SoundVolume);
+
+				if(Config.SoundVolume)
+					Interface.SetShortMessage("Audio on", INTERFACE_SHORTMESSAGE_X, INTERFACE_SHORTMESSAGE_Y);
+				else
+					Interface.SetShortMessage("Audio off", INTERFACE_SHORTMESSAGE_X, INTERFACE_SHORTMESSAGE_Y);
 			break;
 			case KEY_F11:
 				Interface.DrawHUD = !Interface.DrawHUD;
 			break;
 			case KEY_F12:
 				Graphics.SaveScreenshot(Level.LevelName);
+
+				Interface.SetShortMessage("Screenshot saved", INTERFACE_SHORTMESSAGE_X, INTERFACE_SHORTMESSAGE_Y);
 			break;
 		}
 

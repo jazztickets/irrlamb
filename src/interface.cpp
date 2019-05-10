@@ -32,6 +32,7 @@ const int MESSAGE_WIDTH = 1000;
 const int MESSAGE_HEIGHT = 250;
 const int MESSAGE_PADDING = 50;
 const int INTERFACE_LEVEL_DISPLAY_TIME = 5.0f;
+const int INTERFACE_SHORT_MESSAGE_TIME = 2.0f;
 const float BASE_SCREEN_HEIGHT = 1080.0f;
 
 struct _Font {
@@ -159,6 +160,12 @@ void _Interface::Clear() {
 		Text.Message->remove();
 		Text.Message = nullptr;
 	}
+
+	if(ShortMessage.Message) {
+		ShortMessage.Message->remove();
+		ShortMessage.Message = nullptr;
+	}
+
 	Timer = 0.0f;
 }
 
@@ -188,6 +195,34 @@ void _Interface::SetText(const std::string &String, float Length, bool Tutorial)
 	Text.Tutorial = Tutorial;
 }
 
+// Set the short message
+void _Interface::SetShortMessage(const std::string &String, float X, float Y) {
+	if(ShortMessage.Message) {
+		ShortMessage.Message->remove();
+		ShortMessage.Message = nullptr;
+	}
+
+	// Get dimensions
+	core::dimension2d<uint32_t> TextArea = Fonts[_Interface::FONT_SMALL]->getDimension(String.c_str());
+
+	// Add text
+	ShortMessage.Message = irrGUI->addStaticText(
+		core::stringw(String.c_str()).c_str(),
+		GetRectPercent(
+			X,
+			Y,
+			TextArea.Width / GetUIScale(),
+			TextArea.Height / GetUIScale()
+		),
+		false,
+		true
+	);
+
+	ShortMessage.Message->setTextAlignment(gui::EGUIA_UPPERLEFT, gui::EGUIA_CENTER);
+	ShortMessage.Message->setOverrideFont(Interface.Fonts[_Interface::FONT_SMALL]);
+	ShortMessage.DeleteTime = INTERFACE_SHORT_MESSAGE_TIME + Timer;
+}
+
 // Maintains all of the timed elements
 void _Interface::Update(float FrameTime) {
 
@@ -196,6 +231,13 @@ void _Interface::Update(float FrameTime) {
 		if(Timer >= Text.DeleteTime) {
 			Text.Message->remove();
 			Text.Message = nullptr;
+		}
+	}
+
+	if(ShortMessage.Message) {
+		if(Timer >= ShortMessage.DeleteTime) {
+			ShortMessage.Message->remove();
+			ShortMessage.Message = nullptr;
 		}
 	}
 }
@@ -238,7 +280,7 @@ void _Interface::RenderHUD(float Time, bool FirstLoad) {
 		// Update text color
 		Text.Message->setOverrideColor(TextColor);
 
-		// Draw text
+		// Draw text box
 		if(Display)
 			DrawTextBox(Text.X, Text.Y, MESSAGE_WIDTH * GetUIScale(), MESSAGE_HEIGHT * GetUIScale(), BoxColor);
 	}
@@ -319,6 +361,12 @@ void _Interface::FadeScreen(float Amount) {
 		TextColor.setAlpha((uint32_t)(TextColor.getAlpha() * (1.0f - Amount)));
 		Text.Message->setOverrideColor(TextColor);
 	}
+
+	if(ShortMessage.Message) {
+		video::SColor TextColor = ShortMessage.Message->getOverrideColor();
+		TextColor.setAlpha((uint32_t)(TextColor.getAlpha() * (1.0f - Amount)));
+		ShortMessage.Message->setOverrideColor(TextColor);
+	}
 }
 
 // Draws text to the screen
@@ -382,6 +430,22 @@ void _Interface::DrawTextBox(int PositionX, int PositionY, int Width, int Height
 	irrDriver->draw2DImage(Images[IMAGE_TEXTBOXSHEET1], core::position2di(PositionX + 10, PositionY + Height - 10), core::recti(0, 6, Width - 20, 16), 0, Color, true);
 	irrDriver->draw2DImage(Images[IMAGE_TEXTBOXSHEET2], core::position2di(PositionX, PositionY + 10), core::recti(0, 0, 10, Height - 20), 0, Color, true);
 	irrDriver->draw2DImage(Images[IMAGE_TEXTBOXSHEET2], core::position2di(PositionX + Width - 10, PositionY + 10), core::recti(6, 0, 16, Height - 20), 0, Color, true);
+}
+
+// Draw short text message
+void _Interface::DrawShortMessage() {
+	if(!ShortMessage.Message)
+		return;
+
+	// Get text alpha
+	video::SColor TextColor(255, 255, 255, 255);
+	float TimeLeft = ShortMessage.DeleteTime - Timer;
+	if(TimeLeft < 2.0f) {
+		TextColor.setAlpha((uint32_t)(255 * TimeLeft / 2.0));
+	}
+
+	// Update text color
+	ShortMessage.Message->setOverrideColor(TextColor);
 }
 
 // Load GUI sounds
