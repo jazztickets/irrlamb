@@ -318,8 +318,6 @@ bool _PlayState::HandleKeyPress(int Key) {
 			break;
 			case KEY_F12:
 				Graphics.SaveScreenshot(Level.LevelName);
-
-				Interface.SetShortMessage("Screenshot saved", INTERFACE_SHORTMESSAGE_X, INTERFACE_SHORTMESSAGE_Y);
 			break;
 		}
 

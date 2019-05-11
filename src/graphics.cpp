@@ -229,6 +229,9 @@ void _Graphics::CreateScreenshot() {
 	irrDriver->writeImageToFile(Image, FilePath.c_str(), 100);
 	Image->drop();
 
+	// Set message
+	Interface.SetShortMessage("Screenshot saved", INTERFACE_SHORTMESSAGE_X, INTERFACE_SHORTMESSAGE_Y);
+
 	// Drop request
 	ScreenshotRequested = 0;
 }
