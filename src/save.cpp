@@ -33,14 +33,14 @@ _Save Save;
 int _Save::Init() {
 
 	#ifdef _WIN32
-		SavePath = std::string(getenv("APPDATA")) + "/irrlamb/";
+		SavePath = std::string(getenv("APPDATA")) + "/irrlamb_bullet/";
 		CreateDirectory(SavePath.c_str(), nullptr);
 	#else
 		SavePath = std::string(getenv("HOME")) + std::string("/.local/");
 		mkdir(SavePath.c_str(), 0755);
 		SavePath += "share/";
 		mkdir(SavePath.c_str(), 0755);
-		SavePath += "irrlamb/";
+		SavePath += "irrlamb_bullet/";
 		mkdir(SavePath.c_str(), 0755);
 	#endif
 
