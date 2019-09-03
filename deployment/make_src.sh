@@ -4,6 +4,7 @@ gitver=`git log --oneline | wc -l`
 base=irrlamb-${version}r${gitver}
 pkg=${base}-src.tar.gz
 
+mkdir -p out
 tar --transform "s,^,${base}/," -czvf out/${pkg} -C ../ \
 --exclude=${pkg} \
 --exclude=move.{sh,bat} \
