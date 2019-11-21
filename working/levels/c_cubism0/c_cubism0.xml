@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<level version="0" gameversion="1.0.0">
+<level version="1" gameversion="1.0.0">
 	<info>
 		<name>Cubism</name>
 	</info>
@@ -127,7 +127,7 @@
 			<position x="175" y="15" z="0" />
 		</object>
 		<object name="orb" template="orb">
-			<position x="175" y="16" z="0" />
+			<position x="57" y="18.2" z="0" />
 		</object>
 	</objects>
 	<constraints>
