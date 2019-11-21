@@ -5,5 +5,5 @@ Exec=irrlamb
 Icon=irrlamb
 Terminal=false
 Type=Application
-Categories=Game;PuzzleGame;
+Categories=Game;ArcadeGame;
 StartupNotify=false
