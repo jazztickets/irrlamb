@@ -6,7 +6,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # define constants
-add_definitions(-DGAME_VERSION="1.0.1")
+add_definitions(-DGAME_VERSION="1.0.2")
 add_definitions(-D_IRR_STATIC_LIB_)
 add_definitions(-DdIDEDOUBLE)
 add_definitions(-DCCD_IDEDOUBLE)
