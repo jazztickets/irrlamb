@@ -1414,16 +1414,8 @@ video::IVideoModeList* CIrrDeviceLinux::getVideoModeList()
 
 				XF86VidModeGetAllModeLines(display, screennr, &modeCount, &modes);
 
-				// No, the first mode line from XF86VidModeGetAllModeLines is NOT the current video mode
+				// save current video mode
 				oldVideoMode = *modes[0];
-
-				// Overwrite settings from XF86VidModeGetModeLine
-				XF86VidModeModeLine current_mode;
-				int current_dotclock;
-				XF86VidModeGetModeLine(display, screennr, &current_dotclock, &current_mode);
-				oldVideoMode.dotclock = (unsigned int)current_dotclock;
-				oldVideoMode.htotal = current_mode.htotal;
-				oldVideoMode.vtotal = current_mode.vtotal;
 
 				// find fitting mode
 
